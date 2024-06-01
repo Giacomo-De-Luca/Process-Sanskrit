@@ -1,45 +1,19 @@
-import sanskrit_parser as sp
 import indic_transliteration
 
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 from sanskrit_parser import Parser
 
-from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 import ast
 from detectTransliteration import detect
 
 
-
-indic_transliteration.sanscript.SCHEMES.keys()
-
-
-def transliterateVELTIAST(text):
-     return transliterate(text, sanscript.VELTHUIS, sanscript.IAST)
-
-
-def transliterateIASTDEV(text):
-     return transliterate(text, sanscript.IAST, sanscript.DEVANAGARI)
-
-def transliterateDEVIAST(text):
-    return transliterate(text, sanscript.DEVANAGARI, sanscript.IAST)
-
-def transliterateIASTSPL1(text):
-     return transliterate(text, sanscript.IAST, sanscript.SLP1)
-
-def transliterateHKSPL1(text):
-     return transliterate(text, sanscript.HK, sanscript.SLP1)    
+##to get all the available schemes
+##indic_transliteration.sanscript.SCHEMES.keys()
     
 def transliterateSLP1IAST(text):
-     return transliterate(text, sanscript.SLP1, sanscript.IAST)    
+    return transliterate(text, sanscript.SLP1, sanscript.IAST)    
         
-    
-def transliterateHKIAST(text):
-     return transliterate(text, sanscript.HK, sanscript.IAST)        
-    
-def transliterateDEVSLP1(text):
-    return transliterate(text, sanscript.DEVANAGARI, sanscript.SLP1)
-
 def anythingToSLP1(text):
     detected_scheme_str = detect(text).upper()
     detected_scheme = getattr(sanscript, detected_scheme_str)
@@ -49,14 +23,12 @@ def anythingToIAST(text):
     detected_scheme = getattr(sanscript, detected_scheme_str)
     return sanscript.transliterate(text, detected_scheme, sanscript.IAST)
 
-transliterateIASTSPL1("śunyānām")
-
 
 ##qui la lista degli encoding è lowercase
 
 from sanskrit_parser import Parser
-parser = Parser(output_encoding='iast')
 
+parser = Parser(output_encoding='iast')
 
 def sandhi_splitter(text_to_split):
     try:
@@ -72,7 +44,6 @@ def sandhi_splitter(text_to_split):
         print(f"Error: {e}")
         return text_to_split.split()
     
-
 
 import pandas as pd
 
@@ -90,14 +61,12 @@ def remove_stopwords_string(text):
 
 
 import json
+import sqlite3
+import re
 
 with open('resources/MWKeysOnly.json', 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
-import sqlite3
-
-##given a name finds the root
-import sqlite3
 
 ##given a name finds the root
 
@@ -114,100 +83,102 @@ def SQLite_find_name(name):
     
     ##OpenConnection, make SQL query to find the root
     
-    sqliteConnection = sqlite3.connect('SQLite_db/lgtab2.sqlite')
+    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab2.sqlite')
 
     cursor = sqliteConnection.cursor()
    # print('DB Init')
 
     #"select * from `$table` where `key`=\"$key\"";
     cursor.execute(query_builder, (query_transliterate,))
-    result = cursor.fetchall()
+    results = cursor.fetchall()
     #print('SQLite Version is {}'.format(result))
     
-    ## get root, inflected form, type (could be useful later)
+    outcome = []
     
-    root_form = None
+    print("results", results)
+    results_dict = {t[2]: t for t in results}
     
-    for inflected_form, type, root_form in result:
+    # Convert the dictionary back to a list of tuples
+    results = list(results_dict.values())
+    
+    for inflected_form, type, root_form in results: 
+        #print("result", (inflected_form, type, root_form))
+        ## get root, inflected form, type (could be useful later)
         if not root_form:  # If root_form is None or empty
             return  # End the function
         inflected_form_var = inflected_form
         type_var = type
-        root_form_var = root_form   
-        #print(f"Inflected Form: {inflected_form}, Type: {type}, Root Form: {root_form}")
-    
-    ##break the function if it's not a verb; important! 
-        
-    if not root_form:  # If root_form is still None after the loop
-        return  # End the function
-    
-    
-    ## build query in the second table to find the inflection table
-    
-    query_builder2 = "SELECT data FROM lgtab1 WHERE stem = ?"
-    
-    sqliteConnection = sqlite3.connect('SQLite_db/lgtab1.sqlite')
+        root_form_var = root_form  
 
-    cursor = sqliteConnection.cursor()
-    #print('DB Init')
+        ##break the function if it's not a verb; important! 
 
-    cursor.execute(query_builder2, (root_form,))
-    result = cursor.fetchall()
-    #print('SQLite Version is {}'.format(result))
-    
-    ## get the inflection table as a list of words instead of tuple
-    
-    inflection_tuple = result[0][0]  # Get the first element of the first tuple
-    inflection_words = inflection_tuple.split(':') 
-    
-    ##transliterate back the result to IAST for readability
-    
-    inflection_wordsIAST = [transliterateSLP1IAST(word) for word in inflection_words]
-    query_transliterateIAST = transliterateSLP1IAST(query_transliterate)
-    
-    ##make Inflection Table
-    
-    indices = [i for i, x in enumerate(inflection_wordsIAST) if x == query_transliterateIAST]
+        if not root_form:  # If root_form is still None after the loop
+            return  # End the function
 
-    # Define row and column titles
-    rowtitles = ["Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc"]
-    coltitles = ["Sg", "Du", "Pl"]
+        ## build query in the second table to find the inflection table
 
-    #if indices:
-        #print(f"The indices of '{query_transliterateIAST}' are {indices}.")
-    #else:
-        #print(f"'{query_transliterateIAST}' is not in the list.")
+        query_builder2 = "SELECT data FROM lgtab1 WHERE stem = ?"
 
-    from tabulate import tabulate
+        sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab1.sqlite')
 
-    # Your list of strings
+        cursor = sqliteConnection.cursor()
+        #print('DB Init')
 
-    # Split the list into a 6x3 table
-    table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
-
-    # Highlight the matched cells with red color
-    table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
-
-    # Add row titles to the table
-    table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
-
-    # Print the table with column titles
-    #print(tabulate(table, headers=coltitles, tablefmt="grid"))
-
-    # Print the indices of the query in the list
-    if indices:
-        # Convert the indices to row and column names
-        row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
-       # print(f"The row and column names of '{query_transliterateIAST}' are {row_col_names}.")
-   # else:
-       # print(f"'{query_transliterateIAST}' is not in the list.")
-    else: 
-        row_col_names = None
-        
-    return [root_form_var, type_var, row_col_names, inflection_wordsIAST, original_word]
+        cursor.execute(query_builder2, (root_form,))
+        result = cursor.fetchall()
 
 
+        ## get the inflection table as a list of words instead of tuple
 
+        inflection_tuple = result[0][0]  # Get the first element of the first tuple
+        inflection_words = inflection_tuple.split(':') 
+
+        ##transliterate back the result to IAST for readability
+
+        inflection_wordsIAST = [transliterateSLP1IAST(word) for word in inflection_words]
+        query_transliterateIAST = transliterateSLP1IAST(query_transliterate)
+
+        ##make Inflection Table
+
+        indices = [i for i, x in enumerate(inflection_wordsIAST) if x == query_transliterateIAST]
+
+        # Define row and column titles
+        rowtitles = ["Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc"]
+        coltitles = ["Sg", "Du", "Pl"]
+
+        #if indices:
+            #print(f"The indices of '{query_transliterateIAST}' are {indices}.")
+        #else:
+            #print(f"'{query_transliterateIAST}' is not in the list.")
+
+        from tabulate import tabulate
+
+        # Your list of strings
+
+        # Split the list into a 6x3 table
+        table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
+
+        # Highlight the matched cells with red color
+        table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
+
+        # Add row titles to the table
+        table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
+
+        # Print the table with column titles
+        #print(tabulate(table, headers=coltitles, tablefmt="grid"))
+
+        # Print the indices of the query in the list
+        if indices:
+            # Convert the indices to row and column names
+            row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
+           # print(f"The row and column names of '{query_transliterateIAST}' are {row_col_names}.")
+       # else:
+           # print(f"'{query_transliterateIAST}' is not in the list.")
+        else: 
+            row_col_names = None
+
+        outcome.append([root_form_var, type_var, row_col_names, inflection_wordsIAST, original_word])
+    return outcome
 
 
 
@@ -223,16 +194,15 @@ def SQLite_find_verb(verb):
     
     ##OpenConnection, make SQL query to find the root
     
-    sqliteConnection = sqlite3.connect('SQLite_db/vlgtab2.sqlite')
+    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/vlgtab2.sqlite')
 
     cursor = sqliteConnection.cursor()
-    #print('DB Init')
 
     #"select * from `$table` where `key`=\"$key\"";
     cursor.execute(query_builder, (query_transliterate,))
     result = cursor.fetchall()
-    #print('SQLite Version is {}'.format(result))
     
+    #print("result1", result)
     root_form = None
 
     
@@ -251,28 +221,36 @@ def SQLite_find_verb(verb):
         
     ## build query in the second table to find the inflection table
             
-    query_builder2 = "SELECT * FROM vlgtab1 WHERE stem = ?"
+    query_builder2 = "SELECT * FROM vlgtab1 WHERE stem = ? and model = ?"
 
-    sqliteConnection = sqlite3.connect('SQLite_db/vlgtab1.sqlite')
+    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/vlgtab1.sqlite')
 
     cursor = sqliteConnection.cursor()
     #print('DB Init')
 
-    cursor.execute(query_builder2, (root_form,))
+    cursor.execute(query_builder2, (root_form, type_var))
     result = cursor.fetchall()
-    #print('SQLite Version is {}'.format(result))
-
+    
+    #print("result2:", result)
+    
     selected_tuple = None
 
     # Iterate over the result list
     for model, stem, refs, data in result:
         if model == type_var:  # If the model matches type_var
+            ref_word = re.search(",([a-zA-Z]+)", refs).group(1)
+            if stem != ref_word:
+                stem= ref_word
+                #print("ref_word, stem", ref_word, stem)
+                selected_tuple = (model, stem, refs, data)  # Get the entire tuple
+                break  # Exit the loop
             selected_tuple = (model, stem, refs, data)  # Get the entire tuple
             break  # Exit the loop
 
     if selected_tuple is None:
         #print("No matching model found in result")
         return
+    
 
     # Now you can use selected_tuple
     inflection_tuple = selected_tuple[3]  # Get the 'data' element of the tuple
@@ -318,7 +296,8 @@ def SQLite_find_verb(verb):
         row_col_names = None
 
         
-    return [root_form_var, type_var, row_col_names, inflection_wordsIAST, original_verb]
+    return [[stem, type_var, row_col_names, inflection_wordsIAST, original_verb]]
+
 
 
 
@@ -330,23 +309,23 @@ import pandas as pd
 type_map = pd.read_excel('resources/type_map.xlsx')
 
 def root_any_word(word):
-    result_root = SQLite_find_name(word)
-    if not result_root:  # If process_word didn't find any results
-        result_root = SQLite_find_verb(word)
+    result_roots = SQLite_find_name(word)
+    if not result_roots:  # If process_word didn't find any results
+        result_roots = SQLite_find_verb(word)
     
-    if result_root:
-        # Get the second member of the tuple
-        abbr = result_root[1]
+    if result_roots:
+        for result in result_roots:
+            # Get the second member of the tuple
+            abbr = result[1]
 
-        # Find the matching value in the 'abbr' column
-        match = type_map[type_map['abbr'] == abbr]
+            # Find the matching value in the 'abbr' column
+            match = type_map[type_map['abbr'] == abbr]
 
-        if not match.empty:
-            description = match['description'].values[0]
-            result_root = list(result_root)
-            result_root[1] = description
-
-    return result_root
+            if not match.empty:
+                description = match['description'].values[0]
+                result = list(result)
+                result[1] = description
+    return result_roots
 
 
 def root_any_list(text_list):
@@ -445,10 +424,11 @@ def inflect(splitted_text):
     
 #    print("splitted", splitted_text)
     for word in splitted_text: 
-        root1 = root_any_word(word)
+        rooted = root_any_word(word)
         #print("root1", root1)
-        if root1 is not None:
-            roots.append(root1)  
+        if rooted is not None:
+            for root in rooted:
+                roots.append(root)  
         else:
             compound_try = root_compounds(word)
             if compound_try is not None:
@@ -474,8 +454,8 @@ def get_voc_entry(list_of_entries):
     entries = []
     for entry in list_of_entries:        
         if isinstance(entry, list):
-            word = entry[0]
             
+            word = entry[0]
             dict_entry = []
             if word in dictionary_json:  # Check if the key exists
                 key2 = dictionary_json[word][0][1]
@@ -484,7 +464,10 @@ def get_voc_entry(list_of_entries):
                     dict_entry.append(entry_dict[4])           
                 entry.append(key2)
                 entry.append(dict_entry)
-                entries.append(entry)
+            else:
+                entry.append(word)  # Append the original word for key2
+                entry.append([word])  # Append the original word for dict_entry
+            entries.append(entry)
             
         elif isinstance(entry, str):
             
@@ -499,8 +482,13 @@ def get_voc_entry(list_of_entries):
                 
                 entry.append(key2)
                 entry.append(dict_entry)
-                entries.append(entry)
+            else:
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
+            entries.append(entry)
     return entries
+
+
+
 
 
 # find_inflection = False, inflection_table = False, 
@@ -550,7 +538,6 @@ def preprocess(text):
     ## attempt to remove sandhi and tokenise in any case
     splitted_text = sandhi_splitter(text)
 
-    print(splitted_text)
 
 
     splitted_text = remove_stopwords_list(splitted_text)    
