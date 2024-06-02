@@ -462,9 +462,12 @@ def get_voc_entry(list_of_entries):
 ##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
 ##then if the word is not found, try to split the word in its components and find the root of each component
 
+import regex
+
 def process(text):
 
     if ' ' not in text:
+        text = regex.sub('[^\p{L}]', '', text)
         result = root_any_word(text)
         if result is not None:
             result[0][0] = transliterateSLP1IAST(result[0][0].replace('-', '')) 
