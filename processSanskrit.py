@@ -2,7 +2,6 @@ import indic_transliteration
 
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
-from sanskrit_parser import Parser
 
 import ast
 from detectTransliteration import detect
@@ -67,37 +66,23 @@ import re
 with open('resources/MWKeysOnly.json', 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
-
 ##given a name finds the root
 
 def SQLite_find_name(name):
     
-    original_word = name
-    
+    original_word = name    
     # Transliterate input
-    query_transliterate = anythingToSLP1(name)
-    
+    query_transliterate = anythingToSLP1(name)    
     # FormatSQL query
-    #query_builder = "SELECT * FROM lgtab2 WHERE key = " + "'" + query_transliterate + "'"
-    query_builder = "SELECT * FROM lgtab2 WHERE key = ?"        
-    
-    ##OpenConnection, make SQL query to find the root
-    
+    query_builder = "SELECT * FROM lgtab2 WHERE key = ?"            
+    ##OpenConnection, make SQL query to find the root    
     sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab2.sqlite')
-
     cursor = sqliteConnection.cursor()
-   # print('DB Init')
-
-    #"select * from `$table` where `key`=\"$key\"";
     cursor.execute(query_builder, (query_transliterate,))
     results = cursor.fetchall()
-    #print('SQLite Version is {}'.format(result))
-    
-    outcome = []
-    
-    print("results", results)
-    results_dict = {t[2]: t for t in results}
-    
+    ##remove duplicate results:
+    outcome = []    
+    results_dict = {t[2]: t for t in results}    
     # Convert the dictionary back to a list of tuples
     results = list(results_dict.values())
     
@@ -109,22 +94,15 @@ def SQLite_find_name(name):
         inflected_form_var = inflected_form
         type_var = type
         root_form_var = root_form  
-
-        ##break the function if it's not a verb; important! 
-
+        ##break the function if it's not a name; important! 
         if not root_form:  # If root_form is still None after the loop
             return  # End the function
-
+        
         ## build query in the second table to find the inflection table
-
-        query_builder2 = "SELECT data FROM lgtab1 WHERE stem = ?"
-
+        query_builder2 = "SELECT data FROM lgtab1 WHERE stem = ? and model = ?"
         sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab1.sqlite')
-
         cursor = sqliteConnection.cursor()
-        #print('DB Init')
-
-        cursor.execute(query_builder2, (root_form,))
+        cursor.execute(query_builder2, (root_form, type_var))
         result = cursor.fetchall()
 
 
@@ -141,28 +119,22 @@ def SQLite_find_name(name):
         ##make Inflection Table
 
         indices = [i for i, x in enumerate(inflection_wordsIAST) if x == query_transliterateIAST]
-
         # Define row and column titles
         rowtitles = ["Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc"]
         coltitles = ["Sg", "Du", "Pl"]
-
-        #if indices:
-            #print(f"The indices of '{query_transliterateIAST}' are {indices}.")
-        #else:
-            #print(f"'{query_transliterateIAST}' is not in the list.")
 
         from tabulate import tabulate
 
         # Your list of strings
 
         # Split the list into a 6x3 table
-        table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
+        #table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
 
         # Highlight the matched cells with red color
-        table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
+        #table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
 
         # Add row titles to the table
-        table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
+        #table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
 
         # Print the table with column titles
         #print(tabulate(table, headers=coltitles, tablefmt="grid"))
@@ -171,9 +143,6 @@ def SQLite_find_name(name):
         if indices:
             # Convert the indices to row and column names
             row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
-           # print(f"The row and column names of '{query_transliterateIAST}' are {row_col_names}.")
-       # else:
-           # print(f"'{query_transliterateIAST}' is not in the list.")
         else: 
             row_col_names = None
 
@@ -274,13 +243,13 @@ def SQLite_find_verb(verb):
     # Your list of strings
 
     # Split the list into a 6x3 table
-    table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
+    #table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
 
     # Highlight the matched cells with red color
-    table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
+    #table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
 
     # Add row titles to the table
-    table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
+    #table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
 
     # Print the table with column titles
     #print(tabulate(table, headers=coltitles, tablefmt="grid"))
@@ -294,10 +263,8 @@ def SQLite_find_verb(verb):
        # print(f"'{query_transliterateIAST}' is not in the list.")
     else:
         row_col_names = None
-
         
     return [[stem, type_var, row_col_names, inflection_wordsIAST, original_verb]]
-
 
 
 
@@ -312,19 +279,20 @@ def root_any_word(word):
     result_roots = SQLite_find_name(word)
     if not result_roots:  # If process_word didn't find any results
         result_roots = SQLite_find_verb(word)
-    
-    if result_roots:
-        for result in result_roots:
-            # Get the second member of the tuple
-            abbr = result[1]
 
+    if result_roots:
+        for i in range(len(result_roots)):
+            result = result_roots[i]
+            type(result)
+            # Get the second member of the list
+            abbr = result[1]
             # Find the matching value in the 'abbr' column
             match = type_map[type_map['abbr'] == abbr]
-
+            
             if not match.empty:
                 description = match['description'].values[0]
-                result = list(result)
                 result[1] = description
+                result_roots[i] = result
     return result_roots
 
 
@@ -393,7 +361,6 @@ def root_compounds(word):
                 second_root = second_root_try
             else: 
                 second_root = second_root[0]
-                      
             if second_root is not None:
                 if first_root_entry is not None:
                     return [first_root_entry, second_root]
@@ -489,22 +456,25 @@ def get_voc_entry(list_of_entries):
 
 
 
-
-
 # find_inflection = False, inflection_table = False, 
 #split_compounds = True, dictionary_search = False,
 
+##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
+##then if the word is not found, try to split the word in its components and find the root of each component
+
 def process(text):
-    
+
+    if ' ' not in text:
+        result = root_any_word(text)
+        if result is not None:
+            result[0][0] = transliterateSLP1IAST(result[0][0].replace('-', '')) 
+            result_vocabulary = get_voc_entry(result)  
+            return result_vocabulary
+            
     ## attempt to remove sandhi and tokenise in any case
-    splitted_text = sandhi_splitter(text)
-    
-
+    splitted_text = sandhi_splitter(text)    
     inflections = inflect(splitted_text) 
-
-    inflections_vocabulary = get_voc_entry(inflections)   
-    
-
+    inflections_vocabulary = get_voc_entry(inflections)       
     return inflections_vocabulary
 
 
