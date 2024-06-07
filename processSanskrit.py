@@ -6,12 +6,14 @@ from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 import ast
 from detectTransliteration import detect
 
-
 ##to get all the available schemes
 ##indic_transliteration.sanscript.SCHEMES.keys()
     
 def transliterateSLP1IAST(text):
     return transliterate(text, sanscript.SLP1, sanscript.IAST)    
+
+def transliterateDEVSLP1(text):
+    return transliterate(text, sanscript.DEVANAGARI, sanscript.SLP1)
         
 def anythingToSLP1(text):
     detected_scheme_str = detect(text).upper()
@@ -22,6 +24,12 @@ def anythingToIAST(text):
     detected_scheme = getattr(sanscript, detected_scheme_str)
     return sanscript.transliterate(text, detected_scheme, sanscript.IAST)
 
+def transliterateAnything(text, transliteration_scheme):
+    detected_scheme_str = detect(text).upper()
+    transliteration_scheme_str = transliteration_scheme.upper()
+    detected_scheme = getattr(sanscript, detected_scheme_str)
+    output_scheme = getattr(sanscript, transliteration_scheme_str)
+    return sanscript.transliterate(text, detected_scheme, output_scheme)
 
 ##qui la lista degli encoding è lowercase
 
@@ -74,17 +82,29 @@ def SQLite_find_name(name):
     # Transliterate input
     query_transliterate = anythingToSLP1(name)    
     # FormatSQL query
-    query_builder = "SELECT * FROM lgtab2 WHERE key = ?"            
-    ##OpenConnection, make SQL query to find the root    
-    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab2.sqlite')
-    cursor = sqliteConnection.cursor()
-    cursor.execute(query_builder, (query_transliterate,))
-    results = cursor.fetchall()
-    ##remove duplicate results:
-    outcome = []    
-    results_dict = {t[2]: t for t in results}    
-    # Convert the dictionary back to a list of tuples
-    results = list(results_dict.values())
+
+    outcome = [] 
+
+    def query1(word):
+        query_builder = "SELECT * FROM lgtab2 WHERE key = ?"  
+        ##OpenConnection, make SQL query to find the root    
+        sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab2.sqlite')
+        cursor = sqliteConnection.cursor()
+        cursor.execute(query_builder, (word,))
+        results = cursor.fetchall()
+        ##remove duplicate results:
+           
+        results_dict = {t[2]: t for t in results}    
+        # Convert the dictionary back to a list of tuples
+        results = list(results_dict.values())
+        return results
+    
+    results = query1(query_transliterate)
+    
+    if not results:  # If query1 didn't find any results
+        if query_transliterate[-1] == 'M':
+            query_transliterate = query_transliterate[:-1] + 'm'
+            results = query1(query_transliterate)
     
     for inflected_form, type, root_form in results: 
         #print("result", (inflected_form, type, root_form))
@@ -99,17 +119,25 @@ def SQLite_find_name(name):
             return  # End the function
         
         ## build query in the second table to find the inflection table
-        query_builder2 = "SELECT data FROM lgtab1 WHERE stem = ? and model = ?"
+        query_builder2 = "SELECT * FROM lgtab1 WHERE stem = ? and model = ?"
         sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab1.sqlite')
         cursor = sqliteConnection.cursor()
         cursor.execute(query_builder2, (root_form, type_var))
         result = cursor.fetchall()
 
+        print("result", result)
+
+        print("refs", result[0][2])
+
+        ##word_refs = re.match(r"\d+,([a-zA-Z]+)", result[0][2]).group(1)
+        word_refs = re.findall(r",([a-zA-Z]+)",result[0][2])[0]
 
         ## get the inflection table as a list of words instead of tuple
 
-        inflection_tuple = result[0][0]  # Get the first element of the first tuple
+        inflection_tuple = result[0][3]  # Get the first element of the first tuple
+        print("inflection_tuple", inflection_tuple)
         inflection_words = inflection_tuple.split(':') 
+        print("inflection_words", inflection_words)
 
         ##transliterate back the result to IAST for readability
 
@@ -145,8 +173,8 @@ def SQLite_find_name(name):
             row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
         else: 
             row_col_names = None
-
-        outcome.append([root_form_var, type_var, row_col_names, inflection_wordsIAST, original_word])
+        
+        outcome.append([word_refs, type_var, row_col_names, inflection_wordsIAST, original_word])
     return outcome
 
 
@@ -339,14 +367,21 @@ def dict_word_iterative(word):
     return [found_word, removed_part] if found else None  # Return the match if found, else return None
 
 
+
+        ##if the dictionary approach fails, try the iterative approach:
+
+
 def root_compounds(word):
     
     first_root = dict_word_iterative(word)
+    #print("first_root", first_root)
     first_root_entry = root_any_word(first_root[0])
+    #print("first_root_entry", first_root_entry)
     
     ## if it's a compound
     if first_root is not None and first_root[1] is not None and len(first_root[1]) >= 4:
         
+        ##remove the first root from the word
         without_root = word.replace(first_root[0], '', 1)  # Only replace the first occurrence
         
         ##try the dictionary approach
@@ -380,7 +415,7 @@ def root_compounds(word):
     ## if it's not a compound        
     else:
         if first_root_entry is not None:
-            return [first_root_entry]
+            return first_root_entry
         else:
             return [first_root[0]]
             
@@ -392,7 +427,7 @@ def inflect(splitted_text):
 #    print("splitted", splitted_text)
     for word in splitted_text: 
         rooted = root_any_word(word)
-        #print("root1", root1)
+        #print("root1", rooted)
         if rooted is not None:
             for root in rooted:
                 roots.append(root)  
@@ -400,16 +435,21 @@ def inflect(splitted_text):
             compound_try = root_compounds(word)
             if compound_try is not None:
                 roots.extend(compound_try)  
+                #print("compound_try", compound_try)
             else:
                 roots.extend(word)  
                 
     for i in range(len(roots)):
         if isinstance(roots[i], list):
+            #print("debug", roots)
+            #print(roots[i][0])
             roots[i][0] = transliterateSLP1IAST(roots[i][0].replace('-', ''))
         else:
             roots[i] = transliterateSLP1IAST(roots[i].replace('-', ''))           
                 
     return roots             
+
+## bug with process("nīlotpalapatrāyatākṣī")    
 
 
 with open('resources/no_abbreviationMW.json') as f:
@@ -426,9 +466,10 @@ def get_voc_entry(list_of_entries):
             dict_entry = []
             if word in dictionary_json:  # Check if the key exists
                 key2 = dictionary_json[word][0][1]
+                key2 = transliterateSLP1IAST(key2)
     
                 for entry_dict in dictionary_json[word]:
-                    dict_entry.append(entry_dict[4])           
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
                 entry.append(key2)
                 entry.append(dict_entry)
             else:
@@ -441,10 +482,10 @@ def get_voc_entry(list_of_entries):
             dict_entry = []
             if entry in dictionary_json:  # Check if the key exists
                 key2 = dictionary_json[entry][0][1]
+                key2 = transliterateSLP1IAST(key2)
     
                 for entry_dict in dictionary_json[entry]:
-                    dict_entry.append(entry_dict[4])    
-
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
                 entry = [entry]    
                 
                 entry.append(key2)
@@ -453,8 +494,6 @@ def get_voc_entry(list_of_entries):
                 entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
             entries.append(entry)
     return entries
-
-
 
 # find_inflection = False, inflection_table = False, 
 #split_compounds = True, dictionary_search = False,
@@ -468,6 +507,9 @@ def process(text):
 
     if ' ' not in text:
         text = regex.sub('[^\p{L}]', '', text)
+        ## here it should be transliterated to SLP1 before and added aH at the end instead of a
+        if text[-1] == 'o':
+            text = text[:-1] + 'a'
         result = root_any_word(text)
         if result is not None:
             result[0][0] = transliterateSLP1IAST(result[0][0].replace('-', '')) 
@@ -477,7 +519,8 @@ def process(text):
     ## attempt to remove sandhi and tokenise in any case
     splitted_text = sandhi_splitter(text)    
     inflections = inflect(splitted_text) 
-    inflections_vocabulary = get_voc_entry(inflections)       
+    inflections_vocabulary = get_voc_entry(inflections)
+    inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]       
     return inflections_vocabulary
 
 
@@ -503,8 +546,8 @@ def process_test(text, remove_stopwords = False, dictionary_entry = True, output
         inflections = entry_list    
 
     return inflections
-
-
+## hard more testing:
+#process("dveṣānuviddhaścetanācetanasādhanādhīnastāpānubhava")
 
 def preprocess(text):
     
