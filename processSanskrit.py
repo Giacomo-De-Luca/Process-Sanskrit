@@ -6,11 +6,23 @@ from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 import ast
 from detectTransliteration import detect
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logging.debug('This is a debug message')
+logging.info('This is an informational message')
+logging.warning('This is a warning message')
+logging.error('This is an error message')
+logging.critical('This is a critical message')
+
 ##to get all the available schemes
 ##indic_transliteration.sanscript.SCHEMES.keys()
     
 def transliterateSLP1IAST(text):
-    return transliterate(text, sanscript.SLP1, sanscript.IAST)    
+    return transliterate(text, sanscript.SLP1, sanscript.IAST)   
+
+def transliterateSLP1HK(text):
+    return transliterate(text, sanscript.SLP1, sanscript.HK)   
 
 def transliterateDEVSLP1(text):
     return transliterate(text, sanscript.DEVANAGARI, sanscript.SLP1)
@@ -23,6 +35,10 @@ def anythingToIAST(text):
     detected_scheme_str = detect(text).upper()
     detected_scheme = getattr(sanscript, detected_scheme_str)
     return sanscript.transliterate(text, detected_scheme, sanscript.IAST)
+def anythingToHK(text):
+    detected_scheme_str = detect(text).upper()
+    detected_scheme = getattr(sanscript, detected_scheme_str)
+    return sanscript.transliterate(text, detected_scheme, sanscript.HK)
 
 def transliterateAnything(text, transliteration_scheme):
     detected_scheme_str = detect(text).upper()
@@ -88,15 +104,16 @@ def SQLite_find_name(name):
     def query1(word):
         query_builder = "SELECT * FROM lgtab2 WHERE key = ?"  
         ##OpenConnection, make SQL query to find the root    
-        sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab2.sqlite')
+        sqliteConnection = sqlite3.connect('resources/SQLite_db/lgtab2.sqlite')
         cursor = sqliteConnection.cursor()
         cursor.execute(query_builder, (word,))
         results = cursor.fetchall()
+        sqliteConnection.close()
+        ## da riflettere meglio su come voglio fare su questo... se ci sono risultati duplicati è perché un nome può essere maschile neutro e femminile, in tal caso voglio che risulti, senza duplicare le entrate del dizionario etc. 
         ##remove duplicate results:
-           
-        results_dict = {t[2]: t for t in results}    
+        #results_dict = {t[2]: t for t in results}    
         # Convert the dictionary back to a list of tuples
-        results = list(results_dict.values())
+        #results = list(results_dict.values())
         return results
     
     results = query1(query_transliterate)
@@ -120,14 +137,17 @@ def SQLite_find_name(name):
         
         ## build query in the second table to find the inflection table
         query_builder2 = "SELECT * FROM lgtab1 WHERE stem = ? and model = ?"
-        sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/lgtab1.sqlite')
+        sqliteConnection = sqlite3.connect('resources/SQLite_db/lgtab1.sqlite')
         cursor = sqliteConnection.cursor()
         cursor.execute(query_builder2, (root_form, type_var))
         result = cursor.fetchall()
+        sqliteConnection.close()
 
-        print("result", result)
+        print("word_result", result)
 
-        print("refs", result[0][2])
+        #print("result", result)
+
+        #print("refs", result[0][2])
 
         ##word_refs = re.match(r"\d+,([a-zA-Z]+)", result[0][2]).group(1)
         word_refs = re.findall(r",([a-zA-Z]+)",result[0][2])[0]
@@ -135,9 +155,9 @@ def SQLite_find_name(name):
         ## get the inflection table as a list of words instead of tuple
 
         inflection_tuple = result[0][3]  # Get the first element of the first tuple
-        print("inflection_tuple", inflection_tuple)
+        #print("inflection_tuple", inflection_tuple)
         inflection_words = inflection_tuple.split(':') 
-        print("inflection_words", inflection_words)
+        #print("inflection_words", inflection_words)
 
         ##transliterate back the result to IAST for readability
 
@@ -191,17 +211,14 @@ def SQLite_find_verb(verb):
     
     ##OpenConnection, make SQL query to find the root
     
-    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/vlgtab2.sqlite')
-
+    sqliteConnection = sqlite3.connect('resources/SQLite_db/vlgtab2.sqlite')
     cursor = sqliteConnection.cursor()
-
     #"select * from `$table` where `key`=\"$key\"";
     cursor.execute(query_builder, (query_transliterate,))
     result = cursor.fetchall()
-    
+    sqliteConnection.close()
     #print("result1", result)
     root_form = None
-
     
     ## get root, inflected form, type (could be useful later)
     
@@ -220,14 +237,13 @@ def SQLite_find_verb(verb):
             
     query_builder2 = "SELECT * FROM vlgtab1 WHERE stem = ? and model = ?"
 
-    sqliteConnection = sqlite3.connect('/Users/jack/Desktop/SanskritLinguistics/csl-inflect/sqlite/db/vlgtab1.sqlite')
+    sqliteConnection = sqlite3.connect('resources/SQLite_db/vlgtab1.sqlite')
 
     cursor = sqliteConnection.cursor()
     #print('DB Init')
-
     cursor.execute(query_builder2, (root_form, type_var))
     result = cursor.fetchall()
-    
+    sqliteConnection.close()
     #print("result2:", result)
     
     selected_tuple = None
@@ -311,7 +327,6 @@ def root_any_word(word):
     if result_roots:
         for i in range(len(result_roots)):
             result = result_roots[i]
-            type(result)
             # Get the second member of the list
             abbr = result[1]
             # Find the matching value in the 'abbr' column
@@ -390,27 +405,29 @@ def root_compounds(word):
         ##if the dictionary approach fails, try the iterative approach:
         if second_root == None:
             second_root = dict_word_iterative(without_root)
-            second_root_try = root_any_word(second_root[0])
-            
-            if second_root_try is not None:
-                second_root = second_root_try
-            else: 
-                second_root = second_root[0]
+            if len(second_root[0]) < 2:
+                second_root = None
+            else:
+                second_root_try = root_any_word(second_root[0])
+                if second_root_try is not None:
+                    second_root = second_root_try
+                else: 
+                    second_root = [second_root[0]]            
             if second_root is not None:
-                if first_root_entry is not None:
-                    return [first_root_entry, second_root]
+                if first_root_entry is not None:                    
+                    return first_root_entry + second_root
                 else:
-                    return [first_root[0], second_root]
+                    return [first_root[0]] + second_root
             else:
                 if first_root_entry is not None:
-                    return [first_root_entry]
+                    return first_root_entry
                 else:
                     return [first_root[0]]
         else:
             if first_root_entry is not None:
-                return [first_root_entry, second_root]
+                return first_root_entry + second_root
             else:
-                return [first_root[0], second_root]
+                return [first_root[0]] + second_root
             
     ## if it's not a compound        
     else:
@@ -426,8 +443,8 @@ def inflect(splitted_text):
     
 #    print("splitted", splitted_text)
     for word in splitted_text: 
+        
         rooted = root_any_word(word)
-        #print("root1", rooted)
         if rooted is not None:
             for root in rooted:
                 roots.append(root)  
@@ -446,7 +463,7 @@ def inflect(splitted_text):
             roots[i][0] = transliterateSLP1IAST(roots[i][0].replace('-', ''))
         else:
             roots[i] = transliterateSLP1IAST(roots[i].replace('-', ''))           
-                
+    print("inflect roots", roots)
     return roots             
 
 ## bug with process("nīlotpalapatrāyatākṣī")    
@@ -506,23 +523,60 @@ import regex
 def process(text):
 
     if ' ' not in text:
-        text = regex.sub('[^\p{L}]', '', text)
+        #print("single_word", text)
+        transliterated_text = anythingToHK(text)     
+        #print("transliterated_text", transliterated_text)
+        text = regex.sub('[^\p{L}\']', '', transliterated_text)
         ## here it should be transliterated to SLP1 before and added aH at the end instead of a
         if text[-1] == 'o':
-            text = text[:-1] + 'a'
+            text = text[:-1] + 'aH'
         result = root_any_word(text)
+        if result is None and text[-1] == 'M':
+            text = text[:-1] + 'm'
+            result = root_any_word(text)
         if result is not None:
-            result[0][0] = transliterateSLP1IAST(result[0][0].replace('-', '')) 
+            for res in result:
+                if isinstance(res, list):
+                    res[0] = transliterateSLP1IAST(res[0].replace('-', ''))
             result_vocabulary = get_voc_entry(result)  
-            return result_vocabulary
+            return clean_results(result_vocabulary)
             
     ## attempt to remove sandhi and tokenise in any case
     splitted_text = sandhi_splitter(text)    
     inflections = inflect(splitted_text) 
     inflections_vocabulary = get_voc_entry(inflections)
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]       
-    return inflections_vocabulary
 
+    return clean_results(inflections_vocabulary)
+
+
+##process("dveṣānuviddhaścetanācetanasādhanādhīnastāpānubhava")
+
+def clean_results(list_of_entries):
+    i = 0
+    while i < len(list_of_entries) - 1:  # Subtract 1 to avoid index out of range error
+        if list_of_entries[i][0] == "apya" and list_of_entries[i + 1][0] == "ap":
+            list_of_entries[i] = [item for sublist in get_voc_entry(["api"]) for item in sublist]
+            del list_of_entries[i + 1]
+        elif list_of_entries[i][0] == "ca":
+            while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == "ca":
+                del list_of_entries[i + 1]
+        elif list_of_entries[i][0] == "eva":
+            while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == "eva":
+                del list_of_entries[i + 1]
+        elif list_of_entries[i][0] == "sam":
+            j = i + 1
+            while j < len(list_of_entries) and (list_of_entries[j][0] == "sa" or list_of_entries[j][0] == "sam"):
+                j += 1
+            if j < len(list_of_entries):
+                voc_entry = get_voc_entry(["sam" + list_of_entries[j][0]])
+                if voc_entry is None:
+                    voc_entry = get_voc_entry(["saM" + list_of_entries[j][0]])
+                if voc_entry is not None:
+                    list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
+                    del list_of_entries[i + 1:j + 1]        
+        i += 1  
+    return list_of_entries
 
 def process_test(text, remove_stopwords = False, dictionary_entry = True, output_encoding = "IAST", entry_only = False):
     
@@ -553,8 +607,6 @@ def preprocess(text):
     
     ## attempt to remove sandhi and tokenise in any case
     splitted_text = sandhi_splitter(text)
-
-
 
     splitted_text = remove_stopwords_list(splitted_text)    
     
