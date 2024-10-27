@@ -63,7 +63,7 @@ cid,key,data,type
 01:53,Bhadrab.,Bhadrabāhu-caritra,Title
 01:54,Bhag.,Bhagavad-gītā,Title
 01:55,BhP.,Bhāgavata-purāṇa,Title
-01:55x,Bh.,Bhāvaprakāśa [Cologne Addition],Title
+01:55x,Bh.,Bhāvaprakāśa,Title
 01:55y,BhāgP.,Bhāgavata-purāṇa,Title
 01:56,Bhagavatīg.,Bhagavatī-gītā,Title
 01:57,Bhaktām.,Bhaktāmara-stotra,Title
@@ -231,7 +231,7 @@ cid,key,data,type
 04:13,Kāty.,Kātyāyana,Author
 04:14,KātyŚr.,Kātyāyana-śrauta-sūtra,Title
 04:15,KauṣĀr.,Kauṣītaki-āraṇyaka,Title
-04:16,KauṣBr.,Kauṣītaki-brāhmaṇa [Cologne Addition],Title
+04:16,KauṣBr.,Kauṣītaki-brāhmaṇa,Title
 04:17,KauṣUp.,Kauṣītaki-upaniṣad,Title
 04:18,Kauś.,Kauśika-sūtra,Title
 04:19,Kautukar.,Kautukaratnākara,Title
@@ -296,8 +296,8 @@ cid,key,data,type
 05:08,Mall.,Mallinātha,Author
 05:08x,Mallin.,Mallinātha,Author
 05:09,MānGṛ.,Mānava-gṛhya-sūtra,Title
-05:09x,MānGṛS.,Mānava-gṛhya-sūtra [Cologne Addition],Title
-05:09y,MānGṛŚrS.,Mānava-gṛhya-sūtra [Cologne Addition],Title
+05:09x,MānGṛS.,Mānava-gṛhya-sūtra,Title
+05:09y,MānGṛŚrS.,Mānava-gṛhya-sūtra,Title
 05:10,MānŚr.,Mānava-śrauta-sūtra,Title
 05:12,MāṇḍŚ.,Māṇḍūkī-śikṣā,Title
 05:13,MāṇḍUp.,"Māṇḍūkya-upaniṣad, 12 Mantras",Title
@@ -402,9 +402,9 @@ cid,key,data,type
 07:01,Rāghav.,Rāghavapāṇḍavīya,Title
 07:01x,Rāgh.,Rāghavapāṇḍavīya,Title
 07:02,Ragh.,Raghuvaṃśa,Title
-07:02a,Ragh. (C),"Raghuvaṃśa, Calcutta edition [Cologne Addition]",Title
+07:02a,Ragh. (C),"Raghuvaṃśa, Calcutta edition",Title
 07:03,Rājat.,Rājataraṃgiṇī,Title
-07:03a,Rājat. (C),"Rājataraṃgiṇī, Calcutta edition [Cologne Addition]",Title
+07:03a,Rājat. (C),"Rājataraṃgiṇī, Calcutta edition",Title
 07:03x,Rāj.,Rājataraṃgiṇī,Title
 07:04,Rāmag.,Rāmagītā,Title
 07:05,Rāmapūjās.,Rāmapūjāsaraṇi,Title
@@ -603,266 +603,266 @@ cid,key,data,type
 10:38,Yogas.,Yoga-sūtra,Title
 10:39,YogatUp.,Yogatattva-upaniṣad,Title
 10:40,Yogavās.,Yogavāsiṣṭha-sāra,Title
-11:01,Āpast.,Āpastamba [Cologne Addition],Author
-11:02,ĀpGṛ.,Āpastamba's Gṛhya-sūtra [Cologne Addition],Title
-11:03,AdhyR.,AdhyātmaRāmāyaṇa [Cologne Addition],Title
-11:04,Ait.,Aitareya [Cologne Addition],Title
-11:05,Cat.,Catalogue(s) [Cologne Addition],Title
-11:06,Haṭhapr.,Haṭha-pra-dīpikā [Cologne Addition],Title
-11:07,Il.,Iliad [Cologne Addition],Title
-11:08,Inscr.,Inscriptions [Cologne Addition],Title
-11:09,IndSt.,Indische Studien by A. Weber [Cologne Addition],Title
-11:10,Kap.,Kapila [Cologne Addition],Author
-11:11,Lokapr.,Loka-prakāśa [Cologne Addition],Title
-11:12,Nyāyas.,Nyāyasūtra [Cologne Addition],Title
-11:13,PañcavBr.,PañcaviṃśaBrāhmaṇa [Cologne Addition],Title
-11:13x,PBr.,PañcaviṃśaBrāhmaṇa [Cologne Addition],Title
-11:14,Śārṅg.,Śārṅgadhara [Cologne Addition],Author
-11:15,Śaṃk.,Śaṃkarācārya [Cologne Addition],Author
-11:17,Var.,Varāha-mihira [Cologne Addition],Author
-11:18,Veṇīs.,Veṇī-saṃhāra [Cologne Addition],Title
-11:18a,Veṇ.,Veṇī-saṃhāra [Cologne Addition],Title
-11:19,Vratapr.,Vrata-prakāśa [Cologne Addition],Title
-11:20,Ār.,Āraṇyaka [Cologne Addition],Literary category
-11:21,Dāyakramas.,Dāya-krama-saṃgraha [Cologne Addition],Title
-11:22,Dattakac.,Dattakacandrikā [Cologne Addition],Title
-11:23,Deśīn.,Deśī-nāma-mālā [Cologne Addition],Title
-11:24,Gaṇap.,GaṇaPāṭha [Cologne Addition],Title
-11:25,GobhGṛ.,Gobhila'sGṛhya-sūtra [Cologne Addition],Title
-11:26,Hastar.,Hasta-ratnāvalī [Cologne Addition],Title
-11:27,Jñātādh.,Jñātā-dharma-kathā [Cologne Addition],Title
-11:28,KāṭhAnukr.,Kāṭhaka anukramaṇī [Cologne Addition],Title
-11:29,Kusum.,Kusumāñjali [Cologne Addition],Title
-11:30,LāṭyŚr.,Lāṭyāyana-śrauta-sūtra [Cologne Addition],Title
-11:31,Mahāvy.,Mahā-vyutpatti [Cologne Addition],Title
-11:32,SV.Pariś.,SomaVeda.Pariśiṣṭa [Cologne Addition],Title
-11:33,Āśv.,Āśvalāyana [Cologne Addition],Author
-11:34,DrāhyŚr.,Drāhyāyana Śrautasūtra [Cologne Addition],Title
-11:35,Mit.,Mitākṣarā [Cologne Addition],Title
-11:36,Ratnak.,Ratnakoṣa [Cologne Addition],Title
-11:37,Śaṃkaracetov.,Śaṅkaracetovilāsacampū [Cologne Addition],Title
-11:38,Śrāddhac.,Śrāddhacintāmaṇi [Cologne Addition],Title
-11:39,Śūdradh.,Śūdradharma [Cologne Addition],Title
-11:40,SaṃnyUp.,Saṃnyāsopaniṣad [Cologne Addition],Title
-11:41,TAnukr.,TaittirīyaAnukramaṇikā [Cologne Addition],Title
-11:44,Udbh.,Udbhaṭa (Kāvyālaṅkārasārasaṅgraha) [Cologne Addition],Author
-11:45,Upal.,"Upalekha , name of a grammatical work connected with the prātiśākhyas [Cologne Addition]",Literary category
+11:01,Āpast.,Āpastamba,Author
+11:02,ĀpGṛ.,Āpastamba's Gṛhya-sūtra,Title
+11:03,AdhyR.,AdhyātmaRāmāyaṇa,Title
+11:04,Ait.,Aitareya,Title
+11:05,Cat.,Catalogue(s),Title
+11:06,Haṭhapr.,Haṭha-pra-dīpikā,Title
+11:07,Il.,Iliad,Title
+11:08,Inscr.,Inscriptions,Title
+11:09,IndSt.,Indische Studien by A. Weber,Title
+11:10,Kap.,Kapila,Author
+11:11,Lokapr.,Loka-prakāśa,Title
+11:12,Nyāyas.,Nyāyasūtra,Title
+11:13,PañcavBr.,PañcaviṃśaBrāhmaṇa,Title
+11:13x,PBr.,PañcaviṃśaBrāhmaṇa,Title
+11:14,Śārṅg.,Śārṅgadhara,Author
+11:15,Śaṃk.,Śaṃkarācārya,Author
+11:17,Var.,Varāha-mihira,Author
+11:18,Veṇīs.,Veṇī-saṃhāra,Title
+11:18a,Veṇ.,Veṇī-saṃhāra,Title
+11:19,Vratapr.,Vrata-prakāśa,Title
+11:20,Ār.,Āraṇyaka,Literary category
+11:21,Dāyakramas.,Dāya-krama-saṃgraha,Title
+11:22,Dattakac.,Dattakacandrikā,Title
+11:23,Deśīn.,Deśī-nāma-mālā,Title
+11:24,Gaṇap.,GaṇaPāṭha,Title
+11:25,GobhGṛ.,Gobhila'sGṛhya-sūtra,Title
+11:26,Hastar.,Hasta-ratnāvalī,Title
+11:27,Jñātādh.,Jñātā-dharma-kathā,Title
+11:28,KāṭhAnukr.,Kāṭhaka anukramaṇī,Title
+11:29,Kusum.,Kusumāñjali,Title
+11:30,LāṭyŚr.,Lāṭyāyana-śrauta-sūtra,Title
+11:31,Mahāvy.,Mahā-vyutpatti,Title
+11:32,SV.Pariś.,SomaVeda.Pariśiṣṭa,Title
+11:33,Āśv.,Āśvalāyana,Author
+11:34,DrāhyŚr.,Drāhyāyana Śrautasūtra,Title
+11:35,Mit.,Mitākṣarā,Title
+11:36,Ratnak.,Ratnakoṣa,Title
+11:37,Śaṃkaracetov.,Śaṅkaracetovilāsacampū,Title
+11:38,Śrāddhac.,Śrāddhacintāmaṇi,Title
+11:39,Śūdradh.,Śūdradharma,Title
+11:40,SaṃnyUp.,Saṃnyāsopaniṣad,Title
+11:41,TAnukr.,TaittirīyaAnukramaṇikā,Title
+11:44,Udbh.,Udbhaṭa (Kāvyālaṅkārasārasaṅgraha),Author
+11:45,Upal.,"Upalekha , name of a grammatical work connected with the prātiśākhyas",Literary category
 11:46,V.,Vārāhas,Literary category
-11:47,Vākyap.," Vākyapadīya, a grammatical treatise (by Bhartṛhari) [Cologne Addition]",Title
-11:48,Vaidyajīv.,Vaidyajīvana (of Lolimbarāja) [Cologne Addition],Title
-11:48x,Vaidyaj.,Vaidyajīvana (of Lolimbarāja) [Cologne Addition],Title
-11:49,Vallabh.,Vallabhadeva's Subhāshitāvali [Cologne Addition],Title
-11:50,Vidvanm.,Vidvanmodataraṅgiṇī [Cologne Addition],Title
-11:51,YajurV.,Yajur-veda [Cologne Addition],Literary category
-11:52,K.,Kielhorn [Cologne Addition],Author
-11:53,Śāṇḍ.,Śāṇḍilya-bhaktisūtra [Cologne Addition],Title
-11:54,Alaṃkārar.,Alaṃkāraratnākara [Cologne Addition],Title
-11:55?,Kār.,"Kārikās, grammatical commentaries on Pāṇini in metrical form, found in Patañjali´s Mahābhāṣyam [Cologne Addition]",Title
-11:56,Madanap.,Madanapārijāta [Cologne Addition],Title
-12:01,Abhirāmam.,Abhirāmamaṇi [Cologne Addition],Title
-12:02,Aśvav.,Aśvavaidyaka [Cologne Addition],Title
-12:03,Bhojacar.,Bhojacaritra [Cologne Addition],Title
-12:04,Jñānabhair.,Jñānabhairavītantra [Cologne Addition],Title
-12:05,Kṛṣṇakrīḍ.,Kṛṣṇakrīḍita [Cologne Addition],Title
-12:06,Paiṭh.,Paiṭhīnasismṛti [Cologne Addition],Title
-12:07,Rājamārt.,Rājamārtaṇḍa [Cologne Addition],Title
-12:08,Supadm.,Supadma [Cologne Addition],Title
-12:09,Udvāhat.,Udvāhatattva [Cologne Addition],Title
-12:10,Yavaneśv.,Yavaneśvara [Cologne Addition],Title
-12:11,Āgamapr.,Āgamaprāmāṇya [Cologne Addition],Title
-12:12,Ṛgvidh.,Ṛgvidhāna [Cologne Addition],Title
-12:13,Ṛktantr.,Ṛktantravyākaraṇa [Cologne Addition],Title
-12:14,M.M.,"Max Muller, Chips from a German Workshop [Cologne Addition]",Title
-12:15,Am.,Amarakośa [Cologne Addition],Title
-12:17,IndAnt.,Indian Antiquary [Cologne Addition],Title
-12:18,Aufrecht,Theodor Aufrecht [Cologne Addition],Author
-12:19,Bühler,Georg Bühler [Cologne Addition],Author
-12:20,Böhtl.,Otto von Böhtlingk [Cologne Addition],Author
-12:21,Beames,"John Beames (1837-1902), English civil servant and linguistics scholar [Cologne Addition]",Author
-12:22,Hunter,William Wilson Hunter (1840-1900)  [Cologne Addition],Author
-12:24,Bloomfield,Maurice Bloomfield [Cologne Addition],Author
-12:27,Buddhac.,Buddhacarita [Cologne Addition],Author
-12:28,Burnouf,Eugène Burnouf [Cologne Addition],Author
-12:29,Colebrooke,Henry Thomas Colebrooke [Cologne Addition],Author
-12:30,Cowell,Edward Byles Cowell [Cologne Addition],Author
-12:32,Goldst.,Theodor Goldstücker Sanskrit-English Dictionary [Cologne Addition],Author
-12:33,Gram.,"A Practical Grammar of the Sanskrit Language, Monier-Willilams [Cologne Addition]",Author
-12:34,Haughton,"Dictionary of Bengali-Sanskrit-English, Graves C. Haughton [Cologne Addition]",Author
+11:47,Vākyap.," Vākyapadīya, a grammatical treatise (by Bhartṛhari)",Title
+11:48,Vaidyajīv.,Vaidyajīvana (of Lolimbarāja),Title
+11:48x,Vaidyaj.,Vaidyajīvana (of Lolimbarāja),Title
+11:49,Vallabh.,Vallabhadeva's Subhāshitāvali,Title
+11:50,Vidvanm.,Vidvanmodataraṅgiṇī,Title
+11:51,YajurV.,Yajur-veda,Literary category
+11:52,K.,Kielhorn,Author
+11:53,Śāṇḍ.,Śāṇḍilya-bhaktisūtra,Title
+11:54,Alaṃkārar.,Alaṃkāraratnākara,Title
+11:55?,Kār.,"Kārikās, grammatical commentaries on Pāṇini in metrical form, found in Patañjali´s Mahābhāṣyam",Title
+11:56,Madanap.,Madanapārijāta,Title
+12:01,Abhirāmam.,Abhirāmamaṇi,Title
+12:02,Aśvav.,Aśvavaidyaka,Title
+12:03,Bhojacar.,Bhojacaritra,Title
+12:04,Jñānabhair.,Jñānabhairavītantra,Title
+12:05,Kṛṣṇakrīḍ.,Kṛṣṇakrīḍita,Title
+12:06,Paiṭh.,Paiṭhīnasismṛti,Title
+12:07,Rājamārt.,Rājamārtaṇḍa,Title
+12:08,Supadm.,Supadma,Title
+12:09,Udvāhat.,Udvāhatattva,Title
+12:10,Yavaneśv.,Yavaneśvara,Title
+12:11,Āgamapr.,Āgamaprāmāṇya,Title
+12:12,Ṛgvidh.,Ṛgvidhāna,Title
+12:13,Ṛktantr.,Ṛktantravyākaraṇa,Title
+12:14,M.M.,"Max Muller, Chips from a German Workshop",Title
+12:15,Am.,Amarakośa,Title
+12:17,IndAnt.,Indian Antiquary,Title
+12:18,Aufrecht,Theodor Aufrecht,Author
+12:19,Bühler,Georg Bühler,Author
+12:20,Böhtl.,Otto von Böhtlingk,Author
+12:21,Beames,"John Beames (1837-1902), English civil servant and linguistics scholar",Author
+12:22,Hunter,William Wilson Hunter (1840-1900) ,Author
+12:24,Bloomfield,Maurice Bloomfield,Author
+12:27,Buddhac.,Buddhacarita,Author
+12:28,Burnouf,Eugène Burnouf,Author
+12:29,Colebrooke,Henry Thomas Colebrooke,Author
+12:30,Cowell,Edward Byles Cowell,Author
+12:32,Goldst.,Theodor Goldstücker Sanskrit-English Dictionary,Author
+12:33,Gram.,"A Practical Grammar of the Sanskrit Language, Monier-Willilams",Author
+12:34,Haughton,"Dictionary of Bengali-Sanskrit-English, Graves C. Haughton",Author
 12:35,Hpar.,Hemacandra's Pariśiṣṭaparvan,Title
 12:36,JBr.,Jaiminīya-brāhmaṇa,Title
-12:37,Kosegarten,Johann Gottfried Ludwig Kosegarten [Cologne Addition],Author
-12:38,Luders,Heinrich Lüders [Cologne Addition],Author
-12:39,Ludwig,"Alfred Ludwig, Der Rigveda (1876) [Cologne Addition]",Author
-12:40,Muir,John Muir [Cologne Addition],Author
-12:41,Pischel,Richard Pischel [Cologne Addition],Author
-12.42,Prav.,Pravarādhyāya [Cologne Addition],Title
-12:45,Schlegel,Friedrich Schlegel [Cologne Addition],Author
-12:46,VĀJ.,Vājasaneyi saṃhitā [Cologne Addition],Author
-12:47,Vaidyakaparibh.,Vaidyakaparibhāṣā [Cologne Addition],Title
-12:48,Weber,Albrecht Weber [Cologne Addition],Author
-12:49,Whitney's Gr.,Whitney Sanskrit Grammar [Cologne Addition],Title
-12:49a,Gr.,"Practical Grammar Of The Sanskrit Language  Ed. 4, Monier-Williams, 1877 [Cologne Addition]",Title
-12:50,Yog.,Yogasūtra [Cologne Addition],Title
-12:51,Windisch,Ernst Wilhelm Oskar Windisch [Cologne Addition],Author
-12:52,Wh. and Ro.,"Atharva Veda Sanhita, Volume 1, by  R.Roth and W.D. Whitney, 1856 [Cologne Addition]",Title
-12.53,Maṇḍ.,Maṇḍala of Ṛg-veda [Cologne Addition],Title
-90.01,AV.Anukr.,Atharvaveda Anukramaṇikā [Cologne Addition],Title
-90.03,Aparāj.,Aparājitāstotra [Cologne Addition],Title
-90.04,Bc.,Buddhacartitam [Cologne Addition],Title
-90.05,Bhart.,Bhartṛhari [Cologne Addition],Title
-90.06,Bhav.,Bhavabhūti (in Uttararāmacaritam) [Cologne Addition],Title
-90.07,Bhavab.,Bhavabhūti [Cologne Addition],Title
-90.08,Bhavabh.,Bhavabhūti [Cologne Addition],Title
-90.09,Bhavadev.,Bhavadeva (in Smṛticandra?) [Cologne Addition],Title
-90.10,Bhojac.,Bhojacaritam [Cologne Addition],Title
-90.11,Bhāgav.,"Ujjvaladatta’s Bhāgavṛtti, a commentary on Uṇādisūtra [Cologne Addition]",Title
-90.12,Bhāradv.,Bhāradvāja [Cologne Addition],Title
-90.13,Bk.,Bhaṭṭikāvyam [Cologne Addition],Title
-90.14,Burnell,Burnell's Catalogue ? [Cologne Addition],Title
-90.15,Bālabodh.,Bālabodhanī] [Cologne Addition],Title
-90.17,BṛhaddhP.,BṛhaddharmaPurāṇa [Cologne Addition],Title
-90.18,Bṛhas.,"Bṛhaspati (an ancient authority, often quoted in Dharmaśāstra treatises) [Cologne Addition]",Title
-90.19,Bṛhasp.,"Bṛhaspati (an ancient authority, often quoted in Dharmaśāstra treatises) [Cologne Addition]",Title
-90.20,BṛĀr.,Bṛhadāraṇyakopaniṣad [Cologne Addition],Title
-90.21,Caitany.,Caitanyacandrodaya ? [Cologne Addition],Title
-90.22,Camp.,Campakaśreṣṭhikathānakam [Cologne Addition],Title
-90.23,Caur.,Caurapañcāśikā [Cologne Addition],Title
-90.25,Damayantīk.,"Damayantī-kathā, Nalacampū [Cologne Addition]",Title
-90.26,DharmaP.,DharmaPurāṇa [Cologne Addition],Title
-90.27,Dhāyabh.,Dāyabhāga [Cologne Addition],Title
-90.28,Div.,Divyāvadāna [Cologne Addition],Title
-90.30,Durgād.,"Durgādāsa, a commentator on Vopadeva’s Kavikalpadruma [Cologne Addition]",Author
-90.31,Dāy.,Dāyabhāga [Cologne Addition],Title
-90.32,Garg.,"Garga, the composer of Gargasaṃhitā (an ancient and almost lost treatise), quoted profusely in Bhaṭṭotpala's commentary on Varāhamihira's BṛhatSaṃhitā [Cologne Addition]",Title
-90.33,Gauḍap.,"Gauḍapāda, the first teacher of Advaita Vedānta; he authored the Gauḍāpādīyakārikā, a commentary on Māṇḍūkyopaniṣad [Cologne Addition]",Author
-90.34,Gaṅgeś.,Gaṅgeśopādhyāya [Cologne Addition],Title
-90.35,Gaṇ.,Gaṇaratnamahodadhi [Cologne Addition],Title
-90.36,Govardh.,Govardhana Saptaśatī [Cologne Addition],Title
-90.37,Halāy.,"Halāyudha,  a commentator on Chandaḥsūtra (of Piṅgala) [Cologne Addition]",Author
-90.39,HPar.,Hemacandra's Pariśiṣṭaparvan [Cologne Addition],Title
-90.40,HYogay.,Hemacandra’s Yogayātrā [Cologne Addition],Title
-90.42,Jīvad.,Jīvadeva’s Gotrapravaranirṇaya [Cologne Addition],Title
-90.43,Karmavip.,Karmavipākasaṃhitā [Cologne Addition],Title
-90.44,Kautuk.,Kautukaratnākara [Cologne Addition],Title
-90.45,Kavikalpadr.,Kavikalpadruma [Cologne Addition],Title
-90.47,Kriṭṭanim.,Kuṭṭanīmatam [Cologne Addition],Title
-90.48,Kulasadbh.,Tārāsahasranāmastotra in Kulasadbhāva (quoted in SKD.) [Cologne Addition],Title
-90.49,Kālam.,Kālamādhavīyam [Cologne Addition],Title
-90.50,KālikāP.,KālikāPurāṇa [Cologne Addition],Title
-90.51,Kāp.,Kapila’s Sāṅkhyasūtra [Cologne Addition],Title
-90.52,KātyDh.,Kātyāyana Dharmasūtra [Cologne Addition],Title
-90.54,Kṛṣṇaj.,"Über die Kṛishṇajanmāshṭamī (Kṛishṇa's Geburtsfest), 1867, by Albrecht Weber (English translation: 1874) [Cologne Addition]",Title
-90.56,Mahāv.,Mahāvīracaritam [Cologne Addition],Title
-90.57,Medhāt.,"Medhātithi, a commentator on Manusmṛti [Cologne Addition]",Author
-90.58,MnGṛh.,Mānava Gṛhyasūtra [Cologne Addition],Title
-90.59,Muhūrtam.,Muhūrtamārtāṇḍa [Cologne Addition],Title
-90.60,Mādh.,Mādhavācārya (Gotrapravaranirṇaya) [Cologne Addition],Title
-90.64,Nītir.,Nītiratna (Haeberlin’s Kāvyasaṃgraha) [Cologne Addition],Title
-90.68,ĀśvGṛ.Pariś.,ĀśvalāyanaGṛhyasūtraPariśiṣṭa [Cologne Addition],Title
-90.72,Pras.,Prasannarāghava [Cologne Addition],Title
-90.74,Prauḍh.,Prauḍhamanorama [Cologne Addition],Title
-90.75,Praśnot.,Praśnottararatnamālā [Cologne Addition],Title
-90.76,PS.,Paiṭhīnasi-Sūtra (in Paippalāda Saṃhitā) ? [Cologne Addition],Title
-90.77,PurS.,Purāṇa-sarvasva [Cologne Addition],Title
-90.79,Pār.,Pāraskara-gṛhya-sūtra [Cologne Addition],Title
-90.80,Pārv.,Pārvatīpariṇayanāṭakam [Cologne Addition],Title
-90.82,Ratim.,Ratimañjarī [Cologne Addition],Title
-90.83,RLM.,"The Lalita-vistara: Memoirs of the Early Life of Sakya Sinha, 1877, by RājendraLālaMitra [Cologne Addition]",Title
-90.85,Rājan.,Rājanighaṇṭu [Cologne Addition],Title
-90.86,Rājyat.,Rājataraṃgiṇī ? [Cologne Addition],Title
-90.87,RāmRās.,RāmaRāsa(līlā) (in Bṛhatkośalakhaṇḍa) ? [Cologne Addition],Title
-90.88,Saddh.,SaddharmaPuṇḍarīka [Cologne Addition],Title
-90.90,Smṛtyarth.,Smṛtyarthasāgara [Cologne Addition],Title
-90.91,Sud.,"Sudarśanācārya, a commentator on Āpastamba Gṛhyasūtra [Cologne Addition]",Author
-90.92,SvayambhūP.,Svayambhū Purāṇa [Cologne Addition],Title
-90.93,Sūktik.,Sūktikaṇāmṛta [Cologne Addition],Title
-90.95,Sārasam.,Sārasamuccaya [Cologne Addition],Title
-90.96,Sāṃkhyas.,Sāṃkhyasūtra [Cologne Addition],Title
-90.97,Tantr.,Tantra literature [Cologne Addition],Literary category
-90.98,Tattvak.,Tattvakaumudī [Cologne Addition],Title
-90.99,Utp.,Bhaṭṭotpala [Cologne Addition],Title
-91.00,Vaidyav.,Vaidyavallabha [Cologne Addition],Title
-91.03,VBṛS.,Varāhamihira's BṛhatSaṃhitā [Cologne Addition],Title
-91.04,VCāṇ.,Vṛddha Cāṇakya [Cologne Addition],Title
-91.05,Vedāntak.,Vedāntakārikā [Cologne Addition],Title
-91.06,Vivād.,Vivādaratnākara [Cologne Addition],Title
-91.07,Viśv.,Viśvāmitra gotra [Cologne Addition],Title
-91.08,Vratar.,Vrataratnākara [Cologne Addition],Title
-91.09,VYogay.,Varāhamihira's Yogayātrā [Cologne Addition],Title
-91.10,Vṛttaratn.,Vṛttaratnākara [Cologne Addition],Title
-91.11,Yogaś.,Yogaśāstra [Cologne Addition],Title
-91.12,ĀdityaP.,ĀdityaPurāṇa [Cologne Addition],Title
-91.13,ŚB.,Śatapatha-brāhmaṇa ? [Cologne Addition],Title
-91.14,Śivarātrivr.,Śivarātrivratakathā [Cologne Addition],Title
-91.15,Śrāddhat.,Śrāddhatattva (of Raghunandana) [Cologne Addition],Title
-92.01,"Wilson, Hindu Theatre","Select Specimens of the Theatre of the Hindus, H.H. Wilson [Cologne Addition]",Title
-92.03,ŚāntiP.,"ŚāntiParva (Mahābhārata, section xii) [Cologne Addition]",Title
-92.04,"Kielhorn, Mahābhāṣya",Patañjali’s Mahābhāṣya (Kielhorn's ed.) [Cologne Addition],Title
-92.05,"Lassen, IA.",Lassen's Indische Alterthumskunde [Cologne Addition],Title
-92.06,ChandS.,Chandaḥsūtra (of Piṅgala) [Cologne Addition],Title
-92.07,Jyotirv.,Jyotirvidābharaṇa [Cologne Addition],Title
-92.08,Gop.,Gopathabrāhmaṇa [Cologne Addition],Title
-92.09,Śivak.,Śivakośa [Cologne Addition],Title
-92.10,Nidān.," Nidānasūtra, edition of Albrecht Weber (quoted in various issues of Indische Studien) [Cologne Addition]",Title
-92.11,BP.,BhāgavataPurāṇa [Cologne Addition],Title
-92.13,VāsiṣṭhalP.,Vasishthalainga Upapurāṇa [Cologne Addition],Title
-92.14,Vardhamānac,Vardhamānacaritam [Cologne Addition],Title
-92.15,Sūtrakṛt.,Sūtrakṛtāṅgavṛtti (of Śīlācārya) [Cologne Addition],Title
-92.16,GārUp.,Gāruḍopaniṣad [Cologne Addition],Title
-92.17,ŚulbPariś.,Śulbasūtra Pariśiṣṭa [Cologne Addition],Title
-92.19,HanRāmUp.,Hanumadukta Ramopanishad [Cologne Addition],Title
-92.20,Kath.,Kathāsaritsāgara [Cologne Addition],Title
-92.21,ĀpDh.,Āpastamba Dharmasūtra [Cologne Addition],Title
-92.23,Manu.,Manusmṛti [Cologne Addition],Title
-92.24,Ind. Ant.,Indian Antiquary [Cologne Addition],Title
-92.27,Śivas.,Śivasūtra [Cologne Addition],Title
-92.28,Rām.,Rāmāyaṇa [Cologne Addition],Title
-93.01,Śak. (Pi.),Śakuntalā (Pischel’s ed.) [Cologne Addition],Title
-93.02,"Zachariae, Beiträge","Zachariae, Beiträge Zur Indischen Lexicographie [Cologne Addition]",Title
-93.03,"Kaegi, Der Ṛgveda","Adolf Kaegi, Der RigVeda: die älteste literature der Inder [Cologne Addition]",Title
-93.03a,"Kaegi, RV.","Adolf Kaegi, Der RigVeda: die älteste literature der Inder [Cologne Addition]",Title
-93.04,"Muir, S. T.",Muir's Original Sanskrit Texts (5 volumes) [Cologne Addition],Title
-93.06,"Ludwig, RV.","Alfred Ludwig, Der RigVeda [Cologne Addition]",Title
-93.07,Pat. (K.),Patañjali’s Mahābhāṣya (Kielhorn's ed.) [Cologne Addition],Title
-93.08,RV. AnuvAnukr.,RigVeda Anuvāka Anukāmaṇikā [Cologne Addition],Title
-93.09,Uttamac.²,Uttamacaritra in about 700 verses [Cologne Addition],Title
-93.10,R. (B.),Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.10a,R. (B),Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.11,R. (ed. Bomb.),Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.11a,R. ed. Bomb.,Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.11b,R. B.,Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.12,R. [B.],Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.12a,R. [B],Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.13,YajurV. Parīś.,YajurVeda Parīśiṣṭha [Cologne Addition],Title
-93.14,R. G.,Rāmāyaṇa (Gorresio edition) [Cologne Addition],Title
-93.14a,R. ed. Gorresio,Rāmāyaṇa (Gorresio edition) [Cologne Addition],Title
-93.14b,R. (G),Rāmāyaṇa (Gorresio edition) [Cologne Addition],Title
-93.14c,R. [G],Rāmāyaṇa (Gorresio edition) [Cologne Addition],Title
-93.15,AV. Paipp.,AtharvaVeda Saṃhitā Paippalāda-Recension [Cologne Addition],Title
-93.16,Śak. (Chézy),Śakuntalā (Chézy’s edition) [Cologne Addition],Title
-93.17,Pañc. B.,"Pañcatantra, Bombay edition [Cologne Addition]",Title
-93.18,SV.Anukr.,SāmaVeda Anukāmaṇikā [Cologne Addition],Title
-93.19,ĀpastPray.,Āpastamba Prayoga [Cologne Addition],Title
-93.20,"AV., SBE.","AtharvaVeda, Sacred Books of the East series [Cologne Addition]",Title
-93.21,Muir's Sanskrit Texts,Muir's Original Sanskrit Texts (5 volumes) [Cologne Addition],Title
-93.22,ĀpGṛh.,Āpastamba Gṛhyasūtra [Cologne Addition],Title
-93.24,Anir.,"Aniruddha, author of commentary on Sāṃkhyasūtra [Cologne Addition]",Author
-93.23,Saṃgīta-darpaṇa,"Saṃgītadarpaṇa, a treatise on Musicology [Cologne Addition]",Title
-93.30,Śukasaṃdeśa,Śukasaṃdeśa [Cologne Addition],Title
-93.31,Boehtlingk's edition,Pāṇini's grammatik by Otto von Böhtlingk [Cologne Addition],Title
-93.32,AgniP.,Agni-purāṇa [Cologne Addition],Title
-93.33,Hariv. (Langlois' transl.),"Harivansa, ou Histoire de la Famille de Hari, by S. A. Langlois, 1834 [Cologne Addition]",Title
-93.34,R. ed. Bombay,Rāmāyaṇa (Bombay edition) [Cologne Addition],Title
-93.35,BhP. (ed. Burnouf),"Bhāgavata-purāṇa, by Eugène Burnouf, 1844 [Cologne Addition]",Title
-93.36,Garga,"Garga, the composer of Gargasaṃhitā [Cologne Addition]",Author
-93.37,Pañc. [B.],"Pañcatantra, Bombay edition [Cologne Addition]",Title
-93.37a,Pañc. (B),"Pañcatantra, Bombay edition [Cologne Addition]",Title
-93.38a,BhP. (B),"Bhāgavata-purāṇa, Bombay edition [Cologne Addition]",Title
-93.39,Hunter's Gazetteer,"The Imperial Gazetteer of India, by William Wilson Hunter, 1869-1881 [Cologne Addition]",Title
-93.40,Almagest,astronomical manual written about 150 CE by Ptolemy [Cologne Addition],Title
-93.41,Khaṇḍa-praśasti,"Khaṇḍapraśasti, name of a poem attributed to Hanūmat [Cologne Addition]",Title
-93.42,Māghamāhātmya,name of a chapter in the Padma-purāṇa [Cologne Addition],subtitle
-93.43,Śivasūtra,"ŚivaSūtra, the first 14 Sūtras of Pāṇini's grammar [Cologne Addition]",subtitle
-93.44,R. (ed. Gorr.),Rāmāyaṇa (Gorresio edition) [Cologne Addition],Title
-93.45,SkandaP. Rev.,SkandaPurāṇa Revākhaṇḍa [Cologne Addition],Title
-99.98,ib.,in the same place [Cologne Addition],Title
+12:37,Kosegarten,Johann Gottfried Ludwig Kosegarten,Author
+12:38,Luders,Heinrich Lüders,Author
+12:39,Ludwig,"Alfred Ludwig, Der Rigveda (1876)",Author
+12:40,Muir,John Muir,Author
+12:41,Pischel,Richard Pischel,Author
+12.42,Prav.,Pravarādhyāya,Title
+12:45,Schlegel,Friedrich Schlegel,Author
+12:46,VĀJ.,Vājasaneyi saṃhitā,Author
+12:47,Vaidyakaparibh.,Vaidyakaparibhāṣā,Title
+12:48,Weber,Albrecht Weber,Author
+12:49,Whitney's Gr.,Whitney Sanskrit Grammar,Title
+12:49a,Gr.,"Practical Grammar Of The Sanskrit Language  Ed. 4, Monier-Williams, 1877",Title
+12:50,Yog.,Yogasūtra,Title
+12:51,Windisch,Ernst Wilhelm Oskar Windisch,Author
+12:52,Wh. and Ro.,"Atharva Veda Sanhita, Volume 1, by  R.Roth and W.D. Whitney, 1856",Title
+12.53,Maṇḍ.,Maṇḍala of Ṛg-veda,Title
+90.01,AV.Anukr.,Atharvaveda Anukramaṇikā,Title
+90.03,Aparāj.,Aparājitāstotra,Title
+90.04,Bc.,Buddhacartitam,Title
+90.05,Bhart.,Bhartṛhari,Title
+90.06,Bhav.,Bhavabhūti (in Uttararāmacaritam),Title
+90.07,Bhavab.,Bhavabhūti,Title
+90.08,Bhavabh.,Bhavabhūti,Title
+90.09,Bhavadev.,Bhavadeva (in Smṛticandra?),Title
+90.10,Bhojac.,Bhojacaritam,Title
+90.11,Bhāgav.,"Ujjvaladatta’s Bhāgavṛtti, a commentary on Uṇādisūtra",Title
+90.12,Bhāradv.,Bhāradvāja,Title
+90.13,Bk.,Bhaṭṭikāvyam,Title
+90.14,Burnell,Burnell's Catalogue ?,Title
+90.15,Bālabodh.,Bālabodhanī],Title
+90.17,BṛhaddhP.,BṛhaddharmaPurāṇa,Title
+90.18,Bṛhas.,"Bṛhaspati (an ancient authority, often quoted in Dharmaśāstra treatises)",Title
+90.19,Bṛhasp.,"Bṛhaspati (an ancient authority, often quoted in Dharmaśāstra treatises)",Title
+90.20,BṛĀr.,Bṛhadāraṇyakopaniṣad,Title
+90.21,Caitany.,Caitanyacandrodaya ?,Title
+90.22,Camp.,Campakaśreṣṭhikathānakam,Title
+90.23,Caur.,Caurapañcāśikā,Title
+90.25,Damayantīk.,"Damayantī-kathā, Nalacampū",Title
+90.26,DharmaP.,DharmaPurāṇa,Title
+90.27,Dhāyabh.,Dāyabhāga,Title
+90.28,Div.,Divyāvadāna,Title
+90.30,Durgād.,"Durgādāsa, a commentator on Vopadeva’s Kavikalpadruma",Author
+90.31,Dāy.,Dāyabhāga,Title
+90.32,Garg.,"Garga, the composer of Gargasaṃhitā (an ancient and almost lost treatise), quoted profusely in Bhaṭṭotpala's commentary on Varāhamihira's BṛhatSaṃhitā",Title
+90.33,Gauḍap.,"Gauḍapāda, the first teacher of Advaita Vedānta; he authored the Gauḍāpādīyakārikā, a commentary on Māṇḍūkyopaniṣad",Author
+90.34,Gaṅgeś.,Gaṅgeśopādhyāya,Title
+90.35,Gaṇ.,Gaṇaratnamahodadhi,Title
+90.36,Govardh.,Govardhana Saptaśatī,Title
+90.37,Halāy.,"Halāyudha,  a commentator on Chandaḥsūtra (of Piṅgala)",Author
+90.39,HPar.,Hemacandra's Pariśiṣṭaparvan,Title
+90.40,HYogay.,Hemacandra’s Yogayātrā,Title
+90.42,Jīvad.,Jīvadeva’s Gotrapravaranirṇaya,Title
+90.43,Karmavip.,Karmavipākasaṃhitā,Title
+90.44,Kautuk.,Kautukaratnākara,Title
+90.45,Kavikalpadr.,Kavikalpadruma,Title
+90.47,Kriṭṭanim.,Kuṭṭanīmatam,Title
+90.48,Kulasadbh.,Tārāsahasranāmastotra in Kulasadbhāva (quoted in SKD.),Title
+90.49,Kālam.,Kālamādhavīyam,Title
+90.50,KālikāP.,KālikāPurāṇa,Title
+90.51,Kāp.,Kapila’s Sāṅkhyasūtra,Title
+90.52,KātyDh.,Kātyāyana Dharmasūtra,Title
+90.54,Kṛṣṇaj.,"Über die Kṛishṇajanmāshṭamī (Kṛishṇa's Geburtsfest), 1867, by Albrecht Weber (English translation: 1874)",Title
+90.56,Mahāv.,Mahāvīracaritam,Title
+90.57,Medhāt.,"Medhātithi, a commentator on Manusmṛti",Author
+90.58,MnGṛh.,Mānava Gṛhyasūtra,Title
+90.59,Muhūrtam.,Muhūrtamārtāṇḍa,Title
+90.60,Mādh.,Mādhavācārya (Gotrapravaranirṇaya),Title
+90.64,Nītir.,Nītiratna (Haeberlin’s Kāvyasaṃgraha),Title
+90.68,ĀśvGṛ.Pariś.,ĀśvalāyanaGṛhyasūtraPariśiṣṭa,Title
+90.72,Pras.,Prasannarāghava,Title
+90.74,Prauḍh.,Prauḍhamanorama,Title
+90.75,Praśnot.,Praśnottararatnamālā,Title
+90.76,PS.,Paiṭhīnasi-Sūtra (in Paippalāda Saṃhitā) ?,Title
+90.77,PurS.,Purāṇa-sarvasva,Title
+90.79,Pār.,Pāraskara-gṛhya-sūtra,Title
+90.80,Pārv.,Pārvatīpariṇayanāṭakam,Title
+90.82,Ratim.,Ratimañjarī,Title
+90.83,RLM.,"The Lalita-vistara: Memoirs of the Early Life of Sakya Sinha, 1877, by RājendraLālaMitra",Title
+90.85,Rājan.,Rājanighaṇṭu,Title
+90.86,Rājyat.,Rājataraṃgiṇī ?,Title
+90.87,RāmRās.,RāmaRāsa(līlā) (in Bṛhatkośalakhaṇḍa) ?,Title
+90.88,Saddh.,SaddharmaPuṇḍarīka,Title
+90.90,Smṛtyarth.,Smṛtyarthasāgara,Title
+90.91,Sud.,"Sudarśanācārya, a commentator on Āpastamba Gṛhyasūtra",Author
+90.92,SvayambhūP.,Svayambhū Purāṇa,Title
+90.93,Sūktik.,Sūktikaṇāmṛta,Title
+90.95,Sārasam.,Sārasamuccaya,Title
+90.96,Sāṃkhyas.,Sāṃkhyasūtra,Title
+90.97,Tantr.,Tantra literature,Literary category
+90.98,Tattvak.,Tattvakaumudī,Title
+90.99,Utp.,Bhaṭṭotpala,Title
+91.00,Vaidyav.,Vaidyavallabha,Title
+91.03,VBṛS.,Varāhamihira's BṛhatSaṃhitā,Title
+91.04,VCāṇ.,Vṛddha Cāṇakya,Title
+91.05,Vedāntak.,Vedāntakārikā,Title
+91.06,Vivād.,Vivādaratnākara,Title
+91.07,Viśv.,Viśvāmitra gotra,Title
+91.08,Vratar.,Vrataratnākara,Title
+91.09,VYogay.,Varāhamihira's Yogayātrā,Title
+91.10,Vṛttaratn.,Vṛttaratnākara,Title
+91.11,Yogaś.,Yogaśāstra,Title
+91.12,ĀdityaP.,ĀdityaPurāṇa,Title
+91.13,ŚB.,Śatapatha-brāhmaṇa ?,Title
+91.14,Śivarātrivr.,Śivarātrivratakathā,Title
+91.15,Śrāddhat.,Śrāddhatattva (of Raghunandana),Title
+92.01,"Wilson, Hindu Theatre","Select Specimens of the Theatre of the Hindus, H.H. Wilson",Title
+92.03,ŚāntiP.,"ŚāntiParva (Mahābhārata, section xii)",Title
+92.04,"Kielhorn, Mahābhāṣya",Patañjali’s Mahābhāṣya (Kielhorn's ed.),Title
+92.05,"Lassen, IA.",Lassen's Indische Alterthumskunde,Title
+92.06,ChandS.,Chandaḥsūtra (of Piṅgala),Title
+92.07,Jyotirv.,Jyotirvidābharaṇa,Title
+92.08,Gop.,Gopathabrāhmaṇa,Title
+92.09,Śivak.,Śivakośa,Title
+92.10,Nidān.," Nidānasūtra, edition of Albrecht Weber (quoted in various issues of Indische Studien)",Title
+92.11,BP.,BhāgavataPurāṇa,Title
+92.13,VāsiṣṭhalP.,Vasishthalainga Upapurāṇa,Title
+92.14,Vardhamānac,Vardhamānacaritam,Title
+92.15,Sūtrakṛt.,Sūtrakṛtāṅgavṛtti (of Śīlācārya),Title
+92.16,GārUp.,Gāruḍopaniṣad,Title
+92.17,ŚulbPariś.,Śulbasūtra Pariśiṣṭa,Title
+92.19,HanRāmUp.,Hanumadukta Ramopanishad,Title
+92.20,Kath.,Kathāsaritsāgara,Title
+92.21,ĀpDh.,Āpastamba Dharmasūtra,Title
+92.23,Manu.,Manusmṛti,Title
+92.24,Ind. Ant.,Indian Antiquary,Title
+92.27,Śivas.,Śivasūtra,Title
+92.28,Rām.,Rāmāyaṇa,Title
+93.01,Śak. (Pi.),Śakuntalā (Pischel’s ed.),Title
+93.02,"Zachariae, Beiträge","Zachariae, Beiträge Zur Indischen Lexicographie",Title
+93.03,"Kaegi, Der Ṛgveda","Adolf Kaegi, Der RigVeda: die älteste literature der Inder",Title
+93.03a,"Kaegi, RV.","Adolf Kaegi, Der RigVeda: die älteste literature der Inder",Title
+93.04,"Muir, S. T.",Muir's Original Sanskrit Texts (5 volumes),Title
+93.06,"Ludwig, RV.","Alfred Ludwig, Der RigVeda",Title
+93.07,Pat. (K.),Patañjali’s Mahābhāṣya (Kielhorn's ed.),Title
+93.08,RV. AnuvAnukr.,RigVeda Anuvāka Anukāmaṇikā,Title
+93.09,Uttamac.²,Uttamacaritra in about 700 verses,Title
+93.10,R. (B.),Rāmāyaṇa (Bombay edition),Title
+93.10a,R. (B),Rāmāyaṇa (Bombay edition),Title
+93.11,R. (ed. Bomb.),Rāmāyaṇa (Bombay edition),Title
+93.11a,R. ed. Bomb.,Rāmāyaṇa (Bombay edition),Title
+93.11b,R. B.,Rāmāyaṇa (Bombay edition),Title
+93.12,R. [B.],Rāmāyaṇa (Bombay edition),Title
+93.12a,R. [B],Rāmāyaṇa (Bombay edition),Title
+93.13,YajurV. Parīś.,YajurVeda Parīśiṣṭha,Title
+93.14,R. G.,Rāmāyaṇa (Gorresio edition),Title
+93.14a,R. ed. Gorresio,Rāmāyaṇa (Gorresio edition),Title
+93.14b,R. (G),Rāmāyaṇa (Gorresio edition),Title
+93.14c,R. [G],Rāmāyaṇa (Gorresio edition),Title
+93.15,AV. Paipp.,AtharvaVeda Saṃhitā Paippalāda-Recension,Title
+93.16,Śak. (Chézy),Śakuntalā (Chézy’s edition),Title
+93.17,Pañc. B.,"Pañcatantra, Bombay edition",Title
+93.18,SV.Anukr.,SāmaVeda Anukāmaṇikā,Title
+93.19,ĀpastPray.,Āpastamba Prayoga,Title
+93.20,"AV., SBE.","AtharvaVeda, Sacred Books of the East series",Title
+93.21,Muir's Sanskrit Texts,Muir's Original Sanskrit Texts (5 volumes),Title
+93.22,ĀpGṛh.,Āpastamba Gṛhyasūtra,Title
+93.24,Anir.,"Aniruddha, author of commentary on Sāṃkhyasūtra",Author
+93.23,Saṃgīta-darpaṇa,"Saṃgītadarpaṇa, a treatise on Musicology",Title
+93.30,Śukasaṃdeśa,Śukasaṃdeśa,Title
+93.31,Boehtlingk's edition,Pāṇini's grammatik by Otto von Böhtlingk,Title
+93.32,AgniP.,Agni-purāṇa,Title
+93.33,Hariv. (Langlois' transl.),"Harivansa, ou Histoire de la Famille de Hari, by S. A. Langlois, 1834",Title
+93.34,R. ed. Bombay,Rāmāyaṇa (Bombay edition),Title
+93.35,BhP. (ed. Burnouf),"Bhāgavata-purāṇa, by Eugène Burnouf, 1844",Title
+93.36,Garga,"Garga, the composer of Gargasaṃhitā",Author
+93.37,Pañc. [B.],"Pañcatantra, Bombay edition",Title
+93.37a,Pañc. (B),"Pañcatantra, Bombay edition",Title
+93.38a,BhP. (B),"Bhāgavata-purāṇa, Bombay edition",Title
+93.39,Hunter's Gazetteer,"The Imperial Gazetteer of India, by William Wilson Hunter, 1869-1881",Title
+93.40,Almagest,astronomical manual written about 150 CE by Ptolemy,Title
+93.41,Khaṇḍa-praśasti,"Khaṇḍapraśasti, name of a poem attributed to Hanūmat",Title
+93.42,Māghamāhātmya,name of a chapter in the Padma-purāṇa,subtitle
+93.43,Śivasūtra,"ŚivaSūtra, the first 14 Sūtras of Pāṇini's grammar",subtitle
+93.44,R. (ed. Gorr.),Rāmāyaṇa (Gorresio edition),Title
+93.45,SkandaP. Rev.,SkandaPurāṇa Revākhaṇḍa,Title
+

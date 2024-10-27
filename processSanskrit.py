@@ -1,19 +1,38 @@
 import indic_transliteration
-
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
-
 import ast
 from detectTransliteration import detect
-
 import logging
+import json
+import sqlite3
+import re
+import pandas as pd
+from sanskrit_parser import Parser
+from tabulate import tabulate
+import regex
+from itertools import groupby
+import unicodedata
+from typing import List, Dict, Any
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
 
-logging.basicConfig(level=logging.DEBUG)
-logging.debug('This is a debug message')
-logging.info('This is an informational message')
-logging.warning('This is a warning message')
-logging.error('This is an error message')
-logging.critical('This is a critical message')
+## If heroku postgres
+#load_dotenv()
+#DATABASE_URL = os.environ['DATABASE_URL']
+#if DATABASE_URL.startswith("postgres://"):
+    #DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+#if local postgres
+
+DATABASE_URL = "postgresql+psycopg2://postgres:again@localhost:5432/sanskritmagicdb"
+#DATABASE_URL = os.getenv("DATABASE_URL")
+#DATABASE_URL = os.getenv("postgres://u5o7c326q19pvp:pdb08c4f74fd1c63df61a559fc3d7a261ac3c65a24df6cfd06fbb2ad511143f0d@c3cj4hehegopde.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61ijmaljbh829")
+
+
+logging.basicConfig(level=logging.CRITICAL)
 
 ##to get all the available schemes
 ##indic_transliteration.sanscript.SCHEMES.keys()
@@ -49,9 +68,12 @@ def transliterateAnything(text, transliteration_scheme):
 
 ##qui la lista degli encoding è lowercase
 
-from sanskrit_parser import Parser
 
-parser = Parser(output_encoding='iast')
+
+
+
+
+parser = Parser(output_encoding='slp1')
 
 def sandhi_splitter(text_to_split):
     try:
@@ -68,7 +90,6 @@ def sandhi_splitter(text_to_split):
         return text_to_split.split()
     
 
-import pandas as pd
 
 stopwords = pd.read_csv('resources/stopwords.csv')
 
@@ -83,168 +104,120 @@ def remove_stopwords_string(text):
     return ' '.join(word for word in text_list if word not in stopwords_as_list)
 
 
-import json
-import sqlite3
-import re
-
 with open('resources/MWKeysOnly.json', 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
 ##given a name finds the root
 
-def SQLite_find_name(name):
-    
-    original_word = name    
-    # Transliterate input
-    query_transliterate = anythingToSLP1(name)    
-    # FormatSQL query
 
-    outcome = [] 
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
+
+
+def SQLite_find_name(name):
+
+    outcome = []    
 
     def query1(word):
-        query_builder = "SELECT * FROM lgtab2 WHERE key = ?"  
-        ##OpenConnection, make SQL query to find the root    
-        sqliteConnection = sqlite3.connect('resources/SQLite_db/lgtab2.sqlite')
-        cursor = sqliteConnection.cursor()
-        cursor.execute(query_builder, (word,))
-        results = cursor.fetchall()
-        sqliteConnection.close()
-        ## da riflettere meglio su come voglio fare su questo... se ci sono risultati duplicati è perché un nome può essere maschile neutro e femminile, in tal caso voglio che risulti, senza duplicare le entrate del dizionario etc. 
-        ##remove duplicate results:
-        #results_dict = {t[2]: t for t in results}    
-        # Convert the dictionary back to a list of tuples
-        #results = list(results_dict.values())
+
+        session = Session()
+        try:
+            query_builder = text("SELECT * FROM lgtab2 WHERE key = :word")
+            results = session.execute(query_builder, {'word': word}).fetchall()
+        except Exception as error:
+            print("Error while querying PostgreSQL:", error)
+            results = []
+        finally:
+            session.close()
         return results
-    
-    results = query1(query_transliterate)
+
+    results = query1(name)
     
     if not results:  # If query1 didn't find any results
-        if query_transliterate[-1] == 'M':
-            query_transliterate = query_transliterate[:-1] + 'm'
-            results = query1(query_transliterate)
+        if name[-1] == 'M':
+            name = name[:-1] + 'm'
+            results = query1(name)
     
     for inflected_form, type, root_form in results: 
-        #print("result", (inflected_form, type, root_form))
-        ## get root, inflected form, type (could be useful later)
         if not root_form:  # If root_form is None or empty
             return  # End the function
-        inflected_form_var = inflected_form
-        type_var = type
-        root_form_var = root_form  
-        ##break the function if it's not a name; important! 
-        if not root_form:  # If root_form is still None after the loop
-            return  # End the function
+
+        def query2(root_form: str, type: str):
+
+            session = Session()
+            try:
+                query_builder2 = "SELECT * FROM lgtab1 WHERE stem = :root_form and model = :type "
+                results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
+            except Exception as error:
+                print("Error while querying PostgreSQL:", error)
+                results = []
+            finally:
+                session.close()
+            return results
         
-        ## build query in the second table to find the inflection table
-        query_builder2 = "SELECT * FROM lgtab1 WHERE stem = ? and model = ?"
-        sqliteConnection = sqlite3.connect('resources/SQLite_db/lgtab1.sqlite')
-        cursor = sqliteConnection.cursor()
-        cursor.execute(query_builder2, (root_form, type_var))
-        result = cursor.fetchall()
-        sqliteConnection.close()
-
-        print("word_result", result)
-
-        #print("result", result)
-
-        #print("refs", result[0][2])
-
-        ##word_refs = re.match(r"\d+,([a-zA-Z]+)", result[0][2]).group(1)
+        result = query2(root_form, type)
         word_refs = re.findall(r",([a-zA-Z]+)",result[0][2])[0]
-
-        ## get the inflection table as a list of words instead of tuple
-
         inflection_tuple = result[0][3]  # Get the first element of the first tuple
-        #print("inflection_tuple", inflection_tuple)
         inflection_words = inflection_tuple.split(':') 
-        #print("inflection_words", inflection_words)
 
         ##transliterate back the result to IAST for readability
-
         inflection_wordsIAST = [transliterateSLP1IAST(word) for word in inflection_words]
-        query_transliterateIAST = transliterateSLP1IAST(query_transliterate)
+        query_transliterateIAST = transliterateSLP1IAST(name)
 
         ##make Inflection Table
-
         indices = [i for i, x in enumerate(inflection_wordsIAST) if x == query_transliterateIAST]
-        # Define row and column titles
         rowtitles = ["Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc"]
         coltitles = ["Sg", "Du", "Pl"]
 
-        from tabulate import tabulate
-
-        # Your list of strings
-
-        # Split the list into a 6x3 table
-        #table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
-
-        # Highlight the matched cells with red color
-        #table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
-
-        # Add row titles to the table
-        #table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
-
-        # Print the table with column titles
-        #print(tabulate(table, headers=coltitles, tablefmt="grid"))
-
-        # Print the indices of the query in the list
         if indices:
-            # Convert the indices to row and column names
             row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
         else: 
             row_col_names = None
-        
-        outcome.append([word_refs, type_var, row_col_names, inflection_wordsIAST, original_word])
+        outcome.append([word_refs, type, row_col_names, inflection_wordsIAST, name])
+
     return outcome
 
 
 
 def SQLite_find_verb(verb):
     
-    original_verb = verb
-    
-    # Transliterate input
-    query_transliterate = anythingToSLP1(verb)
-    
-    # FormatSQL query
-    query_builder = "SELECT * FROM vlgtab2 WHERE key = ?"
-    
-    ##OpenConnection, make SQL query to find the root
-    
-    sqliteConnection = sqlite3.connect('resources/SQLite_db/vlgtab2.sqlite')
-    cursor = sqliteConnection.cursor()
-    #"select * from `$table` where `key`=\"$key\"";
-    cursor.execute(query_builder, (query_transliterate,))
-    result = cursor.fetchall()
-    sqliteConnection.close()
-    #print("result1", result)
     root_form = None
-    
-    ## get root, inflected form, type (could be useful later)
+
+    def query1(verb):
+
+        session = Session()
+        try:
+            query_builder = "SELECT * FROM vlgtab2 WHERE key = :verb"
+            results = session.execute(query_builder, {'verb': verb}).fetchall()
+        except Exception as error:
+            print("Error while querying PostgreSQL:", error)
+            results = []
+        finally:
+            session.close()
+        return results
+
+    result = query1(verb)
     
     for inflected_form, type, root_form in result:
+
         if not root_form:  # If root_form is None or empty
             return  # End the function
-        inflected_form_var = inflected_form
         type_var = type
-        root_form_var = root_form   
-       # print(f"Inflected Form: {inflected_form}, Type: {type}, Root Form: {root_form}")
-    
-    if not root_form:  # If root_form is None or empty
-            return  # End the function
+
+        def query2(root_form: str, type: str):
+
+            session = Session()
+            try:
+                query_builder2 = "SELECT * FROM vlgtab1 WHERE stem = :root_form and model = :type"
+                results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
+            except Exception as error:
+                print("Error while querying PostgreSQL:", error)
+                results = []
+            finally:
+                session.close()
+            return results
         
-    ## build query in the second table to find the inflection table
-            
-    query_builder2 = "SELECT * FROM vlgtab1 WHERE stem = ? and model = ?"
-
-    sqliteConnection = sqlite3.connect('resources/SQLite_db/vlgtab1.sqlite')
-
-    cursor = sqliteConnection.cursor()
-    #print('DB Init')
-    cursor.execute(query_builder2, (root_form, type_var))
-    result = cursor.fetchall()
-    sqliteConnection.close()
-    #print("result2:", result)
+        result = query2(root_form, type)
     
     selected_tuple = None
 
@@ -272,7 +245,7 @@ def SQLite_find_verb(verb):
     ##transliterate back the result to IAST for readability
     
     inflection_wordsIAST = [transliterateSLP1IAST(word) for word in inflection_words]
-    query_transliterateIAST = transliterateSLP1IAST(query_transliterate)
+    query_transliterateIAST = transliterateSLP1IAST(verb)
     
     ##make Inflection Table
     
@@ -282,40 +255,17 @@ def SQLite_find_verb(verb):
     rowtitles = ["First", "Second", "Third"]
     coltitles = ["Sg", "Du", "Pl"]
 
-    from tabulate import tabulate
 
-    # Your list of strings
-
-    # Split the list into a 6x3 table
-    #table = [inflection_wordsIAST[i:i+3] for i in range(0, len(inflection_wordsIAST), 3)]
-
-    # Highlight the matched cells with red color
-    #table = [["\033[31m" + cell + "\033[0m" if i*3 + j in indices else cell for j, cell in enumerate(row)] for i, row in enumerate(table)]
-
-    # Add row titles to the table
-    #table = [[rowtitle] + row for rowtitle, row in zip(rowtitles, table)]
-
-    # Print the table with column titles
-    #print(tabulate(table, headers=coltitles, tablefmt="grid"))
-
-    # Print the indices of the query in the list
     if indices:
-        # Convert the indices to row and column names
         row_col_names = [(rowtitles[i//3], coltitles[i%3]) for i in indices]
-        #print(f"The row and column names of '{query_transliterateIAST}' are {row_col_names}.")
-    #else:
-       # print(f"'{query_transliterateIAST}' is not in the list.")
     else:
         row_col_names = None
         
-    return [[stem, type_var, row_col_names, inflection_wordsIAST, original_verb]]
+    return [[stem, type_var, row_col_names, inflection_wordsIAST, verb]]
 
 
 
 ## also map to the type.
-
-import pandas as pd
-
 # Read the Excel file into a DataFrame
 type_map = pd.read_excel('resources/type_map.xlsx')
 
@@ -387,6 +337,10 @@ def dict_word_iterative(word):
 
 
 def root_compounds(word):
+
+    if word[0] == "'":
+        word = 'a' + word[1:]
+    
     
     first_root = dict_word_iterative(word)
     #print("first_root", first_root)
@@ -405,6 +359,12 @@ def root_compounds(word):
         ##if the dictionary approach fails, try the iterative approach:
         if second_root == None:
             second_root = dict_word_iterative(without_root)
+            #print("second_root", second_root)
+            if second_root is None:
+                if first_root_entry is not None:
+                    return first_root_entry
+                else:
+                    return [first_root[0]]
             if len(second_root[0]) < 2:
                 second_root = None
             else:
@@ -449,6 +409,7 @@ def inflect(splitted_text):
             for root in rooted:
                 roots.append(root)  
         else:
+            print("here breaks", word)
             compound_try = root_compounds(word)
             if compound_try is not None:
                 roots.extend(compound_try)  
@@ -459,11 +420,12 @@ def inflect(splitted_text):
     for i in range(len(roots)):
         if isinstance(roots[i], list):
             #print("debug", roots)
-            #print(roots[i][0])
+            print(roots[i][0])
             roots[i][0] = transliterateSLP1IAST(roots[i][0].replace('-', ''))
         else:
+            print(roots[i][0])
             roots[i] = transliterateSLP1IAST(roots[i].replace('-', ''))           
-    print("inflect roots", roots)
+    #print("inflect roots", roots)
     return roots             
 
 ## bug with process("nīlotpalapatrāyatākṣī")    
@@ -474,57 +436,12 @@ with open('resources/no_abbreviationMW.json') as f:
     dictionary_json = json.load(f)
 
 
-def get_voc_entry(list_of_entries):
-    entries = []
-    for entry in list_of_entries:        
-        if isinstance(entry, list):
-            
-            word = entry[0]
-            dict_entry = []
-            if word in dictionary_json:  # Check if the key exists
-                key2 = dictionary_json[word][0][1]
-                key2 = transliterateSLP1IAST(key2)
-    
-                for entry_dict in dictionary_json[word]:
-                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
-                entry.append(key2)
-                entry.append(dict_entry)
-            else:
-                entry.append(word)  # Append the original word for key2
-                entry.append([word])  # Append the original word for dict_entry
-            entries.append(entry)
-            
-        elif isinstance(entry, str):
-            
-            dict_entry = []
-            if entry in dictionary_json:  # Check if the key exists
-                key2 = dictionary_json[entry][0][1]
-                key2 = transliterateSLP1IAST(key2)
-    
-                for entry_dict in dictionary_json[entry]:
-                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
-                entry = [entry]    
-                
-                entry.append(key2)
-                entry.append(dict_entry)
-            else:
-                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
-            entries.append(entry)
-    return entries
-
-# find_inflection = False, inflection_table = False, 
-#split_compounds = True, dictionary_search = False,
-
-##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
-##then if the word is not found, try to split the word in its components and find the root of each component
-
-import regex
 
 def process(text):
 
     if ' ' not in text:
         #print("single_word", text)
-        transliterated_text = anythingToHK(text)     
+        transliterated_text = anythingToSLP1(text)     
         #print("transliterated_text", transliterated_text)
         text = regex.sub('[^\p{L}\']', '', transliterated_text)
         ## here it should be transliterated to SLP1 before and added aH at the end instead of a
@@ -574,7 +491,16 @@ def clean_results(list_of_entries):
                     voc_entry = get_voc_entry(["saM" + list_of_entries[j][0]])
                 if voc_entry is not None:
                     list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
-                    del list_of_entries[i + 1:j + 1]        
+                    del list_of_entries[i + 1:j + 1]       
+        elif list_of_entries[i][0] == "anu":
+            j = i + 1
+            while j < len(list_of_entries) and (list_of_entries[j][0] == "anu"):
+                j += 1
+            if j < len(list_of_entries):
+                voc_entry = get_voc_entry(["anu" + list_of_entries[j][0]])
+                if voc_entry is not None:
+                    list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
+                    del list_of_entries[i + 1:j + 1]       
         i += 1  
     return list_of_entries
 
@@ -599,22 +525,199 @@ def process_test(text, remove_stopwords = False, dictionary_entry = True, output
             entry_list.append(entry[0])
         inflections = entry_list    
 
-    return inflections
-## hard more testing:
+    return clean_results(inflections)
+
+## hard mode testing:
 #process("dveṣānuviddhaścetanācetanasādhanādhīnastāpānubhava")
 
+
+
+
+
 def preprocess(text):
-    
+
+    remove_char_text = ''.join(c for c in text if c.isalpha() or c == "'" or c == ' ')
+
+    print("processing", text)
     ## attempt to remove sandhi and tokenise in any case
-    splitted_text = sandhi_splitter(text)
+    splitted_text = sandhi_splitter(remove_char_text)   
 
     splitted_text = remove_stopwords_list(splitted_text)    
     
     inflections = inflect(splitted_text) 
     
     entry_list = []
-    for entry in inflections:
-        entry_list.append(entry[0])
-        inflections = entry_list    
+    entry_list = [entry[0] for entry in inflections if len(entry[0]) > 1]
+    entry_list = [key for key, group in groupby(entry_list)]
 
-    return inflections
+    i = 0
+    while i < len(entry_list) - 1:
+        # Normalize words to form without diacritics
+        word1 = unicodedata.normalize('NFD', entry_list[i])
+        word2 = unicodedata.normalize('NFD', entry_list[i+1])
+
+        # Remove diacritics
+        word1 = ''.join(c for c in word1 if not unicodedata.combining(c))
+        word2 = ''.join(c for c in word2 if not unicodedata.combining(c))
+
+        if word1 in word2 or word2 in word1:
+            if len(entry_list[i]) > len(entry_list[i+1]):
+                entry_list.pop(i)
+            else:
+                entry_list.pop(i+1)
+        else:
+            i += 1
+    print("processed", entry_list)
+    return clean_results(entry_list)
+
+
+
+#dict_names = ["AE", "AP90", "MW", "MWE"]
+
+path = "/resources/Sanskrit_dictionaries/"
+
+def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, List[Any]]:
+    
+    dict_names: List[str] = []
+    dict_results: Dict[str, List[Any]] = {}
+    
+    # Check if any arguments were provided
+    if not args:
+        dict_names.append(source)  # If no args, use the source (default is "MW")
+    else:
+        for dict_name in args:
+            dict_names.append(dict_name)
+    
+    # For each dictionary name, build the path and query
+    for dict_name in dict_names:
+        path_builder = "sqlite:///" + path + dict_name + ".sqlite"
+        
+        # Create SQLAlchemy engine
+        engine = create_engine(path_builder)
+        
+        query_builder = f"""
+        SELECT data FROM {dict_name} 
+        WHERE key = :name 
+        OR key LIKE :wildcard_name
+        """
+
+        # Prepare the wildcard by taking the word minus the last letter and appending '_'
+        wildcard_name = f"{name[:-1]}_"
+
+        # Execute the query with both the exact match and the wildcard condition
+        with engine.connect() as connection:
+            results = connection.execute(
+                text(query_builder), 
+                {"name": name, "wildcard_name": wildcard_name}
+            ).fetchall()
+
+
+        # Step 2 and Step 3 combined: If no exact match, search for name + _ and name minus last letter + _
+        if not results and len(name) > 1:
+            query_builder = f"""
+            SELECT data FROM {dict_name} 
+            WHERE key LIKE :name1 
+            OR key LIKE :name2
+            """
+            with engine.connect() as connection:
+                results = connection.execute(text(query_builder), {"name1": name + "_", "name2": name[:-1] + "_"}).fetchall()
+
+        # Add the results to the dict_results with the dictionary name as the key
+        dict_results[dict_name] = [dict(row) for row in results]
+    
+    return dict_results  # Return the dictionary containing all results
+
+# Example usage
+#results = multidict("yoga", "MW" "AP90")
+#print(results)
+
+
+
+def get_voc_entry(list_of_entries, *args: str, source: str = "MW"):
+    entries = []
+    for entry in list_of_entries:        
+        if isinstance(entry, list):
+            
+            word = entry[0]
+            dict_entry = []
+            if word in mwdictionaryKeys:  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi
+                key2 = dictionary_json[word][0][1] ##qui si dovrebbe fare un fetch SQL 
+                key2 = transliterateSLP1IAST(key2) ## qui ho un leggero problema, se prendo l'equivalente in SQL da dove prendo la key 2? dalla prima o dalla seconda voce. Possibilmente dalla seconda se c'è più di una voce. 
+    
+                for entry_dict in dictionary_json[word]:
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
+                entry.append(key2)
+                entry.append(dict_entry)
+            else:
+                entry.append(word)  # Append the original word for key2
+                entry.append([word])  # Append the original word for dict_entry
+            entries.append(entry)
+            
+        elif isinstance(entry, str):
+            
+            dict_entry = []
+            if entry in mwdictionaryKeys:  # Check if the key exists
+                key2 = dictionary_json[entry][0][1]
+                key2 = transliterateSLP1IAST(key2)
+    
+                for entry_dict in dictionary_json[entry]:
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
+                entry = [entry]    
+                
+                entry.append(key2)
+                entry.append(dict_entry)
+            else:
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
+            entries.append(entry)
+    return entries
+
+# find_inflection = False, inflection_table = False, 
+#split_compounds = True, dictionary_search = False,
+##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
+##then if the word is not found, try to split the word in its components and find the root of each component
+
+
+
+def get_voc_entry(list_of_entries):
+    entries = []
+    for entry in list_of_entries:        
+        if isinstance(entry, list):
+            
+            word = entry[0]
+            dict_entry = []
+            if word in dictionary_json:  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi
+                key2 = dictionary_json[word][0][1] ##qui si dovrebbe fare un fetch SQL 
+                key2 = transliterateSLP1IAST(key2) ## qui ho un leggero problema, se prendo l'equivalente in SQL da dove prendo la key 2? dalla prima o dalla seconda voce. Possibilmente dalla seconda se c'è più di una voce. 
+    
+                for entry_dict in dictionary_json[word]:
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
+                entry.append(key2)
+                entry.append(dict_entry)
+            else:
+                entry.append(word)  # Append the original word for key2
+                entry.append([word])  # Append the original word for dict_entry
+            entries.append(entry)
+            
+        elif isinstance(entry, str):
+            
+            dict_entry = []
+            if entry in dictionary_json:  # Check if the key exists
+                key2 = dictionary_json[entry][0][1]
+                key2 = transliterateSLP1IAST(key2)
+    
+                for entry_dict in dictionary_json[entry]:
+                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
+                entry = [entry]    
+                
+                entry.append(key2)
+                entry.append(dict_entry)
+            else:
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
+            entries.append(entry)
+    return entries
+
+# find_inflection = False, inflection_table = False, 
+#split_compounds = True, dictionary_search = False,
+##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
+##then if the word is not found, try to split the word in its components and find the root of each component
+

@@ -6,6 +6,14 @@ from flask_cors import cross_origin
 import logging
 from datetime import datetime
 from openai import OpenAI
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.getenv("DATABASE_API_KEY")
+
 
 app = Flask(__name__)
 CORS(app)
@@ -47,12 +55,12 @@ def transliterate_text():
         return jsonify({'error': 'Missing text or transliteration_scheme'}), 400
 
 client = OpenAI(
-api_key="sk-proj-lUTuOUyJ6ESVGgTvYU95T3BlbkFJgFWkl42qimyUHSz9O5IX")
+api_key=api_key)
 responses = {}
 
 def API_call (context, content):    
     response = client.chat.completions.create(
-        model="gpt-4-turbo",
+        model="gpt-4-O",
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": context},
@@ -65,7 +73,6 @@ def API_call (context, content):
     presence_penalty=0
     )
     
-    # Store the response in the dictionary
     responses = response.choices[0].message.content
     print(responses)
     return responses
