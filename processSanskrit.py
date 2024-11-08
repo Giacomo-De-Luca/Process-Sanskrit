@@ -14,23 +14,32 @@ import regex
 from itertools import groupby
 import unicodedata
 from typing import List, Dict, Any
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, text, Column, String
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.ext.declarative import declarative_base
+
+
+
+
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 ## If heroku postgres
 #load_dotenv()
 #DATABASE_URL = os.environ['DATABASE_URL']
-#if DATABASE_URL.startswith("postgres://"):
-    #DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 #if local postgres
 
-DATABASE_URL = "postgresql+psycopg2://postgres:again@localhost:5432/sanskritmagicdb"
+#DATABASE_URL = "postgresql+psycopg2://postgres:again@localhost:5432/sanskritmagicdb"
 #DATABASE_URL = os.getenv("DATABASE_URL")
 #DATABASE_URL = os.getenv("postgres://u5o7c326q19pvp:pdb08c4f74fd1c63df61a559fc3d7a261ac3c65a24df6cfd06fbb2ad511143f0d@c3cj4hehegopde.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61ijmaljbh829")
 
+#if DATABASE_URL.startswith("postgres://"):
+    #DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+#if using SQLite
+
+DATABASE_URL = "sqlite:///resources/merged_formdb.sqlite"
 
 logging.basicConfig(level=logging.CRITICAL)
 
@@ -69,26 +78,76 @@ def transliterateAnything(text, transliteration_scheme):
 ##qui la lista degli encoding è lowercase
 
 
-
-
-
-
 parser = Parser(output_encoding='slp1')
 
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
+# Create a session
+session = Session()
+
+Base = declarative_base()
+
+# Define the split_cache model
+class SplitCache(Base):
+    __tablename__ = 'split_cache'
+    
+    input = Column(String, primary_key=True)
+    splitted_text = Column(String)
+
+# Create the table if it doesn't exist
+Base.metadata.create_all(engine)
+
+
 def sandhi_splitter(text_to_split):
+    """
+    Splits the given text using a sandhi splitter parser.
+    Checks if the result is already cached before performing the split.
+
+    Parameters:
+    - text_to_split (str): The text to split.
+
+    Returns:
+    - list: A list of split parts of the text.
+    """
+
+    #text_to_split = anythingToSLP1(text_to_split).strip()
+
+    # Check if the result is already cached
+    cached_result = session.query(SplitCache).filter_by(input=text_to_split).first()
+    
+    if cached_result:
+        # Retrieve and return the cached result if it exists
+        splitted_text = ast.literal_eval(cached_result.splitted_text)
+        print(f"Retrieved from cache: {splitted_text}")
+        return splitted_text
+
+    # If not cached, perform the split
     try:
         splits = parser.split(text_to_split, limit=1)
+
+        #if split is none, default to split by space
         if splits is None:
             return text_to_split.split()
         for split in splits:
             splitted_text = f'{split}'
         splitted_text = ast.literal_eval(splitted_text)
+
+        print(f"Splitted text: {splitted_text}")
+
+        # Store the split result in cache as a list
+        new_cache_entry = SplitCache(input=text_to_split, splitted_text=str(splitted_text))
+        session.add(new_cache_entry)
+        session.commit()
+        print(f"Added to cache: {splitted_text}")
+
         return splitted_text
+
     except Exception as e:
         print(f"Could not split the line: {text_to_split}")
         print(f"Error: {e}")
         return text_to_split.split()
-    
+
+
 
 
 stopwords = pd.read_csv('resources/stopwords.csv')
@@ -108,10 +167,6 @@ with open('resources/MWKeysOnly.json', 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
 ##given a name finds the root
-
-
-engine = create_engine(DATABASE_URL)
-Session = sessionmaker(bind=engine)
 
 
 def SQLite_find_name(name):
@@ -264,15 +319,24 @@ def SQLite_find_verb(verb):
     return [[stem, type_var, row_col_names, inflection_wordsIAST, verb]]
 
 
-
 ## also map to the type.
 # Read the Excel file into a DataFrame
 type_map = pd.read_excel('resources/type_map.xlsx')
 
 def root_any_word(word):
-    result_roots = SQLite_find_name(word)
-    if not result_roots:  # If process_word didn't find any results
-        result_roots = SQLite_find_verb(word)
+
+
+    result_roots_name = SQLite_find_name(word)  
+    result_roots_verb = SQLite_find_verb(word) 
+
+
+    if result_roots_name:
+        if result_roots_verb:
+            result_roots = result_roots_name + result_roots_verb
+        else:
+            result_roots = result_roots_name
+    else:
+        result_roots = result_roots_verb
 
     if result_roots:
         for i in range(len(result_roots)):
@@ -286,7 +350,9 @@ def root_any_word(word):
                 description = match['description'].values[0]
                 result[1] = description
                 result_roots[i] = result
-    return result_roots
+        return result_roots
+
+
 
 
 def root_any_list(text_list):
@@ -340,8 +406,7 @@ def root_compounds(word):
 
     if word[0] == "'":
         word = 'a' + word[1:]
-    
-    
+
     first_root = dict_word_iterative(word)
     #print("first_root", first_root)
     first_root_entry = root_any_word(first_root[0])
@@ -420,10 +485,10 @@ def inflect(splitted_text):
     for i in range(len(roots)):
         if isinstance(roots[i], list):
             #print("debug", roots)
-            print(roots[i][0])
+            #print(roots[i][0])
             roots[i][0] = transliterateSLP1IAST(roots[i][0].replace('-', ''))
         else:
-            print(roots[i][0])
+            #print(roots[i][0])
             roots[i] = transliterateSLP1IAST(roots[i].replace('-', ''))           
     #print("inflect roots", roots)
     return roots             
@@ -447,6 +512,12 @@ def process(text):
         ## here it should be transliterated to SLP1 before and added aH at the end instead of a
         if text[-1] == 'o':
             text = text[:-1] + 'aH'
+        #print("text", text)
+        if "o'" in text:
+            modified_text = re.sub(r"o'", "aH a", text)
+            #print("modified_text", modified_text)
+            result = process(modified_text)
+            return result
         result = root_any_word(text)
         if result is None and text[-1] == 'M':
             text = text[:-1] + 'm'
@@ -455,8 +526,16 @@ def process(text):
             for res in result:
                 if isinstance(res, list):
                     res[0] = transliterateSLP1IAST(res[0].replace('-', ''))
+                    print("res", res)
             result_vocabulary = get_voc_entry(result)  
             return clean_results(result_vocabulary)
+        else:
+            query = [transliterateSLP1IAST(text)]
+            print("query", query)
+            result_vocabulary = get_voc_entry(query)  
+            print("result_vocabulary", result_vocabulary)
+            if result_vocabulary[0][0] != result_vocabulary[0][2][0]:
+                return result_vocabulary
             
     ## attempt to remove sandhi and tokenise in any case
     splitted_text = sandhi_splitter(text)    
@@ -477,6 +556,9 @@ def clean_results(list_of_entries):
             del list_of_entries[i + 1]
         elif list_of_entries[i][0] == "ca":
             while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == "ca":
+                del list_of_entries[i + 1]
+        elif list_of_entries[i][0] == "na":
+            while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == "na":
                 del list_of_entries[i + 1]
         elif list_of_entries[i][0] == "eva":
             while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == "eva":
@@ -532,8 +614,6 @@ def process_test(text, remove_stopwords = False, dictionary_entry = True, output
 
 
 
-
-
 def preprocess(text):
 
     remove_char_text = ''.join(c for c in text if c.isalpha() or c == "'" or c == ' ')
@@ -574,7 +654,8 @@ def preprocess(text):
 
 #dict_names = ["AE", "AP90", "MW", "MWE"]
 
-path = "/resources/Sanskrit_dictionaries/"
+#path = "/resources/Sanskrit_dictionaries/"
+path = "/Users/jack/Desktop/SanskritData/Sanskrit_dictionaries"
 
 def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, List[Any]]:
     
@@ -591,6 +672,7 @@ def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, List[Any]]
     # For each dictionary name, build the path and query
     for dict_name in dict_names:
         path_builder = "sqlite:///" + path + dict_name + ".sqlite"
+        print(path_builder)
         
         # Create SQLAlchemy engine
         engine = create_engine(path_builder)
