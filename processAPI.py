@@ -29,6 +29,15 @@ def process_text():
     print
     return jsonify(processed_text) # Convert the response to a string
 
+@app.route('/process_new', methods=['POST'])
+@cross_origin()
+def process_text():
+    data = request.get_json()
+    text = data.get('text')
+    dictionary_names = data.get('dictionary_names')
+    processed_text = processSanskrit.process(text, *dictionary_names)  # Print the output to the console
+    return jsonify(processed_text) # Convert the response to a string
+
 @app.route('/dict_entry', methods=['POST'])
 @cross_origin()
 def get_dict_entry():

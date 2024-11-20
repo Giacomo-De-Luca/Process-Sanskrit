@@ -626,19 +626,16 @@ def inflect(splitted_text):
 ## bug with process("nīlotpalapatrāyatākṣī")    
 
 
-with open('resources/no_abbreviationMW.json') as f:
-    # Load JSON data from file
-    dictionary_json = json.load(f)
 
 
 
-def process(text):
+def process(text, *dict_names):
 
 
     ## if the text end with a *, remove it and try to find the word in the dictionary for exact match
 
     if text[-1] == '*':
-        voc_entry = get_voc_entry([anythingToIAST(text[:-1])])
+        voc_entry = get_voc_entry([anythingToIAST(text[:-1])], *dict_names)
         if voc_entry is not None:
             return voc_entry
         else:
@@ -677,13 +674,13 @@ def process(text):
                 if isinstance(res, list):
                     res[0] = transliterateSLP1IAST(res[0].replace('-', ''))
                     #print("res", res)
-            result_vocabulary = get_voc_entry(result)  
+            result_vocabulary = get_voc_entry(result, *dict_names)  
             print("result_vocabulary", result_vocabulary)
             return clean_results(result_vocabulary)
         else:
             query = [transliterateSLP1IAST(text)]
             print("query", query)
-            result_vocabulary = get_voc_entry(query)  
+            result_vocabulary = get_voc_entry(query, *dict_names)  
             print("result_vocabulary", result_vocabulary)
             if result_vocabulary[0][0] != result_vocabulary[0][2][0]:
                 return clean_results(result_vocabulary)
@@ -827,59 +824,72 @@ def preprocess(text):
 #dict_names = ["AE", "AP90", "MW", "MWE"]
 
 #path = "/resources/Sanskrit_dictionaries/"
-path = "/Users/jack/Desktop/SanskritData/Sanskrit_dictionaries"
-
-def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, List[Any]]:
-    
+def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, Dict[str, List[str]]]:
     dict_names: List[str] = []
-    dict_results: Dict[str, List[Any]] = {}
+    dict_results: Dict[str, Dict[str, List[str]]] = {}
+    name_component: str = ""
     
-    # Check if any arguments were provided
+    # Collect dictionary names
     if not args:
-        dict_names.append(source)  # If no args, use the source (default is "MW")
+        dict_names.append(source)
     else:
-        for dict_name in args:
-            dict_names.append(dict_name)
+        dict_names.extend(args)
     
-    # For each dictionary name, build the path and query
+    session = Session()
+    
+    # For each dictionary, perform queries and process results
     for dict_name in dict_names:
-        path_builder = "sqlite:///" + path + dict_name + ".sqlite"
-        print(path_builder)
         
-        # Create SQLAlchemy engine
-        engine = create_engine(path_builder)
         
+        # Initial query
         query_builder = f"""
-        SELECT data FROM {dict_name} 
-        WHERE key = :name 
-        OR key LIKE :wildcard_name
+        SELECT keys_iast, components, cleaned_body FROM {dict_name + "clean"} 
+        WHERE keys_iast = :name 
+        OR keys_iast LIKE :wildcard_name
         """
-
-        # Prepare the wildcard by taking the word minus the last letter and appending '_'
         wildcard_name = f"{name[:-1]}_"
-
-        # Execute the query with both the exact match and the wildcard condition
+        
         with engine.connect() as connection:
             results = connection.execute(
                 text(query_builder), 
                 {"name": name, "wildcard_name": wildcard_name}
             ).fetchall()
-
-
-        # Step 2 and Step 3 combined: If no exact match, search for name + _ and name minus last letter + _
+        
+        #print(f"Results for {dict_name}: {results}")
+        
+        # Additional query if no results
         if not results and len(name) > 1:
             query_builder = f"""
-            SELECT data FROM {dict_name} 
-            WHERE key LIKE :name1 
-            OR key LIKE :name2
+            SELECT keys_iast, components, cleaned_body FROM {dict_name + "clean"} 
+            WHERE keys_iast LIKE :name1 
+            OR keys_iast LIKE :name2
             """
             with engine.connect() as connection:
-                results = connection.execute(text(query_builder), {"name1": name + "_", "name2": name[:-1] + "_"}).fetchall()
+                results = connection.execute(
+                    text(query_builder), 
+                    {"name1": name + "_", "name2": name[:-1] + "_"}
+                ).fetchall()
 
-        # Add the results to the dict_results with the dictionary name as the key
-        dict_results[dict_name] = [dict(row) for row in results]
+        #print(f"Results for {dict_name} after second query: {results}")
+        
+
+        # Group results by components
+        component_dict: Dict[str, List[str]] = {}
+        for row in results:
+            #print(f"Row: {row}")
+            key_iast, components, cleaned_body = row
+            if not name_component:
+                name_component = components
+            #print(f"key_iast: {key_iast}, components: {components}, cleaned_body: {cleaned_body}")
+            if key_iast in component_dict:
+                component_dict[key_iast].append(cleaned_body)
+            else:
+                component_dict[key_iast] = [cleaned_body]        
+        # Add to dict_results
+        dict_results[dict_name] = component_dict
     
-    return dict_results  # Return the dictionary containing all results
+    connection.close()
+    return [name_component, dict_results]
 
 # Example usage
 #results = multidict("yoga", "MW" "AP90")
@@ -931,40 +941,36 @@ def get_voc_entry(list_of_entries, *args: str, source: str = "MW"):
 ##then if the word is not found, try to split the word in its components and find the root of each component
 
 
+def get_mwword(word:str)->list[str, list[str]] : 
+        session = Session()
+        query_builder = "SELECT key2, cleaned_body FROM mwclean WHERE keys_iast = :word"
+        results = session.execute(query_builder, {'word': word}).fetchall()
+        session.close()        
+        components = results[0][0]
+        result_list = [row[1] for row in results]
+        
+        return [components, result_list]
+
+
+
 
 def get_voc_entry(list_of_entries):
     entries = []
     for entry in list_of_entries:        
         if isinstance(entry, list):
-            
+
             word = entry[0]
-            dict_entry = []
+
             if word in mwdictionaryKeys:  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi
-                key2 = dictionary_json[word][0][1] ##qui si dovrebbe fare un fetch SQL 
-                key2 = transliterateSLP1IAST(key2) ## qui ho un leggero problema, se prendo l'equivalente in SQL da dove prendo la key 2? dalla prima o dalla seconda voce. Possibilmente dalla seconda se c'è più di una voce. 
-    
-                for entry_dict in dictionary_json[word]:
-                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
-                entry.append(key2)
-                entry.append(dict_entry)
+                entry = entry + get_mwword(word)
             else:
-                entry.append(word)  # Append the original word for key2
-                entry.append([word])  # Append the original word for dict_entry
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
             entries.append(entry)
             
         elif isinstance(entry, str):
             
-            dict_entry = []
-            if entry in dictionary_json:  # Check if the key exists
-                key2 = dictionary_json[entry][0][1]
-                key2 = transliterateSLP1IAST(key2)
-    
-                for entry_dict in dictionary_json[entry]:
-                    dict_entry.append(re.sub(r'<s>(.*?)</s>', lambda m: '<s>' + transliterateSLP1IAST(m.group(1)) + '</s>', entry_dict[4]))
-                entry = [entry]    
-                
-                entry.append(key2)
-                entry.append(dict_entry)
+            if entry in mwdictionaryKeys:  # Check if the key exists
+                entry = [entry] + get_mwword(entry)
             else:
                 entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
             entries.append(entry)
@@ -975,3 +981,25 @@ def get_voc_entry(list_of_entries):
 ##first attempt to process the word not using the sandhi_splitter, which often gives uncorrect;
 ##then if the word is not found, try to split the word in its components and find the root of each component
 
+
+def get_voc_entry(list_of_entries, *dict_names):
+    entries = []
+    for entry in list_of_entries:        
+        if isinstance(entry, list):
+
+            word = entry[0]
+
+            if word in mwdictionaryKeys:  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi
+                entry = entry + multidict(word, *dict_names)
+            else:
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
+            entries.append(entry)
+            
+        elif isinstance(entry, str):
+            
+            if entry in mwdictionaryKeys:  # Check if the key exists
+                entry = [entry] + multidict(word, *dict_names)
+            else:
+                entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
+            entries.append(entry)
+    return entries
