@@ -17,7 +17,8 @@ from typing import List, Dict, Any
 from sqlalchemy import create_engine, text, Column, String
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
-from typing import List, Dict, Tuple, Union, Optional
+from typing import List, Dict, Tuple, Union
+
 from dataclasses import dataclass
 
 __version__ = "0.1"
@@ -105,7 +106,7 @@ class SplitCache(Base):
 Base.metadata.create_all(engine)
 
 
-def sandhi_splitter(text_to_split, cached=True, attempts=1):
+def sandhi_splitter(text_to_split, cached=True, attempts=10):
     """
     Splits the given text using a sandhi splitter parser.
     Checks if the result is already cached before performing the split.
@@ -171,13 +172,25 @@ def sandhi_splitter(text_to_split, cached=True, attempts=1):
 
 
 
+from typing import List, Dict, Tuple
+import ast
+from dataclasses import dataclass
+import re
+from typing import List, Union, Tuple, Optional
+import ast
+from dataclasses import dataclass
+from typing import List, Union, Tuple, Optional
+import ast
+from dataclasses import dataclass
 @dataclass
 class SplitResult:
-    """Class to hold the result of a sandhi split with scoring information"""
+    """Class to hold detailed results of a sandhi split with scoring information"""
     split: List[str]
     score: float
     subscores: dict
     all_splits: Optional[List[Tuple[List[str], float, dict]]] = None
+from typing import List, Optional, Tuple, Dict
+import ast
 
 def enhanced_sandhi_splitter(
     text_to_split: str, 
@@ -240,7 +253,7 @@ def enhanced_sandhi_splitter(
 
         # Score all splits
         scorer = SandhiSplitScorer()
-        ranked_splits = scorer.rank_splits(text_to_split, splits)  # Pass original text
+        ranked_splits = scorer.rank_splits(splits)
         best_split, best_score, subscores = ranked_splits[0]
         
         # Cache the result if needed
@@ -269,6 +282,8 @@ def enhanced_sandhi_splitter(
         return simple_split
 
 
+from typing import List, Dict, Tuple
+import re
 
 class SandhiSplitScorer:
     def __init__(self):
@@ -465,96 +480,6 @@ def format_scored_split(split_info: Tuple[List[str], float, Dict[str, float]]) -
         result += f"  {category}: {subscore:.3f}\n"
     return result
 
-
-class SandhiSplitScorer:
-    def __init__(self):
-        # Previous dictionaries remain the same
-        self.upasargas = {
-            'ā': 0.1, 'ati': 0.2, 'adhi': 0.2, 'anu': 0.1,
-            'apa': 0.2, 'api': 0.1, 'abhi': 0.2, 'ava': 0.2,
-            'ud': 0.1, 'upa': 0.2, 'dur': 0.2, 'ni': 0.1,
-            'nir': 0.2, 'nis': 0.2, 'parā': 0.2, 'pari': 0.2,
-            'pra': 0.2, 'prati': 0.2, 'vi': 0.1, 'sam': 0.2,
-            'su': 0.1
-        }
-
-    def calculate_length_score(self, original_text: str, split: List[str]) -> float:
-        """
-        Calculate length score using a simple ratio between text length and number of splits.
-        
-        The formula rewards solutions that use fewer splits relative to the text length.
-        A longer text naturally allows for more splits without severe penalty.
-        """
-        text_length = len(original_text)
-        num_splits = len(split)
-        
-        # Base ratio: text_length / (num_splits * 10)
-        # The multiplier 10 is chosen as a rough estimate of maximum expected segment length
-        base_ratio = text_length / (num_splits * 10)
-        
-        # Cap the ratio at 1.0 to prevent over-rewarding very long segments
-        base_ratio = min(1.0, base_ratio)
-        
-        # Apply exponential penalty for number of splits
-        # This ensures that each additional split is penalized more heavily
-        split_penalty = 0.9 ** (num_splits - 1)
-        
-        return base_ratio * split_penalty * 0.5  # Scale to [0, 0.5] range
-
-    def score_split(self, original_text: str, split: List[str]) -> Tuple[float, Dict[str, float]]:
-        scores = {}
-        
-        # 1. Length scoring - now considers original text length
-        length_score = self.calculate_length_score(original_text, split)
-        scores['length'] = length_score * 0.5  # 50% weight
-        
-        # 2. Morphological analysis
-        morphology_score = 0
-        for word in split:
-            # Reward words of natural Sanskrit length
-            if len(word) >= 6:
-                morphology_score += 0.2
-            elif len(word) >= 4:
-                morphology_score += 0.1
-            
-            # Penalize very short splits unless they're known prefixes
-            if len(word) <= 2 and word not in self.upasargas:
-                morphology_score -= 0.2
-            
-            # Reward natural Sanskrit word endings
-            if re.search(r'(ana|ita|aka|in|tva|tā)$', word):
-                morphology_score += 0.1
-        
-        scores['morphology'] = max(0, morphology_score) * 0.3
-        
-        # 3. Sandhi analysis
-        sandhi_score = 0.3
-        for i in range(len(split) - 1):
-            word1, word2 = split[i], split[i+1]
-            
-            # Penalize breaking natural compounds
-            if (word1 in ['sau', 'je', 'tvā'] or
-                (len(word1) <= 2 and i > 0) or
-                (word2 == 'ni' and i == len(split) - 2)):
-                sandhi_score -= 0.1
-            
-            # Penalize unlikely vowel sequences
-            if (word1[-1] in 'aāiīuūṛṝ' and 
-                word2[0] in 'aāiīuūṛṝ'):
-                sandhi_score -= 0.1
-        
-        scores['sandhi'] = max(0, sandhi_score) * 0.2
-        
-        total_score = sum(scores.values())
-        return total_score, scores
-
-    def rank_splits(self, original_text: str, splits: List[List[str]]) -> List[Tuple[List[str], float, Dict[str, float]]]:
-        scored_splits = []
-        for split in splits:
-            score, subscores = self.score_split(original_text, split)
-            scored_splits.append((split, score, subscores))
-        
-        return sorted(scored_splits, key=lambda x: x[1], reverse=True)
 
 stopwords = pd.read_csv('resources/stopwords.csv')
 
@@ -1170,9 +1095,7 @@ SANDHI_VARIATIONS = {
     # Other common variations
     'c': ['k', 'd'],
     'j': ['k', 'g', 'j'],
-    'z': ['s', 'z', 'S'],
-    'y': ['i', 'y'],
-    'v': ['v', 'u'],
+    'z': ['s', 'z', 'S']
 }
 SANSKRIT_PREFIXES = {
     'sam': 'together, completely',
@@ -1582,21 +1505,15 @@ def process(text, *dict_names, max_length=80):
         if result is not None:
             print("Getting some results with no splitting here:", result)
 
-            for i, res in enumerate(result):
-                if isinstance(res, str):
-                    result[i] = transliterateSLP1IAST(res.replace('-', ''))
-                elif isinstance(res, list):
-                    if isinstance(res[0], str):
-                        res[0] = transliterateSLP1IAST(res[0].replace('-', ''))
-                    print("res", res)
-            result_vocabulary = get_voc_entry(result, *dict_names)
-
-            print("result_vocabulary", result_vocabulary)
+            for res in result:
+                if isinstance(res, list):
+                    res[0] = transliterateSLP1IAST(res[0].replace('-', ''))
+                    #print("res", res)
+            result_vocabulary = get_voc_entry(result, *dict_names)  
 
             ## if the word is inside the dictionary, we return the entry directly, since it will be accurate. 
             if isinstance(result_vocabulary, list):
-                
-                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in mwdictionaryKeys:
+                if result[0][0] != result[0][4] and result[0][4] in mwdictionaryKeys:
                     replacement = get_voc_entry([result[0][4]], *dict_names)
                     print("replacement", replacement[0])
                     print("len replacement", len(replacement[0]))
@@ -1620,7 +1537,6 @@ def process(text, *dict_names, max_length=80):
     text = transliterateSLP1IAST(text)
     #print("transliterate to split", text)
     splitted_text = enhanced_sandhi_splitter(text, cached=False)
-    print("splitted_text", splitted_text)
     splitted_text = [transliterateIASTSLP1(word) for word in splitted_text]    
     inflections = inflect(splitted_text) 
     inflections_vocabulary = get_voc_entry(inflections, *dict_names)
@@ -1659,8 +1575,6 @@ def clean_results(list_of_entries):
             if replacement is not None:
                 list_of_entries[i] = replacement[0]
                 del list_of_entries[i + 1]
-                if list_of_entries[1+2] == "kha":
-                    del list_of_entries[i + 2]  ##it's kha also as well
         
         # Check if the word is "sam"
         if list_of_entries[i][0] == "sam":
