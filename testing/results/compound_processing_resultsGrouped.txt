@@ -1,0 +1,115 @@
+
+LONG COMPOUNDS
+================================================================================
+
+Compound #1
+Source: sa_kāraṇḍavyūha.json
+Input: aṅgadakuṇḍalakeyūravicitramālyābharaṇānulepanaparamaśobhanāni
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #2
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm.json
+Input: avidyatvādvedārthajñānaśūnyatvādityarthaḥ
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #3
+Source: sa_yāmuna-ātmasiddhi.json
+Input: satpramāṇatarkairātmaparātmatattvanirṇayaphalamiryarthaḥ
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #4
+Source: sa_annaṃbhaṭṭa-tarkasaṃgraha-comm.json
+Input: pratibadhyapratibandhakabhāvakathanaprakaraṇe
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #5
+Source: sa_mammaṭa-kāvyaprakāśa.json
+Input: kvaciddṛṣṭamityalaukikasiddherbhūṣaṇametanna
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #6
+Source: sa_vācaspatimiśra-bhāmati.json
+Input: tadarthānuṣṭhānaparivarjanābhāvaprasaṅgaḥ
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #7
+Source: sa_candrakīrti-bodhisattvayogācāracatuḥśatakaṭīkā.json
+Input: samanukrāntaprakaraṇajalaprakṣālitacittasantānasya
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #8
+Source: sa_gaṇḍavyūhasūtra.json
+Input: sarvajagadbuddhadarśanavipākakuśalamūlasaṃbhavā
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #9
+Source: sa_gaṇḍavyūhasūtra.json
+Input: vicitradhvajāyāmaśokavanikāyāmanekagṛhapatisahasraparivṛtaṃ
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #10
+Source: sa_bharata-nāṭyaśāstra-1-1618-303335-37.json
+Input: rūpaguṇaudāryadhairyasaubhāgyaśīlasaṃpannā
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #11
+Source: sa_mandanamiśra-brahmasiddhi.json
+Input: vyākulatvādāmnāyasyāvyākulatvātpratyakṣādīnām
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #12
+Source: sa_ruyyaka-alaṃkārasarvasva-1-34-comm.json
+Input: prathamamarthatadharmanirdeśaścirantanaprasiddhyā
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #13
+Source: sa_prajñākaramati-bodhicaryāvatārapañjikā.json
+Input: tāratamyabhedāvasthitaguṇaviśeṣapratilambhotkarṣaprāptaiḥ
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #14
+Source: sa_gaṇḍavyūhasūtra.json
+Input: cāturdvīpikāyāmanabhilāpyānabhilāpyanagarakoṭīniyutaśatasahasrāṇyabhūvan
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #15
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: vrātyatābodhakavacanenaivādhyayanavidhilābhena
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------
+
+Compound #16
+Source: sa_ratnagotravibhāga.json
+Input: sarvadharmadharmatathatābhisaṃbodhamukheṣvaparapratyayābhisaṃbodhastathāgatasya
+Number of segments: 0
+Grouped results:
+--------------------------------------------------------------------------------

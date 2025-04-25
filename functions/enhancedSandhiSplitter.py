@@ -71,8 +71,10 @@ def enhanced_sandhi_splitter(
         if splits is None:
             simple_split = text_to_split.split()
             if detailed_output:
-                score, subscores = scorer.score_split(simple_split)
-                return simple_split, score, subscores, None
+                ## put a check here to avoid error if missing
+                if simple_split:
+                    score, subscores = scorer.score_split(simple_split, text_to_split)
+                    return simple_split, score, subscores, None
             return simple_split
 
         # Process splits based on attempts
@@ -106,6 +108,7 @@ def enhanced_sandhi_splitter(
         simple_split = text_to_split.split()
         
         if detailed_output:
-            score, subscores = scorer.score_split(simple_split)
-            return simple_split, score, subscores, None
+            if simple_split:
+                score, subscores = scorer.score_split(simple_split, text_to_split)
+                return simple_split, score, subscores, None
         return simple_split

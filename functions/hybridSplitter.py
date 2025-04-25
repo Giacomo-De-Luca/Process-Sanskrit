@@ -8,10 +8,11 @@ from functions.sandhiSplitScorer import scorer
 def hybrid_sandhi_splitter(
     text_to_split: str,
     cached: bool = False,
-    attempts: int = 10,
+    attempts: int = 20,
     detailed_output: bool = False,
-    score_threshold: float = 0.535
-) -> Union[List[str], Tuple[List[str], float, Dict, List]]:
+    score_threshold: float = 0.535,
+    count_types: bool = False
+) -> Union[List[str], Tuple[List[str], float, Dict, List], Tuple[List[str], Dict]]:
     """
     Enhanced sandhi splitter that combines statistical splitting with root compound analysis.
     Processes complex root analysis output into scoreable word lists.
@@ -23,6 +24,9 @@ def hybrid_sandhi_splitter(
     - detailed_output: If True, returns additional scoring information
     - score_threshold: Minimum score to accept statistical split
     """
+
+     # Initialize counts dictionary if tracking
+    compound_calls = 0 if count_types else None
     # First try our enhanced statistical splitter
     if detailed_output:
         stat_split, stat_score, stat_subscores, all_splits = enhanced_sandhi_splitter(
@@ -43,30 +47,40 @@ def hybrid_sandhi_splitter(
 
     # If score is good enough, return statistical result
     if stat_score >= score_threshold:
-        print("stat_score", stat_score)
-        print("stat_split", stat_split)
+        if detailed_output:
+            print("stat_score", stat_score)
+            print("stat_split", stat_split)
+        if count_types:
+            return compound_calls
         if detailed_output:
             return stat_split, stat_score, stat_subscores, all_splits
         return stat_split
 
     # If score is too low, try root compound analysis
     try:
-        print("text_to_split", text_to_split)
+        if count_types:
+            compound_calls += 1
+        if detailed_output == True:
+            print("text_to_split", text_to_split)
         root_analysis = root_compounds(text_to_split, inflection=False)
-        print("root_analysis", root_analysis)
+        if detailed_output == True:
+            print("root_analysis", root_analysis)
         if root_analysis:
             # Process the root analysis results into a simple word list
             root_split = [process_root_result(item) for item in root_analysis]
             root_split = [x for i, x in enumerate(root_split) if i == 0 or x != root_split[i-1]]
-            print("root_split", root_split)
-            
+            if detailed_output == True:
+                print("root_split", root_split)
             # Score the processed root split
             root_score, root_subscores = scorer.score_split(text_to_split, root_split)
-            print("root_score", root_score)
-            print("root_subscores", root_subscores)
+            if detailed_output == True:
+                print("root_score", root_score)
+                print("root_subscores", root_subscores)
 
             # Compare scores and choose the better result
             if root_score > stat_score:
+                if count_types:
+                    return compound_calls
                 if detailed_output:
                     # Add root split to all_splits for reference
                     all_splits = [(root_split, root_score, root_subscores)] + (all_splits if all_splits else [])
@@ -76,10 +90,14 @@ def hybrid_sandhi_splitter(
     except Exception as e:
         print(f"Root compound analysis failed: {str(e)}")
 
+    if count_types:
+        return compound_calls
+
     # Fall back to statistical split if root analysis fails or scores lower
-    print("stat_split", stat_split)
     if detailed_output:
+        print("stat_split", stat_split)
         return stat_split, stat_score, stat_subscores, all_splits
+
     return stat_split
 
 

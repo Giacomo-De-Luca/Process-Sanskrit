@@ -1,0 +1,9363 @@
+
+LONG COMPOUNDS
+================================================================================
+================================================================================
+Compound #1
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: ghrāṇagandhaghrāṇavijñānasaṃsparśapratyayād
+----------------------------------------
+Found 5 roots:
+Found 5 groups:
+  gandhaghrāṇa, ghrāṇa, pratyaya, saṃsparśa, vijñāna
+
+Analysis by found words:
+--------------------
+• Found form [gandhaghrāṇa]:
+    - gandhaghrāṇa
+
+• Found form [ghrāṇa]:
+    - ghrāṇa
+
+• Found form [pratyayāt]:
+    - pratyaya
+
+• Found form [saṃsparśa]:
+    - saṃsparśa
+
+• Found form [vijñāna]:
+    - vijñāna
+
+================================================================================
+Compound #2
+Source: sa_annaṃbhaṭṭa-tarkasaṃgraha-comm.json
+Input: ityādyanugatānuvyavasāyasyānugatadharmamantarānupapannetvena
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  ad, antara, anugata, anupapanna, anuvyavasāya, dharma, ina, iti, tva, ādi
+
+Analysis by found words:
+--------------------
+• Found form [antara]:
+    - antara
+
+• Found form [anugata]:
+    - anugata
+
+• Found form [anugatā]:
+    - anugata
+
+• Found form [anupapanne]:
+    - anupapanna
+
+• Found form:
+    - anuvyavasāya
+    - tva
+    - ādi
+
+• Found form [dharmam]:
+    - dharma
+
+• Found form [ina]:
+    - ina
+
+• Found form [iti]:
+    - iti
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #3
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: bhāvābhāvenedānīmuttejatakābhāvaviśiṣṭatvenābhāvostīti
+----------------------------------------
+Found 13 roots:
+Found 10 groups:
+  abhāva, bhā, bhāva, idānīm, iti, nābh, nābha, taka, teja, tij, ut, vastī, viśiṣṭatva
+
+Analysis by found words:
+--------------------
+• Found form [abhāva]:
+    - abhāva
+    - bhā
+
+• Found form [abhāvena]:
+    - abhāva
+
+• Found form [avasti]:
+    - vastī
+
+• Found form [bhāva]:
+    - bhā
+    - bhāva
+
+• Found form [idānīm]:
+    - idānīm
+
+• Found form [iti]:
+    - iti
+
+• Found form [nābhā]:
+    - nābh
+    - nābha
+
+• Found form [taka]:
+    - taka
+
+• Found form [utteja]:
+    - teja
+    - tij
+    - ut
+
+• Found form [viśiṣṭatva]:
+    - viśiṣṭatva
+
+================================================================================
+Compound #4
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: vidvadvākyavihitakarmaṇorjhaṭityupasthiteḥ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  jhaṭiti, karman, upasthiti, vidvas, vihita, vākya
+
+Analysis by found words:
+--------------------
+• Found form [jhaṭiti]:
+    - jhaṭiti
+
+• Found form [karmaṇoḥ]:
+    - karman
+
+• Found form [upasthiteḥ]:
+    - upasthiti
+
+• Found form [vidvat]:
+    - vidvas
+
+• Found form [vihita]:
+    - vihita
+
+• Found form [vākya]:
+    - vākya
+
+================================================================================
+Compound #5
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: daśabalavaiśāradyapratisaṃvidāveṇikabuddhadharmān
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  aprati, buddha, daśabala, dharma, saṃvida, vaiśārada, āveṇika
+
+Analysis by found words:
+--------------------
+• Found form [aprati]:
+    - aprati
+
+• Found form [buddha]:
+    - buddha
+
+• Found form [daśabala]:
+    - daśabala
+
+• Found form [dharmān]:
+    - dharma
+
+• Found form [saṃvida]:
+    - saṃvida
+
+• Found form [vaiśāradi]:
+    - vaiśārada
+
+• Found form [āveṇika]:
+    - āveṇika
+
+================================================================================
+Compound #6
+Source: sa_lolimbarāja-vaidyajīvana.json
+Input: grahaṇyudaragulmārśaḥkṣunmāndyaplīhanāśanam
+----------------------------------------
+Found 11 roots:
+Found 8 groups:
+  arśa, arśas, grahaṇi, grahaṇī, gulma, kṣudh, kṣut, māndya, plīhan, udara, āśana
+
+Analysis by found words:
+--------------------
+• Found form [arśaḥ]:
+    - arśa
+    - arśas
+
+• Found form [grahaṇī]:
+    - grahaṇi
+    - grahaṇī
+
+• Found form [gulma]:
+    - gulma
+
+• Found form [kṣut]:
+    - kṣudh
+    - kṣut
+
+• Found form [māndya]:
+    - māndya
+
+• Found form [plīhan]:
+    - plīhan
+
+• Found form [udara]:
+    - udara
+
+• Found form [āśanam]:
+    - āśana
+
+================================================================================
+Compound #7
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: āryasatyāpramāṇadhyānārūpyavimokṣasamādhisamāpattidhāraṇīmukhāni
+----------------------------------------
+Found 10 roots:
+Found 8 groups:
+  dhyāna, dhāraṇa, dhāraṇi, mukha, pramāṇa, samādhi, samāpatti, vimokṣa, āryasatya, ārūpya
+
+Analysis by found words:
+--------------------
+• Found form:
+    - samādhi
+    - samāpatti
+
+• Found form [dhyāna]:
+    - dhyāna
+
+• Found form [dhāraṇī]:
+    - dhāraṇa
+    - dhāraṇi
+
+• Found form [mukhāni]:
+    - mukha
+
+• Found form [pramāṇa]:
+    - pramāṇa
+
+• Found form [vimokṣa]:
+    - vimokṣa
+
+• Found form [āryasatya]:
+    - āryasatya
+
+• Found form [ārūpya]:
+    - ārūpya
+
+================================================================================
+Compound #8
+Source: sa_ratnakīrti-nibandhāvalī.json
+Input: yathānumitabhāvitavahniviṣayaviśadajñānamiti
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  anumita, bhāvita, iti, jñāna, vahni, viśada, viṣaya, yathā
+
+Analysis by found words:
+--------------------
+• Found form [anumita]:
+    - anumita
+
+• Found form [bhāvita]:
+    - bhāvita
+
+• Found form:
+    - vahni
+
+• Found form [iti]:
+    - iti
+
+• Found form [jñānam]:
+    - jñāna
+
+• Found form [viśada]:
+    - viśada
+
+• Found form [viṣaya]:
+    - viṣaya
+
+• Found form [yathā]:
+    - yathā
+
+================================================================================
+Compound #9
+Source: sa_jīvagosvāmin-saṃkalpakalpadruma.json
+Input: kamaladaladvayālimadhyasthitipathivṛndam
+----------------------------------------
+Found 8 roots:
+Found 6 groups:
+  dal, dala, dvaya, kamala, madhya, pathi, sthiti, vṛnda
+
+Analysis by found words:
+--------------------
+• Found form [dala]:
+    - dal
+    - dala
+
+• Found form:
+    - pathi
+    - sthiti
+
+• Found form [dvaya]:
+    - dvaya
+
+• Found form [kamala]:
+    - kamala
+
+• Found form [madhya]:
+    - madhya
+
+• Found form [vṛndam]:
+    - vṛnda
+
+================================================================================
+Compound #10
+Source: sa_harivarman-satyasiddhiśāstram.json
+Input: kadācitpañcakāmaguṇānusmaraṇātkāmavitarkamutpādayati
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  anusmaraṇa, cit, kadā, kāma, kāmaguṇa, pañca, utpāda, vitarka, yati
+
+Analysis by found words:
+--------------------
+• Found form [anusmaraṇāt]:
+    - anusmaraṇa
+
+• Found form [cit]:
+    - cit
+
+• Found form [kadā]:
+    - kadā
+
+• Found form [kāma]:
+    - kāma
+
+• Found form [kāmaguṇa]:
+    - kāmaguṇa
+
+• Found form [pañca]:
+    - pañca
+
+• Found form [utpāda]:
+    - utpāda
+
+• Found form [vitarkam]:
+    - vitarka
+
+• Found form [yati]:
+    - yati
+
+================================================================================
+Compound #11
+Source: sa_lalitavistara.json
+Input: sarvabodhisattvasamādāyakasamuttejakasaṃhaprarṣaka
+----------------------------------------
+Found 11 roots:
+Found 11 groups:
+  bodhi, ha, ka, kasa, pra, samha, samādāya, sarva, sattva, uttejaka, ṛṣ
+
+Analysis by found words:
+--------------------
+• Found form [bodhi]:
+    - bodhi
+
+• Found form:
+    - bodhi
+    - samha
+
+• Found form [ka]:
+    - ka
+
+• Found form [kasam]:
+    - kasa
+
+• Found form [prā]:
+    - pra
+
+• Found form [samādāya]:
+    - samādāya
+
+• Found form [sarva]:
+    - sarva
+
+• Found form [sattva]:
+    - sattva
+
+• Found form [saṃha]:
+    - ha
+
+• Found form [uttejaka]:
+    - uttejaka
+
+• Found form [ṛṣa]:
+    - ṛṣ
+
+================================================================================
+Compound #12
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: tādṛśaprāgabhāvāntarasatvātpunastadutpattidoṣo
+----------------------------------------
+Found 11 roots:
+Found 8 groups:
+  anta, dos, doṣa, doṣas, prāgabhāva, pu, puna, rasatva, tad, tādṛśa, utpatti
+
+Analysis by found words:
+--------------------
+• Found form [anta]:
+    - anta
+
+• Found form:
+    - utpatti
+
+• Found form [doṣaḥ]:
+    - dos
+    - doṣa
+    - doṣas
+
+• Found form [prāgabhāva]:
+    - prāgabhāva
+
+• Found form [punaḥ]:
+    - pu
+    - puna
+
+• Found form [rasatvāt]:
+    - rasatva
+
+• Found form [tat]:
+    - tad
+
+• Found form [tādṛśa]:
+    - tādṛśa
+
+================================================================================
+Compound #13
+Source: sa_gaṇḍavyūhasūtra.json
+Input: vividhaśāntasamādhimukhāvartanayādhigamajñānamārgasaṃbhavahetuṃ
+----------------------------------------
+Found 13 roots:
+Found 10 groups:
+  gam, gama, hetu, hi, jñānamārga, mukha, sambhava, samādhi, vartana, vividha, vyadh, yād, śānta
+
+Analysis by found words:
+--------------------
+• Found form [avartana]:
+    - vartana
+
+• Found form:
+    - samādhi
+    - yād
+
+• Found form [gama]:
+    - gam
+    - gama
+
+• Found form [hetum]:
+    - hetu
+
+• Found form [hi]:
+    - hi
+
+• Found form [jñānamārga]:
+    - jñānamārga
+
+• Found form [mukha]:
+    - mukha
+
+• Found form [sambhava]:
+    - sambhava
+
+• Found form [vividha]:
+    - vividha
+    - vyadh
+
+• Found form [śānta]:
+    - śānta
+
+================================================================================
+Compound #14
+Source: sa_abhidharmasamuccayabhāṣya.json
+Input: śaṃlpasthānikanairmāṇikacittaprabhṛtīnām
+----------------------------------------
+Found 9 roots:
+Found 7 groups:
+  citta, kana, māṇika, ni, pac, prabhṛti, tha, śa, śam
+
+Analysis by found words:
+--------------------
+• Found form [citta]:
+    - citta
+
+• Found form [māṇika]:
+    - māṇika
+
+• Found form [nikana]:
+    - kana
+    - ni
+
+• Found form [pak]:
+    - pac
+
+• Found form [prabhṛtīnām]:
+    - prabhṛti
+
+• Found form [tha]:
+    - tha
+
+• Found form [śam]:
+    - śa
+    - śam
+
+================================================================================
+Compound #15
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: paropādhikaviṣayapravaṇatvayoricchāprayatnayorapi
+----------------------------------------
+Found 10 roots:
+Found 8 groups:
+  ap, apya, icchā, para, pravaṇa, prayatna, prayatnā, tu, upādhika, viṣaya
+
+Analysis by found words:
+--------------------
+• Found form [api]:
+    - ap
+    - apya
+
+• Found form [icchā]:
+    - icchā
+
+• Found form [para]:
+    - para
+
+• Found form [pravaṇa]:
+    - pravaṇa
+
+• Found form [prayatnayoḥ]:
+    - prayatna
+    - prayatnā
+
+• Found form [tu]:
+    - tu
+
+• Found form [upādhika]:
+    - upādhika
+
+• Found form [viṣaya]:
+    - viṣaya
+
+================================================================================
+Compound #16
+Source: sa_mañjuśrīmūlakalpa.json
+Input: vidyādharakoṭīnayutaśatasahasraparivāraḥ
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  koṭi, koṭī, nayuta, parivāra, sahasra, vidyādhara, śata
+
+Analysis by found words:
+--------------------
+• Found form [koṭī]:
+    - koṭi
+    - koṭī
+
+• Found form [nayuta]:
+    - nayuta
+
+• Found form [parivāraḥ]:
+    - parivāra
+
+• Found form [sahasra]:
+    - sahasra
+
+• Found form [vidyādhara]:
+    - vidyādhara
+
+• Found form [śata]:
+    - śata
+
+================================================================================
+Compound #17
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: tādṛśātīndriyadharmavatvaśūnyatvavādvahnerdāharūpakāryājanakatvaṃ
+----------------------------------------
+Found 14 roots:
+Found 12 groups:
+  atīndriya, avavahni, dharmavat, dāha, janaka, ru, tu, tādṛśa, upakārya, upakārī, va, vahni, yuṣmad, śūnya
+
+Analysis by found words:
+--------------------
+• Found form [atīndriya]:
+    - atīndriya
+
+• Found form:
+    - avavahni
+    - ru
+
+• Found form [dharmavat]:
+    - dharmavat
+
+• Found form [dāha]:
+    - dāha
+
+• Found form [janaka]:
+    - janaka
+
+• Found form [tu]:
+    - tu
+
+• Found form [tvam]:
+    - yuṣmad
+
+• Found form [tādṛśa]:
+    - tādṛśa
+
+• Found form [upakāryā]:
+    - upakārya
+    - upakārī
+
+• Found form [va]:
+    - va
+
+• Found form [vahneḥ]:
+    - vahni
+
+• Found form [śūnya]:
+    - śūnya
+
+================================================================================
+Compound #18
+Source: sa_cakrapāṇinātha-bhāvopahārastotra.json
+Input: bhavābhavodghaṭṭanavighaṭṭanajavanikāprāveśanirgamanākampitasvarūpo
+----------------------------------------
+Found 11 roots:
+Found 9 groups:
+  abhava, akampita, bhava, bhū, javanikā, nirgamana, pra, svarūpa, udghaṭṭana, vighaṭṭana, āveśa
+
+Analysis by found words:
+--------------------
+• Found form [abhava]:
+    - abhava
+
+• Found form [akampita]:
+    - akampita
+
+• Found form [bhava]:
+    - bhava
+    - bhū
+
+• Found form [javanikā]:
+    - javanikā
+
+• Found form [nirgamana]:
+    - nirgamana
+
+• Found form [praāveśa]:
+    - pra
+    - āveśa
+
+• Found form [svarūpaḥ]:
+    - svarūpa
+
+• Found form [udghaṭṭana]:
+    - udghaṭṭana
+
+• Found form [vighaṭṭana]:
+    - vighaṭṭana
+
+================================================================================
+Compound #19
+Source: sa_kālidāsa-raghuvaṃśa-kashm1-6.json
+Input: rajobhisturagotkīrṇairaspṛṣṭālakaveṣṭanau
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  abhi, aira, alaka, iṣṭani, raja, rajas, spṛṣṭa, turaga, utkīrṇa, vā
+
+Analysis by found words:
+--------------------
+• Found form [abhiḥ]:
+    - abhi
+
+• Found form [aira]:
+    - aira
+
+• Found form [alaka]:
+    - alaka
+
+• Found form [iṣṭanau]:
+    - iṣṭani
+
+• Found form [rajaḥ]:
+    - raja
+    - rajas
+
+• Found form [spṛṣṭā]:
+    - spṛṣṭa
+
+• Found form [turaga]:
+    - turaga
+
+• Found form [utkīrṇā]:
+    - utkīrṇa
+
+• Found form [vā]:
+    - vā
+
+================================================================================
+Compound #20
+Source: sa_gaṇḍavyūhasūtra.json
+Input: tathāgatamāhātmyānugatairmanasikārairdaśabhirdhāraṇīmaṇḍalaparivartasahasraiḥ
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  anugata, daśa, dhāraṇa, dhāraṇi, manasikāra, maṇḍala, māhātmya, parivarta, sahasra, tathāgata
+
+Analysis by found words:
+--------------------
+• Found form [anugata]:
+    - anugata
+
+• Found form [daśabhiḥ]:
+    - daśa
+
+• Found form [dhāraṇī]:
+    - dhāraṇa
+    - dhāraṇi
+
+• Found form [manasikāraiḥ]:
+    - manasikāra
+
+• Found form [maṇḍala]:
+    - maṇḍala
+
+• Found form [māhātmya]:
+    - māhātmya
+
+• Found form [parivarta]:
+    - parivarta
+
+• Found form [sahasraiḥ]:
+    - sahasra
+
+• Found form [tathāgata]:
+    - tathāgata
+
+================================================================================
+Compound #21
+Source: sa_mañjuśrīmūlakalpa.json
+Input: ratnapāṇisarvālaṅkāraratnamakuṭavicchuritapriyaṅguśyāmāvadātaṃ
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  ara, laṅkā, makuṭa, priyaṅgu, ratna, ratnapāṇi, sarva, vicchurita, śyāmāvadāta
+
+Analysis by found words:
+--------------------
+• Found form [alaṅkā]:
+    - laṅkā
+
+• Found form [ara]:
+    - ara
+
+• Found form:
+    - ratnapāṇi
+
+• Found form [makuṭa]:
+    - makuṭa
+
+• Found form [priyaṅgu]:
+    - priyaṅgu
+
+• Found form [ratna]:
+    - ratna
+
+• Found form [sarva]:
+    - sarva
+
+• Found form [vicchurita]:
+    - vicchurita
+
+• Found form [śyāmāvadātam]:
+    - śyāmāvadāta
+
+================================================================================
+Compound #22
+Source: sa_rāmānuja-vedārthasaṃgraha.json
+Input: daharapuṇḍarīkamadhyasthākāśāntarvartitayopāsyatvam
+----------------------------------------
+Found 10 roots:
+Found 8 groups:
+  anta, as, dahara, idam, madhyastha, puṇḍarīka, upa, vartitā, yuṣmad, ākāśa
+
+Analysis by found words:
+--------------------
+• Found form [antaḥ]:
+    - anta
+
+• Found form [dahara]:
+    - dahara
+
+• Found form [madhyastha]:
+    - madhyastha
+
+• Found form [puṇḍarīka]:
+    - puṇḍarīka
+
+• Found form [tvam]:
+    - yuṣmad
+
+• Found form [upaasya]:
+    - as
+    - idam
+    - upa
+
+• Found form [vartitayā]:
+    - vartitā
+
+• Found form [ākāśa]:
+    - ākāśa
+
+================================================================================
+Compound #23
+Source: sa_kuntaka-vakroktijīvita-comm.json
+Input: lokaprasiddhasāmānyaparispandādviśeṣataḥ
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  loka, parispanda, prasiddha, sāmānya, vi, śiṣ
+
+Analysis by found words:
+--------------------
+• Found form [loka]:
+    - loka
+
+• Found form [parispandāt]:
+    - parispanda
+
+• Found form [prasiddha]:
+    - prasiddha
+
+• Found form [sāmānya]:
+    - sāmānya
+
+• Found form [viśeṣataḥ]:
+    - vi
+    - śiṣ
+
+================================================================================
+Compound #24
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: jñānottarapāpaphalamaśucitvāsambhāṣyatvādikaṃ
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  aśuci, dikam, jñāna, pāpaphala, sambhāṣya, tu, uttara, yuṣmad
+
+Analysis by found words:
+--------------------
+• Found form [aśuci]:
+    - aśuci
+
+• Found form [jñāna]:
+    - jñāna
+
+• Found form [pāpaphalam]:
+    - pāpaphala
+
+• Found form [sambhāṣya]:
+    - sambhāṣya
+
+• Found form [tu]:
+    - tu
+
+• Found form [tvā]:
+    - yuṣmad
+
+• Found form [uttara]:
+    - uttara
+
+• Found form [ādikam]:
+    - dikam
+
+================================================================================
+Compound #25
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: svāvacchinnakāryatvapratiyogikakāraṇāsambhavo
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  avacchinna, kāraṇā, kāryatva, pratiyogika, sambhava, sambhu, sva
+
+Analysis by found words:
+--------------------
+• Found form [avacchinna]:
+    - avacchinna
+
+• Found form [kāraṇā]:
+    - kāraṇā
+
+• Found form [kāryatva]:
+    - kāryatva
+
+• Found form [pratiyogika]:
+    - pratiyogika
+
+• Found form [sambhavaḥ]:
+    - sambhava
+    - sambhu
+
+• Found form [sva]:
+    - sva
+
+================================================================================
+Compound #26
+Source: sa_śālikanāthamiśra-prakaraṇapañcikā-comm.json
+Input: sākṣācchrutādhyāpanavidhyanusāreṇaivamāhuḥ
+----------------------------------------
+Found 11 roots:
+Found 7 groups:
+  adhyāpana, anusāra, anusāreṇa, brū, eva, evam, sākṣa, sākṣāt, vidh, śrut, śruta
+
+Analysis by found words:
+--------------------
+• Found form [adhyāpana]:
+    - adhyāpana
+
+• Found form [anusāreṇa]:
+    - anusāra
+    - anusāreṇa
+
+• Found form [evam]:
+    - eva
+    - evam
+
+• Found form [sākṣāt]:
+    - sākṣa
+    - sākṣāt
+
+• Found form [vidhi]:
+    - vidh
+
+• Found form [āhuḥ]:
+    - brū
+
+• Found form [śrutā]:
+    - śrut
+    - śruta
+
+================================================================================
+Compound #27
+Source: sa_kṣemendra-narmamālā.json
+Input: bhaṭairargalitadvārakavāṭasphoṭanākulaiḥ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  akula, argalita, bhaṭa, dvāraka, sphoṭana, vāṭa
+
+Analysis by found words:
+--------------------
+• Found form [akulaiḥ]:
+    - akula
+
+• Found form [argalita]:
+    - argalita
+
+• Found form [bhaṭa]:
+    - bhaṭa
+
+• Found form [dvāraka]:
+    - dvāraka
+
+• Found form [sphoṭana]:
+    - sphoṭana
+
+• Found form [vāṭa]:
+    - vāṭa
+
+================================================================================
+Compound #28
+Source: sa_śivapurāṇabooks-1-and-7.json
+Input: carecchaṃkaraliṃgasyapratiṣṭhāpanamuttamam
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  car, liṅga, pratiṣṭhāpana, uttama, uttamam, śaṅkara
+
+Analysis by found words:
+--------------------
+• Found form [caret]:
+    - car
+
+• Found form:
+    - śaṅkara
+
+• Found form [liṅgasya]:
+    - liṅga
+
+• Found form [pratiṣṭhāpanam]:
+    - pratiṣṭhāpana
+
+• Found form [uttamam]:
+    - uttama
+    - uttamam
+
+================================================================================
+Compound #29
+Source: sa_saddharmalaṅkāvatārasūtra.json
+Input: śirauronāsākaṇṭhatālvoṣṭhajihvādantasamavāyānmahāmate
+----------------------------------------
+Found 12 roots:
+Found 10 groups:
+  danta, jihva, kaṇṭha, mahāmata, mahāmati, nāsā, oṣṭha, ra, samavāya, tālu, śira, śiri
+
+Analysis by found words:
+--------------------
+• Found form [danta]:
+    - danta
+
+• Found form [jihvā]:
+    - jihva
+
+• Found form [kaṇṭha]:
+    - kaṇṭha
+
+• Found form [mahāmate]:
+    - mahāmata
+    - mahāmati
+
+• Found form [nāsā]:
+    - nāsā
+
+• Found form [oṣṭha]:
+    - oṣṭha
+
+• Found form [raḥ]:
+    - ra
+
+• Found form [samavāyāt]:
+    - samavāya
+
+• Found form [tālu]:
+    - tālu
+
+• Found form [śirau]:
+    - śira
+    - śiri
+
+================================================================================
+Compound #30
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: sadṛśābhāsādibhirvicitrābhiruktibhirvicitrībhavatyeva
+----------------------------------------
+Found 14 roots:
+Found 9 groups:
+  abhi, bhavat, bhavatī, bhū, citrin, citrī, eva, sadṛśa, ukti, vi, vicitra, ābhāsa, ādi, ādin
+
+Analysis by found words:
+--------------------
+• Found form [abhiḥ]:
+    - abhi
+
+• Found form [bhavati]:
+    - bhavat
+    - bhavatī
+    - bhū
+
+• Found form [eva]:
+    - eva
+
+• Found form [sadṛśa]:
+    - sadṛśa
+
+• Found form [uktibhiḥ]:
+    - ukti
+
+• Found form [vicitra]:
+    - vicitra
+
+• Found form [vicitrī]:
+    - citrin
+    - citrī
+    - vi
+
+• Found form [ābhāsa]:
+    - ābhāsa
+
+• Found form [ādibhiḥ]:
+    - ādi
+    - ādin
+
+================================================================================
+Compound #31
+Source: sa_viśvanāthakavirāja-sāhityadarpaṇa-comm.json
+Input: viṣayaprayojanayoryugapatpratītyanabhyupagamāt
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  nabh, pratītya, prayojana, upagama, viṣaya, yugapad
+
+Analysis by found words:
+--------------------
+• Found form [nabhi]:
+    - nabh
+
+• Found form [pratītya]:
+    - pratītya
+
+• Found form [prayojanayoḥ]:
+    - prayojana
+
+• Found form [upagamāt]:
+    - upagama
+
+• Found form [viṣaya]:
+    - viṣaya
+
+• Found form [yugapad]:
+    - yugapad
+
+================================================================================
+Compound #32
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: anutpādāyānirodhāyāsaṃkleśāyāvyavadānāya
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  anutpāda, avadāna, avi, avī, kleśa, nirodha, āya, āyāsa
+
+Analysis by found words:
+--------------------
+• Found form [anutpāda]:
+    - anutpāda
+
+• Found form [avadānāya]:
+    - avadāna
+
+• Found form [avi]:
+    - avi
+    - avī
+
+• Found form [kleśāya]:
+    - kleśa
+
+• Found form [nirodha]:
+    - nirodha
+
+• Found form [āyāsam]:
+    - āyāsa
+
+• Found form [āyāḥ]:
+    - āya
+
+================================================================================
+Compound #33
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra.json
+Input: dharmāṇāmarthaprakhyānāvagamāttatpraveśaṃ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  artha, avagama, dharma, prakhyāna, praveśa, tad
+
+Analysis by found words:
+--------------------
+• Found form [artha]:
+    - artha
+
+• Found form [avagamāt]:
+    - avagama
+
+• Found form [dharmāṇām]:
+    - dharma
+
+• Found form [prakhyāna]:
+    - prakhyāna
+
+• Found form [praveśam]:
+    - praveśa
+
+• Found form [tat]:
+    - tad
+
+================================================================================
+Compound #34
+Source: sa_nārāyaṇabhaṭṭa-nārāyaṇīya.json
+Input: phaṇaśṛṅgasahasraviniḥsṛmarajvaladagnikaṇograviṣāmbudharam
+----------------------------------------
+Found 13 roots:
+Found 9 groups:
+  agnikaṇa, ambudhara, jvalat, mara, mṛ, phaṇa, sahasra, ugra, viniḥsṛ, viṣ, viṣa, viṣā, śṛṅga
+
+Analysis by found words:
+--------------------
+• Found form [agnikaṇa]:
+    - agnikaṇa
+
+• Found form [ambudharam]:
+    - ambudhara
+
+• Found form:
+    - jvalat
+    - viniḥsṛ
+
+• Found form [mara]:
+    - mara
+    - mṛ
+
+• Found form [phaṇa]:
+    - phaṇa
+
+• Found form [sahasra]:
+    - sahasra
+
+• Found form [ugra]:
+    - ugra
+
+• Found form [viṣā]:
+    - viṣ
+    - viṣa
+    - viṣā
+
+• Found form [śṛṅga]:
+    - śṛṅga
+
+================================================================================
+Compound #35
+Source: sa_kuntaka-vakroktijīvita-comm.json
+Input: sasandehālaṅkārasahāyametadevopanibaddhamiti
+----------------------------------------
+Found 11 roots:
+Found 9 groups:
+  ara, dah, deha, etad, eva, iti, laṅkā, sahāya, sasa, so, upanibaddha
+
+Analysis by found words:
+--------------------
+• Found form [alaṅkā]:
+    - laṅkā
+
+• Found form [ara]:
+    - ara
+
+• Found form [deha]:
+    - dah
+    - deha
+
+• Found form [etat]:
+    - etad
+
+• Found form [eva]:
+    - eva
+
+• Found form [iti]:
+    - iti
+
+• Found form [sahāyam]:
+    - sahāya
+
+• Found form [sasa]:
+    - sasa
+    - so
+
+• Found form [upanibaddham]:
+    - upanibaddha
+
+================================================================================
+Compound #36
+Source: sa_ratnagotravibhāga.json
+Input: mīḍhakūpamavaruhyaikaputrakamabhyutkṣipet
+----------------------------------------
+Found 9 roots:
+Found 7 groups:
+  abhi, avaruh, ekaputraka, kūpa, kṣip, mīḍha, ruh, ut, ya
+
+Analysis by found words:
+--------------------
+• Found form [abhiut]:
+    - abhi
+    - ut
+
+• Found form:
+    - avaruh
+    - ruh
+
+• Found form [ekaputrakam]:
+    - ekaputraka
+
+• Found form [kūpam]:
+    - kūpa
+
+• Found form [kṣipet]:
+    - kṣip
+
+• Found form [mīḍha]:
+    - mīḍha
+
+• Found form [ya]:
+    - ya
+
+================================================================================
+Compound #37
+Source: sa_gaṇḍavyūhasūtra.json
+Input: ekacittakṣaṇasarvābhijñāpraṇidhyabhinirhāreṇa
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  abhi, abhijña, ekacitta, kṣaṇa, nirhāra, praṇidhi, sarva
+
+Analysis by found words:
+--------------------
+• Found form [abhijñā]:
+    - abhijña
+
+• Found form [abhinirhāreṇa]:
+    - abhi
+    - nirhāra
+
+• Found form:
+    - praṇidhi
+
+• Found form [ekacitta]:
+    - ekacitta
+
+• Found form [kṣaṇa]:
+    - kṣaṇa
+
+• Found form [sarva]:
+    - sarva
+
+================================================================================
+Compound #38
+Source: sa_viśvanāthakavirāja-sāhityadarpaṇa-comm.json
+Input: cāniyamaparivṛttitvāderapyadhikapadatvādbhedo
+----------------------------------------
+Found 11 roots:
+Found 7 groups:
+  adhika, ap, aparī, apya, bheda, ca, ni, padatva, vṛttitva, ya, yad
+
+Analysis by found words:
+--------------------
+• Found form [aniyam]:
+    - ni
+    - ya
+    - yad
+
+• Found form [apari]:
+    - aparī
+
+• Found form [apiadhika]:
+    - adhika
+    - ap
+    - apya
+
+• Found form [bhedaḥ]:
+    - bheda
+
+• Found form [ca]:
+    - ca
+
+• Found form [padatvāt]:
+    - padatva
+
+• Found form [vṛttitvāt]:
+    - vṛttitva
+
+================================================================================
+Compound #39
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: śakyārthabodhakālīnāhvānaprakāśanānuvādādāhvayatyanvayopapattirityarthaḥ
+----------------------------------------
+Found 11 roots:
+Found 12 groups:
+  ali, anuvāda, anvaya, artha, bodhaka, hve, prakāśana, rit, upapatti, āhvāna, śakya
+
+Analysis by found words:
+--------------------
+• Found form [alīn]:
+    - ali
+
+• Found form [anuvādāt]:
+    - anuvāda
+
+• Found form [anvaya]:
+    - anvaya
+
+• Found form [artha]:
+    - artha
+
+• Found form [arthaḥ]:
+    - artha
+
+• Found form [bodhaka]:
+    - bodhaka
+
+• Found form:
+    - upapatti
+
+• Found form [hvayati]:
+    - hve
+
+• Found form [prakāśana]:
+    - prakāśana
+
+• Found form [riti]:
+    - rit
+
+• Found form [āhvāna]:
+    - āhvāna
+
+• Found form [śakyā]:
+    - śakya
+
+================================================================================
+Compound #40
+Source: sa_vimalamitra-abhidharmadīpa-comm.json
+Input: kṛtsnādrūpamayāddhātorvairāgyamadhigacchati
+----------------------------------------
+Found 8 roots:
+Found 6 groups:
+  adhi, aya, dhātu, gam, kṛtsna, rūpa, vairāgya, yā
+
+Analysis by found words:
+--------------------
+• Found form [adhigacchati]:
+    - adhi
+    - gam
+
+• Found form [ayāt]:
+    - aya
+    - yā
+
+• Found form [dhātoḥ]:
+    - dhātu
+
+• Found form [kṛtsnāt]:
+    - kṛtsna
+
+• Found form [rūpam]:
+    - rūpa
+
+• Found form [vairāgyam]:
+    - vairāgya
+
+================================================================================
+Compound #41
+Source: sa_mahāparinirvāṇasūtra.json
+Input: dharmavicayavīryaprītiprasrabdhisamādhyupekṣāsaṃbodhyaṅgaṃ
+----------------------------------------
+Found 10 roots:
+Found 8 groups:
+  aya, dharmavid, dhī, pra, prīti, ra, sambodhyaṅga, samādhi, upekṣā, vīrya
+
+Analysis by found words:
+--------------------
+• Found form [asaṃbodhyaṅgam]:
+    - sambodhyaṅga
+
+• Found form [aya]:
+    - aya
+
+• Found form:
+    - dharmavid
+    - prīti
+    - samādhi
+
+• Found form [dhi]:
+    - dhī
+
+• Found form [praḥ]:
+    - pra
+
+• Found form [ra]:
+    - ra
+
+• Found form [upekṣā]:
+    - upekṣā
+
+• Found form [vīrya]:
+    - vīrya
+
+================================================================================
+Compound #42
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: kadācitpradhānakāraṇavādānurodhenāpīkṣatyādiśravaṇamakalpayiṣyat
+----------------------------------------
+Found 12 roots:
+Found 9 groups:
+  acit, anurodha, iṣ, iṣya, kadā, kṣati, maka, nāpi, pay, pradhānakāraṇavāda, ravaṇa, ādiś
+
+Analysis by found words:
+--------------------
+• Found form [acit]:
+    - acit
+
+• Found form [anurodha]:
+    - anurodha
+
+• Found form:
+    - kṣati
+    - nāpi
+    - pay
+
+• Found form [iṣya]:
+    - iṣ
+    - iṣya
+
+• Found form [kadā]:
+    - kadā
+
+• Found form [maka]:
+    - maka
+
+• Found form [pradhānakāraṇavāda]:
+    - pradhānakāraṇavāda
+
+• Found form [ravaṇa]:
+    - ravaṇa
+
+• Found form [ādik]:
+    - ādiś
+
+================================================================================
+Compound #43
+Source: sa_revākhāṇḍa-of-the-vāyupurāṇa-rkv.json
+Input: dadhiskandādipañcatīrthamāhātmyavarṇanaṃ
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  ad, dadhiskanda, māhātmya, pañca, tīrtha, varṇana, ādi
+
+Analysis by found words:
+--------------------
+• Found form [dadhiskanda]:
+    - dadhiskanda
+
+• Found form:
+    - ādi
+
+• Found form [māhātmya]:
+    - māhātmya
+
+• Found form [pañca]:
+    - pañca
+
+• Found form [tīrtha]:
+    - tīrtha
+
+• Found form [varṇanam]:
+    - varṇana
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #44
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: vidyādharendrāṃstānsagandharvānudāyudhān
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  gandharva, sa, ta, tad, udāyudha, vidyādharendra
+
+Analysis by found words:
+--------------------
+• Found form [gandharvān]:
+    - gandharva
+
+• Found form [sa]:
+    - sa
+
+• Found form [tān]:
+    - ta
+    - tad
+
+• Found form [udāyudhān]:
+    - udāyudha
+
+• Found form [vidyādharendrān]:
+    - vidyādharendra
+
+================================================================================
+Compound #45
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: ūrdhvapātravācakapadasāmānādhikaraṇyābhāve
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  abhāva, sāmānādhikaraṇya, vācakapada, ūrdhvapātra
+
+Analysis by found words:
+--------------------
+• Found form [abhāve]:
+    - abhāva
+
+• Found form [sāmānādhikaraṇya]:
+    - sāmānādhikaraṇya
+
+• Found form [vācakapada]:
+    - vācakapada
+
+• Found form [ūrdhvapātra]:
+    - ūrdhvapātra
+
+
+Error processing compound 46: unsupported operand type(s) for +: 'NoneType' and 'list'
+Source: sa_vācaspatimiśra-bhāmati.json
+Input: kṣīradadhipratyayavadācāryamātulabrāhmaṇapratyayavadvā
+--------------------------------------------------------------------------------
+
+================================================================================
+Compound #47
+Source: sa_ruyyaka-alaṃkārasarvasva-1-34-comm.json
+Input: casādṛśyanimittaivabhrāntiralaṅkāraviṣayo
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  ara, bhrānti, ca, eva, laṅkā, nimitta, sādṛśya, viṣaya
+
+Analysis by found words:
+--------------------
+• Found form [alaṅkā]:
+    - laṅkā
+
+• Found form [ara]:
+    - ara
+
+• Found form [bhrāntiḥ]:
+    - bhrānti
+
+• Found form [ca]:
+    - ca
+
+• Found form [eva]:
+    - eva
+
+• Found form [nimittā]:
+    - nimitta
+
+• Found form [sādṛśya]:
+    - sādṛśya
+
+• Found form [viṣayaḥ]:
+    - viṣaya
+
+================================================================================
+Compound #48
+Source: sa_bādarāyaṇa-brahmasūtra1,1-1,3-comm-subcomm.json
+Input: pūrvodāhṛtataittirīyaśrutisthādityaśabdaḥ
+----------------------------------------
+Found 9 roots:
+Found 8 groups:
+  as, pūrva, stha, taittirīya, udāhṛta, āditya, śabda, śrut, śruti
+
+Analysis by found words:
+--------------------
+• Found form:
+    - śruti
+
+• Found form [pūrva]:
+    - pūrva
+
+• Found form [stha]:
+    - as
+    - stha
+
+• Found form [taittirīya]:
+    - taittirīya
+
+• Found form [udāhṛta]:
+    - udāhṛta
+
+• Found form [āditya]:
+    - āditya
+
+• Found form [śabdaḥ]:
+    - śabda
+
+• Found form [śruti]:
+    - śrut
+
+================================================================================
+Compound #49
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: doṣābhāvavyatirekaprayuktavyatirekapratiyogitvaṃ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  abhāva, bhā, doṣa, pratiyogitva, prayukta, vyatireka
+
+Analysis by found words:
+--------------------
+• Found form [abhāva]:
+    - abhāva
+    - bhā
+
+• Found form:
+    - doṣa
+
+• Found form [doṣa]:
+    - doṣa
+
+• Found form [pratiyogitvam]:
+    - pratiyogitva
+
+• Found form [prayukta]:
+    - prayukta
+
+• Found form [vyatireka]:
+    - vyatireka
+
+================================================================================
+Compound #50
+Source: sa_vācaspatimiśra-bhāmati.json
+Input: dharmimātrayornityānityayostaddharmayośca
+----------------------------------------
+Found 8 roots:
+Found 6 groups:
+  ca, dharma, dharmayu, dharmin, mātrayā, mātrā, nityānitya, tad
+
+Analysis by found words:
+--------------------
+• Found form [ca]:
+    - ca
+
+• Found form [dharmayoḥ]:
+    - dharma
+    - dharmayu
+
+• Found form [dharmi]:
+    - dharmin
+
+• Found form [mātrayā]:
+    - mātrayā
+    - mātrā
+
+• Found form [nityānityayoḥ]:
+    - nityānitya
+
+• Found form [tat]:
+    - tad
+
+================================================================================
+Compound #51
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: rāgānvayānanubhāvakatāprayojakavirahapratiyogitāvacchedakarūpasya
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  anubhāvakatā, anvaya, chedaka, pratiyogi, prayojaka, rāgā, rūpa, tāvat, viraha
+
+Analysis by found words:
+--------------------
+• Found form [anubhāvakatā]:
+    - anubhāvakatā
+
+• Found form [anvayān]:
+    - anvaya
+
+• Found form [chedaka]:
+    - chedaka
+
+• Found form:
+    - pratiyogi
+
+• Found form [prayojaka]:
+    - prayojaka
+
+• Found form [rāgā]:
+    - rāgā
+
+• Found form [rūpasya]:
+    - rūpa
+
+• Found form [tāvat]:
+    - tāvat
+
+• Found form [viraha]:
+    - viraha
+
+================================================================================
+Compound #52
+Source: sa_vātūlanātha-vātūlanāthasūtra-comm.json
+Input: ativiśṛṅkhalataradhāmaniruttaranistaraṅgaparasvātantryavṛttyā
+----------------------------------------
+Found 11 roots:
+Found 10 groups:
+  ati, dhāma, ga, ni, niruttara, para, svātantrya, tara, tṝ, viśṛṅkhala, vṛtti
+
+Analysis by found words:
+--------------------
+• Found form [ativiśṛṅkhala]:
+    - ati
+    - viśṛṅkhala
+
+• Found form:
+    - dhāma
+
+• Found form [dhāma]:
+    - dhāma
+
+• Found form [ga]:
+    - ga
+
+• Found form [niruttara]:
+    - niruttara
+
+• Found form [niḥ]:
+    - ni
+
+• Found form [para]:
+    - para
+
+• Found form [svātantrya]:
+    - svātantrya
+
+• Found form [tara]:
+    - tara
+    - tṝ
+
+• Found form [vṛttyā]:
+    - vṛtti
+
+================================================================================
+Compound #53
+Source: sa_āpastambagṛhyasūtra-comm.json
+Input: tatastānodanānagnisamīpamānīyyāpageṇāgniṃ
+----------------------------------------
+Found 11 roots:
+Found 11 groups:
+  agni, anagni, asta, ga, mānī, odana, samīpa, tad, āp, āpa, ṇa
+
+Analysis by found words:
+--------------------
+• Found form [agnim]:
+    - agni
+
+• Found form [anagni]:
+    - anagni
+
+• Found form [astān]:
+    - asta
+
+• Found form:
+    - mānī
+
+• Found form [ga]:
+    - ga
+
+• Found form [mānī]:
+    - mānī
+
+• Found form [odana]:
+    - odana
+
+• Found form [samīpa]:
+    - samīpa
+
+• Found form [tat]:
+    - tad
+
+• Found form [āpa]:
+    - āp
+    - āpa
+
+• Found form [ṇa]:
+    - ṇa
+
+================================================================================
+Compound #54
+Source: sa_mahāvastu-avādana.json
+Input: anavarāgrajātijarāmaraṇasaṃsārakāntāranarakādidurgamahāprapātād
+----------------------------------------
+Found 12 roots:
+Found 11 groups:
+  ad, amaraṇa, anavarāgra, durgama, ha, hā, jara, jātī, naraka, prapāta, saṃsārakāntāra, ādi
+
+Analysis by found words:
+--------------------
+• Found form [amaraṇa]:
+    - amaraṇa
+
+• Found form [anavarāgra]:
+    - anavarāgra
+
+• Found form [aprapātāt]:
+    - prapāta
+
+• Found form:
+    - hā
+    - ādi
+
+• Found form [durgama]:
+    - durgama
+
+• Found form [hā]:
+    - ha
+    - hā
+
+• Found form [jarā]:
+    - jara
+
+• Found form [jāti]:
+    - jātī
+
+• Found form [naraka]:
+    - naraka
+
+• Found form [saṃsārakāntāra]:
+    - saṃsārakāntāra
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #55
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: anyārtheṣvalpatāhetostannimittatvatastathā
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  ahetu, alpatā, anya, artha, as, nimitta, ta, tas, tathā, tu
+
+Analysis by found words:
+--------------------
+• Found form [aheto]:
+    - ahetu
+
+• Found form [alpatā]:
+    - alpatā
+
+• Found form [anya]:
+    - anya
+
+• Found form [artheṣu]:
+    - artha
+
+• Found form [ataḥ]:
+    - ta
+    - tas
+
+• Found form [nimitta]:
+    - nimitta
+
+• Found form [stam]:
+    - as
+
+• Found form [tathā]:
+    - tathā
+
+• Found form [tu]:
+    - tu
+
+================================================================================
+Compound #56
+Source: sa_kṣemendra-bhāratamañjarī-6-19.json
+Input: saṃtrāsasaṃkucitaniścalakarṇatāladikkuñjarākalitakampitasarvalokam
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  diś, kalita, kampita, karṇatāla, kuñjara, niścala, sarvaloka, saṃkucita, saṃtrāsa
+
+Analysis by found words:
+--------------------
+• Found form [dik]:
+    - diś
+
+• Found form [kalita]:
+    - kalita
+
+• Found form [kampita]:
+    - kampita
+
+• Found form [karṇatāla]:
+    - karṇatāla
+
+• Found form [kuñjarā]:
+    - kuñjara
+
+• Found form [niścala]:
+    - niścala
+
+• Found form [sarvalokam]:
+    - sarvaloka
+
+• Found form [saṃkucita]:
+    - saṃkucita
+
+• Found form [saṃtrāsa]:
+    - saṃtrāsa
+
+================================================================================
+Compound #57
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra.json
+Input: viṣayeṣvasaktimārgastadāptivikṣepasaṃyameṣvaparaḥ
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  apara, asakti, mārga, saṃyama, tadā, vikṣepa, viṣaya, āpti
+
+Analysis by found words:
+--------------------
+• Found form [aparaḥ]:
+    - apara
+
+• Found form:
+    - asakti
+    - āpti
+
+• Found form [mārgaḥ]:
+    - mārga
+
+• Found form [saṃyameṣu]:
+    - saṃyama
+
+• Found form [tadā]:
+    - tadā
+
+• Found form [vikṣepa]:
+    - vikṣepa
+
+• Found form [viṣayeṣu]:
+    - viṣaya
+
+================================================================================
+Compound #58
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: pratīyamānāvayavārthatyāgenātiriktaśaktikalpane
+----------------------------------------
+Found 9 roots:
+Found 8 groups:
+  ana, atirikta, avayavārtha, idam, kalpana, kalpanā, prati, tyāga, śakti
+
+Analysis by found words:
+--------------------
+• Found form [ana]:
+    - ana
+
+• Found form [atirikta]:
+    - atirikta
+
+• Found form [avayavārtha]:
+    - avayavārtha
+
+• Found form:
+    - śakti
+
+• Found form [iyam]:
+    - idam
+
+• Found form [kalpane]:
+    - kalpana
+    - kalpanā
+
+• Found form [prati]:
+    - prati
+
+• Found form [tyāgena]:
+    - tyāga
+
+================================================================================
+Compound #59
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: kṣityāderadṛṣṭadvārāsmadādiśarīrajanyatvātsādhanāvyāpakatvāyādṛṣṭādvāraketi
+----------------------------------------
+Found 17 roots:
+Found 12 groups:
+  ad, asmad, at, dvāra, iti, janyatva, kṣity, rad, sādhanāvyāpakatva, vāraka, yādṛś, āda, ādi, ādiśarīra, ṛṣṭa, ṭa, ṭāt
+
+Analysis by found words:
+--------------------
+• Found form [at]:
+    - ad
+    - at
+
+• Found form [ayādṛk]:
+    - yādṛś
+
+• Found form:
+    - asmad
+    - kṣity
+    - rad
+
+• Found form [dvāra]:
+    - dvāra
+
+• Found form [iti]:
+    - iti
+
+• Found form [janyatva]:
+    - janyatva
+
+• Found form [sādhanāvyāpakatva]:
+    - sādhanāvyāpakatva
+
+• Found form [vāraka]:
+    - vāraka
+
+• Found form [āde]:
+    - ad
+    - āda
+    - ādi
+
+• Found form [ādiśarīra]:
+    - ādiśarīra
+
+• Found form [ṛṣṭa]:
+    - ṛṣṭa
+
+• Found form [ṭāt]:
+    - ṭa
+    - ṭāt
+
+================================================================================
+Compound #60
+Source: sa_kuntaka-vakroktijīvita-comm.json
+Input: yenāntarjalacāribhirjalacarairapyutkamutkūjitam
+----------------------------------------
+Found 11 roots:
+Found 7 groups:
+  anta, ap, apya, jalacara, jalacārin, kūjita, mud, utka, ya, yad, yena
+
+Analysis by found words:
+--------------------
+• Found form [antaḥ]:
+    - anta
+
+• Found form [apiutka]:
+    - ap
+    - apya
+    - utka
+
+• Found form [jalacaraiḥ]:
+    - jalacara
+
+• Found form [jalacāribhiḥ]:
+    - jalacārin
+
+• Found form [kūjitam]:
+    - kūjita
+
+• Found form [mut]:
+    - mud
+
+• Found form [yena]:
+    - ya
+    - yad
+    - yena
+
+================================================================================
+Compound #61
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: vācakatvavyañjakatvayorbhedasamarthanena
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  bheda, bhid, samarthana, vyañjakatva, vācakatva, ya
+
+Analysis by found words:
+--------------------
+• Found form [bheda]:
+    - bheda
+    - bhid
+
+• Found form [samarthanena]:
+    - samarthana
+
+• Found form [vyañjakatva]:
+    - vyañjakatva
+
+• Found form [vācakatva]:
+    - vācakatva
+
+• Found form [ya]:
+    - ya
+
+================================================================================
+Compound #62
+Source: sa_viśvanāthakavirāja-sāhityadarpaṇa-comm.json
+Input: ārthorūpaviśeṣaṇasyobhayasādhāraṇyenetyarthaḥ
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  artha, iti, rūpa, sādhāraṇya, ubhaya, viśeṣaṇa, ārtha
+
+Analysis by found words:
+--------------------
+• Found form [arthaḥ]:
+    - artha
+
+• Found form [iti]:
+    - iti
+
+• Found form [rūpa]:
+    - rūpa
+
+• Found form [sādhāraṇyena]:
+    - sādhāraṇya
+
+• Found form [ubhaya]:
+    - ubhaya
+
+• Found form [viśeṣaṇasya]:
+    - viśeṣaṇa
+
+• Found form [ārthaḥ]:
+    - ārtha
+
+================================================================================
+Compound #63
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: nirviśeṣatvāvadhāraṇaśrutibādhitamanumānamato
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  anumāna, avadhāraṇa, bādhita, nirviśeṣatva, ta, tas, śrut, śruti
+
+Analysis by found words:
+--------------------
+• Found form [anumānam]:
+    - anumāna
+
+• Found form [ataḥ]:
+    - ta
+    - tas
+
+• Found form [avadhāraṇa]:
+    - avadhāraṇa
+
+• Found form [bādhitam]:
+    - bādhita
+
+• Found form:
+    - śruti
+
+• Found form [nirviśeṣatva]:
+    - nirviśeṣatva
+
+• Found form [śruti]:
+    - śrut
+
+================================================================================
+Compound #64
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: svaśāstrāvadhṛtasvabhāvānāmayathāvadhṛtasvabhāvatvaprasaṅgaḥ
+----------------------------------------
+Found 8 roots:
+Found 9 groups:
+  avadhṛta, nāma, prasaṅga, sva, svabhāva, svabhāvatva, yathā, śāstra
+
+Analysis by found words:
+--------------------
+• Found form [avadhṛta]:
+    - avadhṛta
+
+• Found form:
+    - nāma
+
+• Found form [nāma]:
+    - nāma
+
+• Found form [prasaṅgaḥ]:
+    - prasaṅga
+
+• Found form [sva]:
+    - sva
+
+• Found form [svabhāvatva]:
+    - svabhāvatva
+
+• Found form [svabhāvā]:
+    - svabhāva
+
+• Found form [yathā]:
+    - yathā
+
+• Found form [śāstra]:
+    - śāstra
+
+================================================================================
+Compound #65
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm.json
+Input: mahābhūtalayādipratipādakavākyaśeṣopapattiḥ
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  adip, layā, lā, mahābhūta, pādaka, ratī, upapatti, vākyaśeṣa
+
+Analysis by found words:
+--------------------
+• Found form:
+    - adip
+
+• Found form [layā]:
+    - layā
+    - lā
+
+• Found form [mahābhūta]:
+    - mahābhūta
+
+• Found form [pādaka]:
+    - pādaka
+
+• Found form [rati]:
+    - ratī
+
+• Found form [upapattiḥ]:
+    - upapatti
+
+• Found form [vākyaśeṣa]:
+    - vākyaśeṣa
+
+================================================================================
+Compound #66
+Source: sa_divyāvadāna.json
+Input: anilabalākulitagalitasajalajaladapaṭalāvalīmalinakeśapāśā
+----------------------------------------
+Found 12 roots:
+Found 11 groups:
+  anila, avalī, bala, galita, jalada, keśapāśa, li, lī, malina, paṭala, sajala, ākulita
+
+Analysis by found words:
+--------------------
+• Found form [anila]:
+    - anila
+
+• Found form [avalī]:
+    - li
+    - lī
+
+• Found form [balā]:
+    - bala
+
+• Found form:
+    - avalī
+
+• Found form [galita]:
+    - galita
+
+• Found form [jalada]:
+    - jalada
+
+• Found form [keśapāśā]:
+    - keśapāśa
+
+• Found form [malina]:
+    - malina
+
+• Found form [paṭala]:
+    - paṭala
+
+• Found form [sajala]:
+    - sajala
+
+• Found form [ākulita]:
+    - ākulita
+
+================================================================================
+Compound #67
+Source: sa_bādarāyaṇa-brahmasūtra-comm.json
+Input: cāvaśyānuṣṭhoyatvāttadvirodhādanadhikṛtānuṣṭheyamāśramāntaramitihīmāṃ
+----------------------------------------
+Found 14 roots:
+Found 13 groups:
+  anadhikṛta, antara, antaram, anuṣṭheya, anuṭha, avaśyā, ca, hi, idam, iti, tad, virodha, yatva, āśrama
+
+Analysis by found words:
+--------------------
+• Found form [anadhikṛtā]:
+    - anadhikṛta
+
+• Found form [antaram]:
+    - antara
+    - antaram
+
+• Found form [anuṣṭheyam]:
+    - anuṣṭheya
+
+• Found form [avaśyā]:
+    - avaśyā
+
+• Found form [ca]:
+    - ca
+
+• Found form:
+    - anuṭha
+
+• Found form [hi]:
+    - hi
+
+• Found form [imām]:
+    - idam
+
+• Found form [iti]:
+    - iti
+
+• Found form [tat]:
+    - tad
+
+• Found form [virodhāt]:
+    - virodha
+
+• Found form [yatvāt]:
+    - yatva
+
+• Found form [āśrama]:
+    - āśrama
+
+================================================================================
+Compound #68
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: svataḥsukhādirūpasyātiśayasyādhātumaśakyatvādadhyāsānaṅgīkārācca
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  adhyāsa, atiśaya, aśakyatva, aṅgīkāra, ca, dhātu, sukha, svatas, ādirūpa
+
+Analysis by found words:
+--------------------
+• Found form [adhyāsān]:
+    - adhyāsa
+
+• Found form [atiśayasya]:
+    - atiśaya
+
+• Found form [aśakyatvāt]:
+    - aśakyatva
+
+• Found form [aṅgīkārāt]:
+    - aṅgīkāra
+
+• Found form [ca]:
+    - ca
+
+• Found form [dhātum]:
+    - dhātu
+
+• Found form [sukha]:
+    - sukha
+
+• Found form [svatas]:
+    - svatas
+
+• Found form [ādirūpasya]:
+    - ādirūpa
+
+================================================================================
+Compound #69
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm2.json
+Input: acīrṇavratasyādhyayanābhāvadarśanādupāsanābhāvaḥ
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  abhāva, adhyayana, bhā, cīrṇa, darśana, upāsana, vrata
+
+Analysis by found words:
+--------------------
+• Found form [abhāva]:
+    - abhāva
+    - bhā
+
+• Found form [abhāvaḥ]:
+    - abhāva
+
+• Found form [adhyayana]:
+    - adhyayana
+
+• Found form [cīrṇa]:
+    - cīrṇa
+
+• Found form [darśanāt]:
+    - darśana
+
+• Found form [upāsana]:
+    - upāsana
+
+• Found form [vratasya]:
+    - vrata
+
+================================================================================
+Compound #70
+Source: sa_gaṇḍavyūhasūtra.json
+Input: nānāhaḍinigaḍakaṭakakuṇḍalaśṛṅkhalākhalīnabandhanabaddhān
+----------------------------------------
+Found 9 roots:
+Found 9 groups:
+  baddha, bandhana, haḍi, kaṭaka, khalīna, kuṇḍala, nigaḍa, nānā, śṛṅkhala
+
+Analysis by found words:
+--------------------
+• Found form [baddhān]:
+    - baddha
+
+• Found form [bandhana]:
+    - bandhana
+
+• Found form:
+    - haḍi
+
+• Found form [kaṭaka]:
+    - kaṭaka
+
+• Found form [khalīna]:
+    - khalīna
+
+• Found form [kuṇḍala]:
+    - kuṇḍala
+
+• Found form [nigaḍa]:
+    - nigaḍa
+
+• Found form [nānā]:
+    - nānā
+
+• Found form [śṛṅkhalā]:
+    - śṛṅkhala
+
+================================================================================
+Compound #71
+Source: sa_yāmuna-ātmasiddhi.json
+Input: carvaṇodbhūtamukhyāgnisaṃyogalakṣaṇapākavaśādraktarūpasyotpatteḥ
+----------------------------------------
+Found 15 roots:
+Found 12 groups:
+  agni, carvaṇa, dra, lakṣaṇa, mukha, mukhya, pāka, saṃyoga, so, sya, taru, udbhūta, upa, utpatti, vaśā
+
+Analysis by found words:
+--------------------
+• Found form [adra]:
+    - dra
+
+• Found form [carvaṇa]:
+    - carvaṇa
+
+• Found form:
+    - agni
+
+• Found form [lakṣaṇa]:
+    - lakṣaṇa
+
+• Found form [mukhyā]:
+    - mukha
+    - mukhya
+
+• Found form [pāka]:
+    - pāka
+
+• Found form [saṃyoga]:
+    - saṃyoga
+
+• Found form [taru]:
+    - taru
+
+• Found form [udbhūta]:
+    - udbhūta
+
+• Found form [upasya]:
+    - so
+    - sya
+    - upa
+
+• Found form [utpatteḥ]:
+    - utpatti
+
+• Found form [vaśā]:
+    - vaśā
+
+================================================================================
+Compound #72
+Source: sa_suvikrāntavikrāmiparipṛcchā.json
+Input: sattvānārdrīkariṣyatyanuttaradharmaratnaprakāśanatāyai
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  ai, anuttara, dharmaratna, kṝ, prakāśana, rī, sattva, tā
+
+Analysis by found words:
+--------------------
+• Found form [anuttara]:
+    - anuttara
+
+• Found form [dharmaratna]:
+    - dharmaratna
+
+• Found form [kariṣyati]:
+    - kṝ
+
+• Found form [prakāśana]:
+    - prakāśana
+
+• Found form [rī]:
+    - rī
+
+• Found form [sattvān]:
+    - sattva
+
+• Found form [tāyai]:
+    - tā
+
+• Found form [āḥ]:
+    - ai
+
+================================================================================
+Compound #73
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: pradhānāpūrvasaṃbandhihomatvasyoddeśyatāvacchedakatvāvagateḥ
+----------------------------------------
+Found 12 roots:
+Found 12 groups:
+  apūrva, as, avagati, chedaka, homa, idam, pradhāna, sambandhi, tu, tāvat, uddeśya, yuṣmad
+
+Analysis by found words:
+--------------------
+• Found form [apūrva]:
+    - apūrva
+
+• Found form [asya]:
+    - as
+    - idam
+
+• Found form [avagateḥ]:
+    - avagati
+
+• Found form [chedaka]:
+    - chedaka
+
+• Found form:
+    - sambandhi
+
+• Found form [homa]:
+    - homa
+
+• Found form [pradhāna]:
+    - pradhāna
+
+• Found form [sambandhi]:
+    - sambandhi
+
+• Found form [tu]:
+    - tu
+
+• Found form [tvā]:
+    - yuṣmad
+
+• Found form [tāvat]:
+    - tāvat
+
+• Found form [uddeśya]:
+    - uddeśya
+
+================================================================================
+Compound #74
+Source: sa_ratnakīrti-nibandhāvalī.json
+Input: paracittavṛttīnāmaśakyaniścayatvenāptatvāparijñānāt
+----------------------------------------
+Found 10 roots:
+Found 10 groups:
+  ap, aśakya, cittavṛtti, ina, niścaya, para, parijñāna, tad, tva, vā
+
+Analysis by found words:
+--------------------
+• Found form [ap]:
+    - ap
+
+• Found form [aśakya]:
+    - aśakya
+
+• Found form [cittavṛttīnām]:
+    - cittavṛtti
+
+• Found form:
+    - tva
+
+• Found form [ina]:
+    - ina
+
+• Found form [niścaya]:
+    - niścaya
+
+• Found form [para]:
+    - para
+
+• Found form [parijñānāt]:
+    - parijñāna
+
+• Found form [tat]:
+    - tad
+
+• Found form [vā]:
+    - vā
+
+================================================================================
+Compound #75
+Source: sa_yuktidīpikā.json
+Input: tarhīndriyārthasannikṛṣṭendriyavṛttyupanipātīti
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  indriyavṛtti, indriyārtha, iti, saṃnikṛṣṭa, tarhi, upanipātin
+
+Analysis by found words:
+--------------------
+• Found form [indriyavṛttī]:
+    - indriyavṛtti
+
+• Found form [indriyārtha]:
+    - indriyārtha
+
+• Found form [iti]:
+    - iti
+
+• Found form [saṃnikṛṣṭa]:
+    - saṃnikṛṣṭa
+
+• Found form [tarhi]:
+    - tarhi
+
+• Found form [upanipāti]:
+    - upanipātin
+
+================================================================================
+Compound #76
+Source: sa_abhisamayālaṃkāravṛttiḥ-sphuṭārthā.json
+Input: mārgajñatāmārgādhiṣṭhānāścatustriṃśadākārā
+----------------------------------------
+Found 9 roots:
+Found 7 groups:
+  ad, adhiṣṭhāna, amārga, at, catustriṃśat, jñatā, mārg, mārga, ākāra
+
+Analysis by found words:
+--------------------
+• Found form [adhiṣṭhāna]:
+    - adhiṣṭhāna
+
+• Found form [amārga]:
+    - amārga
+
+• Found form [at]:
+    - ad
+    - at
+
+• Found form [catustriṃśat]:
+    - catustriṃśat
+
+• Found form [jñatā]:
+    - jñatā
+
+• Found form [mārga]:
+    - mārg
+    - mārga
+
+• Found form [ākārā]:
+    - ākāra
+
+================================================================================
+Compound #77
+Source: sa_ratnagotravibhāga.json
+Input: pūrtirvikṛtirucchittiracintyanamanacyutiḥ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  acintya, cyuti, namana, pūrti, ucchitti, vikṛti
+
+Analysis by found words:
+--------------------
+• Found form [acintya]:
+    - acintya
+
+• Found form [cyutiḥ]:
+    - cyuti
+
+• Found form [namana]:
+    - namana
+
+• Found form [pūrtiḥ]:
+    - pūrti
+
+• Found form [ucchittiḥ]:
+    - ucchitti
+
+• Found form [vikṛtiḥ]:
+    - vikṛti
+
+================================================================================
+Compound #78
+Source: sa_gautama-nyāyasūtra-comm2.json
+Input: śabdabuddhyādīnāmāśrayopalabdhātupalabdhyanupalabdhī
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  anupalabdhi, buddhi, upalabdha, upalabdhi, ādi, āśraya, śabda
+
+Analysis by found words:
+--------------------
+• Found form [anupalabdhī]:
+    - anupalabdhi
+
+• Found form [buddhyā]:
+    - buddhi
+
+• Found form:
+    - upalabdhi
+
+• Found form [upalabdhāt]:
+    - upalabdha
+
+• Found form [ādīnām]:
+    - ādi
+
+• Found form [āśraya]:
+    - āśraya
+
+• Found form [śabda]:
+    - śabda
+
+================================================================================
+Compound #79
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: svavacanavirodhasvanyāyavirodhasvakriyāvirodhabhedena
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  avacana, avirodha, bheda, kriyā, nyāya, su, sva, virodha
+
+Analysis by found words:
+--------------------
+• Found form [avacana]:
+    - avacana
+
+• Found form [avirodha]:
+    - avirodha
+
+• Found form [bhedena]:
+    - bheda
+
+• Found form [kriyā]:
+    - kriyā
+
+• Found form [nyāya]:
+    - nyāya
+
+• Found form [su]:
+    - su
+
+• Found form [sva]:
+    - sva
+
+• Found form [virodha]:
+    - virodha
+
+================================================================================
+Compound #80
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm.json
+Input: upādhiliṅgāśrayanāḍīpurītatorupahitajīvāśrayatvaṃ
+----------------------------------------
+Found 11 roots:
+Found 7 groups:
+  jīv, jīva, liṅg, liṅga, nāḍi, nāḍī, purītat, upahita, upādhi, āśraya, āśrayatva
+
+Analysis by found words:
+--------------------
+• Found form:
+    - purītat
+    - upādhi
+
+• Found form [jīva]:
+    - jīv
+    - jīva
+
+• Found form [liṅga]:
+    - liṅg
+    - liṅga
+
+• Found form [nāḍī]:
+    - nāḍi
+    - nāḍī
+
+• Found form [upahita]:
+    - upahita
+
+• Found form [āśraya]:
+    - āśraya
+
+• Found form [āśrayatvam]:
+    - āśrayatva
+
+================================================================================
+Compound #81
+Source: sa_dharmakīrti-nyāyabinduprakaraṇa-comm.json
+Input: tadevottarasādṛśyamuttarasthānaprayuktatvena
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  aprayuktatva, eva, stha, sādṛśya, tad, uttara
+
+Analysis by found words:
+--------------------
+• Found form [aprayuktatvena]:
+    - aprayuktatva
+
+• Found form [eva]:
+    - eva
+
+• Found form [sthān]:
+    - stha
+
+• Found form [sādṛśyam]:
+    - sādṛśya
+
+• Found form [tat]:
+    - tad
+
+• Found form [uttara]:
+    - uttara
+
+================================================================================
+Compound #82
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: vyālolastanabhārabhairavavapurdarpoddhataṃ
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  bhairava, bhāra, darpa, stana, uddhata, vapu, vapus, vyālola
+
+Analysis by found words:
+--------------------
+• Found form [bhairava]:
+    - bhairava
+
+• Found form [bhāra]:
+    - bhāra
+
+• Found form [darpa]:
+    - darpa
+
+• Found form:
+    - stana
+
+• Found form [stana]:
+    - stana
+
+• Found form [uddhatam]:
+    - uddhata
+
+• Found form [vapuḥ]:
+    - vapu
+    - vapus
+
+• Found form [vyālola]:
+    - vyālola
+
+================================================================================
+Compound #83
+Source: sa_vidyānātha-pratāparudrīya.json
+Input: vītavrīḍamapāstamānamudayadvaisvaryamāvirbhavatsvedaṃ
+----------------------------------------
+Found 13 roots:
+Found 11 groups:
+  apāsta, as, avi, bhavat, dvai, māna, sva, sveda, udaya, vrīḍa, vī, vīta, yama
+
+Analysis by found words:
+--------------------
+• Found form [apāsta]:
+    - apāsta
+
+• Found form [aviḥ]:
+    - avi
+
+• Found form [bhavat]:
+    - bhavat
+
+• Found form:
+    - dvai
+
+• Found form [mānam]:
+    - māna
+
+• Found form [svaḥ]:
+    - as
+    - sva
+
+• Found form [svedam]:
+    - sveda
+
+• Found form [udaya]:
+    - udaya
+
+• Found form [vrīḍam]:
+    - vrīḍa
+
+• Found form [vīta]:
+    - vī
+    - vīta
+
+• Found form [yama]:
+    - yama
+
+================================================================================
+Compound #84
+Source: sa_annaṃbhaṭṭa-tarkasaṃgraha-comm.json
+Input: asambhavatkālāntarakāryavyāsaṅgānudbhāvya
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  anud, bhāvya, kālāntara, kārya, sambhava, vyāsaṅga
+
+Analysis by found words:
+--------------------
+• Found form [asambhava]:
+    - sambhava
+
+• Found form [bhāvya]:
+    - bhāvya
+
+• Found form:
+    - anud
+
+• Found form [kālāntara]:
+    - kālāntara
+
+• Found form [kārya]:
+    - kārya
+
+• Found form [vyāsaṅga]:
+    - vyāsaṅga
+
+================================================================================
+Compound #85
+Source: sa_candrakīrti-bodhisattvayogācāracatuḥśatakaṭīkā.json
+Input: cakṣurādikaraṇavyāpāranibandhanabuddhyabhivyakteś
+----------------------------------------
+Found 9 roots:
+Found 7 groups:
+  abhivyakti, ad, buddhi, cakṣu, cakṣus, karaṇa, nibandhana, vyāpāra, ādi
+
+Analysis by found words:
+--------------------
+• Found form [abhivyakteḥ]:
+    - abhivyakti
+
+• Found form [cakṣuḥ]:
+    - cakṣu
+    - cakṣus
+
+• Found form:
+    - buddhi
+    - ādi
+
+• Found form [karaṇa]:
+    - karaṇa
+
+• Found form [nibandhana]:
+    - nibandhana
+
+• Found form [vyāpāra]:
+    - vyāpāra
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #86
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: kathaparisamāptyavadhikatvamevāṅgīkāryamiti
+----------------------------------------
+Found 9 roots:
+Found 5 groups:
+  aparisamāpti, avadhika, kath, kārya, mev, mit, tva, āṅgi, āṅgī
+
+Analysis by found words:
+--------------------
+• Found form [avadhika]:
+    - avadhika
+
+• Found form:
+    - aparisamāpti
+    - kath
+    - mev
+    - tva
+
+• Found form [kārya]:
+    - kārya
+
+• Found form [miti]:
+    - mit
+
+• Found form [āṅgī]:
+    - āṅgi
+    - āṅgī
+
+================================================================================
+Compound #87
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: śrutermukhyārthatvamanuśayibhogāyatanatvaṃ
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  anuśayin, anuśayī, artha, bhoga, mukhya, yuṣmad, āyatana, śruti
+
+Analysis by found words:
+--------------------
+• Found form [anuśayi]:
+    - anuśayin
+    - anuśayī
+
+• Found form [artha]:
+    - artha
+
+• Found form [bhoga]:
+    - bhoga
+
+• Found form [mukhya]:
+    - mukhya
+
+• Found form [tvam]:
+    - yuṣmad
+
+• Found form [āyatana]:
+    - āyatana
+
+• Found form [śruteḥ]:
+    - śruti
+
+================================================================================
+Compound #88
+Source: sa_tārāsragdharāstotra.json
+Input: cyotatsāndrāsradhautasphuṭavikaṭasaṭāsaṃkaṭaskandhasaṃdhiḥ
+----------------------------------------
+Found 13 roots:
+Found 11 groups:
+  am, asra, cyota, dhauta, dhi, saṃkaṭa, saṭā, skandha, skandhas, sphuṭ, sphuṭa, sāndra, vikaṭa
+
+Analysis by found words:
+--------------------
+• Found form [am]:
+    - am
+
+• Found form [asaṃkaṭa]:
+    - saṃkaṭa
+
+• Found form [asra]:
+    - asra
+
+• Found form [cyota]:
+    - cyota
+
+• Found form [dhauta]:
+    - dhauta
+
+• Found form [dhiḥ]:
+    - dhi
+
+• Found form [saṭā]:
+    - saṭā
+
+• Found form [skandhaḥ]:
+    - skandha
+    - skandhas
+
+• Found form [sphuṭa]:
+    - sphuṭ
+    - sphuṭa
+
+• Found form [sāndra]:
+    - sāndra
+
+• Found form [vikaṭa]:
+    - vikaṭa
+
+================================================================================
+Compound #89
+Source: sa_avadānaśataka.json
+Input: devanāgayakṣāsuragaruḍakinnaramahoragābhyarcito
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  abhyarcita, asura, deva, div, garuḍa, kim, mahoraga, nara, nāga, yakṣa
+
+Analysis by found words:
+--------------------
+• Found form [abhyarcitaḥ]:
+    - abhyarcita
+
+• Found form [asura]:
+    - asura
+
+• Found form [deva]:
+    - deva
+    - div
+
+• Found form [garuḍa]:
+    - garuḍa
+
+• Found form [kim]:
+    - kim
+
+• Found form [mahoraga]:
+    - mahoraga
+
+• Found form [nara]:
+    - nara
+
+• Found form [nāga]:
+    - nāga
+
+• Found form [yakṣa]:
+    - yakṣa
+
+================================================================================
+Compound #90
+Source: sa_vāgbhaṭa-rasaratnasamuccaya.json
+Input: kulitthakvāthasaubhāgyamahiṣyājyamadhuplutam
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  kuli, kulī, kvātha, madhupluta, mahiṣa, saubhāgya, tha, ājya
+
+Analysis by found words:
+--------------------
+• Found form:
+    - kuli
+
+• Found form [kuli]:
+    - kulī
+
+• Found form [kvātha]:
+    - kvātha
+
+• Found form [madhuplutam]:
+    - madhupluta
+
+• Found form [mahiṣi]:
+    - mahiṣa
+
+• Found form [saubhāgya]:
+    - saubhāgya
+
+• Found form [tha]:
+    - tha
+
+• Found form [ājya]:
+    - ājya
+
+================================================================================
+Compound #91
+Source: sa_ratnakīrti-vādarahasya.json
+Input: ityevamativiśadavibhramabhrājisvābhiprāye
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  bhrāji, itya, prāya, vam, vibhrama, viśada, vābhi
+
+Analysis by found words:
+--------------------
+• Found form [bhrājiḥ]:
+    - bhrāji
+
+• Found form:
+    - vābhi
+
+• Found form [itya]:
+    - itya
+
+• Found form [prāye]:
+    - prāya
+
+• Found form [vamati]:
+    - vam
+
+• Found form [vibhrama]:
+    - vibhrama
+
+• Found form [viśada]:
+    - viśada
+
+================================================================================
+Compound #92
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: nṝuttarārdharcagatadaśākṣarapādadvayaprāyapāṭhenārthāpekṣayāpi
+----------------------------------------
+Found 17 roots:
+Found 13 groups:
+  ap, apekṣayā, apekṣā, apya, ca, daśākṣara, dvaya, gata, na, nas, nṝ, pra, prāya, pāda, pāṭha, tha, uttarārdha
+
+Analysis by found words:
+--------------------
+• Found form [apekṣayā]:
+    - apekṣayā
+    - apekṣā
+
+• Found form [api]:
+    - ap
+    - apya
+
+• Found form [ca]:
+    - ca
+
+• Found form [daśākṣara]:
+    - daśākṣara
+
+• Found form:
+    - nṝ
+
+• Found form [dvaya]:
+    - dvaya
+
+• Found form [gata]:
+    - gata
+
+• Found form [nāḥ]:
+    - na
+    - nas
+
+• Found form [prāya]:
+    - pra
+    - prāya
+
+• Found form [pāda]:
+    - pāda
+
+• Found form [pāṭha]:
+    - pāṭha
+
+• Found form [tha]:
+    - tha
+
+• Found form [uttarārdha]:
+    - uttarārdha
+
+================================================================================
+Compound #93
+Source: sa_annaṃbhaṭṭa-tarkasaṃgraha-comm.json
+Input: uddeśyatāvacchedakapṛthivītvādisākṣādvyāpyadharma
+----------------------------------------
+Found 11 roots:
+Found 9 groups:
+  ad, at, chedaka, dharma, dharman, pṛthivītva, sākṣa, sākṣāt, uddeśin, vyāpya, ādi
+
+Analysis by found words:
+--------------------
+• Found form [atāva]:
+    - at
+
+• Found form [chedaka]:
+    - chedaka
+
+• Found form:
+    - ādi
+
+• Found form [dharma]:
+    - dharma
+    - dharman
+
+• Found form [pṛthivītva]:
+    - pṛthivītva
+
+• Found form [sākṣāt]:
+    - sākṣa
+    - sākṣāt
+
+• Found form [uddeśī]:
+    - uddeśin
+
+• Found form [vyāpya]:
+    - vyāpya
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #94
+Source: sa_bharata-nāṭyaśāstra-1-1618-303335-37.json
+Input: aṅgasauṣṭhavasaṃyuktairaṅgahārairvibhūṣitam
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  aṅg, aṅga, eraṅga, hāra, sauṣṭhava, saṃyukta, vibhūṣita
+
+Analysis by found words:
+--------------------
+• Found form [aṅga]:
+    - aṅg
+    - aṅga
+
+• Found form [eraṅga]:
+    - eraṅga
+
+• Found form [hāraiḥ]:
+    - hāra
+
+• Found form [sauṣṭhava]:
+    - sauṣṭhava
+
+• Found form [saṃyuktā]:
+    - saṃyukta
+
+• Found form [vibhūṣitam]:
+    - vibhūṣita
+
+================================================================================
+Compound #95
+Source: sa_mokṣopāya.json
+Input: dordrumādhūnanoddhūtasphuṭadbrahmāṇḍakarparam
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  brahmāṇḍa, dhūnana, dos, drumā, karpara, sphuṭ, sphuṭa, uddhūta
+
+Analysis by found words:
+--------------------
+• Found form [brahmāṇḍa]:
+    - brahmāṇḍa
+
+• Found form [dhūnana]:
+    - dhūnana
+
+• Found form [doḥ]:
+    - dos
+
+• Found form [drumā]:
+    - drumā
+
+• Found form [karparam]:
+    - karpara
+
+• Found form [sphuṭa]:
+    - sphuṭ
+    - sphuṭa
+
+• Found form [uddhūta]:
+    - uddhūta
+
+================================================================================
+Compound #96
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra.json
+Input: pāramitādibhāvenāpariniṣpatteridamadvayalakṣaṇam
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  ad, advaya, aparī, bhāva, bhāvena, idam, lakṣaṇa, niṣpatti, pāramita, ādi
+
+Analysis by found words:
+--------------------
+• Found form [advaya]:
+    - advaya
+
+• Found form [apari]:
+    - aparī
+
+• Found form [bhāvena]:
+    - bhāva
+    - bhāvena
+
+• Found form:
+    - ādi
+
+• Found form [idam]:
+    - idam
+
+• Found form [lakṣaṇam]:
+    - lakṣaṇa
+
+• Found form [niṣpatteḥ]:
+    - niṣpatti
+
+• Found form [pāramitā]:
+    - pāramita
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #97
+Source: sa_aṣṭasāhasrikā-prajñāpāramitā.json
+Input: amanyamānatāsthitairasmābhiriyamevaṃrūpā
+----------------------------------------
+Found 10 roots:
+Found 9 groups:
+  abhi, aira, eva, evam, idam, manya, rūpa, sma, sthita, ānata
+
+Analysis by found words:
+--------------------
+• Found form [abhiḥ]:
+    - abhi
+
+• Found form [aira]:
+    - aira
+
+• Found form [amanyam]:
+    - manya
+
+• Found form [evam]:
+    - eva
+    - evam
+
+• Found form [iyam]:
+    - idam
+
+• Found form [rūpā]:
+    - rūpa
+
+• Found form [sma]:
+    - sma
+
+• Found form [sthitā]:
+    - sthita
+
+• Found form [ānatā]:
+    - ānata
+
+================================================================================
+Compound #98
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: kasmiṃścedevātmanyadṛṣṭādikamityasāṃkaryamiti
+----------------------------------------
+Found 12 roots:
+Found 11 groups:
+  adṛṣṭa, ced, dikam, eva, iti, kad, kara, kari, karin, mit, so, ātman
+
+Analysis by found words:
+--------------------
+• Found form [adṛṣṭa]:
+    - adṛṣṭa
+
+• Found form [amiti]:
+    - mit
+
+• Found form [asām]:
+    - so
+
+• Found form [ced]:
+    - ced
+
+• Found form [eva]:
+    - eva
+
+• Found form [iti]:
+    - iti
+
+• Found form [kad]:
+    - kad
+
+• Found form [karī]:
+    - kara
+    - kari
+    - karin
+
+• Found form [mit]:
+    - mit
+
+• Found form [ādikam]:
+    - dikam
+
+• Found form [ātmani]:
+    - ātman
+
+================================================================================
+Compound #99
+Source: sa_bhallaṭa-bhallaṭaśataka.json
+Input: phalitaghanaviṭapavighaṭitapaṭudinakaramahasi
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  dinakara, ghana, mah, mahas, paṭu, phalita, vighaṭita, viṭapa
+
+Analysis by found words:
+--------------------
+• Found form [dinakara]:
+    - dinakara
+
+• Found form [ghana]:
+    - ghana
+
+• Found form [mahasi]:
+    - mah
+    - mahas
+
+• Found form [paṭu]:
+    - paṭu
+
+• Found form [phalita]:
+    - phalita
+
+• Found form [vighaṭita]:
+    - vighaṭita
+
+• Found form [viṭapa]:
+    - viṭapa
+
+================================================================================
+Compound #100
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm2.json
+Input: tayorapahatapāpmatvānapahatapāpmatvādilakṣaṇaviruddhadharmasaṃsagreṇa
+----------------------------------------
+Found 16 roots:
+Found 14 groups:
+  ahata, ap, asmad, dharma, hata, lakṣaṇa, math, pa, ra, rap, raṇ, saṃsag, taya, viruddha, vādi, vāna
+
+Analysis by found words:
+--------------------
+• Found form [ahata]:
+    - ahata
+
+• Found form [ap]:
+    - ap
+
+• Found form:
+    - ahata
+    - dharma
+    - hata
+    - rap
+    - saṃsag
+    - vādi
+
+• Found form [dharma]:
+    - dharma
+
+• Found form [hata]:
+    - hata
+
+• Found form [lakṣaṇa]:
+    - lakṣaṇa
+
+• Found form [mat]:
+    - asmad
+    - math
+
+• Found form [pa]:
+    - pa
+
+• Found form [pā]:
+    - pa
+
+• Found form [reṇa]:
+    - ra
+    - raṇ
+
+• Found form [taya]:
+    - taya
+
+• Found form [viruddha]:
+    - viruddha
+
+• Found form [vādi]:
+    - vādi
+
+• Found form [vāna]:
+    - vāna
+
+
+LONG CATEGORY SUMMARY
+========================================
+Total compounds processed: 100
+Successfully parsed: 99
+Total roots found: 925
+Total groups found: 804
+Success rate: 99.0%
+Average roots per compound: 9.34Average roots per group: 8.12
+========================================
+
+MEDIUM COMPOUNDS
+================================================================================
+================================================================================
+Compound #1
+Source: sa_garuḍapurāṇa.json
+Input: samupoṣyārcayedgaṇam
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  arc, gaṇa, samupoṣya, upoṣya
+
+Analysis by found words:
+--------------------
+• Found form:
+    - arc
+    - samupoṣya
+
+• Found form [gaṇam]:
+    - gaṇa
+
+• Found form [saṃupoṣya]:
+    - upoṣya
+
+================================================================================
+Compound #2
+Source: sa_kṣemendra-avadānakalpalatā.json
+Input: lajjāvismayamanmathaiḥ
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  ja, laj, manmatha, vismaya
+
+Analysis by found words:
+--------------------
+• Found form [avismaya]:
+    - vismaya
+
+• Found form:
+    - laj
+
+• Found form [jā]:
+    - ja
+
+• Found form [manmathaiḥ]:
+    - manmatha
+
+================================================================================
+Compound #3
+Source: sa_pārthasārathimiśra-śāstradīpikā.json
+Input: astihyauṣṇyasyendriyasaṃprayogaḥ
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  as, asti, auṣṇya, hi, indriya, samprayoga
+
+Analysis by found words:
+--------------------
+• Found form [asti]:
+    - as
+    - asti
+
+• Found form [auṣṇyasya]:
+    - auṣṇya
+
+• Found form [hi]:
+    - hi
+
+• Found form [indriya]:
+    - indriya
+
+• Found form [samprayogaḥ]:
+    - samprayoga
+
+================================================================================
+Compound #4
+Source: sa_harivaṃśa-app1.json
+Input: yaduvṛṣabhābhirakṣitāṃ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  abhirakṣita, vṛṣabha, yadu
+
+Analysis by found words:
+--------------------
+• Found form [abhirakṣitām]:
+    - abhirakṣita
+
+• Found form:
+    - yadu
+
+• Found form [vṛṣabha]:
+    - vṛṣabha
+
+================================================================================
+Compound #5
+Source: sa_narahari-bodhasāra.json
+Input: yaśodāgītamadhurairmṛduvedāntabhāṣitaiḥ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  bhāṣita, gīta, madhura, mṛdu, vedānta, yaśoda
+
+Analysis by found words:
+--------------------
+• Found form [bhāṣitaiḥ]:
+    - bhāṣita
+
+• Found form [gīta]:
+    - gīta
+
+• Found form [madhuraiḥ]:
+    - madhura
+
+• Found form [mṛdu]:
+    - mṛdu
+
+• Found form [vedānta]:
+    - vedānta
+
+• Found form [yaśodā]:
+    - yaśoda
+
+================================================================================
+Compound #6
+Source: sa_gopadatta-jātakamālā.json
+Input: bāṣpataraṅgadhūsarāntaiḥ
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  bāṣpa, dhūsara, ga, tara, tṝ, ānta
+
+Analysis by found words:
+--------------------
+• Found form [bāṣpa]:
+    - bāṣpa
+
+• Found form [dhūsara]:
+    - dhūsara
+
+• Found form [ga]:
+    - ga
+
+• Found form [tara]:
+    - tara
+    - tṝ
+
+• Found form [āntaiḥ]:
+    - ānta
+
+================================================================================
+Compound #7
+Source: sa_bhāskarakaṇṭha-mokṣopāyaṭīkā.json
+Input: anantataraduḥkhārtham
+----------------------------------------
+Found 6 roots:
+Found 4 groups:
+  ananta, artha, artham, duḥkha, tara, tṝ
+
+Analysis by found words:
+--------------------
+• Found form [ananta]:
+    - ananta
+
+• Found form [artham]:
+    - artha
+    - artham
+
+• Found form [duḥkha]:
+    - duḥkha
+
+• Found form [tara]:
+    - tara
+    - tṝ
+
+================================================================================
+Compound #8
+Source: sa_patañjali-yogasūtra.json
+Input: grahītṛgrahaṇagrāhyeṣu
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  grahaṇa, grahītṛ, grāhya
+
+Analysis by found words:
+--------------------
+• Found form [grahaṇa]:
+    - grahaṇa
+
+• Found form [grahītṛ]:
+    - grahītṛ
+
+• Found form [grāhyeṣu]:
+    - grāhya
+
+================================================================================
+Compound #9
+Source: sa_harivarman-satyasiddhiśāstram.json
+Input: parahitārthamevātmānaṃ
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  artha, artham, eva, parahita, ātman
+
+Analysis by found words:
+--------------------
+• Found form [artham]:
+    - artha
+    - artham
+
+• Found form [eva]:
+    - eva
+
+• Found form [parahitā]:
+    - parahita
+
+• Found form [ātmānam]:
+    - ātman
+
+================================================================================
+Compound #10
+Source: sa_vasubandhu-abhidharmakośa.json
+Input: cakṣurvijñānadhātvoḥ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  cakṣu, cakṣus, dhātu, vijñāna
+
+Analysis by found words:
+--------------------
+• Found form [cakṣuḥ]:
+    - cakṣu
+    - cakṣus
+
+• Found form [dhātvoḥ]:
+    - dhātu
+
+• Found form [vijñāna]:
+    - vijñāna
+
+================================================================================
+Compound #11
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: taddarśanenaitatpravṛttiḥ
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  darśana, etad, pravṛtti, tad
+
+Analysis by found words:
+--------------------
+• Found form [darśanena]:
+    - darśana
+
+• Found form [etat]:
+    - etad
+
+• Found form [pravṛttiḥ]:
+    - pravṛtti
+
+• Found form [tat]:
+    - tad
+
+================================================================================
+Compound #12
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm.json
+Input: vidhiniṣedharūpārthadvaye
+----------------------------------------
+Found 5 roots:
+Found 5 groups:
+  artha, dvaya, niṣedha, rūpa, vidh
+
+Analysis by found words:
+--------------------
+• Found form [artha]:
+    - artha
+
+• Found form [dvaye]:
+    - dvaya
+
+• Found form [niṣedha]:
+    - niṣedha
+
+• Found form [rūpa]:
+    - rūpa
+
+• Found form [vidhi]:
+    - vidh
+
+================================================================================
+Compound #13
+Source: sa_liṅgapurāṇa1-108.json
+Input: varṇāśramavinirmuktā
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  varṇa, vinirmukta, āśrama
+
+Analysis by found words:
+--------------------
+• Found form [varṇa]:
+    - varṇa
+
+• Found form [vinirmuktā]:
+    - vinirmukta
+
+• Found form [āśrama]:
+    - āśrama
+
+================================================================================
+Compound #14
+Source: sa_brahmāṇḍapurāṇa.json
+Input: tatprāvaraṇamuttamam
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  prāvaraṇa, tad, uttama, uttamam
+
+Analysis by found words:
+--------------------
+• Found form [prāvaraṇam]:
+    - prāvaraṇa
+
+• Found form [tat]:
+    - tad
+
+• Found form [uttamam]:
+    - uttama
+    - uttamam
+
+================================================================================
+Compound #15
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: hetupadamadhikamasti
+----------------------------------------
+Found 6 roots:
+Found 4 groups:
+  adhika, adhikam, as, asti, hetu, pada
+
+Analysis by found words:
+--------------------
+• Found form [adhikam]:
+    - adhika
+    - adhikam
+
+• Found form [asti]:
+    - as
+    - asti
+
+• Found form:
+    - hetu
+
+• Found form [padam]:
+    - pada
+
+================================================================================
+Compound #16
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: dravyaviśeṣatvādityarthaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  dravya, ityartha, viśeṣatva
+
+Analysis by found words:
+--------------------
+• Found form [dravya]:
+    - dravya
+
+• Found form [ityarthaḥ]:
+    - ityartha
+
+• Found form [viśeṣatvāt]:
+    - viśeṣatva
+
+================================================================================
+Compound #17
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: bhedeneśatopapatsyata
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  apa, bheda, pat, so, ta, tas, īśa
+
+Analysis by found words:
+--------------------
+• Found form [apa]:
+    - apa
+
+• Found form [bhedena]:
+    - bheda
+
+• Found form [pat]:
+    - pat
+
+• Found form [syata]:
+    - so
+
+• Found form [taḥ]:
+    - ta
+    - tas
+
+• Found form [īśa]:
+    - īśa
+
+================================================================================
+Compound #18
+Source: sa_madhusūdanasarasvatī-siddhāntabindu.json
+Input: sarvapramāṇasannidhāpitaḥ
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  apit, pramāṇa, samnidhā, sarva
+
+Analysis by found words:
+--------------------
+• Found form [apitaḥ]:
+    - apit
+
+• Found form:
+    - samnidhā
+
+• Found form [pramāṇa]:
+    - pramāṇa
+
+• Found form [sarva]:
+    - sarva
+
+================================================================================
+Compound #19
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: chalottaratvāpātādityapi
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  ap, apya, chala, iti, tu, uttara, āpāta
+
+Analysis by found words:
+--------------------
+• Found form [api]:
+    - ap
+    - apya
+
+• Found form [chalā]:
+    - chala
+
+• Found form [iti]:
+    - iti
+
+• Found form [tu]:
+    - tu
+
+• Found form [uttara]:
+    - uttara
+
+• Found form [āpātāt]:
+    - āpāta
+
+================================================================================
+Compound #20
+Source: sa_dvāviṃśatyavadānakathā.json
+Input: gandharvāsurakinnaraiḥ
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  asura, gandharva, kim, nara
+
+Analysis by found words:
+--------------------
+• Found form [asura]:
+    - asura
+
+• Found form [gandharva]:
+    - gandharva
+
+• Found form [kim]:
+    - kim
+
+• Found form [naraiḥ]:
+    - nara
+
+================================================================================
+Compound #21
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: tadananyatānṛtatvalakṣaṇā
+----------------------------------------
+Found 5 roots:
+Found 5 groups:
+  anyatā, anṛta, lakṣaṇa, tadam, tva
+
+Analysis by found words:
+--------------------
+• Found form [anyatā]:
+    - anyatā
+
+• Found form [anṛta]:
+    - anṛta
+
+• Found form:
+    - tva
+
+• Found form [lakṣaṇā]:
+    - lakṣaṇa
+
+• Found form [tadam]:
+    - tadam
+
+================================================================================
+Compound #22
+Source: sa_vyāsatīrtha-tarkatāṇḍava-comm.json
+Input: taddhvaṃsānāmanyatrādṛṣṭasya
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  adṛṣṭa, anyatra, dhvaṃsa, tad
+
+Analysis by found words:
+--------------------
+• Found form [adṛṣṭasya]:
+    - adṛṣṭa
+
+• Found form [anyatra]:
+    - anyatra
+
+• Found form [dhvaṃsānām]:
+    - dhvaṃsa
+
+• Found form [tat]:
+    - tad
+
+================================================================================
+Compound #23
+Source: sa_yaśomitra-sphuṭārthā-abhidharmakośavyākhyā.json
+Input: kṣāṃtilaukikāgradharmalakṣaṇe
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  agradharma, kṣānti, lakṣaṇa, laukika
+
+Analysis by found words:
+--------------------
+• Found form [agradharma]:
+    - agradharma
+
+• Found form:
+    - kṣānti
+
+• Found form [lakṣaṇe]:
+    - lakṣaṇa
+
+• Found form [laukika]:
+    - laukika
+
+================================================================================
+Compound #24
+Source: sa_agnipurāṇa.json
+Input: prāyaścittamaghaughārtau
+----------------------------------------
+Found 6 roots:
+Found 4 groups:
+  agha, ogha, prāyaścitta, ṛta, ṛti, ṛtu
+
+Analysis by found words:
+--------------------
+• Found form [agha]:
+    - agha
+
+• Found form [ogha]:
+    - ogha
+
+• Found form [prāyaścittam]:
+    - prāyaścitta
+
+• Found form [ṛtau]:
+    - ṛta
+    - ṛti
+    - ṛtu
+
+================================================================================
+Compound #25
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: davadhānakhinnamanimeṣatayā
+----------------------------------------
+Found 8 roots:
+Found 6 groups:
+  dava, dha, nakhin, nam, nama, nimeṣa, tad, tā
+
+Analysis by found words:
+--------------------
+• Found form [dava]:
+    - dava
+
+• Found form [dhā]:
+    - dha
+
+• Found form [nakhin]:
+    - nakhin
+
+• Found form [nama]:
+    - nam
+    - nama
+
+• Found form [nimeṣa]:
+    - nimeṣa
+
+• Found form [tayā]:
+    - tad
+    - tā
+
+================================================================================
+Compound #26
+Source: sa_kuntaka-vakroktijīvita-comm.json
+Input: caritavarṇanamupakrāntam
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  carita, upakrānta, varṇana
+
+Analysis by found words:
+--------------------
+• Found form [carita]:
+    - carita
+
+• Found form [upakrāntam]:
+    - upakrānta
+
+• Found form [varṇanam]:
+    - varṇana
+
+================================================================================
+Compound #27
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: subantetottarapadena
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  ita, subanta, uttarapada
+
+Analysis by found words:
+--------------------
+• Found form [itā]:
+    - ita
+
+• Found form [subanta]:
+    - subanta
+
+• Found form [uttarapadena]:
+    - uttarapada
+
+================================================================================
+Compound #28
+Source: sa_durvekamiśra-dharmottarapradīpa.json
+Input: evaṃvidhānuvādavidhyupakarśane
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  anuvāda, evaṃvidha, karśana, upa, vidhy
+
+Analysis by found words:
+--------------------
+• Found form [anuvāda]:
+    - anuvāda
+
+• Found form:
+    - vidhy
+
+• Found form [evaṃvidha]:
+    - evaṃvidha
+
+• Found form [upakarśane]:
+    - karśana
+    - upa
+
+================================================================================
+Compound #29
+Source: sa_maitreyavyākaraṇa.json
+Input: dvātriṃśadvaralakṣaṇam
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  dvātriṃśat, kṣaṇa, kṣaṇam, varala
+
+Analysis by found words:
+--------------------
+• Found form [dvātriṃśat]:
+    - dvātriṃśat
+
+• Found form [kṣaṇam]:
+    - kṣaṇa
+    - kṣaṇam
+
+• Found form [varala]:
+    - varala
+
+================================================================================
+Compound #30
+Source: sa_patañjali-yogasūtra-with-bhāṣya.json
+Input: duḥkhājñānānantaphalā
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  ajñāna, ananta, duḥkha, phala
+
+Analysis by found words:
+--------------------
+• Found form [ajñānā]:
+    - ajñāna
+
+• Found form [ananta]:
+    - ananta
+
+• Found form [duḥkha]:
+    - duḥkha
+
+• Found form [phalā]:
+    - phala
+
+================================================================================
+Compound #31
+Source: sa_108-buddhist-stotras.json
+Input: kṣāntisvārasyabhājāṃ
+----------------------------------------
+Found 5 roots:
+Found 3 groups:
+  bhāj, bhājā, kṣānti, svāra, svārasya
+
+Analysis by found words:
+--------------------
+• Found form [bhājām]:
+    - bhāj
+    - bhājā
+
+• Found form:
+    - kṣānti
+
+• Found form [svārasya]:
+    - svāra
+    - svārasya
+
+================================================================================
+Compound #32
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: pṛthaktavānyatvabhedāstu
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  anya, bheda, pṛthak, tu, tva, yuṣmad
+
+Analysis by found words:
+--------------------
+• Found form [anya]:
+    - anya
+
+• Found form [bhedāḥ]:
+    - bheda
+
+• Found form:
+    - tva
+
+• Found form [pṛthak]:
+    - pṛthak
+
+• Found form [tava]:
+    - yuṣmad
+
+• Found form [tu]:
+    - tu
+
+================================================================================
+Compound #33
+Source: sa_dharmakīrti-nyāyabinduprakaraṇa-comm.json
+Input: sādhanamanvayavākyādavasyatā
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  anvaya, avasyad, syad, sādhana, vākya
+
+Analysis by found words:
+--------------------
+• Found form [anvaya]:
+    - anvaya
+
+• Found form:
+    - avasyad
+    - syad
+
+• Found form [sādhanam]:
+    - sādhana
+
+• Found form [vākyāt]:
+    - vākya
+
+================================================================================
+Compound #34
+Source: sa_chāndogyopaniṣad-comm.json
+Input: hiṃsānṛtamāyābrahmacaryādiparihārācca
+----------------------------------------
+Found 8 roots:
+Found 8 groups:
+  ad, anṛta, brahmacarya, ca, hiṃsa, parihāra, ādi, āya
+
+Analysis by found words:
+--------------------
+• Found form [anṛtam]:
+    - anṛta
+
+• Found form [brahmacarya]:
+    - brahmacarya
+
+• Found form [ca]:
+    - ca
+
+• Found form:
+    - ādi
+
+• Found form [hiṃsā]:
+    - hiṃsa
+
+• Found form [parihārāt]:
+    - parihāra
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+• Found form [āyāḥ]:
+    - āya
+
+================================================================================
+Compound #35
+Source: sa_vācaspatimiśra-bhāmati.json
+Input: tasmādānandamayavikārāvayavo
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  avayava, tad, tasmāt, vikāra, ānandamaya
+
+Analysis by found words:
+--------------------
+• Found form [avayavaḥ]:
+    - avayava
+
+• Found form [tasmāt]:
+    - tad
+    - tasmāt
+
+• Found form [vikāra]:
+    - vikāra
+
+• Found form [ānandamaya]:
+    - ānandamaya
+
+================================================================================
+Compound #36
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: pratipattistāvānviṣaya
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  pratipatti, stāva, viṣaya
+
+Analysis by found words:
+--------------------
+• Found form:
+    - pratipatti
+
+• Found form [stāvān]:
+    - stāva
+
+• Found form [viṣaya]:
+    - viṣaya
+
+================================================================================
+Compound #37
+Source: sa_rāmāyaṇa.json
+Input: ṛkṣavānaragopucchair
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  gopuccha, vānara, ṛkṣa
+
+Analysis by found words:
+--------------------
+• Found form [gopucchaiḥ]:
+    - gopuccha
+
+• Found form [vānara]:
+    - vānara
+
+• Found form [ṛkṣa]:
+    - ṛkṣa
+
+================================================================================
+Compound #38
+Source: sa_brahmāṇḍapurāṇa.json
+Input: vairāgyamātmasaṃbodhaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  sambodha, vairāgya, ātma
+
+Analysis by found words:
+--------------------
+• Found form:
+    - ātma
+
+• Found form [sambodhaḥ]:
+    - sambodha
+
+• Found form [vairāgyam]:
+    - vairāgya
+
+================================================================================
+Compound #39
+Source: sa_mammaṭa-kāvyaprakāśa.json
+Input: sādhakamastītitatsaṃkarāśaṅkā
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  aśaṅka, iti, masti, saṃkara, sādhaka, tad
+
+Analysis by found words:
+--------------------
+• Found form [aśaṅkā]:
+    - aśaṅka
+
+• Found form:
+    - masti
+
+• Found form [iti]:
+    - iti
+
+• Found form [saṃkara]:
+    - saṃkara
+
+• Found form [sādhaka]:
+    - sādhaka
+
+• Found form [tat]:
+    - tad
+
+================================================================================
+Compound #40
+Source: sa_padmagupta-navasāhasāṅkacarita.json
+Input: nibhṛtakarṇapallavaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  karṇa, nibhṛta, pallava
+
+Analysis by found words:
+--------------------
+• Found form [karṇa]:
+    - karṇa
+
+• Found form [nibhṛta]:
+    - nibhṛta
+
+• Found form [pallavaḥ]:
+    - pallava
+
+================================================================================
+Compound #41
+Source: sa_kumārila-mīmāṃsaślokavārttika-comm.json
+Input: viśeṣaṇaviśeṣyārthasvātantryagrahamaṃ
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  artha, graha, ma, svātantrya, viśeṣaṇa, viśeṣya
+
+Analysis by found words:
+--------------------
+• Found form [artha]:
+    - artha
+
+• Found form [graha]:
+    - graha
+
+• Found form [mam]:
+    - ma
+
+• Found form [svātantrya]:
+    - svātantrya
+
+• Found form [viśeṣaṇa]:
+    - viśeṣaṇa
+
+• Found form [viśeṣyā]:
+    - viśeṣya
+
+================================================================================
+Compound #42
+Source: sa_kubjikamatatantra.json
+Input: mahocchuṣmāsamanvitaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  maha, samanvita, ucchuṣma
+
+Analysis by found words:
+--------------------
+• Found form [mahā]:
+    - maha
+
+• Found form [samanvitaḥ]:
+    - samanvita
+
+• Found form [ucchuṣmā]:
+    - ucchuṣma
+
+================================================================================
+Compound #43
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: abhilaṣitādhikavarade
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  abhilaṣita, adhika, varada
+
+Analysis by found words:
+--------------------
+• Found form [abhilaṣita]:
+    - abhilaṣita
+
+• Found form [adhika]:
+    - adhika
+
+• Found form [varade]:
+    - varada
+
+================================================================================
+Compound #44
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: śrotrasaṃsparśapratyayavedanā
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  pratyaya, saṃsparśa, vedana, śrotra
+
+Analysis by found words:
+--------------------
+• Found form [pratyaya]:
+    - pratyaya
+
+• Found form [saṃsparśa]:
+    - saṃsparśa
+
+• Found form [vedanā]:
+    - vedana
+
+• Found form [śrotra]:
+    - śrotra
+
+================================================================================
+Compound #45
+Source: sa_brahmāṇḍapurāṇa.json
+Input: narapateranuyāyinaste
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  anuyāyin, asta, asti, narapati
+
+Analysis by found words:
+--------------------
+• Found form [anuyāyin]:
+    - anuyāyin
+
+• Found form [aste]:
+    - asta
+    - asti
+
+• Found form [narapateḥ]:
+    - narapati
+
+================================================================================
+Compound #46
+Source: sa_śivapurāṇabooks-1-and-7.json
+Input: caṃdrārdhakṛtaśekharam
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  ardhakṛta, ca, drā, śekhara
+
+Analysis by found words:
+--------------------
+• Found form [ardhakṛta]:
+    - ardhakṛta
+
+• Found form [cam]:
+    - ca
+
+• Found form:
+    - drā
+
+• Found form [śekharam]:
+    - śekhara
+
+================================================================================
+Compound #47
+Source: sa_durvekamiśra-dharmottarapradīpa.json
+Input: mānasapratyakṣābhyupagame
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  abhyupagama, mānasa, pratyakṣa
+
+Analysis by found words:
+--------------------
+• Found form [abhyupagame]:
+    - abhyupagama
+
+• Found form [mānasa]:
+    - mānasa
+
+• Found form [pratyakṣa]:
+    - pratyakṣa
+
+================================================================================
+Compound #48
+Source: sa_udayana-nyāyakusumāñjali.json
+Input: niravagrahasphuradabhidhyānānubhāvaṃ
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  abhidhyāna, anubhāva, niravagraha, sphurat
+
+Analysis by found words:
+--------------------
+• Found form [abhidhyāna]:
+    - abhidhyāna
+
+• Found form [anubhāvam]:
+    - anubhāva
+
+• Found form:
+    - sphurat
+
+• Found form [niravagraha]:
+    - niravagraha
+
+================================================================================
+Compound #49
+Source: sa_patañjali-vyākaraṇamahābhāṣya.json
+Input: ādeśapratiṣedhārtham
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  artha, artham, pratiṣedha, ādeśa
+
+Analysis by found words:
+--------------------
+• Found form [artham]:
+    - artha
+    - artham
+
+• Found form [pratiṣedha]:
+    - pratiṣedha
+
+• Found form [ādeśa]:
+    - ādeśa
+
+================================================================================
+Compound #50
+Source: sa_parātriṃśikā-comm.json
+Input: bhairavaviśeṣaspandātmani
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  bhairava, spanda, viśeṣa, ātman
+
+Analysis by found words:
+--------------------
+• Found form [bhairava]:
+    - bhairava
+
+• Found form [spanda]:
+    - spanda
+
+• Found form [viśeṣa]:
+    - viśeṣa
+
+• Found form [ātmani]:
+    - ātman
+
+================================================================================
+Compound #51
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra-alt.json
+Input: paratralabdhvātmasamānacittatāṃ
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  acitta, dhu, la, paratra, tad, tā, ātmasama
+
+Analysis by found words:
+--------------------
+• Found form [acitta]:
+    - acitta
+
+• Found form [dhvā]:
+    - dhu
+
+• Found form [la]:
+    - la
+
+• Found form [paratra]:
+    - paratra
+
+• Found form [tām]:
+    - tad
+    - tā
+
+• Found form [ātmasamān]:
+    - ātmasama
+
+================================================================================
+Compound #52
+Source: sa_liṅgapurāṇa1-108.json
+Input: kāruṇyātsarvabhūtebhyaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  bhī, kāruṇya, sarvabhūta
+
+Analysis by found words:
+--------------------
+• Found form [abhyaḥ]:
+    - bhī
+
+• Found form [kāruṇyāt]:
+    - kāruṇya
+
+• Found form [sarvabhūte]:
+    - sarvabhūta
+
+================================================================================
+Compound #53
+Source: sa_mokṣopāya.json
+Input: bījasyāṅkurapattrādi
+----------------------------------------
+Found 5 roots:
+Found 5 groups:
+  ad, aṅkura, bīja, pattra, ādi
+
+Analysis by found words:
+--------------------
+• Found form [aṅkura]:
+    - aṅkura
+
+• Found form [bījasya]:
+    - bīja
+
+• Found form:
+    - ādi
+
+• Found form [pattra]:
+    - pattra
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+================================================================================
+Compound #54
+Source: sa_rāmānuja-bhagavadgītābhāṣya.json
+Input: sarvacetanācetanavastuśeṣitvaṃ
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  acetana, cetana, sarva, vastu, yuṣmad, śeṣin, śeṣī
+
+Analysis by found words:
+--------------------
+• Found form [acetana]:
+    - acetana
+
+• Found form [cetana]:
+    - cetana
+
+• Found form [sarva]:
+    - sarva
+
+• Found form [tvam]:
+    - yuṣmad
+
+• Found form [vastu]:
+    - vastu
+
+• Found form [śeṣi]:
+    - śeṣin
+    - śeṣī
+
+================================================================================
+Compound #55
+Source: sa_divyāvadāna.json
+Input: bhadantetyāyuṣmānānando
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  atya, bhadanta, yuṣmad, ānanda
+
+Analysis by found words:
+--------------------
+• Found form [atyā]:
+    - atya
+
+• Found form [bhadante]:
+    - bhadanta
+
+• Found form [yuṣmān]:
+    - yuṣmad
+
+• Found form [ānandaḥ]:
+    - ānanda
+
+================================================================================
+Compound #56
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: vyaṅgyavyañjakabhāvasya
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  bhāva, vyañjaka, vyaṅgya
+
+Analysis by found words:
+--------------------
+• Found form [bhāvasya]:
+    - bhāva
+
+• Found form [vyañjaka]:
+    - vyañjaka
+
+• Found form [vyaṅgya]:
+    - vyaṅgya
+
+================================================================================
+Compound #57
+Source: sa_buddhaghoṣa-siddhārthacaritrakāvya.json
+Input: saṃkrāntasaudhavalabhīmaṇiputrakeṇa
+----------------------------------------
+Found 5 roots:
+Found 5 groups:
+  maṇi, putraka, saudha, saṃkrānta, valabhi
+
+Analysis by found words:
+--------------------
+• Found form [maṇi]:
+    - maṇi
+
+• Found form [putrakeṇa]:
+    - putraka
+
+• Found form [saudha]:
+    - saudha
+
+• Found form [saṃkrānta]:
+    - saṃkrānta
+
+• Found form [valabhi]:
+    - valabhi
+
+================================================================================
+Compound #58
+Source: sa_harivarman-satyasiddhiśāstram.json
+Input: rūpavipariṇāmavirāganirodhāt
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  nirodha, rūpa, vipariṇāma, virāga
+
+Analysis by found words:
+--------------------
+• Found form [nirodhāt]:
+    - nirodha
+
+• Found form [rūpa]:
+    - rūpa
+
+• Found form [vipariṇāma]:
+    - vipariṇāma
+
+• Found form [virāga]:
+    - virāga
+
+================================================================================
+Compound #59
+Source: sa_āpastambaśulbasūtra.json
+Input: dakṣiṇottarapārśvakaraṇyoḥ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  dakṣiṇottara, karaṇa, karaṇi, pārśva
+
+Analysis by found words:
+--------------------
+• Found form [dakṣiṇottara]:
+    - dakṣiṇottara
+
+• Found form [karaṇyoḥ]:
+    - karaṇa
+    - karaṇi
+
+• Found form [pārśva]:
+    - pārśva
+
+================================================================================
+Compound #60
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: kucakalaśayoścumbati
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  cumb, kalaśa, kuc, kuca
+
+Analysis by found words:
+--------------------
+• Found form [cumbati]:
+    - cumb
+
+• Found form [kalaśayoḥ]:
+    - kalaśa
+
+• Found form [kuca]:
+    - kuc
+    - kuca
+
+================================================================================
+Compound #61
+Source: sa_mokṣopāya.json
+Input: athātyuttamalābhārtham
+----------------------------------------
+Found 5 roots:
+Found 3 groups:
+  artha, artham, atha, ati, uttamalābha
+
+Analysis by found words:
+--------------------
+• Found form [artham]:
+    - artha
+    - artham
+
+• Found form [atha]:
+    - atha
+
+• Found form [atiuttamalābha]:
+    - ati
+    - uttamalābha
+
+================================================================================
+Compound #62
+Source: sa_ruyyaka-alaṃkārasarvasva-1-34-comm.json
+Input: tarvādibhinnāśrayatvenāropitam
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  ad, bhinna, taru, ādi, āropita, āśrayatva
+
+Analysis by found words:
+--------------------
+• Found form [bhinna]:
+    - bhinna
+
+• Found form:
+    - ādi
+
+• Found form [taru]:
+    - taru
+
+• Found form [ādi]:
+    - ad
+    - ādi
+
+• Found form [āropitam]:
+    - āropita
+
+• Found form [āśrayatvena]:
+    - āśrayatva
+
+================================================================================
+Compound #63
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: sādhāraṇīkaraṇamityarthaḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  ityartha, karaṇa, sādhāraṇa
+
+Analysis by found words:
+--------------------
+• Found form [ityarthaḥ]:
+    - ityartha
+
+• Found form [karaṇam]:
+    - karaṇa
+
+• Found form [sādhāraṇī]:
+    - sādhāraṇa
+
+================================================================================
+Compound #64
+Source: sa_bhikṣuṇīvinaya.json
+Input: mahāsamājaviharaṇapratisamyuktaṃ
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  maha, prati, samin, samāja, ukta, viharaṇa
+
+Analysis by found words:
+--------------------
+• Found form [mahā]:
+    - maha
+
+• Found form [pratisamī]:
+    - prati
+    - samin
+
+• Found form [samāja]:
+    - samāja
+
+• Found form [uktam]:
+    - ukta
+
+• Found form [viharaṇa]:
+    - viharaṇa
+
+================================================================================
+Compound #65
+Source: sa_rāṣṭrapālaparipṛcchā.json
+Input: rājakumārasyaitadabhavat
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  bhū, etad, kumāra, rāj, rāja
+
+Analysis by found words:
+--------------------
+• Found form [abhavat]:
+    - bhū
+
+• Found form [etat]:
+    - etad
+
+• Found form [kumārasya]:
+    - kumāra
+
+• Found form [rāja]:
+    - rāj
+    - rāja
+
+================================================================================
+Compound #66
+Source: sa_pramāṇavārttika.json
+Input: bhedasāmānyayordharmabhedādaṃgāṃgitā
+----------------------------------------
+Found 5 roots:
+Found 6 groups:
+  aṅgāṅgitā, bheda, bhid, dharma, sāmānya
+
+Analysis by found words:
+--------------------
+• Found form [aṅgāṅgitā]:
+    - aṅgāṅgitā
+
+• Found form [bheda]:
+    - bheda
+    - bhid
+
+• Found form [bhedāt]:
+    - bheda
+
+• Found form:
+    - dharma
+
+• Found form [dharma]:
+    - dharma
+
+• Found form [sāmānyayoḥ]:
+    - sāmānya
+
+================================================================================
+Compound #67
+Source: sa_mānavagṛhyasūtra-maitrāyaṇīyamānavagṛhyasūtra.json
+Input: āditastrīnanuvākānanuvācayet
+----------------------------------------
+Found 7 roots:
+Found 7 groups:
+  anuvāca, dita, id, nanu, strī, vāka, ya
+
+Analysis by found words:
+--------------------
+• Found form:
+    - anuvāca
+
+• Found form [id]:
+    - id
+
+• Found form [nanu]:
+    - nanu
+
+• Found form [strī]:
+    - strī
+
+• Found form [vākān]:
+    - vāka
+
+• Found form [ya]:
+    - ya
+
+• Found form [ādita]:
+    - dita
+
+================================================================================
+Compound #68
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra.json
+Input: paryantamapaśyamānaḥ
+----------------------------------------
+Found 5 roots:
+Found 3 groups:
+  antama, māna, pari, paś, paśya
+
+Analysis by found words:
+--------------------
+• Found form [mānaḥ]:
+    - māna
+
+• Found form [pariantama]:
+    - antama
+    - pari
+
+• Found form [paśya]:
+    - paś
+    - paśya
+
+================================================================================
+Compound #69
+Source: sa_aṣṭasāhasrikā-prajñāpāramitā.json
+Input: sarvasattvābhibhavano
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  abhi, bhavana, sarva, sattva
+
+Analysis by found words:
+--------------------
+• Found form [abhibhavanaḥ]:
+    - abhi
+    - bhavana
+
+• Found form [sarva]:
+    - sarva
+
+• Found form [sattva]:
+    - sattva
+
+================================================================================
+Compound #70
+Source: sa_sarvatathāgatatattvasaṃgraha.json
+Input: vajrakodhatirintirimudrāṃ
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  mudra, rī, ti, udhati, vajraka
+
+Analysis by found words:
+--------------------
+• Found form:
+    - ti
+    - udhati
+
+• Found form [mudrām]:
+    - mudra
+
+• Found form [ri]:
+    - rī
+
+• Found form [vajraka]:
+    - vajraka
+
+================================================================================
+Compound #71
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: parabrahmātmanāsthīyatām
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  parabrahman, sthā, ātmanā
+
+Analysis by found words:
+--------------------
+• Found form:
+    - ātmanā
+
+• Found form [parabrahma]:
+    - parabrahman
+
+• Found form [sthīyatām]:
+    - sthā
+
+================================================================================
+Compound #72
+Source: sa_karuṇāpuṇḍarīkasūtra.json
+Input: bahukinnarakoṭīśatasahasraparivāraiḥ
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  bahu, kim, koṭi, koṭī, nara, parivāra, sahasra, śata
+
+Analysis by found words:
+--------------------
+• Found form [bahu]:
+    - bahu
+
+• Found form [kim]:
+    - kim
+
+• Found form [koṭī]:
+    - koṭi
+    - koṭī
+
+• Found form [nara]:
+    - nara
+
+• Found form [parivāraiḥ]:
+    - parivāra
+
+• Found form [sahasra]:
+    - sahasra
+
+• Found form [śata]:
+    - śata
+
+================================================================================
+Compound #73
+Source: sa_śivapurāṇabooks-1-and-7.json
+Input: nityanaimittikakarmavarṇanaṃ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  naimittikakarman, nitya, varṇana
+
+Analysis by found words:
+--------------------
+• Found form [naimittikakarma]:
+    - naimittikakarman
+
+• Found form [nitya]:
+    - nitya
+
+• Found form [varṇanam]:
+    - varṇana
+
+================================================================================
+Compound #74
+Source: sa_agniveśa-carakasaṃhitā-parts-comm.json
+Input: vidyātparpaṭakīphalam
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  parpaṭakī, phala, vid, vidya
+
+Analysis by found words:
+--------------------
+• Found form [parpaṭakī]:
+    - parpaṭakī
+
+• Found form [phalam]:
+    - phala
+
+• Found form [vidyāt]:
+    - vid
+    - vidya
+
+================================================================================
+Compound #75
+Source: sa_nāradapurāṇa.json
+Input: taḍitkīṭisamaprabhām
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  kīṭī, samaprabha, taḍit
+
+Analysis by found words:
+--------------------
+• Found form [kīṭi]:
+    - kīṭī
+
+• Found form [samaprabhām]:
+    - samaprabha
+
+• Found form [taḍit]:
+    - taḍit
+
+================================================================================
+Compound #76
+Source: sa_mādhava-jaiminīyanyāyamālāvistara.json
+Input: samiddhāraṇasyāpūrvārthatvena
+----------------------------------------
+Found 6 roots:
+Found 6 groups:
+  apūrva, artha, ina, raṇa, samiddha, tva
+
+Analysis by found words:
+--------------------
+• Found form [apūrva]:
+    - apūrva
+
+• Found form [artha]:
+    - artha
+
+• Found form:
+    - tva
+
+• Found form [ina]:
+    - ina
+
+• Found form [raṇasya]:
+    - raṇa
+
+• Found form [samiddhā]:
+    - samiddha
+
+================================================================================
+Compound #77
+Source: sa_divyāvadāna.json
+Input: brāhmaṇagṛhapatibhiḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  brāhmaṇa, gṛhapati
+
+Analysis by found words:
+--------------------
+• Found form [brāhmaṇa]:
+    - brāhmaṇa
+
+• Found form [gṛhapatibhiḥ]:
+    - gṛhapati
+
+================================================================================
+Compound #78
+Source: sa_mādhva-mahābhāratatātparyanirṇaya.json
+Input: sajjīkṛtamāttadhanvā
+----------------------------------------
+Found 11 roots:
+Found 6 groups:
+  ad, asmad, dhanu, dhanva, dhanvan, ji, kṛ, kṛta, mā, sad, sat
+
+Analysis by found words:
+--------------------
+• Found form [atta]:
+    - ad
+
+• Found form [dhanvā]:
+    - dhanu
+    - dhanva
+    - dhanvan
+
+• Found form [jī]:
+    - ji
+
+• Found form [kṛta]:
+    - kṛ
+    - kṛta
+
+• Found form [mā]:
+    - asmad
+    - mā
+
+• Found form [sat]:
+    - sad
+    - sat
+
+================================================================================
+Compound #79
+Source: sa_ānandavardhana-dhvanyāloka-comm.json
+Input: carvaṇīyatvādabhivyañjanamiti
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  abhivyañjana, ad, at, carvaṇīya, iti, tva
+
+Analysis by found words:
+--------------------
+• Found form [abhivyañjanam]:
+    - abhivyañjana
+
+• Found form [at]:
+    - ad
+    - at
+
+• Found form [carvaṇīya]:
+    - carvaṇīya
+
+• Found form:
+    - tva
+
+• Found form [iti]:
+    - iti
+
+================================================================================
+Compound #80
+Source: sa_nāgārjuna-piṇḍīkrama.json
+Input: vidhnāntakṛnmantrabhavaṃ
+----------------------------------------
+Found 7 roots:
+Found 5 groups:
+  anta, bhava, kṛ, mantra, na, nṛ, vidh
+
+Analysis by found words:
+--------------------
+• Found form [anta]:
+    - anta
+
+• Found form [bhavam]:
+    - bhava
+
+• Found form:
+    - kṛ
+    - vidh
+
+• Found form [mantra]:
+    - mantra
+
+• Found form [nā]:
+    - na
+    - nṛ
+
+================================================================================
+Compound #81
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: stutirgauṇyoktāṣṭākapālavayave
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  aṣṭākapāla, gauṇa, stuti, ukta, va, yava, yu
+
+Analysis by found words:
+--------------------
+• Found form [aṣṭākapāla]:
+    - aṣṭākapāla
+
+• Found form [gauṇyā]:
+    - gauṇa
+
+• Found form [stutiḥ]:
+    - stuti
+
+• Found form [uktā]:
+    - ukta
+
+• Found form [va]:
+    - va
+
+• Found form [yave]:
+    - yava
+    - yu
+
+================================================================================
+Compound #82
+Source: sa_pauṣkarasaṃhitā-27-43.json
+Input: vibhavavyūhalakṣaṇāḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  lakṣaṇa, vibhava, vyūha
+
+Analysis by found words:
+--------------------
+• Found form [lakṣaṇāḥ]:
+    - lakṣaṇa
+
+• Found form [vibhava]:
+    - vibhava
+
+• Found form [vyūha]:
+    - vyūha
+
+================================================================================
+Compound #83
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: suratasacivairaṅgaiḥ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  aṅga, saciva, sur, surata
+
+Analysis by found words:
+--------------------
+• Found form [aṅgaiḥ]:
+    - aṅga
+
+• Found form [sacivaiḥ]:
+    - saciva
+
+• Found form [surata]:
+    - sur
+    - surata
+
+================================================================================
+Compound #84
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: pratyakṣasiddhamabhedamapavadatīti
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  abheda, apa, bhid, iti, pratyakṣasiddha, vad
+
+Analysis by found words:
+--------------------
+• Found form [abhedam]:
+    - abheda
+    - bhid
+
+• Found form [apa]:
+    - apa
+
+• Found form [iti]:
+    - iti
+
+• Found form [pratyakṣasiddham]:
+    - pratyakṣasiddha
+
+• Found form [vadati]:
+    - vad
+
+================================================================================
+Compound #85
+Source: sa_viṣṇupurāṇa-crit.json
+Input: pitṛrājyaharaṇāmarṣito
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  amarṣita, haraṇa, pitṛ, rājya
+
+Analysis by found words:
+--------------------
+• Found form [amarṣitaḥ]:
+    - amarṣita
+
+• Found form:
+    - pitṛ
+
+• Found form [haraṇa]:
+    - haraṇa
+
+• Found form [rājya]:
+    - rājya
+
+================================================================================
+Compound #86
+Source: sa_brahmāṇḍapurāṇa.json
+Input: sādharmyavaidharmyakṛtaḥ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  kṛt, kṛta, sādharmya, vaidharmya
+
+Analysis by found words:
+--------------------
+• Found form [kṛtaḥ]:
+    - kṛt
+    - kṛta
+
+• Found form [sādharmya]:
+    - sādharmya
+
+• Found form [vaidharmya]:
+    - vaidharmya
+
+================================================================================
+Compound #87
+Source: sa_tarkarahasya.json
+Input: vicchinnamahaṅkārāspadamāntaraṃ
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  aha, asmad, kāra, mā, tara, vicchinna, āspada
+
+Analysis by found words:
+--------------------
+• Found form [aham]:
+    - aha
+    - asmad
+
+• Found form [kāra]:
+    - kāra
+
+• Found form [mām]:
+    - asmad
+    - mā
+
+• Found form [taram]:
+    - tara
+
+• Found form [vicchinnam]:
+    - vicchinna
+
+• Found form [āspada]:
+    - āspada
+
+================================================================================
+Compound #88
+Source: sa_ruyyaka-alaṃkārasarvasva.json
+Input: tatrāpyabhedenaivādhyavasīyata
+----------------------------------------
+Found 9 roots:
+Found 6 groups:
+  abheda, ap, apya, avas, eva, tatra, yat, yata, ādhī
+
+Analysis by found words:
+--------------------
+• Found form [apiabhedena]:
+    - abheda
+    - ap
+    - apya
+
+• Found form [avasī]:
+    - avas
+
+• Found form [eva]:
+    - eva
+
+• Found form [tatra]:
+    - tatra
+
+• Found form [yata]:
+    - yat
+    - yata
+
+• Found form [ādhi]:
+    - ādhī
+
+================================================================================
+Compound #89
+Source: sa_māṇḍūkyopaniṣad-comm.json
+Input: ghaṭādyarthavadavabhāsate
+----------------------------------------
+Found 7 roots:
+Found 5 groups:
+  ad, arthavat, avabhāsatā, bhās, bhāsatā, ghaṭ, ghaṭa
+
+Analysis by found words:
+--------------------
+• Found form [adi]:
+    - ad
+
+• Found form [arthavat]:
+    - arthavat
+
+• Found form [avabhāsate]:
+    - bhās
+    - bhāsatā
+
+• Found form:
+    - avabhāsatā
+
+• Found form [ghaṭa]:
+    - ghaṭ
+    - ghaṭa
+
+================================================================================
+Compound #90
+Source: sa_subandhu-vāsavadattā.json
+Input: sphuradaruṇataruṇacūḍācāruvadane
+----------------------------------------
+Found 5 roots:
+Found 4 groups:
+  acāruvadana, aruṇa, cūḍa, sphurad, taruṇa
+
+Analysis by found words:
+--------------------
+• Found form [aruṇa]:
+    - aruṇa
+
+• Found form [cūḍā]:
+    - cūḍa
+
+• Found form:
+    - acāruvadana
+    - sphurad
+
+• Found form [taruṇa]:
+    - taruṇa
+
+================================================================================
+Compound #91
+Source: sa_patañjali-yogasūtra-with-bhāṣya-alt.json
+Input: gatisaṃskārābhivyaktiḥ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  abhivyakti, gatī, saṃskāra
+
+Analysis by found words:
+--------------------
+• Found form [abhivyaktiḥ]:
+    - abhivyakti
+
+• Found form [gati]:
+    - gatī
+
+• Found form [saṃskāra]:
+    - saṃskāra
+
+================================================================================
+Compound #92
+Source: sa_āryaśūra-jātakamālā.json
+Input: paripakkaphalānamitapiñjarāgraśākhaṃ
+----------------------------------------
+Found 7 roots:
+Found 6 groups:
+  agra, kaphala, namita, pa, pari, piñjara, śākha
+
+Analysis by found words:
+--------------------
+• Found form [agra]:
+    - agra
+
+• Found form [anamita]:
+    - namita
+
+• Found form [kaphala]:
+    - kaphala
+
+• Found form [paripa]:
+    - pa
+    - pari
+
+• Found form [piñjara]:
+    - piñjara
+
+• Found form [śākham]:
+    - śākha
+
+================================================================================
+Compound #93
+Source: sa_jayarāśi-tattvopaplavasiṃha.json
+Input: jñānākārasyānumānajñāne
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  anumāna, jñāna, jñānā, ākāra
+
+Analysis by found words:
+--------------------
+• Found form [anumāna]:
+    - anumāna
+
+• Found form [jñāna]:
+    - jñāna
+
+• Found form [jñāne]:
+    - jñāna
+    - jñānā
+
+• Found form [ākārasya]:
+    - ākāra
+
+================================================================================
+Compound #94
+Source: sa_vādivāgīśvara-mānamanohara.json
+Input: rūpajanakamāśrayatvājjalāṇuvat
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  asmad, aṇu, jala, janaka, mā, rūpa, vat, āśrayatva
+
+Analysis by found words:
+--------------------
+• Found form [aṇu]:
+    - aṇu
+
+• Found form:
+    - vat
+
+• Found form [jalā]:
+    - jala
+
+• Found form [janaka]:
+    - janaka
+
+• Found form [mā]:
+    - asmad
+    - mā
+
+• Found form [rūpa]:
+    - rūpa
+
+• Found form [āśrayatvāt]:
+    - āśrayatva
+
+================================================================================
+Compound #95
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: tatprasiddherāropitārthāśrayatvameva
+----------------------------------------
+Found 8 roots:
+Found 7 groups:
+  artha, eva, prasiddha, prasiddhi, ra, ropita, tad, āśrayatva
+
+Analysis by found words:
+--------------------
+• Found form [artha]:
+    - artha
+
+• Found form [eva]:
+    - eva
+
+• Found form [prasiddhe]:
+    - prasiddha
+    - prasiddhi
+
+• Found form [raḥ]:
+    - ra
+
+• Found form [ropitā]:
+    - ropita
+
+• Found form [tat]:
+    - tad
+
+• Found form [āśrayatvam]:
+    - āśrayatva
+
+================================================================================
+Compound #96
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra-comm.json
+Input: sarvavyasanavyāvṛttau
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  sarva, vyasana, vyāvṛtta, vyāvṛtti
+
+Analysis by found words:
+--------------------
+• Found form [sarva]:
+    - sarva
+
+• Found form [vyasana]:
+    - vyasana
+
+• Found form [vyāvṛttau]:
+    - vyāvṛtta
+    - vyāvṛtti
+
+================================================================================
+Compound #97
+Source: sa_annaṃbhaṭṭa-tarkasaṃgraha-comm.json
+Input: yāvajjñānagrahāntargatatayā
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  antargata, graha, jñāna, tad, tā, yāvat
+
+Analysis by found words:
+--------------------
+• Found form [antargata]:
+    - antargata
+
+• Found form [graha]:
+    - graha
+
+• Found form [jñāna]:
+    - jñāna
+
+• Found form [tayā]:
+    - tad
+    - tā
+
+• Found form [yāvat]:
+    - yāvat
+
+================================================================================
+Compound #98
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: tvadhyātmaviṣayāṇāmiti
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  adhyātma, iti, tu, viṣaya
+
+Analysis by found words:
+--------------------
+• Found form [adhyātma]:
+    - adhyātma
+
+• Found form [iti]:
+    - iti
+
+• Found form [tu]:
+    - tu
+
+• Found form [viṣayāṇām]:
+    - viṣaya
+
+================================================================================
+Compound #99
+Source: sa_pramāṇavārttika.json
+Input: sādharmyadarśanālloke
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  darśana, lok, loka, sādharmya
+
+Analysis by found words:
+--------------------
+• Found form [darśanāt]:
+    - darśana
+
+• Found form [loke]:
+    - lok
+    - loka
+
+• Found form [sādharmya]:
+    - sādharmya
+
+================================================================================
+Compound #100
+Source: sa_rasādhyaya1-302-com.json
+Input: prākpramuktagartāyāṃ
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  gartā, pramukta, prāk
+
+Analysis by found words:
+--------------------
+• Found form [gartāyām]:
+    - gartā
+
+• Found form [pramukta]:
+    - pramukta
+
+• Found form [prāk]:
+    - prāk
+
+
+MEDIUM CATEGORY SUMMARY
+========================================
+Total compounds processed: 100
+Successfully parsed: 100
+Total roots found: 483
+Total groups found: 421
+Success rate: 100.0%
+Average roots per compound: 4.83Average roots per group: 4.21
+========================================
+
+SHORT COMPOUNDS
+================================================================================
+================================================================================
+Compound #1
+Source: sa_asaṅga-śrāvakabhūmi-edshukla.json
+Input: heturdvividhe
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  dvividha, hetu, hetṛ
+
+Analysis by found words:
+--------------------
+• Found form [dvividhe]:
+    - dvividha
+
+• Found form [hetuḥ]:
+    - hetu
+    - hetṛ
+
+================================================================================
+Compound #2
+Source: sa_pāṇḍulohitakavastu.json
+Input: ardhamāsaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  ardhamāsa
+
+Analysis by found words:
+--------------------
+• Found form [ardhamāsam]:
+    - ardhamāsa
+
+================================================================================
+Compound #3
+Source: sa_ānandakanda.json
+Input: svarṇapuṣpī
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  svarṇapuṣpa
+
+Analysis by found words:
+--------------------
+• Found form [svarṇapuṣpī]:
+    - svarṇapuṣpa
+
+================================================================================
+Compound #4
+Source: sa_yaśomitra-sphuṭārthā-abhidharmakośavyākhyā.json
+Input: navaprakārāṇāṃ
+----------------------------------------
+Found 2 roots:
+Found 3 groups:
+  nava, prakāra
+
+Analysis by found words:
+--------------------
+• Found form:
+    - nava
+
+• Found form [nava]:
+    - nava
+
+• Found form [prakārāṇām]:
+    - prakāra
+
+================================================================================
+Compound #5
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: punarapīti
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  pu, puna, pītin
+
+Analysis by found words:
+--------------------
+• Found form [apīti]:
+    - pītin
+
+• Found form [punaḥ]:
+    - pu
+    - puna
+
+================================================================================
+Compound #6
+Source: sa_śatasāhasrikā-prajñāpāramitā-2.json
+Input: anabhisaṃskṛtam
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  nabh, saṃskṛta
+
+Analysis by found words:
+--------------------
+• Found form [anabhi]:
+    - nabh
+
+• Found form [saṃskṛtam]:
+    - saṃskṛta
+
+================================================================================
+Compound #7
+Source: sa_gautama-nyāyasūtra-comm2.json
+Input: pravṛttyuparame
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  pravṛtti, uparama
+
+Analysis by found words:
+--------------------
+• Found form:
+    - pravṛtti
+
+• Found form [uparame]:
+    - uparama
+
+================================================================================
+Compound #8
+Source: sa_gautama-nyāyasūtra-comm.json
+Input: ekagranthopayamo
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  ekagrantha, upayama
+
+Analysis by found words:
+--------------------
+• Found form [ekagrantha]:
+    - ekagrantha
+
+• Found form [upayamaḥ]:
+    - upayama
+
+================================================================================
+Compound #9
+Source: sa_avadānaśataka.json
+Input: āgacchantv
+----------------------------------------
+Found 3 roots:
+Found 1 group:
+  gam, ā, ḷ
+
+Analysis by found words:
+--------------------
+• Found form [āgacchantu]:
+    - gam
+    - ā
+    - ḷ
+
+================================================================================
+Compound #10
+Source: sa_mokṣopāya.json
+Input: abrahmabhāvanāj
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  a, brahmabhāvana
+
+Analysis by found words:
+--------------------
+• Found form [abrahmabhāvanāt]:
+    - a
+    - brahmabhāvana
+
+================================================================================
+Compound #11
+Source: sa_bādarāyaṇa-brahmasūtra-comm-subcomm2.json
+Input: vilakṣaṇatvāditi
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  aditi, vilakṣaṇatva
+
+Analysis by found words:
+--------------------
+• Found form [aditi]:
+    - aditi
+
+• Found form [vilakṣaṇatva]:
+    - vilakṣaṇatva
+
+================================================================================
+Compound #12
+Source: sa_vāmadeva-janmamaraṇavicāra.json
+Input: śarīrāvasthāḥ
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  avastha, avasthā, vas, śarīra
+
+Analysis by found words:
+--------------------
+• Found form [avasthāḥ]:
+    - avastha
+    - avasthā
+    - vas
+
+• Found form [śarīra]:
+    - śarīra
+
+================================================================================
+Compound #13
+Source: sa_harivarman-satyasiddhiśāstram.json
+Input: mahābhūtāni
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  mahābhūta
+
+Analysis by found words:
+--------------------
+• Found form [mahābhūtāni]:
+    - mahābhūta
+
+================================================================================
+Compound #14
+Source: sa_kṣemendra-bhāratamañjarī-6-19.json
+Input: madhuravādinyā
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  madhura, vādinī
+
+Analysis by found words:
+--------------------
+• Found form [madhura]:
+    - madhura
+
+• Found form [vādinyā]:
+    - vādinī
+
+================================================================================
+Compound #15
+Source: sa_rāmāyaṇa.json
+Input: cānuraktāś
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  anurakta, ca
+
+Analysis by found words:
+--------------------
+• Found form [anuraktāḥ]:
+    - anurakta
+
+• Found form [ca]:
+    - ca
+
+================================================================================
+Compound #16
+Source: sa_harivaṃśa-app1.json
+Input: tridaśagaṇair
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  gaṇa, tridaśa
+
+Analysis by found words:
+--------------------
+• Found form [gaṇaiḥ]:
+    - gaṇa
+
+• Found form [tridaśa]:
+    - tridaśa
+
+================================================================================
+Compound #17
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: brūyādityarthaḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  brū, ityartha
+
+Analysis by found words:
+--------------------
+• Found form [brūyāt]:
+    - brū
+
+• Found form [ityarthaḥ]:
+    - ityartha
+
+================================================================================
+Compound #18
+Source: sa_āryabhaṭa-āryabhaṭīya-comm.json
+Input: upāyāntaram
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  upāyāntara
+
+Analysis by found words:
+--------------------
+• Found form [upāyāntaram]:
+    - upāyāntara
+
+================================================================================
+Compound #19
+Source: sa_mokṣopāya.json
+Input: matibhramaḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  matibhrama
+
+Analysis by found words:
+--------------------
+• Found form [matibhramaḥ]:
+    - matibhrama
+
+================================================================================
+Compound #20
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: pālayiṣyati
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  iṣ, pāla
+
+Analysis by found words:
+--------------------
+• Found form [iṣyati]:
+    - iṣ
+
+• Found form [pāla]:
+    - pāla
+
+================================================================================
+Compound #21
+Source: sa_mahāvastu-avādana.json
+Input: kāṣāyadharaṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  dhara, kāṣāya
+
+Analysis by found words:
+--------------------
+• Found form [dharam]:
+    - dhara
+
+• Found form [kāṣāya]:
+    - kāṣāya
+
+================================================================================
+Compound #22
+Source: sa_chāndogyopaniṣad-comm.json
+Input: vidyāmavidyāṃ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  avidya, vid, vidyā
+
+Analysis by found words:
+--------------------
+• Found form [avidyām]:
+    - avidya
+
+• Found form [vidyām]:
+    - vid
+    - vidyā
+
+================================================================================
+Compound #23
+Source: sa_śārdūlakarṇāvadāna.json
+Input: sukugṛṣṭyā
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  gṛṣṭi, ku, su
+
+Analysis by found words:
+--------------------
+• Found form:
+    - ku
+
+• Found form [gṛṣṭyā]:
+    - gṛṣṭi
+
+• Found form [su]:
+    - su
+
+================================================================================
+Compound #24
+Source: sa_bhāravi-kirātārjunīya.json
+Input: tadugraraṃhasā
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  raṃhas, tad, ugra
+
+Analysis by found words:
+--------------------
+• Found form [raṃhasā]:
+    - raṃhas
+
+• Found form [tat]:
+    - tad
+
+• Found form [ugra]:
+    - ugra
+
+================================================================================
+Compound #25
+Source: sa_bhartṛhari-vākyapadīya.json
+Input: saṃbhavino
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  sambhavin
+
+Analysis by found words:
+--------------------
+• Found form [sambhavinaḥ]:
+    - sambhavin
+
+================================================================================
+Compound #26
+Source: sa_ratnakīrti-kṣaṇabhaṅgasiddhi-vyatirekātmikā.json
+Input: parihartum
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  hartu, pari
+
+Analysis by found words:
+--------------------
+• Found form [parihartum]:
+    - hartu
+    - pari
+
+================================================================================
+Compound #27
+Source: sa_bhāgavatapurāṇa.json
+Input: kṛtakautukā
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  kṛtakautuka
+
+Analysis by found words:
+--------------------
+• Found form [kṛtakautukā]:
+    - kṛtakautuka
+
+================================================================================
+Compound #28
+Source: sa_mammaṭa-kāvyaprakāśa-comm.json
+Input: niḥsomakam
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  niḥsomaka
+
+Analysis by found words:
+--------------------
+• Found form [niḥsomakam]:
+    - niḥsomaka
+
+================================================================================
+Compound #29
+Source: sa_vāmanapurāṇa1-69.json
+Input: yathāvṛttaṃ
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  yathāvṛtta, yathāvṛttam
+
+Analysis by found words:
+--------------------
+• Found form [yathāvṛttam]:
+    - yathāvṛtta
+    - yathāvṛttam
+
+================================================================================
+Compound #30
+Source: sa_veṅkaṭanātha-nyāyapariśuddhibhūmikā-13-5.json
+Input: bhāvepyeteṣāṃ
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  ap, apya, bhāva, etad
+
+Analysis by found words:
+--------------------
+• Found form [apieteṣām]:
+    - ap
+    - apya
+    - etad
+
+• Found form [bhāve]:
+    - bhāva
+
+================================================================================
+Compound #31
+Source: sa_agniveśa-carakasaṃhitā-parts-comm.json
+Input: vargasaṃgrahaḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  saṃgraha, varga
+
+Analysis by found words:
+--------------------
+• Found form [saṃgrahaḥ]:
+    - saṃgraha
+
+• Found form [varga]:
+    - varga
+
+================================================================================
+Compound #32
+Source: sa_vālmīki-rāmāyaṇa-southern-2.json
+Input: jitendriyaḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  jitendriya
+
+Analysis by found words:
+--------------------
+• Found form [jitendriyaḥ]:
+    - jitendriya
+
+================================================================================
+Compound #33
+Source: sa_bhavasaṃkrāntisūtra.json
+Input: pratisaṃvedanā
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  prati, samvedana
+
+Analysis by found words:
+--------------------
+• Found form:
+    - samvedana
+
+• Found form [pratisaṃvedanā]:
+    - prati
+
+================================================================================
+Compound #34
+Source: sa_parātriṃśikā-comm.json
+Input: pariharāmaḥ
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  hṛ, pari
+
+Analysis by found words:
+--------------------
+• Found form [pariharāmaḥ]:
+    - hṛ
+    - pari
+
+================================================================================
+Compound #35
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: viruddhayeta
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  ita, viruddha
+
+Analysis by found words:
+--------------------
+• Found form [ita]:
+    - ita
+
+• Found form [viruddhayā]:
+    - viruddha
+
+================================================================================
+Compound #36
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: duḥkhadāruṇaḥ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  duḥkha, dāru, dāruṇa
+
+Analysis by found words:
+--------------------
+• Found form [duḥkha]:
+    - duḥkha
+
+• Found form [dāruṇaḥ]:
+    - dāru
+    - dāruṇa
+
+================================================================================
+Compound #37
+Source: sa_khaṇḍadeva-bhāṭṭadīpikā1-3,3.json
+Input: agnyaṅgatvaṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  agni, aṅgatva
+
+Analysis by found words:
+--------------------
+• Found form [aṅgatvam]:
+    - aṅgatva
+
+• Found form:
+    - agni
+
+================================================================================
+Compound #38
+Source: sa_agniveśa-carakasaṃhitā-parts-comm.json
+Input: prakṛtisthitānāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  prakṛtisthita
+
+Analysis by found words:
+--------------------
+• Found form [prakṛtisthitānām]:
+    - prakṛtisthita
+
+================================================================================
+Compound #39
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: bhrānteriti
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bhrānta, iti
+
+Analysis by found words:
+--------------------
+• Found form [bhrāntā]:
+    - bhrānta
+
+• Found form [iti]:
+    - iti
+
+================================================================================
+Compound #40
+Source: sa_sucaritamiśra-mīmāṃsāślokavārttika.json
+Input: kāraṇāvagatir
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  avagati, kāraṇā
+
+Analysis by found words:
+--------------------
+• Found form [avagatiḥ]:
+    - avagati
+
+• Found form [kāraṇā]:
+    - kāraṇā
+
+================================================================================
+Compound #41
+Source: sa_bhagavadgītā-4comm.json
+Input: pratipādayanty
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  prati, pādaya, ti
+
+Analysis by found words:
+--------------------
+• Found form:
+    - pādaya
+    - ti
+
+• Found form [prati]:
+    - prati
+
+================================================================================
+Compound #42
+Source: sa_śatasāhasrikā-prajñāpāramitā-2.json
+Input: dhyānaśūnyatāyāṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  dhyāna, śūnyatā
+
+Analysis by found words:
+--------------------
+• Found form [dhyāna]:
+    - dhyāna
+
+• Found form [śūnyatāyām]:
+    - śūnyatā
+
+================================================================================
+Compound #43
+Source: sa_lalitavistara.json
+Input: upapadyante
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  pad, upa
+
+Analysis by found words:
+--------------------
+• Found form [upapadyante]:
+    - pad
+    - upa
+
+================================================================================
+Compound #44
+Source: sa_ānandakanda.json
+Input: vāhayetsuravandite
+----------------------------------------
+Found 6 roots:
+Found 5 groups:
+  id, sur, sura, vandita, vāha, ya
+
+Analysis by found words:
+--------------------
+• Found form [id]:
+    - id
+
+• Found form [sura]:
+    - sur
+    - sura
+
+• Found form [vandite]:
+    - vandita
+
+• Found form [vāha]:
+    - vāha
+
+• Found form [ya]:
+    - ya
+
+================================================================================
+Compound #45
+Source: sa_prātimokṣasūtra-of-the-mūlasarvāstivādins.json
+Input: caivaṃrūpaṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  ca, evaṃrūpa
+
+Analysis by found words:
+--------------------
+• Found form [ca]:
+    - ca
+
+• Found form [evaṃrūpam]:
+    - evaṃrūpa
+
+================================================================================
+Compound #46
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: pārśvābhyāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  pārśva
+
+Analysis by found words:
+--------------------
+• Found form [pārśvābhyām]:
+    - pārśva
+
+================================================================================
+Compound #47
+Source: sa_brahmāṇḍapurāṇa.json
+Input: surāstanvā
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  sura, surai, surā, tanu
+
+Analysis by found words:
+--------------------
+• Found form [surāḥ]:
+    - sura
+    - surai
+    - surā
+
+• Found form [tanvā]:
+    - tanu
+
+================================================================================
+Compound #48
+Source: sa_mammaṭa-kāvyaprakāśa-comm.json
+Input: upamāviṣaya
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  upama, upamā, viṣaya
+
+Analysis by found words:
+--------------------
+• Found form [upamāḥ]:
+    - upama
+    - upamā
+
+• Found form [viṣaya]:
+    - viṣaya
+
+================================================================================
+Compound #49
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: rājaputraṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  rājaputra
+
+Analysis by found words:
+--------------------
+• Found form [rājaputram]:
+    - rājaputra
+
+================================================================================
+Compound #50
+Source: sa_kṣemendra-sudhanakinnaryavadāna.json
+Input: puranivāsinaḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  nivāsin, pura
+
+Analysis by found words:
+--------------------
+• Found form [nivāsinaḥ]:
+    - nivāsin
+
+• Found form [pura]:
+    - pura
+
+================================================================================
+Compound #51
+Source: sa_bhāskarakaṇṭha-mokṣopāyaṭīkā.json
+Input: utpattiprakaraṇe
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  utpattiprakaraṇa
+
+Analysis by found words:
+--------------------
+• Found form [utpattiprakaraṇe]:
+    - utpattiprakaraṇa
+
+================================================================================
+Compound #52
+Source: sa_yaśomitra-sphuṭārthā-abhidharmakośavyākhyā.json
+Input: mokṣabhāgaḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bhāga, mokṣa
+
+Analysis by found words:
+--------------------
+• Found form [bhāgaḥ]:
+    - bhāga
+
+• Found form [mokṣa]:
+    - mokṣa
+
+================================================================================
+Compound #53
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: mahāsattvaḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  mahāsattva
+
+Analysis by found words:
+--------------------
+• Found form [mahāsattvaḥ]:
+    - mahāsattva
+
+================================================================================
+Compound #54
+Source: sa_agnipurāṇa.json
+Input: adhivittastriyai
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  adhi, strī, vid, vitta
+
+Analysis by found words:
+--------------------
+• Found form [adhivitta]:
+    - adhi
+    - vid
+    - vitta
+
+• Found form [stri]:
+    - strī
+
+================================================================================
+Compound #55
+Source: sa_vāmanapurāṇa1-69.json
+Input: prāmatarpaṇam
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  prā, tarpaṇa
+
+Analysis by found words:
+--------------------
+• Found form [prāma]:
+    - prā
+
+• Found form [tarpaṇam]:
+    - tarpaṇa
+
+================================================================================
+Compound #56
+Source: sa_revākhāṇḍa-of-the-vāyupurāṇa-rkv.json
+Input: svayaṃbhuvā
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bhuva, svayam
+
+Analysis by found words:
+--------------------
+• Found form [bhuva]:
+    - bhuva
+
+• Found form [svayam]:
+    - svayam
+
+================================================================================
+Compound #57
+Source: sa_bādarāyaṇa-brahmasūtra-subcomm2.json
+Input: yājñavalkyena
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yājñavalkya
+
+Analysis by found words:
+--------------------
+• Found form [yājñavalkyena]:
+    - yājñavalkya
+
+================================================================================
+Compound #58
+Source: sa_aṣṭasāhasrikā-prajñāpāramitā.json
+Input: subhūtirāha
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  brū, subhūti, āha
+
+Analysis by found words:
+--------------------
+• Found form [subhūtiḥ]:
+    - subhūti
+
+• Found form [āha]:
+    - brū
+    - āha
+
+================================================================================
+Compound #59
+Source: sa_saṅghabhedavastu.json
+Input: śramaṇasya
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śramaṇa
+
+Analysis by found words:
+--------------------
+• Found form [śramaṇasya]:
+    - śramaṇa
+
+================================================================================
+Compound #60
+Source: sa_patañjali-yogasūtra-with-bhāṣya-alt.json
+Input: dharmāntarasya
+----------------------------------------
+Found 2 roots:
+Found 3 groups:
+  antara, dharma
+
+Analysis by found words:
+--------------------
+• Found form [antarasya]:
+    - antara
+
+• Found form:
+    - dharma
+
+• Found form [dharma]:
+    - dharma
+
+================================================================================
+Compound #61
+Source: sa_arcaṭa-hetubinduṭīkā-edsanghavi.json
+Input: utpadyeran
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  pad, ut
+
+Analysis by found words:
+--------------------
+• Found form [utpadyeran]:
+    - pad
+    - ut
+
+================================================================================
+Compound #62
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: vyāptiriva
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  iva, vyāpti
+
+Analysis by found words:
+--------------------
+• Found form [iva]:
+    - iva
+
+• Found form [vyāptiḥ]:
+    - vyāpti
+
+================================================================================
+Compound #63
+Source: sa_brahmāṇḍapurāṇa.json
+Input: sāhyamanuṣṭhitam
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  anuṣṭhita, sāhya
+
+Analysis by found words:
+--------------------
+• Found form [anuṣṭhitam]:
+    - anuṣṭhita
+
+• Found form [sāhyam]:
+    - sāhya
+
+================================================================================
+Compound #64
+Source: sa_divyāvadāna.json
+Input: karṇanāsaṃ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  as, karṇa, na, āsa
+
+Analysis by found words:
+--------------------
+• Found form [karṇa]:
+    - karṇa
+
+• Found form [na]:
+    - na
+
+• Found form [āsam]:
+    - as
+    - āsa
+
+================================================================================
+Compound #65
+Source: sa_bhṛgusaṃhitā.json
+Input: yathoktenaiva
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  eva, yathokta, yathoktena
+
+Analysis by found words:
+--------------------
+• Found form [eva]:
+    - eva
+
+• Found form [yathoktena]:
+    - yathokta
+    - yathoktena
+
+================================================================================
+Compound #66
+Source: sa_nāradapurāṇa.json
+Input: surāṅganānāṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  na, surāṅganā
+
+Analysis by found words:
+--------------------
+• Found form [anām]:
+    - na
+
+• Found form:
+    - surāṅganā
+
+================================================================================
+Compound #67
+Source: sa_āśvalāyanaśrautasūtra.json
+Input: varuṇābhyām
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  varuṇa, varuṇā
+
+Analysis by found words:
+--------------------
+• Found form [varuṇābhyām]:
+    - varuṇa
+    - varuṇā
+
+================================================================================
+Compound #68
+Source: sa_bhṛgusaṃhitā.json
+Input: juhuyāttatra
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  hu, tatra
+
+Analysis by found words:
+--------------------
+• Found form [juhuyāt]:
+    - hu
+
+• Found form [tatra]:
+    - tatra
+
+================================================================================
+Compound #69
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: prajñātmakaṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  prajña, ātmaka
+
+Analysis by found words:
+--------------------
+• Found form [prajñā]:
+    - prajña
+
+• Found form [ātmakam]:
+    - ātmaka
+
+================================================================================
+Compound #70
+Source: sa_abhisamayālaṃkāravṛttiḥ-sphuṭārthā.json
+Input: bhāvanākhye
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bhāvana, ākhyā
+
+Analysis by found words:
+--------------------
+• Found form [bhāvana]:
+    - bhāvana
+
+• Found form [ākhye]:
+    - ākhyā
+
+================================================================================
+Compound #71
+Source: sa_harivaṃśa.json
+Input: vīryavattarāḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vīryavattara
+
+Analysis by found words:
+--------------------
+• Found form [vīryavattarāḥ]:
+    - vīryavattara
+
+================================================================================
+Compound #72
+Source: sa_gautama-nyāyasūtra-comm.json
+Input: bhavitavyaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  bhavitavya
+
+Analysis by found words:
+--------------------
+• Found form [bhavitavyam]:
+    - bhavitavya
+
+================================================================================
+Compound #73
+Source: sa_nāradapurāṇa.json
+Input: yasyāstavātulā
+----------------------------------------
+Found 5 roots:
+Found 3 groups:
+  atula, yad, yas, yasya, yuṣmad
+
+Analysis by found words:
+--------------------
+• Found form [atulā]:
+    - atula
+
+• Found form [tava]:
+    - yuṣmad
+
+• Found form [yasyāḥ]:
+    - yad
+    - yas
+    - yasya
+
+================================================================================
+Compound #74
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: bhavaprasādena
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  bhava, bhū, prasāda
+
+Analysis by found words:
+--------------------
+• Found form [bhava]:
+    - bhava
+    - bhū
+
+• Found form [prasādena]:
+    - prasāda
+
+================================================================================
+Compound #75
+Source: sa_śivapurāṇabooks-1-and-7.json
+Input: bharturnārī
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  bhartṛ, nāra, nāri
+
+Analysis by found words:
+--------------------
+• Found form [bhartuḥ]:
+    - bhartṛ
+
+• Found form [nārī]:
+    - nāra
+    - nāri
+
+================================================================================
+Compound #76
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: āryasatyeṣv
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  āryasatya
+
+Analysis by found words:
+--------------------
+• Found form [āryasatyeṣu]:
+    - āryasatya
+
+================================================================================
+Compound #77
+Source: sa_harivaṃśa-app1.json
+Input: yugāntakopamaḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  upama, yugāntaka
+
+Analysis by found words:
+--------------------
+• Found form [upamaḥ]:
+    - upama
+
+• Found form [yugāntaka]:
+    - yugāntaka
+
+================================================================================
+Compound #78
+Source: sa_samādhirājasūtra.json
+Input: bhūtanayaśikṣito
+----------------------------------------
+Found 5 roots:
+Found 3 groups:
+  bhū, bhūta, naya, nī, śikṣita
+
+Analysis by found words:
+--------------------
+• Found form [bhūta]:
+    - bhū
+    - bhūta
+
+• Found form [naya]:
+    - naya
+    - nī
+
+• Found form [śikṣitaḥ]:
+    - śikṣita
+
+================================================================================
+Compound #79
+Source: sa_vijñāneśvara-mitākṣarā.json
+Input: brāhmaṇānāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  brāhmaṇa
+
+Analysis by found words:
+--------------------
+• Found form [brāhmaṇānām]:
+    - brāhmaṇa
+
+================================================================================
+Compound #80
+Source: sa_saṃghāṭasūtra.json
+Input: prapatanti
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  pat, pra
+
+Analysis by found words:
+--------------------
+• Found form [prapatanti]:
+    - pat
+    - pra
+
+================================================================================
+Compound #81
+Source: sa_mahāvastu-avādana.json
+Input: evābhikāṃkṣati
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  abhi, eva, kāṅkṣ
+
+Analysis by found words:
+--------------------
+• Found form [abhikāṅkṣati]:
+    - abhi
+    - kāṅkṣ
+
+• Found form [eva]:
+    - eva
+
+================================================================================
+Compound #82
+Source: sa_udayana-nyāyavārttikatātparyapariśuddhi-1.json
+Input: pratyakṣād
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  pratyakṣa, pratyakṣāt
+
+Analysis by found words:
+--------------------
+• Found form [pratyakṣāt]:
+    - pratyakṣa
+    - pratyakṣāt
+
+================================================================================
+Compound #83
+Source: sa_jayāditya-and-vāmana-kāśikāvṛtti.json
+Input: kalyaṇīmātā
+----------------------------------------
+Found 6 roots:
+Found 3 groups:
+  aṇi, aṇī, kali, mā, māta, mātṛ
+
+Analysis by found words:
+--------------------
+• Found form [aṇī]:
+    - aṇi
+    - aṇī
+
+• Found form [kalī]:
+    - kali
+
+• Found form [mātā]:
+    - mā
+    - māta
+    - mātṛ
+
+================================================================================
+Compound #84
+Source: sa_ratnākaraśānti-sāratama.json
+Input: yadicecchabdo
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  ced, yadi, śabda
+
+Analysis by found words:
+--------------------
+• Found form [ced]:
+    - ced
+
+• Found form [yadi]:
+    - yadi
+
+• Found form [śabdaḥ]:
+    - śabda
+
+================================================================================
+Compound #85
+Source: sa_kāśyapaparivartasūtra-alt.json
+Input: kalpayataḥ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  kalpa, kḷp, yata
+
+Analysis by found words:
+--------------------
+• Found form [kalpa]:
+    - kalpa
+    - kḷp
+
+• Found form [yataḥ]:
+    - yata
+
+================================================================================
+Compound #86
+Source: sa_brahmapurāṇa-1-246.json
+Input: samāśvāsayām
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  samāśvāsa, yad, yā
+
+Analysis by found words:
+--------------------
+• Found form [samāśvāsa]:
+    - samāśvāsa
+
+• Found form [yām]:
+    - yad
+    - yā
+
+================================================================================
+Compound #87
+Source: sa_vijñānabhairava.json
+Input: kapālāntar
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  anta, kapāla
+
+Analysis by found words:
+--------------------
+• Found form [antaḥ]:
+    - anta
+
+• Found form [kapāla]:
+    - kapāla
+
+================================================================================
+Compound #88
+Source: sa_gautama-nyāyasūtra-comm.json
+Input: pramīyamāṇo
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  māṇa, pramīya
+
+Analysis by found words:
+--------------------
+• Found form [māṇaḥ]:
+    - māṇa
+
+• Found form [pramīya]:
+    - pramīya
+
+================================================================================
+Compound #89
+Source: sa_jaimini-mīmāṃsāsūtra-1-7-comm.json
+Input: caturthatāṃ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  caturtha, tad, tā
+
+Analysis by found words:
+--------------------
+• Found form [caturtha]:
+    - caturtha
+
+• Found form [tām]:
+    - tad
+    - tā
+
+================================================================================
+Compound #90
+Source: sa_daśabhūmikasūtra.json
+Input: sattvahitaṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  hita, sattva
+
+Analysis by found words:
+--------------------
+• Found form [hitam]:
+    - hita
+
+• Found form [sattva]:
+    - sattva
+
+================================================================================
+Compound #91
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: vikaraṇatvān
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vikaraṇatva
+
+Analysis by found words:
+--------------------
+• Found form [vikaraṇatvāt]:
+    - vikaraṇatva
+
+================================================================================
+Compound #92
+Source: sa_yaśomitra-sphuṭārthā-abhidharmakośavyākhyā.json
+Input: chandasamādhiḥ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  chand, chanda, samādhi
+
+Analysis by found words:
+--------------------
+• Found form [chanda]:
+    - chand
+    - chanda
+
+• Found form [samādhiḥ]:
+    - samādhi
+
+================================================================================
+Compound #93
+Source: sa_udayana-nyāyavārttikatātparyapariśuddhi-1.json
+Input: niścayānumānābhyāṃ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  anumāna, niścaya
+
+Analysis by found words:
+--------------------
+• Found form [anumānābhyām]:
+    - anumāna
+
+• Found form [niścaya]:
+    - niścaya
+
+================================================================================
+Compound #94
+Source: sa_suvikrāntavikrāmiparipṛcchā.json
+Input: bodheścittaṃ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  bodhi, budh, citta
+
+Analysis by found words:
+--------------------
+• Found form [bodheḥ]:
+    - bodhi
+    - budh
+
+• Found form [cittam]:
+    - citta
+
+================================================================================
+Compound #95
+Source: sa_mokṣopāya.json
+Input: śādvalasthalanīlima
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  ima, nīl, sthala, śādvala
+
+Analysis by found words:
+--------------------
+• Found form:
+    - ima
+    - nīl
+
+• Found form [sthala]:
+    - sthala
+
+• Found form [śādvala]:
+    - śādvala
+
+================================================================================
+Compound #96
+Source: sa_aṣṭādaśasāhasrikā-prajñāpāramitā55-82.json
+Input: śikṣitavyaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śikṣitavya
+
+Analysis by found words:
+--------------------
+• Found form [śikṣitavyam]:
+    - śikṣitavya
+
+================================================================================
+Compound #97
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: mahāsattvasyā
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  mahāsattva, se, sya, tyad
+
+Analysis by found words:
+--------------------
+• Found form [mahāsattva]:
+    - mahāsattva
+
+• Found form [syā]:
+    - se
+    - sya
+    - tyad
+
+================================================================================
+Compound #98
+Source: sa_mahāvastu-avādana.json
+Input: mahāmaudgalyāyana
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  mahāmaudgalyāyana
+
+Analysis by found words:
+--------------------
+• Found form [mahāmaudgalyāyana]:
+    - mahāmaudgalyāyana
+
+================================================================================
+Compound #99
+Source: sa_udayana-nyāyakusumāñjali.json
+Input: prakāśenāśrīyate
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  prakāśa, śri
+
+Analysis by found words:
+--------------------
+• Found form [prakāśena]:
+    - prakāśa
+
+• Found form [śrīyate]:
+    - śri
+
+================================================================================
+Compound #100
+Source: sa_keśava-kauśikapaddhati.json
+Input: mātṛnāmāni
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  mātṛnāman
+
+Analysis by found words:
+--------------------
+• Found form [mātṛnāmāni]:
+    - mātṛnāman
+
+
+SHORT CATEGORY SUMMARY
+========================================
+Total compounds processed: 100
+Successfully parsed: 100
+Total roots found: 224
+Total groups found: 179
+Success rate: 100.0%
+Average roots per compound: 2.24Average roots per group: 1.79
+========================================
+
+VERY_SHORT COMPOUNDS
+================================================================================
+================================================================================
+Compound #1
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: iccheti
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  icchā, iti
+
+Analysis by found words:
+--------------------
+• Found form [icchā]:
+    - icchā
+
+• Found form [iti]:
+    - iti
+
+================================================================================
+Compound #2
+Source: sa_garuḍapurāṇa.json
+Input: mahāyuṣam
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  maha, āyus, āyuṣa
+
+Analysis by found words:
+--------------------
+• Found form [mahā]:
+    - maha
+
+• Found form [āyuṣam]:
+    - āyus
+    - āyuṣa
+
+================================================================================
+Compound #3
+Source: sa_āryabhaṭa-āryabhaṭīya-comm.json
+Input: tasmai
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  tad
+
+Analysis by found words:
+--------------------
+• Found form [tasmai]:
+    - tad
+
+================================================================================
+Compound #4
+Source: sa_nāgārjuna-pañcakrama.json
+Input: caiva
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  ca, eva
+
+Analysis by found words:
+--------------------
+• Found form [ca]:
+    - ca
+
+• Found form [eva]:
+    - eva
+
+================================================================================
+Compound #5
+Source: sa_durvekamiśra-hetubinduṭīkāloka.json
+Input: saṃjāte
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  saṃjāta
+
+Analysis by found words:
+--------------------
+• Found form [saṃjāte]:
+    - saṃjāta
+
+================================================================================
+Compound #6
+Source: sa_mārkaṇḍeyapurāṇa1-93.json
+Input: yadasyeti
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  as, idam, iti, yad
+
+Analysis by found words:
+--------------------
+• Found form [asya]:
+    - as
+    - idam
+
+• Found form [iti]:
+    - iti
+
+• Found form [yat]:
+    - yad
+
+================================================================================
+Compound #7
+Source: sa_abhinavagupta-tantrāloka.json
+Input: layaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  laya
+
+Analysis by found words:
+--------------------
+• Found form [layam]:
+    - laya
+
+================================================================================
+Compound #8
+Source: sa_revākhāṇḍa-of-the-vāyupurāṇa-rkv.json
+Input: yathā
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yathā
+
+Analysis by found words:
+--------------------
+• Found form [yathā]:
+    - yathā
+
+================================================================================
+Compound #9
+Source: sa_patna-dharmapada.json
+Input: durmedhā
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  durmedha
+
+Analysis by found words:
+--------------------
+• Found form [durmedhā]:
+    - durmedha
+
+================================================================================
+Compound #10
+Source: sa_garuḍapurāṇa.json
+Input: bhadre
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  bhadra
+
+Analysis by found words:
+--------------------
+• Found form [bhadre]:
+    - bhadra
+
+================================================================================
+Compound #11
+Source: sa_patañjali-vyākaraṇamahābhāṣya.json
+Input: atvantam
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  ta, tad, yuṣmad
+
+Analysis by found words:
+--------------------
+• Found form [atvat]:
+    - yuṣmad
+
+• Found form [tam]:
+    - ta
+    - tad
+
+================================================================================
+Compound #12
+Source: sa_ṛgvedasaṃhitāpadapāṭha.json
+Input: pavitre
+----------------------------------------
+Found 3 roots:
+Found 1 group:
+  pavitra, pavitrā, pavitṛ
+
+Analysis by found words:
+--------------------
+• Found form [pavitre]:
+    - pavitra
+    - pavitrā
+    - pavitṛ
+
+================================================================================
+Compound #13
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: tirodadhe
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  tṝ, udadhi
+
+Analysis by found words:
+--------------------
+• Found form [tira]:
+    - tṝ
+
+• Found form [udadhe]:
+    - udadhi
+
+================================================================================
+Compound #14
+Source: sa_divyāvadāna.json
+Input: dṛṣṭvā
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  dṛṣṭvā
+
+Analysis by found words:
+--------------------
+• Found form:
+    - dṛṣṭvā
+
+================================================================================
+Compound #15
+Source: sa_bādarāyaṇa-brahmasūtra1,1-1,3-comm-subcomm.json
+Input: cakṣuḥ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  cakṣu, cakṣus, cakṣuḥ
+
+Analysis by found words:
+--------------------
+• Found form [cakṣuḥ]:
+    - cakṣu
+    - cakṣus
+
+• Found form:
+    - cakṣuḥ
+
+================================================================================
+Compound #16
+Source: sa_mādhva-mahābhāratatātparyanirṇaya.json
+Input: yannaḥ
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  asmad, na, nas, yad
+
+Analysis by found words:
+--------------------
+• Found form [naḥ]:
+    - asmad
+    - na
+    - nas
+
+• Found form [yat]:
+    - yad
+
+================================================================================
+Compound #17
+Source: sa_108-buddhist-stotras.json
+Input: namāmi
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nam
+
+Analysis by found words:
+--------------------
+• Found form [namāmi]:
+    - nam
+
+================================================================================
+Compound #18
+Source: sa_mañjuśrīmūlakalpa.json
+Input: vinyastau
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vinyasta
+
+Analysis by found words:
+--------------------
+• Found form [vinyastau]:
+    - vinyasta
+
+================================================================================
+Compound #19
+Source: sa_śatasāhasrikā-prajñāpāramitā-2.json
+Input: duḥkha
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  duḥkha
+
+Analysis by found words:
+--------------------
+• Found form [duḥkha]:
+    - duḥkha
+
+================================================================================
+Compound #20
+Source: sa_buddhasvāmin-bṛhatkathāślokasaṃgraha.json
+Input: daridra
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  daridra
+
+Analysis by found words:
+--------------------
+• Found form [daridra]:
+    - daridra
+
+================================================================================
+Compound #21
+Source: sa_mahāvastu-avādana.json
+Input: gṛhītā
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  gṛhīta, gṛhītṛ
+
+Analysis by found words:
+--------------------
+• Found form [gṛhītā]:
+    - gṛhīta
+    - gṛhītṛ
+
+================================================================================
+Compound #22
+Source: sa_rāmānuja-vedārthasaṃgraha.json
+Input: mṛtyuḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  mṛtyu
+
+Analysis by found words:
+--------------------
+• Found form [mṛtyuḥ]:
+    - mṛtyu
+
+================================================================================
+Compound #23
+Source: sa_rāmāyaṇa.json
+Input: yantraiś
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yantra
+
+Analysis by found words:
+--------------------
+• Found form [yantraiḥ]:
+    - yantra
+
+================================================================================
+Compound #24
+Source: sa_ānandavardhana-dhvanyāloka.json
+Input: avirodhī
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  avirodhin
+
+Analysis by found words:
+--------------------
+• Found form [avirodhī]:
+    - avirodhin
+
+================================================================================
+Compound #25
+Source: sa_ratnamālāvadāna.json
+Input: yāyuḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yā
+
+Analysis by found words:
+--------------------
+• Found form [yāyuḥ]:
+    - yā
+
+================================================================================
+Compound #26
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: icchet
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  iṣ
+
+Analysis by found words:
+--------------------
+• Found form [icchet]:
+    - iṣ
+
+================================================================================
+Compound #27
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: yasmāt
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  yad, yasmāt
+
+Analysis by found words:
+--------------------
+• Found form [yasmāt]:
+    - yad
+    - yasmāt
+
+================================================================================
+Compound #28
+Source: sa_yāska-nirukta.json
+Input: jñāna
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  jñāna
+
+Analysis by found words:
+--------------------
+• Found form [jñāna]:
+    - jñāna
+
+================================================================================
+Compound #29
+Source: sa_brahmapurāṇa-1-246.json
+Input: nāsti
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nāsti
+
+Analysis by found words:
+--------------------
+• Found form [nāsti]:
+    - nāsti
+
+================================================================================
+Compound #30
+Source: sa_brahmapurāṇa-1-246.json
+Input: yogināṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yogin
+
+Analysis by found words:
+--------------------
+• Found form [yoginām]:
+    - yogin
+
+================================================================================
+Compound #31
+Source: sa_dharmakīrti-nyāyabinduprakaraṇa-comm.json
+Input: śiśapeti
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  iti, śiśapā
+
+Analysis by found words:
+--------------------
+• Found form [iti]:
+    - iti
+
+• Found form [śiśapā]:
+    - śiśapā
+
+================================================================================
+Compound #32
+Source: sa_skandapurāṇa-revākhaṇḍa-rks.json
+Input: tatraiva
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  eva, tatra
+
+Analysis by found words:
+--------------------
+• Found form [eva]:
+    - eva
+
+• Found form [tatra]:
+    - tatra
+
+================================================================================
+Compound #33
+Source: sa_āryabhaṭa-āryabhaṭīya-comm.json
+Input: adhaḥ
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  a, adhaḥ, dha
+
+Analysis by found words:
+--------------------
+• Found form [adhaḥ]:
+    - a
+    - dha
+
+• Found form:
+    - adhaḥ
+
+================================================================================
+Compound #34
+Source: sa_mokṣopāya.json
+Input: bālasyeva
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bāla, iva
+
+Analysis by found words:
+--------------------
+• Found form [bālasya]:
+    - bāla
+
+• Found form [iva]:
+    - iva
+
+================================================================================
+Compound #35
+Source: sa_agnipurāṇa.json
+Input: śatruṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śatru
+
+Analysis by found words:
+--------------------
+• Found form [śatrum]:
+    - śatru
+
+================================================================================
+Compound #36
+Source: sa_ānandabhaṭṭa-vallālacarita.json
+Input: palhāśca
+----------------------------------------
+Found 6 roots:
+Found 4 groups:
+  ad, at, ca, ha, hā, pal
+
+Analysis by found words:
+--------------------
+• Found form [at]:
+    - ad
+    - at
+
+• Found form [ca]:
+    - ca
+
+• Found form:
+    - hā
+    - pal
+
+• Found form [hā]:
+    - ha
+    - hā
+
+================================================================================
+Compound #37
+Source: sa_saddharmalaṅkāvatārasūtra.json
+Input: sādhu
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  sādhu
+
+Analysis by found words:
+--------------------
+• Found form [sādhu]:
+    - sādhu
+
+================================================================================
+Compound #38
+Source: sa_siddhasenamahāmati-nyāyāvatāra-comm.json
+Input: nayānāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  naya
+
+Analysis by found words:
+--------------------
+• Found form [nayānām]:
+    - naya
+
+================================================================================
+Compound #39
+Source: sa_bhṛgusaṃhitā.json
+Input: naipuṇaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  naipuṇa
+
+Analysis by found words:
+--------------------
+• Found form [naipuṇam]:
+    - naipuṇa
+
+================================================================================
+Compound #40
+Source: sa_garuḍapurāṇa.json
+Input: kāryaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  kārya
+
+Analysis by found words:
+--------------------
+• Found form [kāryam]:
+    - kārya
+
+================================================================================
+Compound #41
+Source: sa_ratnamālāvadāna.json
+Input: cyutvāhaṃ
+----------------------------------------
+Found 4 roots:
+Found 3 groups:
+  aha, asmad, cyut, vā
+
+Analysis by found words:
+--------------------
+• Found form [aham]:
+    - aha
+    - asmad
+
+• Found form [cyut]:
+    - cyut
+
+• Found form [vā]:
+    - vā
+
+================================================================================
+Compound #42
+Source: sa_sucaritamiśra-mīmāṃsāślokavārttika.json
+Input: śāstram
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śāstra
+
+Analysis by found words:
+--------------------
+• Found form [śāstram]:
+    - śāstra
+
+================================================================================
+Compound #43
+Source: sa_raghunāthadāsagosvāmin-muktācarita.json
+Input: kintu
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  kim, tu
+
+Analysis by found words:
+--------------------
+• Found form [kim]:
+    - kim
+
+• Found form [tu]:
+    - tu
+
+================================================================================
+Compound #44
+Source: sa_narasiṃhapurāṇa.json
+Input: patnī
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  patnī
+
+Analysis by found words:
+--------------------
+• Found form [patnī]:
+    - patnī
+
+================================================================================
+Compound #45
+Source: sa_āśvalāyanaśrautasūtra.json
+Input: yajamāno
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yajamāna
+
+Analysis by found words:
+--------------------
+• Found form [yajamānaḥ]:
+    - yajamāna
+
+================================================================================
+Compound #46
+Source: sa_rāmodanta.json
+Input: vānarīṇāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vānarī
+
+Analysis by found words:
+--------------------
+• Found form [vānarīṇām]:
+    - vānarī
+
+================================================================================
+Compound #47
+Source: sa_patañjali-vyākaraṇamahābhāṣya.json
+Input: prāpnoti
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  pra, āp
+
+Analysis by found words:
+--------------------
+• Found form [praāpnoti]:
+    - pra
+    - āp
+
+================================================================================
+Compound #48
+Source: sa_brahmapurāṇa-1-246.json
+Input: naraiḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nara
+
+Analysis by found words:
+--------------------
+• Found form [naraiḥ]:
+    - nara
+
+================================================================================
+Compound #49
+Source: sa_ṛgvedasaṃhitāpadapāṭha.json
+Input: śivaḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śiva
+
+Analysis by found words:
+--------------------
+• Found form [śivaḥ]:
+    - śiva
+
+================================================================================
+Compound #50
+Source: sa_mokṣopāya.json
+Input: sadmaśrīr
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  sadma, śrī
+
+Analysis by found words:
+--------------------
+• Found form:
+    - sadma
+
+• Found form [śrīḥ]:
+    - śrī
+
+================================================================================
+Compound #51
+Source: sa_bower-manuscript.json
+Input: nātra
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nātra
+
+Analysis by found words:
+--------------------
+• Found form:
+    - nātra
+
+================================================================================
+Compound #52
+Source: sa_dharmaskandha.json
+Input: parihāṇiḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  parihāṇi
+
+Analysis by found words:
+--------------------
+• Found form [parihāṇiḥ]:
+    - parihāṇi
+
+================================================================================
+Compound #53
+Source: sa_karuṇāpuṇḍarīkasūtra.json
+Input: tāvataḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  tāvat
+
+Analysis by found words:
+--------------------
+• Found form [tāvataḥ]:
+    - tāvat
+
+================================================================================
+Compound #54
+Source: sa_yāska-nirukta.json
+Input: antarikṣe
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  antarikṣa
+
+Analysis by found words:
+--------------------
+• Found form [antarikṣe]:
+    - antarikṣa
+
+================================================================================
+Compound #55
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: jñānādeḥ
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  jñāna, ādi
+
+Analysis by found words:
+--------------------
+• Found form [jñāna]:
+    - jñāna
+
+• Found form [ādeḥ]:
+    - ādi
+
+================================================================================
+Compound #56
+Source: sa_patañjali-vyākaraṇamahābhāṣya.json
+Input: vaktavyam
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vaktavya
+
+Analysis by found words:
+--------------------
+• Found form [vaktavyam]:
+    - vaktavya
+
+================================================================================
+Compound #57
+Source: sa_brahmapurāṇa-1-246.json
+Input: nṛpagṛhaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nṛpagṛha
+
+Analysis by found words:
+--------------------
+• Found form [nṛpagṛham]:
+    - nṛpagṛha
+
+================================================================================
+Compound #58
+Source: sa_patañjali-vyākaraṇamahābhāṣya.json
+Input: etasya
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  eta, etad
+
+Analysis by found words:
+--------------------
+• Found form [etasya]:
+    - eta
+    - etad
+
+================================================================================
+Compound #59
+Source: sa_gaṇḍavyūhasūtra.json
+Input: vimalāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  vimala
+
+Analysis by found words:
+--------------------
+• Found form [vimalām]:
+    - vimala
+
+================================================================================
+Compound #60
+Source: sa_ṛgveda-edāufrecht.json
+Input: rmyeṣu
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  idam, mi
+
+Analysis by found words:
+--------------------
+• Found form:
+    - mi
+
+• Found form [eṣu]:
+    - idam
+
+================================================================================
+Compound #61
+Source: sa_yaśomitra-sphuṭārthā-abhidharmakośavyākhyā.json
+Input: upakleśā
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  upakleśa
+
+Analysis by found words:
+--------------------
+• Found form [upakleśa]:
+    - upakleśa
+
+================================================================================
+Compound #62
+Source: sa_asaṅga-mahāyānasūtrālaṃkāra.json
+Input: āmukhāyāḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  āmukha
+
+Analysis by found words:
+--------------------
+• Found form [āmukhāyāḥ]:
+    - āmukha
+
+================================================================================
+Compound #63
+Source: sa_ratnamālāvadāna.json
+Input: pāṃcālau
+----------------------------------------
+Found 3 roots:
+Found 3 groups:
+  am, cāla, pa
+
+Analysis by found words:
+--------------------
+• Found form [am]:
+    - am
+
+• Found form [cālau]:
+    - cāla
+
+• Found form [pā]:
+    - pa
+
+================================================================================
+Compound #64
+Source: sa_revākhāṇḍa-of-the-vāyupurāṇa-rkv.json
+Input: sannidhau
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  saṃnidhi
+
+Analysis by found words:
+--------------------
+• Found form [saṃnidhau]:
+    - saṃnidhi
+
+================================================================================
+Compound #65
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: dadarśa
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  dṛś
+
+Analysis by found words:
+--------------------
+• Found form [dadarśa]:
+    - dṛś
+
+================================================================================
+Compound #66
+Source: sa_aśvaghoṣa-saundarānanda.json
+Input: tṛṣṇādayo
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  tṛṣṇā, ādi
+
+Analysis by found words:
+--------------------
+• Found form [tṛṣṇā]:
+    - tṛṣṇā
+
+• Found form [ādayaḥ]:
+    - ādi
+
+================================================================================
+Compound #67
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: cādvayam
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  advaya, ca
+
+Analysis by found words:
+--------------------
+• Found form [advayam]:
+    - advaya
+
+• Found form [ca]:
+    - ca
+
+================================================================================
+Compound #68
+Source: sa_chāndogyopaniṣad-comm.json
+Input: saṃpanno
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  sampanna
+
+Analysis by found words:
+--------------------
+• Found form [sampannaḥ]:
+    - sampanna
+
+================================================================================
+Compound #69
+Source: sa_śatasāhasrikāprajñāpāramitā-1.json
+Input: nityam
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  nitya, nityam
+
+Analysis by found words:
+--------------------
+• Found form [nityam]:
+    - nitya
+    - nityam
+
+================================================================================
+Compound #70
+Source: sa_pañcaviṃśatisāhasrikā-prajñāpāramitā1-8.json
+Input: bhagavan
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  bhagavan, bhagavat
+
+Analysis by found words:
+--------------------
+• Found form [bhagavan]:
+    - bhagavat
+
+• Found form:
+    - bhagavan
+
+================================================================================
+Compound #71
+Source: sa_rūpagosvāmin-haribhaktirasāmṛtasindhu.json
+Input: śuceḥ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  śuci
+
+Analysis by found words:
+--------------------
+• Found form [śuceḥ]:
+    - śuci
+
+================================================================================
+Compound #72
+Source: sa_abhidharmasamuccayabhāṣya.json
+Input: pṛthak
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  pṛthak
+
+Analysis by found words:
+--------------------
+• Found form [pṛthak]:
+    - pṛthak
+
+================================================================================
+Compound #73
+Source: sa_vidyākara-subhāṣitaratnakośa.json
+Input: yugaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  yuga
+
+Analysis by found words:
+--------------------
+• Found form [yugam]:
+    - yuga
+
+================================================================================
+Compound #74
+Source: sa_garuḍapurāṇa.json
+Input: strīṇāṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  strī
+
+Analysis by found words:
+--------------------
+• Found form [strīṇām]:
+    - strī
+
+================================================================================
+Compound #75
+Source: sa_abhinavagupta-tantrāloka.json
+Input: yadvā
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  yadvan, yadvā
+
+Analysis by found words:
+--------------------
+• Found form [yadvā]:
+    - yadvan
+    - yadvā
+
+================================================================================
+Compound #76
+Source: sa_jayatīrtha-nyāyasudhā.json
+Input: kvacid
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  cit, kva
+
+Analysis by found words:
+--------------------
+• Found form [cit]:
+    - cit
+
+• Found form [kva]:
+    - kva
+
+================================================================================
+Compound #77
+Source: sa_viṣṇupurāṇa.json
+Input: variṣṭhaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  variṣṭha
+
+Analysis by found words:
+--------------------
+• Found form [variṣṭham]:
+    - variṣṭha
+
+================================================================================
+Compound #78
+Source: sa_vijñāneśvara-mitākṣarā.json
+Input: labhata
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  labh
+
+Analysis by found words:
+--------------------
+• Found form [labhata]:
+    - labh
+
+================================================================================
+Compound #79
+Source: sa_rāmāyaṇa.json
+Input: nadantaḥ
+----------------------------------------
+Found 4 roots:
+Found 2 groups:
+  nad, nada, ta, tas
+
+Analysis by found words:
+--------------------
+• Found form [nada]:
+    - nad
+    - nada
+
+• Found form [taḥ]:
+    - ta
+    - tas
+
+================================================================================
+Compound #80
+Source: sa_vāgbhaṭa-aṣṭāṅgahṛdayasūtra.json
+Input: bhramas
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  bhrama
+
+Analysis by found words:
+--------------------
+• Found form [bhramaḥ]:
+    - bhrama
+
+================================================================================
+Compound #81
+Source: sa_ṛgveda-edāufrecht.json
+Input: yanta
+----------------------------------------
+Found 3 roots:
+Found 2 groups:
+  ta, ya, yad
+
+Analysis by found words:
+--------------------
+• Found form [ta]:
+    - ta
+
+• Found form [yam]:
+    - ya
+    - yad
+
+================================================================================
+Compound #82
+Source: sa_sarvadurgatipariśodhanatantra.json
+Input: laṃghayet
+----------------------------------------
+Found 4 roots:
+Found 4 groups:
+  gha, id, la, ya
+
+Analysis by found words:
+--------------------
+• Found form [gha]:
+    - gha
+
+• Found form [id]:
+    - id
+
+• Found form [lam]:
+    - la
+
+• Found form [ya]:
+    - ya
+
+================================================================================
+Compound #83
+Source: sa_harivarman-satyasiddhiśāstram.json
+Input: kāṣṭha
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  kāṣṭha
+
+Analysis by found words:
+--------------------
+• Found form [kāṣṭha]:
+    - kāṣṭha
+
+================================================================================
+Compound #84
+Source: sa_mahāsubhāṣitasaṃgraha-1-9979.json
+Input: kutukini
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  kutukin
+
+Analysis by found words:
+--------------------
+• Found form [kutukini]:
+    - kutukin
+
+================================================================================
+Compound #85
+Source: sa_kubjikamatatantra.json
+Input: śūlinī
+----------------------------------------
+Found 3 roots:
+Found 1 group:
+  śūli, śūlin, śūlinī
+
+Analysis by found words:
+--------------------
+• Found form [śūlinī]:
+    - śūli
+    - śūlin
+    - śūlinī
+
+================================================================================
+Compound #86
+Source: sa_bhartṛhari-vākyapadīya.json
+Input: svaśaktir
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  svaśakti
+
+Analysis by found words:
+--------------------
+• Found form [svaśaktiḥ]:
+    - svaśakti
+
+================================================================================
+Compound #87
+Source: sa_svacchandatantra.json
+Input: sandeho
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  saṃdeha
+
+Analysis by found words:
+--------------------
+• Found form [saṃdehaḥ]:
+    - saṃdeha
+
+================================================================================
+Compound #88
+Source: ta-sa_periyavaccanpillai-perumaltiromolivyākhyānam.json
+Input: uṇṭāy
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  ai, ṭā
+
+Analysis by found words:
+--------------------
+• Found form [ai]:
+    - ai
+
+• Found form [ṭā]:
+    - ṭā
+
+================================================================================
+Compound #89
+Source: sa_yuktidīpikā.json
+Input: prāṇināṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  prāṇin
+
+Analysis by found words:
+--------------------
+• Found form [prāṇinām]:
+    - prāṇin
+
+================================================================================
+Compound #90
+Source: sa_ṛgveda-edāufrecht.json
+Input: kṛṇvanti
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  kṛ
+
+Analysis by found words:
+--------------------
+• Found form [kṛṇvanti]:
+    - kṛ
+
+================================================================================
+Compound #91
+Source: sa_ṛgvedasaṃhitāpadapāṭha.json
+Input: mahaḥ
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  maha, mahas
+
+Analysis by found words:
+--------------------
+• Found form [mahaḥ]:
+    - maha
+    - mahas
+
+================================================================================
+Compound #92
+Source: sa_durvekamiśra-dharmottarapradīpa.json
+Input: tasmāt
+----------------------------------------
+Found 2 roots:
+Found 1 group:
+  tad, tasmāt
+
+Analysis by found words:
+--------------------
+• Found form [tasmāt]:
+    - tad
+    - tasmāt
+
+================================================================================
+Compound #93
+Source: sa_brahmāṇḍapurāṇa.json
+Input: deyaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  deya
+
+Analysis by found words:
+--------------------
+• Found form [deyam]:
+    - deya
+
+================================================================================
+Compound #94
+Source: sa_paippalādasaṃhitā.json
+Input: havir
+----------------------------------------
+Found 2 roots:
+Found 2 groups:
+  havis, haviḥ
+
+Analysis by found words:
+--------------------
+• Found form:
+    - haviḥ
+
+• Found form [haviḥ]:
+    - havis
+
+================================================================================
+Compound #95
+Source: sa_mahāvastu-avādana.json
+Input: ājāneyo
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  ājāneya
+
+Analysis by found words:
+--------------------
+• Found form [ājāneyaḥ]:
+    - ājāneya
+
+================================================================================
+Compound #96
+Source: sa_atharvaprāyaścittāni.json
+Input: katham
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  katham
+
+Analysis by found words:
+--------------------
+• Found form [katham]:
+    - katham
+
+================================================================================
+Compound #97
+Source: sa_somadeva-kathāsaritsāgara.json
+Input: pādas
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  pāda
+
+Analysis by found words:
+--------------------
+• Found form [pādaḥ]:
+    - pāda
+
+================================================================================
+Compound #98
+Source: sa_bhāgavatapurāṇa.json
+Input: maraṇaṃ
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  maraṇa
+
+Analysis by found words:
+--------------------
+• Found form [maraṇam]:
+    - maraṇa
+
+================================================================================
+Compound #99
+Source: sa_saddharmapuṇḍarīkasūtra.json
+Input: sarve
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  sarva
+
+Analysis by found words:
+--------------------
+• Found form [sarve]:
+    - sarva
+
+================================================================================
+Compound #100
+Source: sa_kālidāsa-raghuvaṃśa.json
+Input: nimer
+----------------------------------------
+Found 1 root:
+Found 1 group:
+  nimi
+
+Analysis by found words:
+--------------------
+• Found form [nimeḥ]:
+    - nimi
+
+
+VERY_SHORT CATEGORY SUMMARY
+========================================
+Total compounds processed: 100
+Successfully parsed: 100
+Total roots found: 160
+Total groups found: 135
+Success rate: 100.0%
+Average roots per compound: 1.60Average roots per group: 1.35
+========================================
+
+OVERALL ANALYSIS
+========================================
+Total compounds analyzed: 400
+Successfully parsed: 399
+Total roots found: 1792Total groups found: 1539
+Overall success rate: 99.8%
+Average roots per compound: 4.49
+Average groups per compounds: 3.86
+========================================

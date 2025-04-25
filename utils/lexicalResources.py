@@ -26,7 +26,10 @@ variableSandhi = {
     'r': ['ḥ', 's'],             # ṝrom ḥ/s in word-final position
     'o': ['aḥ', 'as', 'au'],     # ṝrom as/aḥ/au in word-final position
     'j': ['t'], 
-    'ṃ': ['m'], 
+    'ṃ': ['m'],
+    'c': ['t'],
+    ## vowel sandhi, to add in detail here
+    'ā': ['āḥ']
 
 }
 
@@ -40,6 +43,7 @@ sanskritFixedSandhiMap = {
     'd': 't',          # d comes ṛrom t beṛore voiced consonants (like tat + dānam → taddānam)
     'b': 'p',          # b comes ṛrom p beṛore voiced consonants (like ap + bhiḥ → abbhiḥ)
     'g': 'k',          # g comes ṛrom k beṛore voiced consonants (like vāk + devi → vāgdevi)
+
 }
 
 
@@ -58,6 +62,8 @@ VOWEL_SANDHI_INITIALS = {
     # for final 'i'/'ī', the next word might have lost initial 'i'/'ī'
     #'i': ['i',],
     'ī': ['i', 'ī'],
+
+   # 'i': ['i', 'e'],
     
     # for final 'u'/'ū', the next word might have lost initial 'u'/'ū'
     #'u': ['u', 'ū'],
@@ -82,7 +88,7 @@ SANDHI_VARIATIONS = {
 
     # Visarga variations
     'ḥ': ['s', 'r', 'ḥ'],
-    'o': ['a', 'ā', 'o'],
+    'o': ['a', 'ā', 'o', 'u'],
     'e': ['a', 'ā', 'e'],
     'ai': ['e', 'ai'],
     'au': ['o', 'au'],
@@ -165,10 +171,13 @@ SANDHI_VARIATIONS_IAST = {
 }
 
 
+SANSKRIT_PREFIXES = [
+    'sam', 'saṃ', 'anu', 'abhi', 'ati', 'adhi', 'apa', 'api', 'ava', 'ā', 'a', 'ud', 'upa', 'nis', 'parā', 'pari', 'pra', 'prati', 'praty', 'vi', 'vy', 'ut', 'ni'
+]
 
-
-SANSKRIT_PREFIXES = {
+SANSKRIT_PREFIXES_OLD = {
     'sam': 'together, completely',
+    'saṃ': 'together, completely',    
     'anu': 'along, aṛter',
     'abhi': 'toṭards, into',
     'ati': 'beyond, over',
@@ -177,6 +186,7 @@ SANSKRIT_PREFIXES = {
     'api': 'unto, close',
     'ava': 'doṭn, oṛṛ',
     'ā': 'near to, completely',
+    'a': 'near to, completely',
     'ud': 'up, upṭards',
     'upa': 'toṭards, near',
     'nis': 'out, aṭay',
@@ -184,7 +194,9 @@ SANSKRIT_PREFIXES = {
     'pari': 'around, about',
     'pra': 'ṛorṭard, ṛorth',
     'prati': 'toṭards, back',
+    'praty': 'toṭards, back',
     'vi': 'apart, aṭay',
+    'vy': 'apart, aṭay',
     'ut': 'up, upṭards',  # Variant oṛ ud- beṛore certain consonants
     'ni': 'down, into'
 }
@@ -222,6 +234,14 @@ INDECLINABLES = {
 
 filtered_words = ["ca", "na", "eva", "ni", "apya", "ava", "sva"]
 
+samMap = {
+        'sam': 'saṃ',
+        'saṃ': 'sam',
+        'saṅ': 'saṃ',
+        'san': 'saṃ',
+        'sañ': 'saṃ',
+}
+
 
 __all__ = [
     'variableSandhi', 
@@ -232,5 +252,6 @@ __all__ = [
     'SANSKRIT_PREFIXES',
     'UPASARGAS_WEIGHTS',
     'INDECLINABLES',
+    'samMap',
     'filtered_words']
 

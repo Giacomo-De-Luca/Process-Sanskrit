@@ -1,4 +1,5 @@
 import re
+import regex
 from sqlalchemy.sql import text
 from utils.databaseSetup import Session
 
@@ -50,7 +51,8 @@ def SQLite_find_name(name):
             return results
         
         result = query2(root_form, type)
-        word_refs = re.findall(r",([^\s,]+)", result[0][2])[0]
+        word_refs = regex.findall(r",(\p{L}+)", result[0][2])[0]
+
         inflection_tuple = result[0][3]  # Get the first element of the first tuple
         inflection_words = inflection_tuple.split(':') 
 
@@ -114,7 +116,7 @@ def SQLite_find_verb(verb):
     # Iterate over the result list
     for model, stem, refs, data in result:
         if model == type_var:  # If the model matches type_var
-            ref_word = re.search(r",([^\s,]+)", refs).group(1)
+            ref_word = regex.search(r",(\p{L}+)", refs).group(1)
             if stem != ref_word:
                 stem= ref_word
                 #print("ref_word, stem", ref_word, stem)
