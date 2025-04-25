@@ -1,0 +1,7 @@
+[build-system]
+requires = ["setuptools>=42", "requests"] # Minimum setuptools version
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+
+update-ps-database = "process_sanskrit.setup:update_database"

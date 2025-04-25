@@ -1,4 +1,10 @@
-__pychache__
+__pychache__/
 logs/
 *.log
 .env
+/models/
+/resources/*.sqlite
+resources/*.sqlite
+*.sqlite
+*.db
+*safetensors
