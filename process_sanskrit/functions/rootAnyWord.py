@@ -99,7 +99,7 @@ def handle_tva(word: str) -> Optional[List]:
 @lru_cache(maxsize=256)
 def root_any_word(word, attempted_words=None, timed=False):
     if attempted_words is None:
-        attempted_words = set()
+        attempted_words = frozenset()
     
     result_roots = None
 
@@ -107,8 +107,8 @@ def root_any_word(word, attempted_words=None, timed=False):
     if word in attempted_words:
         return None
 
-    # Add the current word to the set of attempted words
-    attempted_words.add(word)
+    # Create a new frozenset with the current word added
+    attempted_words = frozenset([word]).union(attempted_words)
 
     if timed:
         start_time = time.time()
@@ -160,6 +160,8 @@ def root_any_word(word, attempted_words=None, timed=False):
             if timed:
                 start_time = time.time()
             if tentative not in attempted_words:
+                print (f"tentative: {tentative}")
+                print (f"attempted_words: {attempted_words}")
                 attempt = root_any_word(tentative, attempted_words, timed)
                 if timed:
                     print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
