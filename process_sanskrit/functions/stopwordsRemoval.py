@@ -1,5 +1,5 @@
 
-stopwords = pd.read_csv('resources/stopwords.csv')
+stopwords = pd.read_csv('process_sanskrit/resources/stopwords.csv')
 
 stopwords_as_list = stopwords['stopword'].tolist()
 
