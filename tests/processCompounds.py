@@ -7,15 +7,16 @@ import json
 import logging
 from datetime import datetime
 import os
+from process_sanskrit import process
 
-from processSanskritCleaned import process
+# Set up logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def process_compounds(
-    json_path: str = "testing/sanskrit_compounds_benchmark.json",
-    output_path: str = "testing/compound_processing_results.txt"
+    json_path: str = "tests/datasets/sanskrit_compounds_benchmark.json",
+    output_path: str = "tests/results/compound_processing_results.txt"
 ):
     """
     Process all compounds from the JSON file and print results.

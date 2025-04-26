@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 import pandas as pd
 from testing.yogaSutra import ys
-from processSanskritCleaned import process
+from process_sanskrit import process
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

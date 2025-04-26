@@ -1,6 +1,6 @@
 
 
-from processSanskritCleaned import process
+from process_sanskrit import process
 import time
 import json
 import pandas as pd

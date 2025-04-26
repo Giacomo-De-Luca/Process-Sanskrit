@@ -4,6 +4,11 @@ import re
 import logging
 from typing import List, Any
 
+## module to test the BYT5 model on entire books. 
+## this module can't actually word unless there is a JSON version of the GRETIL library locally. 
+## the script to convert the Gretil library (or in general the Sanskrit text libraries) to JSON will be released later
+## as the current version is working, - but still needs major works to handle the lack of standardisation of the TEI encoding. 
+
 # Import functionality from model_inference.py
 from model_inference import download_model, load_model, run_inference
 

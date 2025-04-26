@@ -1,3 +1,6 @@
+## my first attempt to create a test dataset with manually picked examples
+## to small to be actually relevant, but it can be useful for debugging
+
 test_cases = [
             # Basic Dvandva (Co-ordinative) Compounds
             {

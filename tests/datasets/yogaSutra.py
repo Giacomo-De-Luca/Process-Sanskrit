@@ -1,3 +1,6 @@
+## contains the entire YogaSutra as a list of strings. 
+## used to test the functions in the process_sanskrit module
+
 ys = [
  'atha yogānuśāsanam ',
  'yogaś cittavṛttinirodhaḥ ',

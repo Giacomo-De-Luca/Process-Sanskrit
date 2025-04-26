@@ -165,12 +165,12 @@ def run_compound_processing():
     
     try:
         # Load compounds from JSON
-        with open("testing/sanskrit_compounds_benchmark.json", 'r', encoding='utf-8') as f:
+        with open("tests/sanskrit_compounds_benchmark.json", 'r', encoding='utf-8') as f:
             data = json.load(f)
             compounds = data['compounds']
         
         # Create output file
-        with open("testing/compound_processing_results.txt", 'w', encoding='utf-8') as outfile:
+        with open("tests/compound_processing_results.txt", 'w', encoding='utf-8') as outfile:
             for category in ['long', 'medium', 'short', 'very_short']:
                 header = f"\n{category.upper()} COMPOUNDS\n{'='*80}\n"
                 print(header)
@@ -269,7 +269,7 @@ def run_compound_processing():
             print(overall)
             outfile.write(overall)
             
-            print(f"\nResults have been saved to testing/compound_processing_results.txt")
+            print(f"\nResults have been saved to tests/compound_processing_results.txt")
             
         return True
         
