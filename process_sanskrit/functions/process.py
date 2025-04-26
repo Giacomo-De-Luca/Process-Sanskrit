@@ -192,8 +192,15 @@ def process(text, *dict_names, max_length=100, debug=False, roots="none", count_
         ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
         result = root_any_word(text)
 
-        if result is None and "ṅ" in text or "ñ" in text:
+        if result is None and "ṅ" in text:
+            ## this is removed, it was not triggering, and it was not clear if it was useful: or "ñ" in text
             tentative = text.replace("ṅ", "ṃ")
+            attempt = root_any_word(tentative)
+            if attempt is not None:
+                result = attempt
+        
+        if result is None and "ṁ" in text:
+            tentative = text.replace("ṁ", "ṃ")
             attempt = root_any_word(tentative)
             if attempt is not None:
                 result = attempt
