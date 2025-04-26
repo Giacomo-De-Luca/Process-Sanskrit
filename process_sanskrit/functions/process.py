@@ -27,6 +27,7 @@ import regex
 from sqlalchemy.orm import sessionmaker, Session
 from typing import List, Dict, Tuple, Union, Optional
 import time
+from functools import lru_cache
 
 
 from process_sanskrit.utils.lexicalResources import (
@@ -139,14 +140,14 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     return None  # Return None if no special cases matched
 
 
-
+### roots should be replaced by output="roots" in the function signature
+### by default, output = "detailed"
+@lru_cache
 def process(text, *dict_names, max_length=100, debug=False, roots="none", count_types = False):
 
-
+    ## the part about count types can be safely removed 
     counts = {"word_calls": 1, "hybrid_splitter": 0, "compound_calls": 0} if count_types else None
     
-
-
     text = preprocess(text, max_length=max_length, debug=debug)
 
     ## remove all non-alphabetic characters

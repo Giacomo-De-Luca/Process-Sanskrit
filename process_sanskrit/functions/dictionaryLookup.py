@@ -3,6 +3,8 @@ from process_sanskrit.utils.databaseSetup import Session, engine
 from sqlalchemy import create_engine, text, Column, String
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import samMap
+import time
+from functools import lru_cache
 
 
 ## add implementation to handle better both the cases of various spellings of M 
@@ -18,7 +20,7 @@ from process_sanskrit.utils.lexicalResources import samMap
 ## in that case add an H before the search 
 
 
-
+@lru_cache(maxsize=256)
 def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, Dict[str, List[str]]]:
     dict_names: List[str] = []
     dict_results: Dict[str, Dict[str, List[str]]] = {}
@@ -204,4 +206,3 @@ def get_mwword(word:str)->list[str, str, list[str]] :
         
         return [components, result_list]
 
-import time

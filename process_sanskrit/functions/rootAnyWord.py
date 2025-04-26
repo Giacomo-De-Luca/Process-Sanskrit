@@ -5,6 +5,7 @@ from process_sanskrit.utils.lexicalResources import variableSandhi
 from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES, samMap
 from dataclasses import dataclass
 from typing import Optional, List
+from functools import lru_cache
  
 
 ##given a name finds the root
@@ -95,6 +96,7 @@ def handle_tva(word: str) -> Optional[List]:
             
     return None
 
+@lru_cache(maxsize=256)
 def root_any_word(word, attempted_words=None, timed=False):
     if attempted_words is None:
         attempted_words = set()

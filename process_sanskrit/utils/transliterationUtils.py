@@ -34,9 +34,17 @@ def anythingToHK(text):
     detected_scheme = getattr(sanscript, detected_scheme_str)
     return sanscript.transliterate(text, detected_scheme, sanscript.HK)
 
-def transliterate(text, transliteration_scheme):
-    detected_scheme_str = detect(text).upper()
-    transliteration_scheme_str = transliteration_scheme.upper()
-    detected_scheme = getattr(sanscript, detected_scheme_str)
-    output_scheme = getattr(sanscript, transliteration_scheme_str)
-    return sanscript.transliterate(text, detected_scheme, output_scheme)
+def transliterate(text, transliteration_scheme, input_scheme=None):
+
+    if not from_scheme:
+        detected_scheme_str = detect(text).upper()
+        transliteration_scheme_str = transliteration_scheme.upper()
+        input_scheme = getattr(sanscript, detected_scheme_str)
+        output_scheme = getattr(sanscript, transliteration_scheme_str)
+    else: 
+        input_scheme_str = input_scheme.upper()
+        input_scheme = getattr(sanscript, detected_scheme_str)
+        transliteration_scheme_str = transliteration_scheme.upper()
+        output_scheme = getattr(sanscript, transliteration_scheme_str)
+
+    return sanscript.transliterate(text, input_scheme, output_scheme)
