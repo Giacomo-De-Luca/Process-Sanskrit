@@ -6,14 +6,46 @@ import re
 import regex
 
 def extract_roots(list_of_entries, debug=False):
-        roots = []
-        for entry in list_of_entries:
-            if not roots or roots[-1] != entry[0]:
-                if debug==True:
-                    print(entry[0])
-                roots.append(entry[0])
-        return roots
+    roots = []
+    i = 0
     
+    while i < len(list_of_entries):
+        current_entry = list_of_entries[i]
+        
+        # If entry has element at index 4 (original word)
+        if len(current_entry) > 4:
+            original_word = current_entry[4]
+            stemmed_forms = []
+            
+            # Collect all stemmed forms for this original word
+            j = i
+            while j < len(list_of_entries) and len(list_of_entries[j]) > 4 and list_of_entries[j][4] == original_word:
+                if list_of_entries[j][0] not in stemmed_forms:  # Avoid duplicates
+                    stemmed_forms.append(list_of_entries[j][0])
+                j += 1
+            
+            # Add as tuple if multiple stems, otherwise as single string
+            if len(stemmed_forms) > 1:
+                if debug:
+                    print(f"Multiple stems for '{original_word}': {stemmed_forms}")
+                roots.append(tuple(stemmed_forms))
+            else:
+                if debug:
+                    print(stemmed_forms[0])
+                roots.append(stemmed_forms[0])
+                
+            i = j  # Skip already processed entries
+        else:
+            # Handle entries without entry[4]
+            if not roots or (isinstance(roots[-1], str) and roots[-1] != current_entry[0]) or \
+               (isinstance(roots[-1], tuple) and current_entry[0] not in roots[-1]):
+                if debug:
+                    print(current_entry[0])
+                roots.append(current_entry[0])
+            i += 1
+    
+    return roots
+
 def roots_splitted(list_of_entries, debug=False):
 
         root_dict = {}
@@ -34,7 +66,7 @@ def roots_splitted(list_of_entries, debug=False):
         return root_dict
     
 
-def clean_results(list_of_entries, roots="none", debug=False):
+def clean_results(list_of_entries, mode="detailed", debug=False):
 
     i = 0
    
@@ -128,9 +160,9 @@ def clean_results(list_of_entries, roots="none", debug=False):
     
 
 
-    if roots == "parts":
+    if mode == "parts":
             return roots_splitted(list_of_entries, debug=debug)
-    elif roots == "roots":
+    elif mode == "roots":
             return extract_roots(list_of_entries, debug=debug)
     else:  # Default case when roots is "none" or any other value
         return list_of_entries

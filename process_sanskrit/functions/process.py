@@ -35,9 +35,7 @@ from process_sanskrit.utils.lexicalResources import (
     sanskritFixedSandhiMap, 
     SANSKRIT_PREFIXES
 )
-from process_sanskrit.utils.transliterationUtils import (
-    anythingToIAST,
-)
+from process_sanskrit.utils.transliterationUtils import transliterate
 from process_sanskrit.utils.databaseSetup import Session, engine, Base
 
 ### import the sandhiSplitScorer and construct the scorer object. 
@@ -64,7 +62,7 @@ logging.basicConfig(level=logging.CRITICAL)
 
 def preprocess(text, max_length=100, debug=False):
 
-    text = anythingToIAST(text)
+    text = transliterate(text, "IAST")
 
     ## if the text is too long, we try to trim it to the last whitespace
     if len(text) > max_length:
@@ -114,7 +112,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     """    
     # Handle wildcard search with asterisk
     if text.endswith('*'):
-        transliterated_text = anythingToIAST(text[:-1])
+        transliterated_text = transliterate(text[:-1], "IAST")
         voc_entry = get_voc_entry([transliterated_text], *dict_names)
         if voc_entry is not None:
             return voc_entry
@@ -122,7 +120,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
-        transliterated_text = anythingToIAST(text)
+        transliterated_text = transliterate(text, "IAST")
         voc_entry = get_voc_entry([transliterated_text], *dict_names)
         if voc_entry is not None:
             return voc_entry
@@ -143,7 +141,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 ### roots should be replaced by output="roots" in the function signature
 ### by default, output = "detailed"
 @lru_cache
-def process(text, *dict_names, max_length=100, debug=False, roots="none", count_types = False):
+def process(text, *dict_names, max_length=100, debug=False, mode="detailed", count_types = False):
 
     ## the part about count types can be safely removed 
     counts = {"word_calls": 1, "hybrid_splitter": 0, "compound_calls": 0} if count_types else None
@@ -159,7 +157,7 @@ def process(text, *dict_names, max_length=100, debug=False, roots="none", count_
 
     ## if text is none return empty list
     if not text:
-        if roots == "roots":
+        if mode == "roots":
             return ""
         else:
             return []
@@ -245,7 +243,7 @@ def process(text, *dict_names, max_length=100, debug=False, roots="none", count_
             #print("result_vocabulary", result_vocabulary)
             if count_types:
                 return counts
-            return clean_results(result_vocabulary, debug=debug, roots=roots)
+            return clean_results(result_vocabulary, debug=debug, mode=mode)
         else:
             ## if result is None, we try to find the word in the dictionary for exact match
             result_vocabulary = get_voc_entry([text], *dict_names)  
@@ -254,7 +252,7 @@ def process(text, *dict_names, max_length=100, debug=False, roots="none", count_
             #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
                 if count_types:
                     return counts
-                return clean_results(result_vocabulary, debug=debug, roots=roots)
+                return clean_results(result_vocabulary, debug=debug, mode=mode)
     
     ## given that the text is composed of multiple words, we split them first then analyse one by one
     ## attempt to remove sandhi and tokenise in any case
@@ -273,7 +271,7 @@ def process(text, *dict_names, max_length=100, debug=False, roots="none", count_
     inflections_vocabulary = get_voc_entry(inflections, *dict_names)
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
       
-    return clean_results(inflections_vocabulary, debug=debug, roots=roots)
+    return clean_results(inflections_vocabulary, debug=debug, mode=mode)
 
 
 

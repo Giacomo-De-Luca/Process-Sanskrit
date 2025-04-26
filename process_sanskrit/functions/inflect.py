@@ -1,13 +1,13 @@
 import time
 from process_sanskrit.functions.rootAnyWord import root_any_word
 from process_sanskrit.functions.compoundAnalysis import root_compounds
-from process_sanskrit.utils.transliterationUtils import transliterateSLP1IAST
 
 
+prefixes = ['sva', 'anu', 'sam', 'pra', 'upa', 'vi', 'nis', 'abhi', 'ni', 'pari', 'prati', 'parā', 'ava', 'adhi', 'api', 'ati', 'ud', 'dvi', 'su', 'dur', 'duḥ']
 
 def inflect(splitted_text, debug=False):
     roots = []
-    prefixes = ['sva', 'anu', 'sam', 'pra', 'upa', 'vi', 'nis', 'abhi', 'ni', 'pari', 'prati', 'parā', 'ava', 'adhi', 'api', 'ati', 'ud', 'dvi', 'su', 'dur', 'duḥ']  # Add more prefixes as needed
+    
     i = 0
     while i < len(splitted_text):
         word = splitted_text[i]

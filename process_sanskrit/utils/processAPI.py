@@ -56,8 +56,12 @@ def transliterate_text():
     data = request.get_json()
     text = data.get('text')
     transliteration_scheme = data.get('transliteration_scheme')
+    input_scheme = data.get('input_scheme')
     if text is not None and transliteration_scheme is not None:
-        processed_text = process_sanskrit.transliterate(text, transliteration_scheme)
+        if input_scheme:
+            processed_text = process_sanskrit.transliterate(text, transliteration_scheme, input_scheme)
+        else:
+            processed_text = process_sanskrit.transliterate(text, transliteration_scheme)
         return jsonify(processed_text)
     else:
         return jsonify({'error': 'Missing text or transliteration_scheme'}), 400

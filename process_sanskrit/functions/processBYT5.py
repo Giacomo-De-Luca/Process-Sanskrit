@@ -2,18 +2,18 @@ from process_sanskrit.functions.process import process
 from process_sanskrit.functions.model_inference import run_inference
 from typing import List, Union, Any
 
-def processBYT5(text: Union[str, List[str]], roots="none", *dict_names) -> Union[List[Any], Any]:
+def processBYT5(text: Union[str, List[str]], mode="detailed", *dict_names) -> Union[List[Any], Any]:
     """
     Process Sanskrit text using BYT5 model for segmentation and then analyze each word.
     
     Args:
         text: Input text (single string) or list of texts to process
-        roots: Processing mode - "none" (default), "roots", or "parts"
+        mode: Processing mode - "none" (default), "roots", or "parts"
         *dict_names: Dictionary names to look up words in
     
     Returns:
         For single string input:
-            - If roots="roots": A string of joined root words, with multiple possibilities 
+            - If mode="roots": A string of joined root words, with multiple possibilities 
               for a word joined in parentheses like "(bhāva | bhā)"
             - Otherwise: A list of processed results for each word
         
@@ -35,11 +35,11 @@ def processBYT5(text: Union[str, List[str]], roots="none", *dict_names) -> Union
         processed_results = []
         for word in word_list:
             # Call process() with all arguments
-            word_result = process(word, roots=roots, *dict_names)
+            word_result = process(word, mode=mode, *dict_names)
             processed_results.append(word_result)
         
-        # Join results if roots="roots" was specified
-        if roots == "roots":
+        # Join results if mode="roots" was specified
+        if mode == "roots":
             formatted_results = []
             for result in processed_results:
                 # Check if the result is a list with multiple options
@@ -72,11 +72,11 @@ def processBYT5(text: Union[str, List[str]], roots="none", *dict_names) -> Union
             # Process each word in the segment
             processed_segment = []
             for word in word_list:
-                word_result = process(word, roots=roots, *dict_names)
+                word_result = process(word, mode=mode, *dict_names)
                 processed_segment.append(word_result)
             
-            # Join results if roots="roots" was specified
-            if roots == "roots":
+            # Join results if mode="roots" was specified
+            if mode == "roots":
                 formatted_results = []
                 for result in processed_segment:
                     # Check if the result is a list with multiple options
