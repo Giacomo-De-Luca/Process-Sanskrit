@@ -54,7 +54,7 @@ session = Session()
 
 ### get the version of the library
 
-__version__ = "0.3"
+__version__ = "1.0.0"
 def print_version():
     print(f"Version: {__version__}")
 

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import json
-import processSanskrit
+import process_sanskrit
 from flask_cors import cross_origin 
 import logging
 from datetime import datetime
@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Get API key from environment variables
 api_key = os.getenv("DATABASE_API_KEY")
-
 
 app = Flask(__name__)
 CORS(app)
@@ -25,18 +25,17 @@ logging.basicConfig(filename='error.log', level=logging.ERROR)
 @cross_origin()
 def process_text():
     text = request.data.decode('utf-8')
-    processed_text = processSanskrit.process(text)  # Print the output to the console
-    print
-    return jsonify(processed_text) # Convert the response to a string
+    processed_text = process_sanskrit.process(text)
+    return jsonify(processed_text)
 
 @app.route('/process_new', methods=['POST'])
 @cross_origin()
-def process_text():
+def process_text_with_dict():
     data = request.get_json()
     text = data.get('text')
     dictionary_names = data.get('dictionary_names')
-    processed_text = processSanskrit.process(text, *dictionary_names)  # Print the output to the console
-    return jsonify(processed_text) # Convert the response to a string
+    processed_text = process_sanskrit.process(text, *dictionary_names)
+    return jsonify(processed_text)
 
 @app.route('/dict_entry', methods=['POST'])
 @cross_origin()
@@ -44,7 +43,7 @@ def get_dict_entry():
     data = request.get_json()
     word = data.get('word')
     if word is not None:
-        entry = processSanskrit.get_voc_entry([word])
+        entry = process_sanskrit.get_voc_entry([word])
         return jsonify(entry)
     else:
         return jsonify({'error': 'Missing word'}), 400
@@ -58,7 +57,7 @@ def transliterate_text():
     text = data.get('text')
     transliteration_scheme = data.get('transliteration_scheme')
     if text is not None and transliteration_scheme is not None:
-        processed_text = processSanskrit.transliterate(text, transliteration_scheme)
+        processed_text = process_sanskrit.transliterate(text, transliteration_scheme)
         return jsonify(processed_text)
     else:
         return jsonify({'error': 'Missing text or transliteration_scheme'}), 400
@@ -141,5 +140,3 @@ def handle_exception(e):
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True, threaded=False)
-
-

@@ -1,9 +1,8 @@
 import setuptools
-import os
 
 # --- Configuration ---
 # Package specific info
-PACKAGE_NAME = "process_sanskrit" # The actual package name (directory in src/)
+PACKAGE_NAME = "process_sanskrit" # The actual package name
 # --- End Configuration ---
 
 # Read README for long description
@@ -22,19 +21,53 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Giacomo-De-Luca/Process-Sanskrit", # Link to repo
-    package_dir={"": "src"}, # Tell setuptools packages are under src/
-    packages=setuptools.find_packages(where="src"), # Find packages in src/
+    packages=setuptools.find_packages(), # Find packages in the current directory
     # Define required dependencies
     install_requires=[
         "requests>=2.20", # Need requests for downloading
-        # Add other dependencies your package needs
-        # e.g., "regex", "pandas", etc.
+        "sqlalchemy>=1.4.0", # For database operations
+        "pandas>=1.0.0", # For data processing
+        "indic_transliteration>=2.0.0", # For transliteration
+        "regex>=2022.0.0", # For regex operations
+        "python-dotenv>=0.19.0", # For environment variables
+        "sanskrit_parser>=0.1.1",
+        "gensim>=4.0.0",
+        "sentencepiece>=0.1.95",
     ],
+    # Define optional dependencies
+    extras_require={
+        'api': [
+            "flask>=2.0.0",
+            "flask_cors>=3.0.0",
+            "openai>=0.27.0",
+        ],
+        'byt5': [
+            "torch>=1.9.0",
+            "transformers>=4.5.0",
+        ],
+        'sandhi': [
+            "sanskrit_parser>=0.1.1",
+        ],
+        'scoring': [
+            "gensim>=4.0.0",
+            "sentencepiece>=0.1.95",
+        ],
+        'all': [
+            "flask>=2.0.0",
+            "flask_cors>=3.0.0",
+            "openai>=0.27.0",
+            "torch>=1.9.0",
+            "transformers>=4.5.0",
+            "sanskrit_parser>=0.1.1",
+            "gensim>=4.0.0",
+            "sentencepiece>=0.1.95",
+        ],
+    },
     # Define the command-line script for updates
     entry_points={
         'console_scripts': [
-            # The command name users type, points to the function in the new file
-            f'update-process-sanskrit-db={PACKAGE_NAME}.download_cli:update_database_command',
+            # The command name users type, points to the function in the setup module
+            f'update-ps-database={PACKAGE_NAME}.setup.updateDB:update_database',
         ],
     },
     # No custom cmdclass needed anymore

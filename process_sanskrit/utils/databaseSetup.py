@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine, Column, String
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
+import importlib.resources
 
-DATABASE_URL = "sqlite://process_sanskrit/resources/SQliteDB.sqlite"
+# Use importlib.resources to get the correct path to the database
+DATABASE_URL = "sqlite:///process_sanskrit/resources/SQliteDB.sqlite"
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -15,4 +18,3 @@ class SplitCache(Base):
 
 # Create the table if it doesn't exist
 Base.metadata.create_all(engine)
-
