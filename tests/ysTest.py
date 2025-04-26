@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 import json
 import pandas as pd
-from testing.yogaSutra import ys
+from tests.datasets.yogaSutra import ys
 from process_sanskrit import process
 
 logging.basicConfig(level=logging.INFO)

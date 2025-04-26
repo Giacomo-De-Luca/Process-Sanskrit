@@ -7,7 +7,7 @@ import pandas as pd
 from pathlib import Path
 import logging
 from typing import Dict, List, Any, Tuple
-from testing.testCases import test_cases
+from test.datasets.testCases import test_cases
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

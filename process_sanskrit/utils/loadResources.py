@@ -1,5 +1,5 @@
 import json 
-import pandas as pd
+
 import importlib.resources
 import os
 from pathlib import Path
@@ -20,5 +20,10 @@ def get_resource_path(resource_name):
 with open(get_resource_path('MWKeysOnly.json'), 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
+## let's get rid of the xlsx file
+## so I can avoid using pandas 
+## also a dictionary makes for faster lookups
+# 
+import pandas as pd
 # Read the Excel file into a DataFrame
 type_map = pd.read_excel(get_resource_path('type_map.xlsx'))

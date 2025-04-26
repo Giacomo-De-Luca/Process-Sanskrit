@@ -10,7 +10,7 @@ from typing import List, Any
 ## as the current version is working, - but still needs major works to handle the lack of standardisation of the TEI encoding. 
 
 # Import functionality from model_inference.py
-from model_inference import download_model, load_model, run_inference
+from process_sanskrit.functions.model_inference import download_model, load_model, run_inference
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
