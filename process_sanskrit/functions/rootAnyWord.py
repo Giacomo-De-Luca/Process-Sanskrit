@@ -154,8 +154,8 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
             if timed:
                 start_time = time.time()
             if tentative not in attempted_words:
-                print (f"tentative: {tentative}")
-                print (f"attempted_words: {attempted_words}")
+                #print (f"tentative: {tentative}")
+                #print (f"attempted_words: {attempted_words}")
                 attempt = root_any_word(tentative, attempted_words, timed, session=session)
                 if timed:
                     print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
@@ -193,8 +193,6 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
             remainder = word[len(prefix):]
             attempt = root_any_word(remainder, session=session)
             if attempt is not None:
-                print("attempt", attempt)
-                print("prefix", prefix)
                 if prefix == 'ud': 
                     result = root_any_word('ut', session=session) + attempt
                 else: 
@@ -213,7 +211,6 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
                             for match in result: 
                                 if len(match) == 5:
                                     match[4] = word
-                            print("working", result)
                             return result
             
     return None

@@ -32,7 +32,7 @@ SANSKRIT_ENDINGS: Dict[str, EndingProperties] = {
     #'ika': EndingProperties(weight=0.5, type='nominal')
 }
 
-def evaluate_compound_split(first_part: str, remaining: str, debug: bool = False) -> float:
+def evaluate_compound_split(first_part: str, remaining: str,  session=None, debug: bool = False) -> float:
     """
     Evaluates the quality of a potential compound split by examining:
     1. Dictionary presence of both parts
@@ -116,7 +116,7 @@ def try_match_with_prefixes(word, debug=False):
         print("No match found after prefix analysis")
     return None
 
-def dict_word_iterative(word, debug=False):
+def dict_word_iterative(word, session=None, debug=False):
     """
     Dictionary lookup that integrates prefix matching with sandhi variations.
     For each possible word length, tries:
@@ -190,7 +190,7 @@ def dict_word_iterative(word, debug=False):
         print("No match found")
     return None
 
-def dict_word_iterative(word: str, min_score: float = 0.6, debug: bool = False) -> Optional[Tuple[str, str]]:
+def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: bool = False) -> Optional[Tuple[str, str]]:
     """
     Enhanced dictionary word lookup that considers compound formation rules
     to avoid over-eager matching with common endings.
@@ -226,7 +226,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, debug: bool = False) 
         # Try dictionary match with scoring
         if temp_word in DICTIONARY_REFERENCES:
             remaining = word[len(temp_word):]
-            split_score = evaluate_compound_split(temp_word, remaining, debug)
+            split_score = evaluate_compound_split(temp_word, remaining,  session=session, debug)
             
             if split_score > best_score:
                 if debug:
@@ -242,7 +242,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, debug: bool = False) 
                 test_word = temp_word[:-1] + variant
                 if test_word in DICTIONARY_REFERENCES:
                     remaining = word[len(test_word):]
-                    split_score = evaluate_compound_split(test_word, remaining, debug)
+                    split_score = evaluate_compound_split(test_word, remaining,  session=session, debug)
                     
                     if split_score > best_score:
                         if debug:
@@ -286,7 +286,7 @@ def root_compounds(word, debug=False, inflection=False, session=None):
         # Try the base case first
         best_match = None
         best_length = 0
-        first_match = dict_word_iterative(remaining)
+        first_match = dict_word_iterative(remaining, session=session)
 
         
         if first_match:
@@ -333,7 +333,7 @@ def root_compounds(word, debug=False, inflection=False, session=None):
 
                     # If no inflected form found, try dictionary match
                     if not root_result:
-                        test_match = dict_word_iterative(test_word)
+                        test_match = dict_word_iterative(test_word, session=session)
                         if test_match and len(test_match[0]) > best_length:
                             best_match = test_match
                             best_length = len(test_match[0])
@@ -345,7 +345,7 @@ def root_compounds(word, debug=False, inflection=False, session=None):
                 test_word = 'ś' + remaining[1:]
                 if debug:
                     print(f"Trying with S instead of ch: {test_word}")
-                test_match = dict_word_iterative(test_word)
+                test_match = dict_word_iterative(test_word, session=session)
                 if test_match and len(test_match[0]) > best_length:
                     best_match = test_match
                     best_length = len(test_match[0])
