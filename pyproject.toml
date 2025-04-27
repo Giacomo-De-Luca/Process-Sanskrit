@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "process-sanskrit"
-version = "1.0.14"  
+version = "1.0.16"  
 description = "A package automatic processing of Sanskrit texts and inflected dictionary search"
 readme = "README.md"
 authors = [

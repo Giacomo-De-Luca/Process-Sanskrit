@@ -2,6 +2,35 @@ from process_sanskrit.functions.process import process
 from process_sanskrit.functions.model_inference import run_inference
 from typing import List, Union, Any
 
+
+
+def _format_roots_output(processed_word_results: List[Any]) -> str:
+    """Helper function to format the output when mode is 'roots'."""
+    formatted_words = [] # Store formatted string for each original word's processing result
+    for word_output in processed_word_results: # word_output is the List[Union[str, Tuple]] from extract_roots for a single word
+        # print(word_output) # Keep or remove debug print as needed
+        current_word_parts = []
+        if isinstance(word_output, list):
+            for item in word_output: # Iterate through items returned by extract_roots for this word
+                if isinstance(item, tuple):
+                    # Multiple roots found for a sub-part, format as (a | b)
+                    current_word_parts.append(f"({' | '.join(item)})")
+                else:
+                    # Single root found for a sub-part
+                    current_word_parts.append(str(item)) # Ensure string
+        elif isinstance(word_output, tuple): # Fallback if process returns tuple directly
+            current_word_parts.append(f"({' | '.join(word_output)})")
+        else: # Fallback if process returns string directly
+            current_word_parts.append(str(word_output))
+
+        # Join parts for the current word.
+        formatted_words.append(" ".join(current_word_parts))
+
+    # Join all the formatted word strings with spaces
+    return " ".join(formatted_words)
+
+
+
 def processBYT5(text: Union[str, List[str]], mode="detailed", *dict_names) -> Union[List[Any], Any]:
     """
     Process Sanskrit text using BYT5 model for segmentation and then analyze each word.
@@ -40,21 +69,7 @@ def processBYT5(text: Union[str, List[str]], mode="detailed", *dict_names) -> Un
         
         # Join results if mode="roots" was specified
         if mode == "roots":
-            formatted_results = []
-            for result in processed_results:
-                if isinstance(result, list) and len(result) > 1:
-                    formatted_result = f"({' | '.join(result)})"
-                elif isinstance(result, list) and len(result) == 1:
-                    formatted_result = result[0]
-                elif isinstance(result, tuple):
-                    formatted_result = f"({' | '.join(result)})"
-                else:
-                    formatted_result = result
-                formatted_results.append(formatted_result)
-            
-            # Join all the formatted results with spaces
-            return " ".join(formatted_results)
-        
+                return _format_roots_output(processed_results)
         return processed_results
     
     # Handle list of strings input
@@ -75,30 +90,11 @@ def processBYT5(text: Union[str, List[str]], mode="detailed", *dict_names) -> Un
             
             # Join results if mode="roots" was specified
             if mode == "roots":
-            formatted_words = [] # Store formatted string for each original word's processing result
-            for word_output in processed_results: # word_output is the List[Union[str, Tuple]] from extract_roots for a single word
-                current_word_parts = []
-                if isinstance(word_output, list):
-                    for item in word_output: # Iterate through items returned by extract_roots for this word
-                        if isinstance(item, tuple):
-                            # Multiple roots found for a sub-part, format as (a | b)
-                            current_word_parts.append(f"({' | '.join(item)})")
-                        else:
-                            # Single root found for a sub-part
-                            current_word_parts.append(str(item)) # Ensure string
-                elif isinstance(word_output, tuple): # Fallback if process returns tuple directly
-                     current_word_parts.append(f"({' | '.join(word_output)})")
-                else: # Fallback if process returns string directly
-                     current_word_parts.append(str(word_output))
-
-                # Join parts for the current word. Usually extract_roots returns one item (str or tuple).
-                # If it returns multiple, join them (this might need review based on extract_roots behavior).
-                formatted_words.append(" ".join(current_word_parts))
-
-            # Join all the formatted word strings with spaces
-            return " ".join(formatted_words)
-                
-            processed_segments.append(processed_segment)
+                segment_result = _format_roots_output(processed_segment) # Use helper function
+                processed_segments.append(segment_result)
+            else:
+                # If not roots mode, append the list of word results for the segment
+                processed_segments.append(processed_segment)
             
         return processed_segments
     

@@ -169,14 +169,12 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
         if check_special_characters is not None and not count_types:
             return check_special_characters
 
-
         ## do some preliminary cleaning using sandhi rules ## to remove use a map of tests to apply, and a map of replacements v --> u, s-->H, etc
         
-
         if text and text[-1] in sanskritFixedSandhiMap:
             text = text[:-1] + sanskritFixedSandhiMap[text[-1]]
 
-         ## move this to the fixed sandhi map
+        ## move this to the fixed sandhi map
         elif text[-1] == 'ś':
             text = text[:-1] + 'ḥ'
 
@@ -229,15 +227,15 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
                 print("result_vocabulary", result_vocabulary)
 
             ## if the word is inside the dictionary, we return the entry directly, since it will be accurate. 
-            if isinstance(result_vocabulary, list):
-                
-                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
-                    replacement = get_voc_entry([result[0][4]], *dict_names, session=session)
-                    if debug:
-                        print("replacement", replacement[0])
-                        print("len replacement", len(replacement[0]))
-                    if replacement is not None:
-                        result_vocabulary.insert(0, replacement[0])
+            #if isinstance(result_vocabulary, list):
+            #    
+            #    if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
+            #        replacement = get_voc_entry([result[0][4]], *dict_names, session=session)
+            #        if debug:
+            #            print("replacement", replacement[0])
+            #            print("len replacement", len(replacement[0]))
+            #        if replacement is not None:
+            #            result_vocabulary.insert(0, replacement[0])
 
             #print("result_vocabulary", result_vocabulary)
             if count_types:
