@@ -20,10 +20,7 @@ def get_resource_path(resource_name):
 with open(get_resource_path('MWKeysOnly.json'), 'r', encoding='utf-8') as f:
     mwdictionaryKeys = json.load(f)
 
-## let's get rid of the xlsx file
-## so I can avoid using pandas 
-## also a dictionary makes for faster lookups
-# 
+
 def load_type_map(file_path):
     """Load the type mapping from TSV file into a dictionary."""
     type_map = {}

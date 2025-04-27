@@ -17,7 +17,9 @@ import os
 import importlib.resources
 import logging
 import threading
-from functools import wraps, contextmanager
+from functools import wraps
+from contextlib import contextmanager
+
 from typing import Optional, Callable, Any, Generator, TypeVar, cast
 
 from sqlalchemy import create_engine, Column, String, event
