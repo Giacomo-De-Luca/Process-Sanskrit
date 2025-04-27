@@ -1,0 +1,7 @@
+include LICENSE.md
+include README.md
+include pyproject.toml
+recursive-include process_sanskrit/resources *.json *.csv *.tsv *.xlsx *.sqlite
+recursive-include tests *.py *.json *.txt
+
+

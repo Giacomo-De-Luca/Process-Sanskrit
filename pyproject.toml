@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "process-sanskrit"
-version = "1.0.0"
+version = "1.0.1" 
 description = "A package for processing Sanskrit, including dictionaries"
 readme = "README.md"
 authors = [
@@ -54,3 +54,10 @@ all = [
 
 [project.scripts]
 update-ps-database = "process_sanskrit.setup.updateDB:update_database"
+
+[tool.setuptools.package-data]
+"process_sanskrit.resources" = ["*.json", "*.csv", "*.tsv", "*.xlsx", "*.sqlite"]
+"tests" = ["*.py", "*.json", "*.txt"]
+
+[tool.setuptools]
+include-package-data = true
