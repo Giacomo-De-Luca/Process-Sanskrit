@@ -22,7 +22,7 @@ class TvaAnalysis:
     """
     ending: str
 
-def handle_tva(word: str) -> Optional[List]:
+def handle_tva(word: str, session=None) -> Optional[List]:
     """
     Analyzes words containing the -tva suffix by reconstructing the base word
     with appropriate endings for root analysis.
@@ -67,18 +67,18 @@ def handle_tva(word: str) -> Optional[List]:
             # Get the base by removing tva form
             base = word[:-len(tva_form)]
             
-            print(f"Found tva form: {tva_form}, base: {base}")
+            #print(f"Found tva form: {tva_form}, base: {base}")
             if base[-1] == 'a':
 
                 # Create the form to analyze by adding the appropriate ending
                 analysis_form = base[:-1] + analysis.ending
 
-                print(f"Reconstructed form: {analysis_form}")
+                #print(f"Reconstructed form: {analysis_form}")
                 
                 # Analyze this reconstructed form
                 base_analysis = root_any_word(analysis_form, session=session)
 
-                print(f"Base analysis: {base_analysis}")
+                #print(f"Base analysis: {base_analysis}")
             
             else: 
                 base_analysis = root_any_word(base, session=session)
