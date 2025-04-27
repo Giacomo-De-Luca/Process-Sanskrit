@@ -4,23 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "process-sanskrit"
-version = "1.0.6" 
-description = "A package for processing Sanskrit, including dictionaries"
+version = "1.0.9"  
+description = "A package automatic processing of Sanskrit texts and inflected dictionary search"
 readme = "README.md"
 authors = [
-    {name = "Giacomo De Luca", email = "your_email@example.com"}
+    {name = "Giacomo De Luca", email = "giacomo.deluca@hotmail.it"}
 ]
 requires-python = ">=3.8"
 urls = {Repository = "https://github.com/Giacomo-De-Luca/Process-Sanskrit"}
 dependencies = [
-    "requests>=2.20",
+    "requests>=2.20.0",
     "sqlalchemy>=1.4.0",
     "indic_transliteration>=2.0.0",
     "regex>=2022.0.0",
     "python-dotenv>=0.19.0",
     "sanskrit_parser>=0.1.1",
-    "gensim>=4.0.0",
-    "sentencepiece>=0.1.95",
+    "numpy>=2.0.0",           
+    "scipy>=1.13.0"           
 ]
 
 [project.optional-dependencies]

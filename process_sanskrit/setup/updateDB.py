@@ -10,6 +10,7 @@ import importlib.resources
 REPO_OWNER = "Giacomo-De-Luca"
 REPO_NAME = "Process-Sanskrit"
 ASSET_NAME = "SQliteDB.sqlite.gz" 
+RELEASE_TAG = "v1.0.0"
 # Target Location within the package
 TARGET_FOLDER_NAME = "resources"
 # --- End Configuration ---

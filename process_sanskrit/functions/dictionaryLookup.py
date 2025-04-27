@@ -1,6 +1,5 @@
 from typing import List, Dict, Tuple, Union
-from process_sanskrit.utils.databaseSetup import Session, engine
-from sqlalchemy import create_engine, text, Column, String
+from sqlalchemy import text, Column, String
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import samMap
 import time
@@ -34,9 +33,7 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
             dict_names = ["MW"] + [x for x in args if x != "MW"]
         else:
             dict_names.extend(args)
-    
-    session = Session()
-    
+        
     # For each dictionary, perform queries and process results
     for dict_name in dict_names:
         
@@ -49,11 +46,11 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
         """
         wildcard_name = f"{name}"
         
-        with engine.connect() as connection:
-            results = connection.execute(
-                text(query_builder), 
-                {"name": name, "wildcard_name": wildcard_name}
-            ).fetchall()
+        # Use the session for the query
+        results = session.execute(
+            text(query_builder), 
+            {"name": name, "wildcard_name": wildcard_name}
+        ).fetchall()
 
         # Additional query if no results
         if not results and len(name) > 1:
@@ -63,11 +60,10 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
             OR keys_iast LIKE :wildcard_name
             """
             wildcard_name = f"{name[:-1]}_"
-            with engine.connect() as connection:
-                results = connection.execute(
-                    text(query_builder), 
-                    {"name": name, "wildcard_name": wildcard_name}
-                ).fetchall()
+            results = session.execute(
+                text(query_builder), 
+                {"name": name, "wildcard_name": wildcard_name}
+            ).fetchall()
         
         #print(f"Results for {dict_name}: {results}")
         
@@ -78,11 +74,10 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
             WHERE keys_iast LIKE :name1 
             OR keys_iast LIKE :name2
             """
-            with engine.connect() as connection:
-                results = connection.execute(
-                    text(query_builder), 
-                    {"name1": name + "_", "name2": name[:-1] + "_"}
-                ).fetchall()
+            results = session.execute(
+                text(query_builder), 
+                {"name1": name + "_", "name2": name[:-1] + "_"}
+            ).fetchall()
 
         #print(f"Results for {dict_name} after second query: {results}")
         
@@ -101,7 +96,6 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
         # Add to dict_results
         dict_results[dict_name] = component_dict
     
-    connection.close()
     return [name_component, dict_results]
 
 
