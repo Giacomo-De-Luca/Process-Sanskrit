@@ -140,17 +140,9 @@ def root_any_word(word, attempted_words=None, timed=False):
             result = result_roots[i]
             # Get the second member of the list
             abbr = result[1]
-            if timed:
-                start_time = time.time()
-            # Find the matching value in the 'abbr' column
-            match = type_map[type_map['abbr'] == abbr]
-            if timed:
-                print(f"Matching abbr {abbr} took {time.time() - start_time:.6f} seconds")
-            
-            if not match.empty:
-                description = match['description'].values[0]
-                result[1] = description
-                result_roots[i] = result
+            if abbr in type_map:
+                result[1] = type_map[abbr]
+
         return result_roots
 
     # If no result is found, try replacements based on variableSandhi

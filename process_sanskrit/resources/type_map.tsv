@@ -1,0 +1,302 @@
+abbr	description	kale
+f_A	feminine noun/adjective ending in -ā	Kale 36
+f_B	feminine noun/adjective ending in -bh	Kale 55
+f_D	feminine noun/adjective ending in -dh	Kale 55
+f_I	feminine noun/adjective ending in -ī	Kale 41
+f_S	feminine noun/adjective ending in -ś	Kale 56
+f_U	feminine noun/adjective ending in -ū	Kale 42
+f_aYc	feminine noun/adjective ending in -añc (directional)	Kale 62
+f_c	feminine noun/adjective ending in -c	Kale 56
+f_card	feminine cardinal number	Kale 102
+f_d	feminine noun/adjective ending in -d	Kale 55
+f_f	feminine noun/adjective ending in -ṛ	Kale 50
+f_h	feminine noun/adjective ending in -h	Kale 56
+f_i	feminine noun/adjective ending in -i	Kale 37
+f_j	feminine noun/adjective ending in -j	Kale 56
+f_k	feminine noun/adjective ending in -k	Kale 55
+f_p	feminine noun/adjective ending in -p	Kale 55
+f_pron	feminine pronoun	Kale 87
+f_r	feminine noun/adjective ending in -r	Kale 54
+f_s	feminine noun/adjective ending in -s	Kale 66
+f_t	feminine noun/adjective ending in -t	Kale 55
+f_u	feminine noun/adjective ending in -u	Kale 38
+f_vas	feminine noun/adjective ending in -vas	Kale 80
+f_yas	feminine comparative adjective ending in -īyas	Kale 81
+f_z	feminine noun/adjective ending in -ṣ	Kale 56
+ind	indeclinable word (avyaya)	Kale 
+m_A	masculine noun/adjective ending in -a	Kale 35
+m_B	masculine noun/adjective ending in -bh	Kale 55
+m_D	masculine noun/adjective ending in -dh	Kale 55
+m_I	masculine noun/adjective ending in -ī	Kale 42
+m_S	masculine noun/adjective ending in -ś	Kale 56
+m_U	masculine noun/adjective ending in -ū	Kale 48
+m_a	masculine noun/adjective ending in -a	Kale 35
+m_aYc	masculine noun/adjective ending in -añc (directional)	Kale 62
+m_an	masculine noun/adjective ending in -an	Kale 73
+m_at	masculine noun/adjective ending in -at	Kale 70
+m_c	masculine noun/adjective ending in -c	Kale 56
+m_card	masculine cardinal number	Kale 102
+m_d	masculine noun/adjective ending in -d	Kale 55
+m_f	masculine noun/adjective ending in -ṛ	Kale 50
+m_h	masculine noun/adjective ending in -h	Kale 56
+m_i	masculine noun/adjective ending in -i	Kale 37
+m_in	masculine noun/adjective ending in -in	Kale 78
+m_j	masculine noun/adjective ending in -j	Kale 56
+m_k	masculine noun/adjective ending in -k	Kale 55
+m_mat	masculine noun/adjective ending in -mat	Kale 70
+m_o	masculine noun/adjective ending in -o	Kale 53
+m_p	masculine noun/adjective ending in -p	Kale 55
+m_pron	masculine pronoun	Kale 87
+m_r	masculine noun/adjective ending in -r	Kale 54
+m_s	masculine noun/adjective ending in -s	Kale 66
+m_t	masculine noun/adjective ending in -t	Kale 55
+m_u	masculine noun/adjective ending in -u	Kale 37
+m_vas	masculine noun/adjective ending in -vas	Kale 80
+m_vat	masculine noun/adjective ending in -vat	Kale 70
+m_yas	masculine comparative adjective ending in -īyas	Kale 81
+m_z	masculine noun/adjective ending in -ṣ	Kale 56
+n_B	neuter noun/adjective ending in -bh	Kale 55
+n_D	neuter noun/adjective ending in -dh	Kale 55
+n_S	neuter noun/adjective ending in -ś	Kale 56
+n_a	neuter noun/adjective ending in -a	Kale 35
+n_aYc	neuter noun/adjective ending in -añc (directional)	Kale 62
+n_an	neuter noun/adjective ending in -an	Kale 73
+n_at	neuter noun/adjective ending in -at	Kale 70
+n_c	neuter noun/adjective ending in -c	Kale 56
+n_card	neuter cardinal number	Kale 102
+n_d	neuter noun/adjective ending in -d	Kale 55
+n_f	neuter noun/adjective ending in -ṛ	Kale 49
+n_h	neuter noun/adjective ending in -h	Kale 56
+n_i	neuter noun/adjective ending in -i	Kale 38
+n_in	neuter noun/adjective ending in -in	Kale 78
+n_j	neuter noun/adjective ending in -j	Kale 56
+n_k	neuter noun/adjective ending in -k	Kale 55
+n_mat	neuter noun/adjective ending in -mat	Kale 70
+n_p	neuter noun/adjective ending in -p	Kale 55
+n_pron	neuter pronoun	Kale 87
+n_r	neuter noun/adjective ending in -r	Kale 54
+n_s	neuter noun/adjective ending in -s	Kale 66
+n_t	neuter noun/adjective ending in -t	Kale 55
+n_u	neuter noun/adjective ending in -u	Kale 39
+n_vas	neuter noun/adjective ending in -vas	Kale 80
+n_vat	neuter noun/adjective ending in -vat	Kale 70
+n_yas	neuter comparative adjective ending in -īyas	Kale 81
+n_z	neuter noun/adjective ending in -ṣ	Kale 56
+fut-a	verb in future tense, active voice (parasmaipada)	Kale 298
+fut-ca	verb in future tense of causative verb, active voice (parasmaipada)	Kale 368
+fut-cm	verb in future tense of causative verb, middle voice (ātmanepada)	Kale 368
+fut-m	verb in future tense, middle voice (ātmanepada)	Kale 298
+ind_abs	absolutive (gerund)	Kale 440
+ind_cabs	causal absolutive (gerund)	Kale 368
+ind_cinf	causal infinitive	Kale 368
+ind_cppfactn	causal periphrastic perfect action noun	Kale 368
+ind_inf	infinitive	Kale 451
+ind_ppfactn	periphrastic perfect action noun	Kale 329
+ipf-10a	verb in imperfect tense, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
+ipf-10m	verb in imperfect tense, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
+ipf-1a	verb in imperfect tense, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
+ipf-1m	verb in imperfect tense, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
+ipf-2a	verb in imperfect tense, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
+ipf-2m	verb in imperfect tense, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
+ipf-3a	verb in imperfect tense, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
+ipf-3m	verb in imperfect tense, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
+ipf-4a	verb in imperfect tense, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
+ipf-4m	verb in imperfect tense, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
+ipf-5a	verb in imperfect tense, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
+ipf-5m	verb in imperfect tense, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
+ipf-6a	verb in imperfect tense, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
+ipf-6m	verb in imperfect tense, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
+ipf-7a	verb in imperfect tense, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
+ipf-7m	verb in imperfect tense, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
+ipf-8a	verb in imperfect tense, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
+ipf-8m	verb in imperfect tense, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
+ipf-9a	verb in imperfect tense, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
+ipf-9m	verb in imperfect tense, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
+ipf-ca	verb in imperfect tense of causative verb, active voice (parasmaipada)	Kale 368
+ipf-cm	verb in imperfect tense of causative verb, middle voice (ātmanepada)	Kale 368
+ipf-cp	verb in imperfect tense of causative verb, passive voice	Kale 368
+ipf-p	verb in imperfect tense, passive voice	Kale 360
+ipv-10a	verb in imperative mood, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
+ipv-10m	verb in imperative mood, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
+ipv-1a	verb in imperative mood, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
+ipv-1m	verb in imperative mood, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
+ipv-2a	verb in imperative mood, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
+ipv-2m	verb in imperative mood, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
+ipv-3a	verb in imperative mood, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
+ipv-3m	verb in imperative mood, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
+ipv-4a	verb in imperative mood, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
+ipv-4m	verb in imperative mood, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
+ipv-5a	verb in imperative mood, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
+ipv-5m	verb in imperative mood, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
+ipv-6a	verb in imperative mood, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
+ipv-6m	verb in imperative mood, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
+ipv-7a	verb in imperative mood, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
+ipv-7m	verb in imperative mood, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
+ipv-8a	verb in imperative mood, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
+ipv-8m	verb in imperative mood, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
+ipv-9a	verb in imperative mood, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
+ipv-9m	verb in imperative mood, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
+ipv-ca	verb in imperative mood of causative verb, active voice (parasmaipada)	Kale 368
+ipv-cm	verb in imperative mood of causative verb, middle voice (ātmanepada)	Kale 368
+ipv-cp	verb in imperative mood of causative verb, passive voice	Kale 368
+ipv-p	verb in imperative mood, passive voice	Kale 360
+opt-10a	verb in optative mood, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
+opt-10m	verb in optative mood, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
+opt-1a	verb in optative mood, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
+opt-1m	verb in optative mood, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
+opt-2a	verb in optative mood, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
+opt-2m	verb in optative mood, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
+opt-3a	verb in optative mood, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
+opt-3m	verb in optative mood, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
+opt-4a	verb in optative mood, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
+opt-4m	verb in optative mood, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
+opt-5a	verb in optative mood, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
+opt-5m	verb in optative mood, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
+opt-6a	verb in optative mood, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
+opt-6m	verb in optative mood, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
+opt-7a	verb in optative mood, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
+opt-7m	verb in optative mood, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
+opt-8a	verb in optative mood, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
+opt-8m	verb in optative mood, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
+opt-9a	verb in optative mood, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
+opt-9m	verb in optative mood, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
+opt-ca	verb in optative mood of causative verb, active voice (parasmaipada)	Kale 368
+opt-cm	verb in optative mood of causative verb, middle voice (ātmanepada)	Kale 368
+opt-cp	verb in optative mood of causative verb, passive voice	Kale 368
+opt-p	verb in optative mood, passive voice	Kale 360
+pft-a	verb in perfect tense, active voice (parasmaipada)	Kale 300
+pft-ca	verb in perfect tense of causative verb, active voice (parasmaipada)	Kale 368
+pft-cm	verb in perfect tense of causative verb, middle voice (ātmanepada)	Kale 368
+pft-m	verb in perfect tense, middle voice (ātmanepada)	Kale 300
+pre-10a	verb in present tense, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
+pre-10m	verb in present tense, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
+pre-1a	verb in present tense, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
+pre-1m	verb in present tense, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
+pre-2a	verb in present tense, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
+pre-2m	verb in present tense, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
+pre-3a	verb in present tense, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
+pre-3m	verb in present tense, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
+pre-4a	verb in present tense, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
+pre-4m	verb in present tense, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
+pre-5a	verb in present tense, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
+pre-5m	verb in present tense, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
+pre-6a	verb in present tense, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
+pre-6m	verb in present tense, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
+pre-7a	verb in present tense, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
+pre-7m	verb in present tense, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
+pre-8a	verb in present tense, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
+pre-8m	verb in present tense, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
+pre-9a	verb in present tense, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
+pre-9m	verb in present tense, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
+pre-ca	verb in present tense of causative verb, active voice (parasmaipada)	Kale 368
+pre-cm	verb in present tense of causative verb, middle voice (ātmanepada)	Kale 368
+pre-cp	verb in present tense of causative verb, passive voice	Kale 368
+pre-p	verb in present tense, passive voice	Kale 360
+prf-a	verb in periphrastic perfect, active voice (parasmaipada)	Kale 306
+prf-m	verb in periphrastic perfect, middle voice (ātmanepada)	Kale 306
+aor-a	verb in aorist tense, active voice (parasmaipada)	added
+aor-m	verb in aorist tense, middle voice (ātmanepada)	added
+aor-p	verb in aorist tense, passive voice	added
+ben-a	verb in benedictive mood, active voice (parasmaipada)	added
+ben-m	verb in benedictive mood, middle voice (ātmanepada)	added
+con-a	verb in conditional tense, active voice (parasmaipada)	added
+con-m	verb in conditional tense, middle voice (ātmanepada)	added
+f_1_B	feminine noun/adjective ending in -bh	added
+f_1_C	feminine noun/adjective ending in -ch	added
+f_1_D	feminine noun/adjective ending in -dh	added
+f_1_G	feminine noun/adjective ending in -gh	added
+f_1_R	feminine noun/adjective ending in -ḍh	added
+f_1_S	feminine noun/adjective ending in -ś	added
+f_1_T	feminine noun/adjective ending in -th	added
+f_1_b	feminine noun/adjective ending in -b	added
+f_1_c	feminine noun/adjective ending in -c	added
+f_1_d	feminine noun/adjective ending in -d	added
+f_1_g	feminine noun/adjective ending in -g	added
+f_1_h	feminine noun/adjective ending in -h	added
+f_1_j	feminine noun/adjective ending in -j	added
+f_1_k	feminine noun/adjective ending in -k	added
+f_1_l	feminine noun/adjective ending in -l	added
+f_1_m	feminine noun/adjective ending in -m	added
+f_1_p	feminine noun/adjective ending in -p	added
+f_1_q	feminine noun/adjective ending in -ḍ	added
+f_1_r	feminine noun/adjective ending in -r	added
+f_1_s	feminine noun/adjective ending in -s	added
+f_1_t	feminine noun/adjective ending in -t	added
+f_1_w	feminine noun/adjective ending in -ṭ	added
+f_1_z	feminine noun/adjective ending in -ṣ	added
+f_E	feminine noun/adjective ending in -ai	added
+f_F	feminine noun/adjective ending in -ṝ (long ṛ)	added
+f_Iyas_I	feminine comparative adjective ending in -īyasī	added
+f_O	feminine noun/adjective ending in -au	added
+f_aYc_I	feminine noun/adjective ending in -añcī (directional)	added
+f_an_I	feminine noun/adjective ending in -anī (corresponding to masculine -an)	added
+f_as	feminine noun/adjective ending in -as	added
+f_in_I	feminine noun/adjective ending in -inī (corresponding to masculine -in)	added
+f_is	feminine noun/adjective ending in -is	added
+f_o	feminine noun/adjective ending in -o	added
+f_us	feminine noun/adjective ending in -us	added
+f_us_I	feminine noun/adjective ending in -uṣī (corresponding to masculine -us/vas)	added
+f_vas_I	feminine noun/adjective ending in -vasī (corresponding to masculine -vas)	added
+f_vat_I	feminine noun/adjective ending in -vatī (corresponding to masculine -vat)	added
+inj-a	verb in injunctive mood, active voice (parasmaipada)	added
+inj-m	verb in injunctive mood, middle voice (ātmanepada)	added
+inj-p	verb in injunctive mood, passive voice	added
+m_1_B	masculine noun/adjective ending in -bh	added
+m_1_C	masculine noun/adjective ending in -ch	added
+m_1_D	masculine noun/adjective ending in -dh	added
+m_1_G	masculine noun/adjective ending in -gh	added
+m_1_R	masculine noun/adjective ending in -ḍh	added
+m_1_S	masculine noun/adjective ending in -ś	added
+m_1_T	masculine noun/adjective ending in -th	added
+m_1_W	masculine noun/adjective ending in -ṭh	added
+m_1_c	masculine noun/adjective ending in -c	added
+m_1_d	masculine noun/adjective ending in -d	added
+m_1_g	masculine noun/adjective ending in -g	added
+m_1_h	masculine noun/adjective ending in -h	added
+m_1_j	masculine noun/adjective ending in -j	added
+m_1_k	masculine noun/adjective ending in -k	added
+m_1_l	masculine noun/adjective ending in -l	added
+m_1_m	masculine noun/adjective ending in -m	added
+m_1_p	masculine noun/adjective ending in -p	added
+m_1_q	masculine noun/adjective ending in -ḍ	added
+m_1_r	masculine noun/adjective ending in -r	added
+m_1_s	masculine noun/adjective ending in -s	added
+m_1_t	masculine noun/adjective ending in -t	added
+m_1_w	masculine noun/adjective ending in -ṭ	added
+m_1_z	masculine noun/adjective ending in -ṣ	added
+m_E	masculine noun/adjective ending in -ai	added
+m_F	masculine noun/adjective ending in -ṝ (long ṛ)	added
+m_Iyas	masculine comparative adjective ending in -īyas	added
+m_O	masculine noun/adjective ending in -au	added
+m_as	masculine noun/adjective ending in -as	added
+m_e	masculine noun/adjective ending in -e	added
+m_irr	masculine noun/adjective with irregular declension	added
+m_is	masculine noun/adjective ending in -is	added
+m_us	masculine noun/adjective ending in -us	added
+m_x	masculine noun/adjective with special/exceptional declension	added
+n_1_B	neuter noun/adjective ending in -bh	added
+n_1_C	neuter noun/adjective ending in -ch	added
+n_1_D	neuter noun/adjective ending in -dh	added
+n_1_R	neuter noun/adjective ending in -ḍh	added
+n_1_S	neuter noun/adjective ending in -ś	added
+n_1_T	neuter noun/adjective ending in -th	added
+n_1_c	neuter noun/adjective ending in -c	added
+n_1_d	neuter noun/adjective ending in -d	added
+n_1_g	neuter noun/adjective ending in -g	added
+n_1_h	neuter noun/adjective ending in -h	added
+n_1_j	neuter noun/adjective ending in -j	added
+n_1_k	neuter noun/adjective ending in -k	added
+n_1_l	neuter noun/adjective ending in -l	added
+n_1_m	neuter noun/adjective ending in -m	added
+n_1_p	neuter noun/adjective ending in -p	added
+n_1_r	neuter noun/adjective ending in -r	added
+n_1_s	neuter noun/adjective ending in -s	added
+n_1_t	neuter noun/adjective ending in -t	added
+n_1_w	neuter noun/adjective ending in -ṭ	added
+n_1_z	neuter noun/adjective ending in -ṣ	added
+n_E	neuter noun/adjective ending in -ai	added
+n_Iyas	neuter comparative adjective ending in -īyas	added
+n_as	neuter noun/adjective ending in -as	added
+n_is	neuter noun/adjective ending in -is	added
+n_us	neuter noun/adjective ending in -us	added
+ppf-a	verb in pluperfect tense, active voice (parasmaipada)	added

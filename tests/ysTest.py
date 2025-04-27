@@ -2,7 +2,7 @@ from typing import List, Dict, Any, Tuple
 import logging
 from pathlib import Path
 import json
-import pandas as pd
+import datetime
 from tests.datasets.yogaSutra import ys
 from process_sanskrit import process
 
@@ -121,7 +121,8 @@ class YogaSutraAnalyzer:
             self.results['expert_validations'][sutra_number] = []
             
         validation['expert_id'] = expert_id
-        validation['timestamp'] = pd.Timestamp.now()
+        validation['timestamp'] = datetime.datetime.now()
+
         
         self.results['expert_validations'][sutra_number].append(validation)
     

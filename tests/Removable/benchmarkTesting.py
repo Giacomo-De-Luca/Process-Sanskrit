@@ -3,7 +3,6 @@
 from process_sanskrit import process
 import time
 import json
-import pandas as pd
 from pathlib import Path
 import logging
 from typing import Dict, List, Any, Tuple

@@ -1,9 +1,22 @@
-import pandas as pd
 from process_sanskrit.utils.loadResources import get_resource_path
 
 # Load stopwords using the resource path helper
-stopwords = pd.read_csv(get_resource_path('stopwords.csv'))
-stopwords_as_list = stopwords['stopword'].tolist()
+stopwords_path = get_resource_path('stopwords.csv')
+stopwords_as_list = []
+try:
+    with open(stopwords_path, 'r', encoding='utf-8') as f:
+        # Assuming the first line is a header 'stopword', skip it
+        next(f)
+        # Read remaining lines, strip whitespace, and add to list
+        for line in f:
+            stopword = line.strip()
+            if stopword: # Ensure not adding empty lines
+                stopwords_as_list.append(stopword)
+except FileNotFoundError:
+    print(f"Warning: Stopwords file not found at {stopwords_path}. Stopword removal will not function.", file=sys.stderr)
+except Exception as e:
+    print(f"Warning: Error reading stopwords file {stopwords_path}: {e}. Stopword removal may be incomplete.", file=sys.stderr)
+
 
 def remove_stopwords(text_or_list):
     """

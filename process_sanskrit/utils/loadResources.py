@@ -24,6 +24,20 @@ with open(get_resource_path('MWKeysOnly.json'), 'r', encoding='utf-8') as f:
 ## so I can avoid using pandas 
 ## also a dictionary makes for faster lookups
 # 
-import pandas as pd
-# Read the Excel file into a DataFrame
-type_map = pd.read_excel(get_resource_path('type_map.xlsx'))
+def load_type_map(file_path):
+    """Load the type mapping from TSV file into a dictionary."""
+    type_map = {}
+    with open(file_path, 'r', encoding='utf-8') as f:
+        # Skip header line
+        next(f)
+        for line in f:
+            # Split by tab and extract the first two columns
+            parts = line.strip().split('\t')
+            if len(parts) >= 2:
+                abbr, description = parts[0], parts[1]
+                type_map[abbr] = description
+    return type_map
+
+type_map = load_type_map(get_resource_path('type_map.tsv'))
+
+
