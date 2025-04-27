@@ -13,7 +13,6 @@ def SQLite_find_name(name, session=None):
             query_builder = text("SELECT * FROM lgtab2 WHERE key = :word")
             results = session.execute(query_builder, {'word': word}).fetchall()
         except Exception as error:
-            print("Error while querying PostgreSQL:", error)
             results = []
         return results
 
@@ -37,7 +36,6 @@ def SQLite_find_name(name, session=None):
                 query_builder2 = text("SELECT * FROM lgtab1 WHERE stem = :root_form and model = :type ")
                 results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
             except Exception as error:
-                print("Error while querying PostgreSQL:", error)
                 results = []
             return results
         
@@ -72,7 +70,6 @@ def SQLite_find_verb(verb, session=None):
             query_builder = text("SELECT * FROM vlgtab2 WHERE key = :verb")
             results = session.execute(query_builder, {'verb': verb}).fetchall()
         except Exception as error:
-            print("Error while querying PostgreSQL:", error)
             results = []
 
         return results
@@ -91,7 +88,6 @@ def SQLite_find_verb(verb, session=None):
                 query_builder2 = text("SELECT * FROM vlgtab1 WHERE stem = :root_form and model = :type")
                 results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
             except Exception as error:
-                print("Error while querying PostgreSQL:", error)
                 results = []
 
             return results

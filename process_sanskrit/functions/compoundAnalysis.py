@@ -148,7 +148,7 @@ def dict_word_iterative(word, session=None, debug=False):
                 best_length = len(temp_word)
         
         # Try prefix matches on current word
-        prefix_match = try_match_with_prefixes(temp_word, debug)
+        prefix_match = try_match_with_prefixes(temp_word, debug=debug)
         if prefix_match and len(prefix_match[0]) > best_length:
             if debug:
                 print(f"Found prefix match: {prefix_match[0]}")
@@ -170,7 +170,7 @@ def dict_word_iterative(word, session=None, debug=False):
                         best_length = len(test_word)
                 
                 # Try prefix match on sandhi variant
-                prefix_match = try_match_with_prefixes(test_word, debug)
+                prefix_match = try_match_with_prefixes(test_word, debug=debug)
                 if prefix_match and len(prefix_match[0]) > best_length:
                     if debug:
                         print(f"Found prefix match on sandhi variant: {prefix_match[0]}")
@@ -226,7 +226,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: 
         # Try dictionary match with scoring
         if temp_word in DICTIONARY_REFERENCES:
             remaining = word[len(temp_word):]
-            split_score = evaluate_compound_split(temp_word, remaining,  session=session, debug)
+            split_score = evaluate_compound_split(temp_word, remaining,  session=session, debug=debug)
             
             if split_score > best_score:
                 if debug:
@@ -242,7 +242,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: 
                 test_word = temp_word[:-1] + variant
                 if test_word in DICTIONARY_REFERENCES:
                     remaining = word[len(test_word):]
-                    split_score = evaluate_compound_split(test_word, remaining,  session=session, debug)
+                    split_score = evaluate_compound_split(test_word, remaining,  session=session, debug=debug)
                     
                     if split_score > best_score:
                         if debug:
