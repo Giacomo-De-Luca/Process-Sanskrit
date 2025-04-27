@@ -9,8 +9,7 @@ import importlib.resources
 # GitHub Release Info
 REPO_OWNER = "Giacomo-De-Luca"
 REPO_NAME = "Process-Sanskrit"
-RELEASE_TAG = "v1.0.0" # Consider making this dynamic or configurable later
-ASSET_NAME = "SQliteDB.sqlite.gz" # Make sure this is correct!
+ASSET_NAME = "SQliteDB.sqlite.gz" 
 # Target Location within the package
 TARGET_FOLDER_NAME = "resources"
 # --- End Configuration ---

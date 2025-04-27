@@ -3,7 +3,7 @@ import regex
 from sqlalchemy.sql import text
 
 
-def SQLite_find_name(name, session=session):
+def SQLite_find_name(name, session=None):
 
     outcome = []    
 
@@ -62,7 +62,7 @@ def SQLite_find_name(name, session=session):
 
 
 
-def SQLite_find_verb(verb, session=session):
+def SQLite_find_verb(verb, session=None):
     
     root_form = None
 
@@ -140,7 +140,7 @@ def SQLite_find_verb(verb, session=session):
 
 
 
-def optimized_find_name(name, session=session):
+def optimized_find_name(name, session=None):
     """
     Optimized version of SQLite_find_name using a single JOIN query.
     Queries lgtab2 and lgtab1 tables to find inflection data for a given word.
@@ -204,7 +204,7 @@ def optimized_find_name(name, session=session):
         
     return outcome
 
-def optimized_find_verb(verb, session=session):
+def optimized_find_verb(verb, session=None):
     """
     Optimized version of SQLite_find_verb using a single JOIN query.
     Queries vlgtab2 and vlgtab1 tables to find conjugation data for a given verb.
