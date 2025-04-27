@@ -65,7 +65,7 @@ def evaluate_compound_split(first_part: str, remaining: str, debug: bool = False
                               f"penalizing by {properties.weight}")
     
     # Check if remaining part forms valid words
-    remaining_analysis = root_any_word(remaining)
+    remaining_analysis = root_any_word(remaining, session=session)
     if remaining_analysis:
         score += 0.4
         if debug:
@@ -132,7 +132,7 @@ def dict_word_iterative(word, debug=False):
         print(f"Attempting to match word: {word}")
     
     # First try root_any_word on complete word
-    root_result = root_any_word(temp_word)
+    root_result = root_any_word(temp_word, session=session)
     if root_result:
         if debug:
             print(f"Found inflected form: {temp_word}")
@@ -216,7 +216,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, debug: bool = False) 
         print(f"Attempting to match word: {word}")
     
     # First try root_any_word on complete word (keep existing logic)
-    root_result = root_any_word(temp_word)
+    root_result = root_any_word(temp_word, session=session)
     if root_result:
         if debug:
             print(f"Found inflected form: {temp_word}")
@@ -263,7 +263,7 @@ def dict_word_iterative(word: str, min_score: float = 0.6, debug: bool = False) 
 
 
 
-def root_compounds(word, debug=False, inflection=False, ):
+def root_compounds(word, debug=False, inflection=False, session=None):
     """
     Analyzes a long Sanskrit compound with improved sandhi handling between segments.
     """
@@ -318,7 +318,7 @@ def root_compounds(word, debug=False, inflection=False, ):
                         print(f"Trying with added {initial_vowel}: {test_word}")
 
                     # First try root_any_word with the sandhi-modified version
-                    root_result = root_any_word(test_word)
+                    root_result = root_any_word(test_word, session=session)
                     if root_result:
                         if debug:
                             print(f"Found inflected form with sandhi: {test_word}")
@@ -362,7 +362,7 @@ def root_compounds(word, debug=False, inflection=False, ):
         
         if inflection==True:
             # Process the matched word
-            root_entry = root_any_word(matched_word)
+            root_entry = root_any_word(matched_word, session=session)
             if root_entry:
                 if isinstance(root_entry, list):
                     roots.extend(root_entry)

@@ -1,26 +1,20 @@
 import re
 import regex
 from sqlalchemy.sql import text
-from process_sanskrit.utils.databaseSetup import Session
 
 
-
-
-def SQLite_find_name(name):
+def SQLite_find_name(name, session=session):
 
     outcome = []    
 
     def query1(word):
 
-        session = Session()
         try:
             query_builder = text("SELECT * FROM lgtab2 WHERE key = :word")
             results = session.execute(query_builder, {'word': word}).fetchall()
         except Exception as error:
             print("Error while querying PostgreSQL:", error)
             results = []
-        finally:
-            session.close()
         return results
 
     results = query1(name)
@@ -39,15 +33,12 @@ def SQLite_find_name(name):
 
         def query2(root_form: str, type: str):
 
-            session = Session()
             try:
                 query_builder2 = text("SELECT * FROM lgtab1 WHERE stem = :root_form and model = :type ")
                 results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
             except Exception as error:
                 print("Error while querying PostgreSQL:", error)
                 results = []
-            finally:
-                session.close()
             return results
         
         result = query2(root_form, type)
@@ -71,21 +62,19 @@ def SQLite_find_name(name):
 
 
 
-def SQLite_find_verb(verb):
+def SQLite_find_verb(verb, session=session):
     
     root_form = None
 
     def query1(verb):
 
-        session = Session()
         try:
             query_builder = text("SELECT * FROM vlgtab2 WHERE key = :verb")
             results = session.execute(query_builder, {'verb': verb}).fetchall()
         except Exception as error:
             print("Error while querying PostgreSQL:", error)
             results = []
-        finally:
-            session.close()
+
         return results
 
     result = query1(verb)
@@ -98,15 +87,13 @@ def SQLite_find_verb(verb):
 
         def query2(root_form: str, type: str):
 
-            session = Session()
             try:
                 query_builder2 = text("SELECT * FROM vlgtab1 WHERE stem = :root_form and model = :type")
                 results = session.execute(query_builder2, {'root_form': root_form, 'type': type}).fetchall()
             except Exception as error:
                 print("Error while querying PostgreSQL:", error)
                 results = []
-            finally:
-                session.close()
+
             return results
         
         result = query2(root_form, type)
@@ -153,7 +140,7 @@ def SQLite_find_verb(verb):
 
 
 
-def optimized_find_name(name):
+def optimized_find_name(name, session=session):
     """
     Optimized version of SQLite_find_name using a single JOIN query.
     Queries lgtab2 and lgtab1 tables to find inflection data for a given word.
@@ -166,7 +153,6 @@ def optimized_find_name(name):
     """
     outcome = []
     
-    session = Session()
     try:
         # Single query using JOIN to get all required data at once
         query = """
@@ -214,12 +200,11 @@ def optimized_find_name(name):
             
     except Exception as error:
         print(f"Error in database query: {error}")
-    finally:
-        session.close()
+
         
     return outcome
 
-def optimized_find_verb(verb):
+def optimized_find_verb(verb, session=session):
     """
     Optimized version of SQLite_find_verb using a single JOIN query.
     Queries vlgtab2 and vlgtab1 tables to find conjugation data for a given verb.
@@ -230,7 +215,6 @@ def optimized_find_verb(verb):
     Returns:
         list: List containing [stem, model, row_col_names, inflection_words, verb]
     """
-    session = Session()
     try:
         query = """
         SELECT 
@@ -270,5 +254,3 @@ def optimized_find_verb(verb):
     except Exception as error:
         print(f"Error in database query: {error}")
         return None
-    finally:
-        session.close()

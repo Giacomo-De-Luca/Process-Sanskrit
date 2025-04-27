@@ -6,12 +6,8 @@ from process_sanskrit.functions.sandhiSplitScorer import SandhiSplitScorer
 from dataclasses import dataclass
 from sanskrit_parser import Parser
 
+## cache is currently not used and commented out
 
-### useless?
-from process_sanskrit.utils.databaseSetup import Session, SplitCache
-
-
-session = Session()
 scorer = SandhiSplitScorer()
 parser = Parser(output_encoding='iast')
 
@@ -44,24 +40,24 @@ def enhanced_sandhi_splitter(
     - If detailed_output=True: Tuple[List[str], float, Dict, Optional[List]]
     """
     # Check cache first
-    if cached:
-        cached_result = session.query(SplitCache).filter_by(input=text_to_split).first()
-        if cached_result:
-            cached_splits = ast.literal_eval(cached_result.splitted_text)
-            print(f"Retrieved from cache: {cached_splits}")
+    #if cached:
+    #    cached_result = session.query(SplitCache).filter_by(input=text_to_split).first()
+    #    if cached_result:
+    #        cached_splits = ast.literal_eval(cached_result.splitted_text)
+    #        print(f"Retrieved from cache: {cached_splits}")
             
             # Even for cached results, we'll score them to ensure best split
-            if isinstance(cached_splits, list) and isinstance(cached_splits[0], list):
-                splits_to_score = cached_splits
-            else:
-                splits_to_score = [cached_splits]
+    #        if isinstance(cached_splits, list) and isinstance(cached_splits[0], list):
+    #            splits_to_score = cached_splits
+    #        else:
+    #            splits_to_score = [cached_splits]
             
-            ranked_splits = scorer.rank_splits(splits_to_score)
-            best_split, best_score, subscores = ranked_splits[0]
-            
-            if detailed_output:
-                return best_split, best_score, subscores, ranked_splits
-            return best_split
+    #        ranked_splits = scorer.rank_splits(splits_to_score)
+    #        best_split, best_score, subscores = ranked_splits[0]
+    #        
+    #        if detailed_output:
+    #            return best_split, best_score, subscores, ranked_splits
+    #        return best_split
 
     try:
         # Get all possible splits
@@ -89,13 +85,13 @@ def enhanced_sandhi_splitter(
         best_split, best_score, subscores = ranked_splits[0]
         
         # Cache the result if needed
-        if cached:
-            new_cache_entry = SplitCache(
-                input=text_to_split, 
-                splitted_text=str([split for split, _, _ in ranked_splits])
-            )
-            session.add(new_cache_entry)
-            session.commit()
+        #if cached:
+        #    new_cache_entry = SplitCache(
+        #        input=text_to_split, 
+        #        splitted_text=str([split for split, _, _ in ranked_splits])
+        #    )
+        #    session.add(new_cache_entry)
+        #    session.commit()
             #print(f"Added to cache: {best_split}")
 
         if detailed_output:

@@ -21,7 +21,7 @@ from functools import lru_cache
 
 
 @lru_cache(maxsize=256)
-def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, Dict[str, List[str]]]:
+def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[str, Dict[str, List[str]]]:
     dict_names: List[str] = []
     dict_results: Dict[str, Dict[str, List[str]]] = {}
     name_component: str = ""
@@ -112,7 +112,7 @@ def multidict(name: str, *args: str, source: str = "MW") -> Dict[str, Dict[str, 
 
 
 
-def consult_references(word: str, *dict_names: str) -> list[str, str, list[str]]:
+def consult_references(word: str, *dict_names: str, session=None) -> list[str, str, list[str]]:
     # Start with the dictionaries the user requested
     search_dictionaries = [*dict_names]
 
@@ -129,7 +129,7 @@ def consult_references(word: str, *dict_names: str) -> list[str, str, list[str]]
               f"Adding dictionaries: {additional_dicts}")
 
     # Now perform the search with either original or expanded dictionary list
-    results = multidict(word, *search_dictionaries)
+    results = multidict(word, *search_dictionaries, session=session)
     
     if results[1]:  # If we found entries
         return results
@@ -139,70 +139,63 @@ def consult_references(word: str, *dict_names: str) -> list[str, str, list[str]]
 
 
 
-def get_voc_entry(list_of_entries, *args, source: str = "mw"):
+def get_voc_entry(list_of_entries, *args, source: str = "mw", session=None):
+    """
+    Get vocabulary entries for a list of words.
+    
+    Args:
+        list_of_entries: Words to look up
+        *args: Dictionary names to search
+        source: Default dictionary
+        session: SQLAlchemy session to use (improves performance)
+    """
+    # Create session at the top level if not provided
+    close_session = False
+    if session is None:
+        from process_sanskrit.utils.databaseSetup import get_session
+        session = get_session()
+        close_session = True
+    
+    try:
+        dict_names: List[str] = [*args]
 
-    dict_names: List[str] = [*args]
+        # Collect dictionary names
+        if not dict_names:
+            dict_names.append(source)
 
+        entries = []
+        for entry in list_of_entries:        
+            if isinstance(entry, list):
+                word = entry[0]
 
-    # Collect dictionary names
-    if not dict_names:
-        dict_names.append(source)
-
-    #print("dict_names", dict_names)
-
-    #print("list_of_entries", list_of_entries)
-    entries = []
-    for entry in list_of_entries:        
-        if isinstance(entry, list):
-
-            #print("entry", entry)
-
-            word = entry[0]
-
-            if '*' not in word and '_' not in word and '%' not in word:
-
-                if word in DICTIONARY_REFERENCES.keys():  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi                    
-                    entry = entry + consult_references(word, *dict_names)
-
+                if '*' not in word and '_' not in word and '%' not in word:
+                    if word in DICTIONARY_REFERENCES.keys():
+                        entry = entry + consult_references(word, *dict_names, session=session)
+                    else:
+                        entry = [entry, entry, [entry]]
+                    entries.append(entry)
                 else:
-                    entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
-
-                entries.append(entry)
-            else:
-                entry = entry + consult_references(word, *dict_names)
-                entries.append(entry)
-            
-        elif isinstance(entry, str):
-            
-            if '*' not in entry and '_' not in entry and '%' not in entry:
-                if entry in DICTIONARY_REFERENCES.keys():  # Check if the key exists ## check non nel dizionario, ma solo nella lista chiavi
-                    entry = [entry] + consult_references(entry, *dict_names)
-
-                elif entry[:3] in samMap:
+                    entry = entry + consult_references(word, *dict_names, session=session)
+                    entries.append(entry)
+                
+            elif isinstance(entry, str):
+                if '*' not in entry and '_' not in entry and '%' not in entry:
+                    if entry in DICTIONARY_REFERENCES.keys():
+                        entry = [entry] + consult_references(entry, *dict_names, session=session)
+                    elif entry[:3] in samMap:
                         tentative = samMap[entry[:3]] + entry[3:]
                         if tentative in DICTIONARY_REFERENCES.keys():
-                            entry = [entry] + consult_references(tentative, *dict_names)
+                            entry = [entry] + consult_references(tentative, *dict_names, session=session)
                         else:
                             entry = [entry, entry, [entry]]
-
+                    else:
+                        entry = [entry, entry, [entry]]
+                    entries.append(entry)
                 else:
-                    entry = [entry, entry, [entry]]  # Append the original word for key2 and dict_entry
-                entries.append(entry)
-            else:
-                entry = [entry] + consult_references(entry, *dict_names)
-                entries.append(entry)
-    return entries
-
-
-
-
-def get_mwword(word:str)->list[str, str, list[str]] : 
-        session = Session()
-        query_builder = text("SELECT components, cleaned_body FROM mwclean WHERE keys_iast = :word")
-        results = session.execute(query_builder, {'word': word}).fetchall()
-        session.close()        
-        components = results[0][0]
-        result_list = [row[1] for row in results]
+                    entry = [entry] + consult_references(entry, *dict_names, session=session)
+                    entries.append(entry)
         
-        return [components, result_list]
-
+        return entries
+    finally:
+        if close_session:
+            session.close()

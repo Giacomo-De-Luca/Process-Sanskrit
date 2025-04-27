@@ -76,12 +76,12 @@ def handle_tva(word: str) -> Optional[List]:
                 print(f"Reconstructed form: {analysis_form}")
                 
                 # Analyze this reconstructed form
-                base_analysis = root_any_word(analysis_form)
+                base_analysis = root_any_word(analysis_form, session=session)
 
                 print(f"Base analysis: {base_analysis}")
             
             else: 
-                base_analysis = root_any_word(base)
+                base_analysis = root_any_word(base, session=session)
                 ## here it should replace the case ending with the corrisponding case ending of the tva form
                 ## base analysis[2] = list of tuples for cases:  [('Nom', 'Sg'), ('Acc', 'Sg')],
                 ## 
@@ -97,7 +97,9 @@ def handle_tva(word: str) -> Optional[List]:
     return None
 
 @lru_cache(maxsize=256)
-def root_any_word(word, attempted_words=None, timed=False):
+def root_any_word(word, attempted_words=None, timed=False, session=None):
+    
+
     if attempted_words is None:
         attempted_words = frozenset()
     
@@ -114,7 +116,7 @@ def root_any_word(word, attempted_words=None, timed=False):
         start_time = time.time()
 
     if word: 
-        result_roots_name = SQLite_find_name(word)
+        result_roots_name = SQLite_find_name(word, session=session)
     else:
         return None
     
@@ -123,7 +125,7 @@ def root_any_word(word, attempted_words=None, timed=False):
 
     if timed:
         start_time = time.time()
-    result_roots_verb = SQLite_find_verb(word)
+    result_roots_verb = SQLite_find_verb(word, session=session)
     if timed:
         print(f"SQLite_find_verb({word}) took {time.time() - start_time:.6f} seconds")
 
@@ -154,7 +156,7 @@ def root_any_word(word, attempted_words=None, timed=False):
             if tentative not in attempted_words:
                 print (f"tentative: {tentative}")
                 print (f"attempted_words: {attempted_words}")
-                attempt = root_any_word(tentative, attempted_words, timed)
+                attempt = root_any_word(tentative, attempted_words, timed, session=session)
                 if timed:
                     print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
                 if attempt:
@@ -169,7 +171,7 @@ def root_any_word(word, attempted_words=None, timed=False):
         tentative = samMap[word[0:3]] + word[3:]
         if timed:
             start_time = time.time()
-        attempt = root_any_word(tentative, attempted_words, timed)
+        attempt = root_any_word(tentative, attempted_words, timed, session=session)
         if timed:
             print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
         if attempt is not None:
@@ -179,7 +181,7 @@ def root_any_word(word, attempted_words=None, timed=False):
 
     if result_roots is None:
         #print("to test with tva", word)
-        tva_result = handle_tva(word)
+        tva_result = handle_tva(word, session=session)
         #print("tva_result", tva_result)
         if tva_result:
             return tva_result
@@ -189,14 +191,14 @@ def root_any_word(word, attempted_words=None, timed=False):
     for prefix in SANSKRIT_PREFIXES:
         if word.startswith(prefix):
             remainder = word[len(prefix):]
-            attempt = root_any_word(remainder)
+            attempt = root_any_word(remainder, session=session)
             if attempt is not None:
                 print("attempt", attempt)
                 print("prefix", prefix)
                 if prefix == 'ud': 
-                    result = root_any_word('ut') + attempt
+                    result = root_any_word('ut', session=session) + attempt
                 else: 
-                    result = root_any_word(prefix) + attempt
+                    result = root_any_word(prefix, session=session) + attempt
                 for match in result: 
                     if len(match) == 5:
                         match[4] = word
@@ -205,9 +207,9 @@ def root_any_word(word, attempted_words=None, timed=False):
                 for nested_prefix in SANSKRIT_PREFIXES:
                     if remainder.startswith(nested_prefix):
                         nested_remainder = remainder[len(nested_prefix):]
-                        nested_attempt = root_any_word(nested_remainder)
+                        nested_attempt = root_any_word(nested_remainder, session=session)
                         if nested_attempt is not None:
-                            result =  root_any_word(prefix) + root_any_word(nested_prefix) + nested_attempt
+                            result =  root_any_word(prefix, session=session) + root_any_word(nested_prefix, session=session) + nested_attempt
                             for match in result: 
                                 if len(match) == 5:
                                     match[4] = word

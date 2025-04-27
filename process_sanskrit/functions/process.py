@@ -36,7 +36,6 @@ from process_sanskrit.utils.lexicalResources import (
     SANSKRIT_PREFIXES
 )
 from process_sanskrit.utils.transliterationUtils import transliterate
-from process_sanskrit.utils.databaseSetup import Session, engine, Base
 
 ### import the sandhiSplitScorer and construct the scorer object. 
 
@@ -47,7 +46,8 @@ from process_sanskrit.functions.hybridSplitter import hybrid_sandhi_splitter
 from process_sanskrit.functions.inflect import inflect
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 
-session = Session()
+
+from process_sanskrit.utils.databaseSetup import session_scope, with_session, requires_database
 
 
 
@@ -110,7 +110,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     # Handle wildcard search with asterisk
     if text.endswith('*'):
         transliterated_text = transliterate(text[:-1], "IAST")
-        voc_entry = get_voc_entry([transliterated_text], *dict_names)
+        voc_entry = get_voc_entry([transliterated_text], *dict_names, session=session)
         if voc_entry is not None:
             return voc_entry
         return process(text[:-1])
@@ -118,7 +118,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
         transliterated_text = transliterate(text, "IAST")
-        voc_entry = get_voc_entry([transliterated_text], *dict_names)
+        voc_entry = get_voc_entry([transliterated_text], *dict_names, session=session)
         if voc_entry is not None:
             return voc_entry
         return process(text)
@@ -137,8 +137,10 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 
 ### roots should be replaced by output="roots" in the function signature
 ### by default, output = "detailed"
+@requires_database
+@with_session
 @lru_cache
-def process(text, *dict_names, max_length=100, debug=False, mode="detailed", count_types = False):
+def process(text, *dict_names, max_length=100, debug=False, mode="detailed", count_types = False, session=None):
 
     ## the part about count types can be safely removed 
     counts = {"word_calls": 1, "hybrid_splitter": 0, "compound_calls": 0} if count_types else None
@@ -186,18 +188,18 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
         #    return result
 
         ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
-        result = root_any_word(text)
+        result = root_any_word(text, session=session)
 
         if result is None and "ṅ" in text:
             ## this is removed, it was not triggering, and it was not clear if it was useful: or "ñ" in text
             tentative = text.replace("ṅ", "ṃ")
-            attempt = root_any_word(tentative)
+            attempt = root_any_word(tentative, session=session)
             if attempt is not None:
                 result = attempt
         
         if result is None and "ṁ" in text:
             tentative = text.replace("ṁ", "ṃ")
-            attempt = root_any_word(tentative)
+            attempt = root_any_word(tentative, session=session)
             if attempt is not None:
                 result = attempt
 
@@ -206,7 +208,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
         if result is None and text[0:1] == "ch":
             #print("tentative", text)
             tentative = 'ś' + text[1:] 
-            attempt = root_any_word(tentative)
+            attempt = root_any_word(tentative, session=session)
             #print("attempt", attempt)
             if attempt is not None:
                 result = attempt
@@ -221,7 +223,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
                 elif isinstance(res, list):
                     if isinstance(res[0], str):
                         res[0] = res[0].replace('-', '')
-            result_vocabulary = get_voc_entry(result, *dict_names)
+            result_vocabulary = get_voc_entry(result, *dict_names, session=session)
 
             if debug == True: 
                 print("result_vocabulary", result_vocabulary)
@@ -230,7 +232,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
             if isinstance(result_vocabulary, list):
                 
                 if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
-                    replacement = get_voc_entry([result[0][4]], *dict_names)
+                    replacement = get_voc_entry([result[0][4]], *dict_names, session=session)
                     if debug:
                         print("replacement", replacement[0])
                         print("len replacement", len(replacement[0]))
@@ -243,7 +245,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
             return clean_results(result_vocabulary, debug=debug, mode=mode)
         else:
             ## if result is None, we try to find the word in the dictionary for exact match
-            result_vocabulary = get_voc_entry([text], *dict_names)  
+            result_vocabulary = get_voc_entry([text], *dict_names, session=session)  
             #print("result_vocabulary", result_vocabulary)
             if isinstance(result_vocabulary[0][2], dict):
             #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
@@ -264,8 +266,8 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
 
     if debug == True:
         print("splitted_text", splitted_text)
-    inflections = inflect(splitted_text) 
-    inflections_vocabulary = get_voc_entry(inflections, *dict_names)
+    inflections = inflect(splitted_text, session=session) 
+    inflections_vocabulary = get_voc_entry(inflections, *dict_names, session=session)
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
       
     return clean_results(inflections_vocabulary, debug=debug, mode=mode)
