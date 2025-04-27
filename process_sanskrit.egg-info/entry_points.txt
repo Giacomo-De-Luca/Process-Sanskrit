@@ -1,2 +1,0 @@
-[console_scripts]
-update-ps-database = process_sanskrit.setup.updateDB:update_database
