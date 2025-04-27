@@ -1,4 +1,5 @@
 LICENSE.md
+MANIFEST.in
 README.md
 pyproject.toml
 setup.py
@@ -23,6 +24,14 @@ process_sanskrit/functions/processBYT5.py
 process_sanskrit/functions/rootAnyWord.py
 process_sanskrit/functions/rootAnyWordBackup.py
 process_sanskrit/functions/sandhiSplitScorer.py
+process_sanskrit/resources/MWKeysOnly.json
+process_sanskrit/resources/SQliteDB.sqlite
+process_sanskrit/resources/__init__.py
+process_sanskrit/resources/dictionary_references.json
+process_sanskrit/resources/stopwords.csv
+process_sanskrit/resources/type_abbreviation.tsv
+process_sanskrit/resources/type_map.xlsx
+process_sanskrit/resources/~$type_map.xlsx
 process_sanskrit/setup/updateDB.py
 process_sanskrit/utils/__init__.py
 process_sanskrit/utils/databaseSetup.py
@@ -33,3 +42,22 @@ process_sanskrit/utils/loadResources.py
 process_sanskrit/utils/processAPI.py
 process_sanskrit/utils/stopwordsRemoval.py
 process_sanskrit/utils/transliterationUtils.py
+tests/BYT5test.py
+tests/__init__.py
+tests/gretilTesting.py
+tests/processCompounds.py
+tests/runBenchmarks.py
+tests/ysTest.py
+tests/Removable/benchmarkTesting.py
+tests/Removable/dbTest.py
+tests/datasets/sanskrit_compounds_benchmark.json
+tests/datasets/sanskrit_compounds_benchmark2.json
+tests/datasets/testCases.py
+tests/datasets/yogaSutra.py
+tests/results/compound_processing_results copy.txt
+tests/results/compound_processing_results.txt
+tests/results/compound_processing_resultsGrouped.txt
+tests/results/sanskrit_benchmark_results.txt
+tests/results/standard_benchmark_results.txt
+tests/results/yoga_sutra_analysis.txt
+tests/results/~$mpound_processing_results.txt
