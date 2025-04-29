@@ -1,6 +1,6 @@
 # Process-Sanskrit
 
-Process-Sanskrit is a light-computing library for Sanskrit text analysis and annotation that requires no pre-processing.
+Process-Sanskrit is a light-computing library for Sanskrit text analysis, annotation and inflected dictionary search. 
 
 The library has two main use cases: 
 
@@ -22,25 +22,26 @@ Or search some inflected and sandhi-ed words in the search bar to get the dictio
 
 ## Installation
 
-To install the library use the standard pip command: 
+To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database. 
 
 ```bash
 pip install process-sanskrit
+update-ps-database
 ```
 
-After installing the library using pip, type ***update-ps-database***  in the command line. 
+The command downloads and setup the database with the dictionaries and the inflection tables in the resources folder (150 mb download, 583 mb uncompressed, (Creative Commons NC license)[[https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)]): 
 
-The command downloads and setup the database with the dictionaries and the inflection tables in the resources folder (150 mb download, 583 mb uncompressed, (Creative Commons NC license)[ [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)]): 
+```python
 
-```bash
-update-ps-database
+## if inside jupyter or colab use:
 
--- if inside jupyter or colab use:
-
+!pip install process-sanskrit
 !update-ps-database
 
--- only the transliteration function works without the database! 
 ```
+
+*only **transliterate** works without the database!*
+
 
 ## Process Function:
 
@@ -179,4 +180,3 @@ The **BYT5 model** used in the experimental version of the process function is f
 
 [https://arxiv.org/abs/2409.13920](https://arxiv.org/abs/2409.13920)
 
-*The current implementation requires about 2gb of ram in total without a GPU.  The version of process that employs BYT5 for sandhi removal and compound splitting (stemming is still handled by the inflection tables) instead of Sanskrit Parser requires about 6gb including RAM and VRAM.*

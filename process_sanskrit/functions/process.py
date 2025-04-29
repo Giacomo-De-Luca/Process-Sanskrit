@@ -226,7 +226,14 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
             if debug == True: 
                 print("result_vocabulary", result_vocabulary)
 
-            ## if the word is inside the dictionary, we return the entry directly, since it will be accurate. 
+            ## TODO the following employs a wrong logic and should be edited
+            ## we should add the dictionary entry as a possibility only instead  
+            ## and attach it to the list, giving it a from : 'original entry'
+            ## also it should Never check for the final 'H'. otherwise it will trigger all the time using the APTE dict 
+            ## in case of nominatives.
+
+            ## if the word is inside the dictionary, we return the entry directly, since it will be accurate.
+            ## 
             #if isinstance(result_vocabulary, list):
             #    
             #    if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
