@@ -87,8 +87,7 @@ def processBYT5(text: Union[str, List[str]], mode="detailed", *dict_names) -> Un
             processed_segment = []
             for word in word_list:
                 word_result = process(word, mode=mode, *dict_names)
-                for root_result in word_result:
-                    processed_results.append(root_result)
+                processed_segment.append(word_result)
             
             # Join results if mode="roots" was specified
             if mode == "roots":
