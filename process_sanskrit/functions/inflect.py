@@ -79,12 +79,9 @@ def inflect(splitted_text, debug=False, session=None):
                     roots.append(word)
             i += 1
 
-    # Transliterate roots
     for j in range(len(roots)):
         if isinstance(roots[j], list):
-            start_time = time.time()
             roots[j][0] = roots[j][0].replace('-', '')
         else:
-            start_time = time.time()
             roots[j] = roots[j].replace('-', '')
     return roots

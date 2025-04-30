@@ -22,10 +22,17 @@ Or search some inflected and sandhi-ed words in the search bar to get the dictio
 
 ## Installation
 
-To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database. 
+To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database.
+
+A venv, colab, environment or docker is highly recommended to use gensim. 
+For the experimental BYT5 version 
 
 ```bash
-pip install process-sanskrit
+pip install process-sanskrit[gensim]
+update-ps-database
+
+or
+pip install process-sanskrit[BYT5]
 update-ps-database
 ```
 
@@ -35,7 +42,7 @@ The command downloads and setup the database with the dictionaries and the infle
 
 ## if inside jupyter or colab use:
 
-!pip install process-sanskrit
+!pip install process-sanskrit[gensim]
 !update-ps-database
 
 ```

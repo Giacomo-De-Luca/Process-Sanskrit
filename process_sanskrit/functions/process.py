@@ -27,7 +27,6 @@ import regex
 from sqlalchemy.orm import sessionmaker, Session
 from typing import List, Dict, Tuple, Union, Optional
 import time
-from functools import lru_cache
 
 
 from process_sanskrit.utils.lexicalResources import (
@@ -40,19 +39,16 @@ from process_sanskrit.utils.transliterationUtils import transliterate
 ### import the sandhiSplitScorer and construct the scorer object. 
 
 from process_sanskrit.functions.rootAnyWord import root_any_word
-from process_sanskrit.functions.dictionaryLookup import get_voc_entry, multidict
+from process_sanskrit.functions.dictionaryLookup import dict_search, multidict
 from process_sanskrit.functions.cleanResults import clean_results
 from process_sanskrit.functions.hybridSplitter import hybrid_sandhi_splitter
 from process_sanskrit.functions.inflect import inflect
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
-
-
 from process_sanskrit.utils.databaseSetup import session_scope, with_session, requires_database
 
 
 
 ### get the version of the library
-
 
 logging.basicConfig(level=logging.CRITICAL)
 
@@ -70,7 +66,13 @@ def preprocess(text, max_length=100, debug=False):
             # Trim up to the last whitespace
             text = text[:last_space_index]
 
-    ## jj occours only in sandhi and we know it should be split into two words. 
+    ## this may lead to errors
+    ## it should be like this:
+    ## if jj in text
+    ## check if jj occours inside one of the 20 words or so that have jj inside
+    ## in that case keep it,
+    ## otherwise replace it with j j
+    ## this is a temporary fix, it should be improved
     if 'jj' in text:
         text = text.replace('jj', 'j j')
 
@@ -80,10 +82,14 @@ def preprocess(text, max_length=100, debug=False):
     if text[0] == "'":
         text = 'a' + text[1:]
 
+    text = regex.sub('[^\p{L}\'_%*-+]', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+    text = text.strip()
+
     return text
 
 
-def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] = None) -> Optional[List]:
+def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] = None, session=None) -> Optional[List]:
     """
     Handle text preprocessing for special characters including wildcards and compound splits.
     This function processes special characters that require specific handling before 
@@ -110,15 +116,14 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     # Handle wildcard search with asterisk
     if text.endswith('*'):
         transliterated_text = transliterate(text[:-1], "IAST")
-        voc_entry = get_voc_entry([transliterated_text], *dict_names, session=session)
+        voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if voc_entry is not None:
             return voc_entry
         return process(text[:-1])
 
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
-        transliterated_text = transliterate(text, "IAST")
-        voc_entry = get_voc_entry([transliterated_text], *dict_names, session=session)
+        voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if voc_entry is not None:
             return voc_entry
         return process(text)
@@ -139,20 +144,10 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 ### by default, output = "detailed"
 @requires_database
 @with_session
-@lru_cache
-def process(text, *dict_names, max_length=100, debug=False, mode="detailed", count_types = False, session=None):
+def process(text, *dict_names, max_length=100, debug=False, mode="detailed", session=None):
 
-    ## the part about count types can be safely removed 
-    counts = {"word_calls": 1, "hybrid_splitter": 0, "compound_calls": 0} if count_types else None
     
     text = preprocess(text, max_length=max_length, debug=debug)
-
-    ## remove all non-alphabetic characters
-    text = regex.sub('[^\p{L}\']', ' ', text)
-    text = re.sub(r'\s+', ' ', text)
-
-    ## aggiungi alla versione online
-    text = text.strip()
 
     ## if text is none return empty list
     if not text:
@@ -165,25 +160,14 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
 
     if ' ' not in text:
 
-        check_special_characters = handle_special_characters(text, dict_names)
-        if check_special_characters is not None and not count_types:
+        check_special_characters = handle_special_characters(text, dict_names, session=session)
+        if check_special_characters is not None:
             return check_special_characters
 
         ## do some preliminary cleaning using sandhi rules ## to remove use a map of tests to apply, and a map of replacements v --> u, s-->H, etc
         
         if text and text[-1] in sanskritFixedSandhiMap:
             text = text[:-1] + sanskritFixedSandhiMap[text[-1]]
-
-        ## move this to the fixed sandhi map
-        elif text[-1] == 'ś':
-            text = text[:-1] + 'ḥ'
-
-        #print("text", text)
-        #if "o'" in text:
-        #    modified_text = re.sub(r"o'", "aḥ a", text)
-            #print("modified_text", modified_text)
-        #    result = process(modified_text)
-        #    return result
 
         ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
         result = root_any_word(text, session=session)
@@ -221,7 +205,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
                 elif isinstance(res, list):
                     if isinstance(res[0], str):
                         res[0] = res[0].replace('-', '')
-            result_vocabulary = get_voc_entry(result, *dict_names, session=session)
+            result_vocabulary = dict_search(result, *dict_names, session=session)
 
             if debug == True: 
                 print("result_vocabulary", result_vocabulary)
@@ -237,7 +221,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
             #if isinstance(result_vocabulary, list):
             #    
             #    if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
-            #        replacement = get_voc_entry([result[0][4]], *dict_names, session=session)
+            #        replacement = dict_search([result[0][4]], *dict_names, session=session)
             #        if debug:
             #            print("replacement", replacement[0])
             #            print("len replacement", len(replacement[0]))
@@ -245,91 +229,30 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", cou
             #            result_vocabulary.insert(0, replacement[0])
 
             #print("result_vocabulary", result_vocabulary)
-            if count_types:
-                return counts
             return clean_results(result_vocabulary, debug=debug, mode=mode)
         else:
             ## if result is None, we try to find the word in the dictionary for exact match
-            result_vocabulary = get_voc_entry([text], *dict_names, session=session)  
+            result_vocabulary = dict_search([text], *dict_names, session=session)  
             #print("result_vocabulary", result_vocabulary)
             if isinstance(result_vocabulary[0][2], dict):
             #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
-                if count_types:
-                    return counts
                 return clean_results(result_vocabulary, debug=debug, mode=mode)
     
     ## given that the text is composed of multiple words, we split them first then analyse one by one
     ## attempt to remove sandhi and tokenise in any case
 
-    if count_types:
-        counts["hybrid_splitter"] += 1
-        compound_calls = hybrid_sandhi_splitter(text, count_types=True)
-        counts["compound_calls"] += compound_calls
-        return counts
-    else:
-        splitted_text = hybrid_sandhi_splitter(text, detailed_output=debug)
 
+    splitted_text = hybrid_sandhi_splitter(text)
     if debug == True:
-        print("splitted_text", splitted_text)
+        print("splitted_text_here", splitted_text)
     inflections = inflect(splitted_text, session=session) 
-    inflections_vocabulary = get_voc_entry(inflections, *dict_names, session=session)
+    if debug == True:
+        print("inflections after splitting", inflections)
+    inflections_vocabulary = dict_search(inflections, *dict_names, session=session)
+
+    ## should this really be kept? 
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
       
     return clean_results(inflections_vocabulary, debug=debug, mode=mode)
 
 
-
-
-def process_texts(texts, errors=False):
-    """
-    Process multiple Sanskrit texts and count function calls.
-    
-    Parameters:
-    - texts: A string or list of strings to process
-    - errors: If True, return error words list along with counts
-    
-    Returns:
-    - Dictionary with counts for each function type
-    - List of words that caused errors (if errors=True)
-    """
-    # Initialize counts
-    total_counts = {"word_calls": 0, "hybrid_splitter": 0, "compound_calls": 0}
-    error_words = []  # List to track words that caused errors
-    
-    # Convert single string to list and handle lists
-    if isinstance(texts, str):
-        text_list = texts.split()
-    else:
-        # If texts is already a list, flatten it into words
-        text_list = []
-        for item in texts:
-            if item:
-                text_list.extend(item.split())
-    
-    # Process each word that contains alphabetical characters
-    for word in text_list:
-        # Check if the word contains at least one alphabetical character
-        if regex.search(r'\p{L}', word):
-            try:
-                counts = process(
-                    word, 
-                    count_types=True
-                )
-                
-                # Aggregate counts
-                total_counts["word_calls"] += counts["word_calls"]
-                total_counts["hybrid_splitter"] += counts["hybrid_splitter"]
-                total_counts["compound_calls"] += counts["compound_calls"]
-            except Exception as e:
-                # Log the error and continue with the next word
-                error_words.append(word)
-                print(f"Error processing word '{word}': {str(e)}")
-                continue
-    
-    # Add error count to the result
-    total_counts["errors"] = len(error_words)
-
-    if errors:
-        return total_counts, error_words
-    
-    return total_counts

@@ -43,7 +43,7 @@ def get_dict_entry():
     data = request.get_json()
     word = data.get('word')
     if word is not None:
-        entry = process_sanskrit.get_voc_entry([word])
+        entry = process_sanskrit.dict_search([word])
         return jsonify(entry)
     else:
         return jsonify({'error': 'Missing word'}), 400
@@ -70,7 +70,7 @@ client = OpenAI(
 api_key=api_key)
 responses = {}
 
-def API_call (context, content):    
+def translate_call (context, content):    
     response = client.chat.completions.create(
         model="gpt-4-O",
         response_format={"type": "json_object"},
@@ -78,7 +78,7 @@ def API_call (context, content):
             {"role": "system", "content": context},
             {"role": "user", "content": f"{content}"}
         ],
-    temperature=0.7,
+    temperature=0.5,
     max_tokens=2000,
     top_p=1,
     frequency_penalty=0,
@@ -122,7 +122,7 @@ def fix_json(json_string):
 @cross_origin()
 def translate_text():
     content = request.data.decode('utf-8')
-    responses = API_call(context, content) 
+    responses = translate_call(context, content) 
 
     # Create a unique filename using the current time
     filename = datetime.now().strftime('%Y-%m-%d_%H-%M-%S.json')

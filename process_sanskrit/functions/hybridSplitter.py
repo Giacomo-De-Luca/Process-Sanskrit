@@ -11,7 +11,6 @@ def hybrid_sandhi_splitter(
     attempts: int = 20,
     detailed_output: bool = False,
     score_threshold: float = 0.535,
-    count_types: bool = False
 ) -> Union[List[str], Tuple[List[str], float, Dict, List], Tuple[List[str], Dict]]:
     """
     Enhanced sandhi splitter that combines statistical splitting with root compound analysis.
@@ -26,7 +25,6 @@ def hybrid_sandhi_splitter(
     """
 
      # Initialize counts dictionary if tracking
-    compound_calls = 0 if count_types else None
     # First try our enhanced statistical splitter
     if detailed_output:
         stat_split, stat_score, stat_subscores, all_splits = enhanced_sandhi_splitter(
@@ -50,16 +48,12 @@ def hybrid_sandhi_splitter(
         if detailed_output:
             print("stat_score", stat_score)
             print("stat_split", stat_split)
-        if count_types:
-            return compound_calls
         if detailed_output:
             return stat_split, stat_score, stat_subscores, all_splits
         return stat_split
 
     # If score is too low, try root compound analysis
     try:
-        if count_types:
-            compound_calls += 1
         if detailed_output == True:
             print("text_to_split", text_to_split)
         root_analysis = root_compounds(text_to_split, inflection=False)
@@ -79,8 +73,6 @@ def hybrid_sandhi_splitter(
 
             # Compare scores and choose the better result
             if root_score > stat_score:
-                if count_types:
-                    return compound_calls
                 if detailed_output:
                     # Add root split to all_splits for reference
                     all_splits = [(root_split, root_score, root_subscores)] + (all_splits if all_splits else [])
@@ -89,9 +81,6 @@ def hybrid_sandhi_splitter(
 
     except Exception as e:
         print(f"Root compound analysis failed: {str(e)}")
-
-    if count_types:
-        return compound_calls
 
     # Fall back to statistical split if root analysis fails or scores lower
     if detailed_output:

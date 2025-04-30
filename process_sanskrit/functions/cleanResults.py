@@ -1,7 +1,7 @@
 from process_sanskrit.utils.lexicalResources import filtered_words
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES
-from process_sanskrit.functions.dictionaryLookup import get_voc_entry
+from process_sanskrit.functions.dictionaryLookup import dict_search
 import re
 import regex
 
@@ -81,7 +81,7 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
         ### make a new rule for api ---> if word is api and the next entries are apya and ap remove them directly
 
         if list_of_entries[i][0] == "duḥ" and list_of_entries[i+1][0] == "kha":
-            replacement = get_voc_entry(["duḥkha"])
+            replacement = dict_search(["duḥkha"])
             if replacement is not None:
                 list_of_entries[i] = replacement[0]
                 del list_of_entries[i + 1]
@@ -91,7 +91,7 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
         if len(list_of_entries[i]) >= 5 and list_of_entries[i][0][-1] == "n" and list_of_entries[i][4] != list_of_entries[i][0]:
             #print("the one not replaced:", list_of_entries[i])
             if list_of_entries[i][4] in DICTIONARY_REFERENCES.keys():
-                replacement = get_voc_entry([list_of_entries[i][4]])
+                replacement = dict_search([list_of_entries[i][4]])
                 if replacement is not None:
                     list_of_entries[i] = replacement[0]
         
@@ -110,10 +110,11 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
                 
                 voc_entry = None
                 if list_of_entries[j][0] not in SANSKRIT_PREFIXES:
-                    voc_entry = get_voc_entry(["sam" + list_of_entries[j][0]])
+                    voc_entry = dict_search(["sam" + list_of_entries[j][0]])
                 #print("voc_entry", voc_entry)
 
                 ##non ha senso
+                ## TODO replace this entirely
                 
                 # Ensure voc_entry is not None and has the expected structure
                 if (voc_entry is not None and len(voc_entry) > 0 and 
@@ -124,7 +125,7 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
                     first_key = next(iter(voc_entry[0][2]['MW']), None)
                     if first_key and voc_entry[0][0] == first_key:
                         #print("revised query", ["saṃ" + list_of_entries[j][0]])
-                        voc_entry = get_voc_entry("saṃ" + list_of_entries[j][0])
+                        voc_entry = dict_search("saṃ" + list_of_entries[j][0])
                         #print("revise_voc_entry", voc_entry)
         
                 if voc_entry is not None:
@@ -137,7 +138,7 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
             while j < len(list_of_entries) and (list_of_entries[j][0] == "anu"):
                 j += 1
             if j < len(list_of_entries):
-                voc_entry = get_voc_entry(["anu" + list_of_entries[j][0]])
+                voc_entry = dict_search(["anu" + list_of_entries[j][0]])
                 ## testing to see if the check works. 
                 print(voc_entry)
                 if voc_entry[0][0] != voc_entry[0][2][0]:
@@ -152,13 +153,12 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
             if j < len(list_of_entries):
                 #print("testing with:", ["ava" + list_of_entries[j + 1][0]])
                 
-                voc_entry = get_voc_entry(["ava" + list_of_entries[j + 1][0]])
+                voc_entry = dict_search(["ava" + list_of_entries[j + 1][0]])
                 if voc_entry[0][0] != voc_entry[0][2][0]:
                     list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
                     del list_of_entries[i + 1:j + 1]        
         i += 1  
     
-
 
     if mode == "parts":
             return roots_splitted(list_of_entries, debug=debug)

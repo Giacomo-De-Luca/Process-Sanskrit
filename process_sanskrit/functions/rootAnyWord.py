@@ -5,7 +5,6 @@ from process_sanskrit.utils.lexicalResources import variableSandhi
 from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES, samMap
 from dataclasses import dataclass
 from typing import Optional, List
-from functools import lru_cache
  
 
 ##given a name finds the root
@@ -96,10 +95,11 @@ def handle_tva(word: str, session=None) -> Optional[List]:
             
     return None
 
-@lru_cache(maxsize=256)
 def root_any_word(word, attempted_words=None, timed=False, session=None):
-    
 
+    if word == 'api' or word == 'āpi':
+        return ['api' , 'api' , ['api']]  
+    
     if attempted_words is None:
         attempted_words = frozenset()
     
@@ -123,11 +123,8 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
     if timed:
         print(f"SQLite_find_name({word}) took {time.time() - start_time:.6f} seconds")
 
-    if timed:
-        start_time = time.time()
+
     result_roots_verb = SQLite_find_verb(word, session=session)
-    if timed:
-        print(f"SQLite_find_verb({word}) took {time.time() - start_time:.6f} seconds")
 
     if result_roots_name and result_roots_verb:
         result_roots = result_roots_name + result_roots_verb
@@ -161,7 +158,6 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
                     print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
                 if attempt:
                     return attempt
-
     
 
     ##probably add a rule that if ṅ is in the word, change it with ṃ to account if for different spellings
@@ -196,7 +192,8 @@ def root_any_word(word, attempted_words=None, timed=False, session=None):
                 if prefix == 'ud': 
                     result = root_any_word('ut', session=session) + attempt
                 else: 
-                    result = root_any_word(prefix, session=session) + attempt
+                    prefix_root = root_any_word(prefix, session=session)
+                    result = prefix_root + attempt if prefix_root else attempt
                 for match in result: 
                     if len(match) == 5:
                         match[4] = word

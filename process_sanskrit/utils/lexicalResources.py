@@ -43,6 +43,7 @@ sanskritFixedSandhiMap = {
     'd': 't',          # d comes ṛrom t beṛore voiced consonants (like tat + dānam → taddānam)
     'b': 'p',          # b comes ṛrom p beṛore voiced consonants (like ap + bhiḥ → abbhiḥ)
     'g': 'k',          # g comes ṛrom k beṛore voiced consonants (like vāk + devi → vāgdevi)
+    'ś': 'ḥ',
 
 }
 

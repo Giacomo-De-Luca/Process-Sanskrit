@@ -25,8 +25,6 @@ def load_type_map(file_path):
     """Load the type mapping from TSV file into a dictionary."""
     type_map = {}
     with open(file_path, 'r', encoding='utf-8') as f:
-        # Skip header line
-        next(f)
         for line in f:
             # Split by tab and extract the first two columns
             parts = line.strip().split('\t')

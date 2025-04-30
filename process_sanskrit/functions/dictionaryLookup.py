@@ -19,7 +19,6 @@ from functools import lru_cache
 ## in that case add an H before the search 
 
 
-@lru_cache(maxsize=256)
 def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[str, Dict[str, List[str]]]:
     dict_names: List[str] = []
     dict_results: Dict[str, Dict[str, List[str]]] = {}
@@ -66,7 +65,6 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
             ).fetchall()
         
         #print(f"Results for {dict_name}: {results}")
-        
         # Additional query if no results
         if not results and len(name) > 1:
             query_builder = f"""
@@ -119,8 +117,8 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
     if not word_in_specified and word in DICTIONARY_REFERENCES:
         additional_dicts = DICTIONARY_REFERENCES[word]
         search_dictionaries.extend(additional_dicts)
-        print(f"Word '{word}' not found in specified dictionaries. "
-              f"Adding dictionaries: {additional_dicts}")
+        #print(f"Word '{word}' not found in specified dictionaries. "
+        #      f"Adding dictionaries: {additional_dicts}")
 
     # Now perform the search with either original or expanded dictionary list
     results = multidict(word, *search_dictionaries, session=session)
@@ -133,7 +131,7 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
 
 
 
-def get_voc_entry(list_of_entries, *args, source: str = "mw", session=None):
+def dict_search(list_of_entries, *args, source: str = "mw", session=None):
     """
     Get vocabulary entries for a list of words.
     
@@ -143,6 +141,8 @@ def get_voc_entry(list_of_entries, *args, source: str = "mw", session=None):
         source: Default dictionary
         session: SQLAlchemy session to use (improves performance)
     """
+
+    print("list_of_entries", list_of_entries)
     # Create session at the top level if not provided
     close_session = False
     if session is None:
