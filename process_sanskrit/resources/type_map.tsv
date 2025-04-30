@@ -22,7 +22,7 @@ f_u	feminine noun/adjective ending in -u	Kale 38
 f_vas	feminine noun/adjective ending in -vas	Kale 80
 f_yas	feminine comparative adjective ending in -īyas	Kale 81
 f_z	feminine noun/adjective ending in -ṣ	Kale 56
-ind	indeclinable word (avyaya)	Kale 
+ind	indeclinable (avyaya)	Kale 
 m_A	masculine noun/adjective ending in -a	Kale 35
 m_B	masculine noun/adjective ending in -bh	Kale 55
 m_D	masculine noun/adjective ending in -dh	Kale 55
@@ -81,125 +81,125 @@ n_vas	neuter noun/adjective ending in -vas	Kale 80
 n_vat	neuter noun/adjective ending in -vat	Kale 70
 n_yas	neuter comparative adjective ending in -īyas	Kale 81
 n_z	neuter noun/adjective ending in -ṣ	Kale 56
-fut-a	verb in future tense, active voice (parasmaipada)	Kale 298
-fut-ca	verb in future tense of causative verb, active voice (parasmaipada)	Kale 368
-fut-cm	verb in future tense of causative verb, middle voice (ātmanepada)	Kale 368
-fut-m	verb in future tense, middle voice (ātmanepada)	Kale 298
+fut-a	verb, future tense, active voice (parasmaipada)	Kale 298
+fut-ca	verb, future tense of causative verb, active voice (parasmaipada)	Kale 368
+fut-cm	verb, future tense of causative verb, middle voice (ātmanepada)	Kale 368
+fut-m	verb, future tense, middle voice (ātmanepada)	Kale 298
 ind_abs	absolutive (gerund)	Kale 440
 ind_cabs	causal absolutive (gerund)	Kale 368
 ind_cinf	causal infinitive	Kale 368
 ind_cppfactn	causal periphrastic perfect action noun	Kale 368
 ind_inf	infinitive	Kale 451
 ind_ppfactn	periphrastic perfect action noun	Kale 329
-ipf-10a	verb in imperfect tense, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
-ipf-10m	verb in imperfect tense, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
-ipf-1a	verb in imperfect tense, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
-ipf-1m	verb in imperfect tense, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
-ipf-2a	verb in imperfect tense, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
-ipf-2m	verb in imperfect tense, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
-ipf-3a	verb in imperfect tense, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
-ipf-3m	verb in imperfect tense, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
-ipf-4a	verb in imperfect tense, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
-ipf-4m	verb in imperfect tense, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
-ipf-5a	verb in imperfect tense, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
-ipf-5m	verb in imperfect tense, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
-ipf-6a	verb in imperfect tense, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
-ipf-6m	verb in imperfect tense, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
-ipf-7a	verb in imperfect tense, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
-ipf-7m	verb in imperfect tense, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
-ipf-8a	verb in imperfect tense, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
-ipf-8m	verb in imperfect tense, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
-ipf-9a	verb in imperfect tense, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
-ipf-9m	verb in imperfect tense, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
-ipf-ca	verb in imperfect tense of causative verb, active voice (parasmaipada)	Kale 368
-ipf-cm	verb in imperfect tense of causative verb, middle voice (ātmanepada)	Kale 368
-ipf-cp	verb in imperfect tense of causative verb, passive voice	Kale 368
-ipf-p	verb in imperfect tense, passive voice	Kale 360
-ipv-10a	verb in imperative mood, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
-ipv-10m	verb in imperative mood, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
-ipv-1a	verb in imperative mood, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
-ipv-1m	verb in imperative mood, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
-ipv-2a	verb in imperative mood, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
-ipv-2m	verb in imperative mood, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
-ipv-3a	verb in imperative mood, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
-ipv-3m	verb in imperative mood, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
-ipv-4a	verb in imperative mood, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
-ipv-4m	verb in imperative mood, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
-ipv-5a	verb in imperative mood, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
-ipv-5m	verb in imperative mood, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
-ipv-6a	verb in imperative mood, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
-ipv-6m	verb in imperative mood, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
-ipv-7a	verb in imperative mood, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
-ipv-7m	verb in imperative mood, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
-ipv-8a	verb in imperative mood, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
-ipv-8m	verb in imperative mood, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
-ipv-9a	verb in imperative mood, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
-ipv-9m	verb in imperative mood, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
-ipv-ca	verb in imperative mood of causative verb, active voice (parasmaipada)	Kale 368
-ipv-cm	verb in imperative mood of causative verb, middle voice (ātmanepada)	Kale 368
-ipv-cp	verb in imperative mood of causative verb, passive voice	Kale 368
-ipv-p	verb in imperative mood, passive voice	Kale 360
-opt-10a	verb in optative mood, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
-opt-10m	verb in optative mood, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
-opt-1a	verb in optative mood, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
-opt-1m	verb in optative mood, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
-opt-2a	verb in optative mood, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
-opt-2m	verb in optative mood, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
-opt-3a	verb in optative mood, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
-opt-3m	verb in optative mood, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
-opt-4a	verb in optative mood, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
-opt-4m	verb in optative mood, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
-opt-5a	verb in optative mood, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
-opt-5m	verb in optative mood, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
-opt-6a	verb in optative mood, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
-opt-6m	verb in optative mood, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
-opt-7a	verb in optative mood, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
-opt-7m	verb in optative mood, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
-opt-8a	verb in optative mood, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
-opt-8m	verb in optative mood, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
-opt-9a	verb in optative mood, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
-opt-9m	verb in optative mood, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
-opt-ca	verb in optative mood of causative verb, active voice (parasmaipada)	Kale 368
-opt-cm	verb in optative mood of causative verb, middle voice (ātmanepada)	Kale 368
-opt-cp	verb in optative mood of causative verb, passive voice	Kale 368
-opt-p	verb in optative mood, passive voice	Kale 360
-pft-a	verb in perfect tense, active voice (parasmaipada)	Kale 300
-pft-ca	verb in perfect tense of causative verb, active voice (parasmaipada)	Kale 368
-pft-cm	verb in perfect tense of causative verb, middle voice (ātmanepada)	Kale 368
-pft-m	verb in perfect tense, middle voice (ātmanepada)	Kale 300
-pre-10a	verb in present tense, class 10 verb (curādi), active voice (parasmaipada)	Kale 241
-pre-10m	verb in present tense, class 10 verb (curādi), middle voice (ātmanepada)	Kale 241
-pre-1a	verb in present tense, class 1 verb (bhvādi), active voice (parasmaipada)	Kale 241
-pre-1m	verb in present tense, class 1 verb (bhvādi), middle voice (ātmanepada)	Kale 241
-pre-2a	verb in present tense, class 2 verb (adādi), active voice (parasmaipada)	Kale 254
-pre-2m	verb in present tense, class 2 verb (adādi), middle voice (ātmanepada)	Kale 254
-pre-3a	verb in present tense, class 3 verb (juhotyādi), active voice (parasmaipada)	Kale 254
-pre-3m	verb in present tense, class 3 verb (juhotyādi), middle voice (ātmanepada)	Kale 254
-pre-4a	verb in present tense, class 4 verb (divādi), active voice (parasmaipada)	Kale 241
-pre-4m	verb in present tense, class 4 verb (divādi), middle voice (ātmanepada)	Kale 241
-pre-5a	verb in present tense, class 5 verb (svādi), active voice (parasmaipada)	Kale 254
-pre-5m	verb in present tense, class 5 verb (svādi), middle voice (ātmanepada)	Kale 254
-pre-6a	verb in present tense, class 6 verb (tudādi), active voice (parasmaipada)	Kale 241
-pre-6m	verb in present tense, class 6 verb (tudādi), middle voice (ātmanepada)	Kale 241
-pre-7a	verb in present tense, class 7 verb (rudhādi), active voice (parasmaipada)	Kale 254
-pre-7m	verb in present tense, class 7 verb (rudhādi), middle voice (ātmanepada)	Kale 254
-pre-8a	verb in present tense, class 8 verb (tanādi), active voice (parasmaipada)	Kale 254
-pre-8m	verb in present tense, class 8 verb (tanādi), middle voice (ātmanepada)	Kale 254
-pre-9a	verb in present tense, class 9 verb (kryādi), active voice (parasmaipada)	Kale 254
-pre-9m	verb in present tense, class 9 verb (kryādi), middle voice (ātmanepada)	Kale 254
-pre-ca	verb in present tense of causative verb, active voice (parasmaipada)	Kale 368
-pre-cm	verb in present tense of causative verb, middle voice (ātmanepada)	Kale 368
-pre-cp	verb in present tense of causative verb, passive voice	Kale 368
-pre-p	verb in present tense, passive voice	Kale 360
-prf-a	verb in periphrastic perfect, active voice (parasmaipada)	Kale 306
-prf-m	verb in periphrastic perfect, middle voice (ātmanepada)	Kale 306
-aor-a	verb in aorist tense, active voice (parasmaipada)	added
-aor-m	verb in aorist tense, middle voice (ātmanepada)	added
-aor-p	verb in aorist tense, passive voice	added
-ben-a	verb in benedictive mood, active voice (parasmaipada)	added
-ben-m	verb in benedictive mood, middle voice (ātmanepada)	added
-con-a	verb in conditional tense, active voice (parasmaipada)	added
-con-m	verb in conditional tense, middle voice (ātmanepada)	added
+ipf-10a	verb, imperfect tense, class 10 (curādi), active voice (parasmaipada)	Kale 241
+ipf-10m	verb, imperfect tense, class 10 (curādi), middle voice (ātmanepada)	Kale 241
+ipf-1a	verb, imperfect tense, class 1 (bhvādi), active voice (parasmaipada)	Kale 241
+ipf-1m	verb, imperfect tense, class 1 (bhvādi), middle voice (ātmanepada)	Kale 241
+ipf-2a	verb, imperfect tense, class 2 (adādi), active voice (parasmaipada)	Kale 254
+ipf-2m	verb, imperfect tense, class 2 (adādi), middle voice (ātmanepada)	Kale 254
+ipf-3a	verb, imperfect tense, class 3 (juhotyādi), active voice (parasmaipada)	Kale 254
+ipf-3m	verb, imperfect tense, class 3 (juhotyādi), middle voice (ātmanepada)	Kale 254
+ipf-4a	verb, imperfect tense, class 4 (divādi), active voice (parasmaipada)	Kale 241
+ipf-4m	verb, imperfect tense, class 4 (divādi), middle voice (ātmanepada)	Kale 241
+ipf-5a	verb, imperfect tense, class 5 (svādi), active voice (parasmaipada)	Kale 254
+ipf-5m	verb, imperfect tense, class 5 (svādi), middle voice (ātmanepada)	Kale 254
+ipf-6a	verb, imperfect tense, class 6 (tudādi), active voice (parasmaipada)	Kale 241
+ipf-6m	verb, imperfect tense, class 6 (tudādi), middle voice (ātmanepada)	Kale 241
+ipf-7a	verb, imperfect tense, class 7 (rudhādi), active voice (parasmaipada)	Kale 254
+ipf-7m	verb, imperfect tense, class 7 (rudhādi), middle voice (ātmanepada)	Kale 254
+ipf-8a	verb, imperfect tense, class 8 (tanādi), active voice (parasmaipada)	Kale 254
+ipf-8m	verb, imperfect tense, class 8 (tanādi), middle voice (ātmanepada)	Kale 254
+ipf-9a	verb, imperfect tense, class 9 (kryādi), active voice (parasmaipada)	Kale 254
+ipf-9m	verb, imperfect tense, class 9 (kryādi), middle voice (ātmanepada)	Kale 254
+ipf-ca	verb, imperfect tense of causative verb, active voice (parasmaipada)	Kale 368
+ipf-cm	verb, imperfect tense of causative verb, middle voice (ātmanepada)	Kale 368
+ipf-cp	verb, imperfect tense of causative verb, passive voice	Kale 368
+ipf-p	verb, imperfect tense, passive voice	Kale 360
+ipv-10a	verb, imperative mood, class 10 (curādi), active voice (parasmaipada)	Kale 241
+ipv-10m	verb, imperative mood, class 10 (curādi), middle voice (ātmanepada)	Kale 241
+ipv-1a	verb, imperative mood, class 1 (bhvādi), active voice (parasmaipada)	Kale 241
+ipv-1m	verb, imperative mood, class 1 (bhvādi), middle voice (ātmanepada)	Kale 241
+ipv-2a	verb, imperative mood, class 2 (adādi), active voice (parasmaipada)	Kale 254
+ipv-2m	verb, imperative mood, class 2 (adādi), middle voice (ātmanepada)	Kale 254
+ipv-3a	verb, imperative mood, class 3 (juhotyādi), active voice (parasmaipada)	Kale 254
+ipv-3m	verb, imperative mood, class 3 (juhotyādi), middle voice (ātmanepada)	Kale 254
+ipv-4a	verb, imperative mood, class 4 (divādi), active voice (parasmaipada)	Kale 241
+ipv-4m	verb, imperative mood, class 4 (divādi), middle voice (ātmanepada)	Kale 241
+ipv-5a	verb, imperative mood, class 5 (svādi), active voice (parasmaipada)	Kale 254
+ipv-5m	verb, imperative mood, class 5 (svādi), middle voice (ātmanepada)	Kale 254
+ipv-6a	verb, imperative mood, class 6 (tudādi), active voice (parasmaipada)	Kale 241
+ipv-6m	verb, imperative mood, class 6 (tudādi), middle voice (ātmanepada)	Kale 241
+ipv-7a	verb, imperative mood, class 7 (rudhādi), active voice (parasmaipada)	Kale 254
+ipv-7m	verb, imperative mood, class 7 (rudhādi), middle voice (ātmanepada)	Kale 254
+ipv-8a	verb, imperative mood, class 8 (tanādi), active voice (parasmaipada)	Kale 254
+ipv-8m	verb, imperative mood, class 8 (tanādi), middle voice (ātmanepada)	Kale 254
+ipv-9a	verb, imperative mood, class 9 (kryādi), active voice (parasmaipada)	Kale 254
+ipv-9m	verb, imperative mood, class 9 (kryādi), middle voice (ātmanepada)	Kale 254
+ipv-ca	verb, imperative mood of causative verb, active voice (parasmaipada)	Kale 368
+ipv-cm	verb, imperative mood of causative verb, middle voice (ātmanepada)	Kale 368
+ipv-cp	verb, imperative mood of causative verb, passive voice	Kale 368
+ipv-p	verb, imperative mood, passive voice	Kale 360
+opt-10a	verb, optative mood, class 10 (curādi), active voice (parasmaipada)	Kale 241
+opt-10m	verb, optative mood, class 10 (curādi), middle voice (ātmanepada)	Kale 241
+opt-1a	verb, optative mood, class 1 (bhvādi), active voice (parasmaipada)	Kale 241
+opt-1m	verb, optative mood, class 1 (bhvādi), middle voice (ātmanepada)	Kale 241
+opt-2a	verb, optative mood, class 2 (adādi), active voice (parasmaipada)	Kale 254
+opt-2m	verb, optative mood, class 2 (adādi), middle voice (ātmanepada)	Kale 254
+opt-3a	verb, optative mood, class 3 (juhotyādi), active voice (parasmaipada)	Kale 254
+opt-3m	verb, optative mood, class 3 (juhotyādi), middle voice (ātmanepada)	Kale 254
+opt-4a	verb, optative mood, class 4 (divādi), active voice (parasmaipada)	Kale 241
+opt-4m	verb, optative mood, class 4 (divādi), middle voice (ātmanepada)	Kale 241
+opt-5a	verb, optative mood, class 5 (svādi), active voice (parasmaipada)	Kale 254
+opt-5m	verb, optative mood, class 5 (svādi), middle voice (ātmanepada)	Kale 254
+opt-6a	verb, optative mood, class 6 (tudādi), active voice (parasmaipada)	Kale 241
+opt-6m	verb, optative mood, class 6 (tudādi), middle voice (ātmanepada)	Kale 241
+opt-7a	verb, optative mood, class 7 (rudhādi), active voice (parasmaipada)	Kale 254
+opt-7m	verb, optative mood, class 7 (rudhādi), middle voice (ātmanepada)	Kale 254
+opt-8a	verb, optative mood, class 8 (tanādi), active voice (parasmaipada)	Kale 254
+opt-8m	verb, optative mood, class 8 (tanādi), middle voice (ātmanepada)	Kale 254
+opt-9a	verb, optative mood, class 9 (kryādi), active voice (parasmaipada)	Kale 254
+opt-9m	verb, optative mood, class 9 (kryādi), middle voice (ātmanepada)	Kale 254
+opt-ca	verb, optative mood of causative verb, active voice (parasmaipada)	Kale 368
+opt-cm	verb, optative mood of causative verb, middle voice (ātmanepada)	Kale 368
+opt-cp	verb, optative mood of causative verb, passive voice	Kale 368
+opt-p	verb, optative mood, passive voice	Kale 360
+pft-a	verb, perfect tense, active voice (parasmaipada)	Kale 300
+pft-ca	verb, perfect tense of causative verb, active voice (parasmaipada)	Kale 368
+pft-cm	verb, perfect tense of causative verb, middle voice (ātmanepada)	Kale 368
+pft-m	verb, perfect tense, middle voice (ātmanepada)	Kale 300
+pre-10a	verb, present tense, class 10 (curādi), active voice (parasmaipada)	Kale 241
+pre-10m	verb, present tense, class 10 (curādi), middle voice (ātmanepada)	Kale 241
+pre-1a	verb, present tense, class 1 (bhvādi), active voice (parasmaipada)	Kale 241
+pre-1m	verb, present tense, class 1 (bhvādi), middle voice (ātmanepada)	Kale 241
+pre-2a	verb, present tense, class 2 (adādi), active voice (parasmaipada)	Kale 254
+pre-2m	verb, present tense, class 2 (adādi), middle voice (ātmanepada)	Kale 254
+pre-3a	verb, present tense, class 3 (juhotyādi), active voice (parasmaipada)	Kale 254
+pre-3m	verb, present tense, class 3 (juhotyādi), middle voice (ātmanepada)	Kale 254
+pre-4a	verb, present tense, class 4 (divādi), active voice (parasmaipada)	Kale 241
+pre-4m	verb, present tense, class 4 (divādi), middle voice (ātmanepada)	Kale 241
+pre-5a	verb, present tense, class 5 (svādi), active voice (parasmaipada)	Kale 254
+pre-5m	verb, present tense, class 5 (svādi), middle voice (ātmanepada)	Kale 254
+pre-6a	verb, present tense, class 6 (tudādi), active voice (parasmaipada)	Kale 241
+pre-6m	verb, present tense, class 6 (tudādi), middle voice (ātmanepada)	Kale 241
+pre-7a	verb, present tense, class 7 (rudhādi), active voice (parasmaipada)	Kale 254
+pre-7m	verb, present tense, class 7 (rudhādi), middle voice (ātmanepada)	Kale 254
+pre-8a	verb, present tense, class 8 (tanādi), active voice (parasmaipada)	Kale 254
+pre-8m	verb, present tense, class 8 (tanādi), middle voice (ātmanepada)	Kale 254
+pre-9a	verb, present tense, class 9 (kryādi), active voice (parasmaipada)	Kale 254
+pre-9m	verb, present tense, class 9 (kryādi), middle voice (ātmanepada)	Kale 254
+pre-ca	verb, present tense of causative verb, active voice (parasmaipada)	Kale 368
+pre-cm	verb, present tense of causative verb, middle voice (ātmanepada)	Kale 368
+pre-cp	verb, present tense of causative verb, passive voice	Kale 368
+pre-p	verb, present tense, passive voice	Kale 360
+prf-a	verb, periphrastic perfect, active voice (parasmaipada)	Kale 306
+prf-m	verb, periphrastic perfect, middle voice (ātmanepada)	Kale 306
+aor-a	verb, aorist tense, active voice (parasmaipada)	added
+aor-m	verb, aorist tense, middle voice (ātmanepada)	added
+aor-p	verb, aorist tense, passive voice	added
+ben-a	verb, benedictive mood, active voice (parasmaipada)	added
+ben-m	verb, benedictive mood, middle voice (ātmanepada)	added
+con-a	verb, conditional tense, active voice (parasmaipada)	added
+con-m	verb, conditional tense, middle voice (ātmanepada)	added
 f_1_B	feminine noun/adjective ending in -bh	added
 f_1_C	feminine noun/adjective ending in -ch	added
 f_1_D	feminine noun/adjective ending in -dh	added
@@ -237,9 +237,9 @@ f_us	feminine noun/adjective ending in -us	added
 f_us_I	feminine noun/adjective ending in -uṣī (corresponding to masculine -us/vas)	added
 f_vas_I	feminine noun/adjective ending in -vasī (corresponding to masculine -vas)	added
 f_vat_I	feminine noun/adjective ending in -vatī (corresponding to masculine -vat)	added
-inj-a	verb in injunctive mood, active voice (parasmaipada)	added
-inj-m	verb in injunctive mood, middle voice (ātmanepada)	added
-inj-p	verb in injunctive mood, passive voice	added
+inj-a	verb, injunctive mood, active voice (parasmaipada)	added
+inj-m	verb, injunctive mood, middle voice (ātmanepada)	added
+inj-p	verb, injunctive mood, passive voice	added
 m_1_B	masculine noun/adjective ending in -bh	added
 m_1_C	masculine noun/adjective ending in -ch	added
 m_1_D	masculine noun/adjective ending in -dh	added
@@ -298,4 +298,4 @@ n_Iyas	neuter comparative adjective ending in -īyas	added
 n_as	neuter noun/adjective ending in -as	added
 n_is	neuter noun/adjective ending in -is	added
 n_us	neuter noun/adjective ending in -us	added
-ppf-a	verb in pluperfect tense, active voice (parasmaipada)	added
+ppf-a	verb, pluperfect tense, active voice (parasmaipada)	added

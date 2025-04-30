@@ -78,7 +78,11 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
             while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == list_of_entries[i][0]:
                 del list_of_entries[i + 1]
 
-        ### make a new rule for api ---> if word is api and the next entries are apya and ap remove them directly
+        ## should make a rule here that does the following. 
+        ## check if a word has 'indeclinable (avyaya)'
+        ## if it does, check if the next word is also the same as it
+        # # if it is, delete the next word.
+
 
         if list_of_entries[i][0] == "duḥ" and list_of_entries[i+1][0] == "kha":
             replacement = dict_search(["duḥkha"])
