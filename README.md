@@ -1,6 +1,6 @@
 # Process-Sanskrit
 
-Process-Sanskrit is a *python* open-source library for automatic Sanskrit text annotation and inflected dictionary search.**
+Process-Sanskrit is a *python* open-source library for automatic **Sanskrit text annotation and inflected dictionary search.**
 
 The library has two main use cases: 
 
@@ -14,7 +14,7 @@ The library is one of the main components powering up the [***Sanskrit Voyager**
 
 ## Demo:
 
-The library can be employed live on the [(***Sanskrit Voyager*** website)[https://www.sanskritvoyager.com/].](https://www.sanskritvoyager.com/)
+The library can be employed live on the [***Sanskrit Voyager*** website](https://www.sanskritvoyager.com/).
 
 Select a book or paste some text, click on the words and see the library in action! 
 
@@ -40,7 +40,7 @@ pip install process-sanskrit[byt5]
 update-ps-database
 ```
 
-`***update-ps-database***` downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
+***`update-ps-database`*** downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
 ) in the resources folder (150 mb download, 583 mb uncompressed, released with [Creative Commons NC license](https://creativecommons.org/licenses/by-nc/4.0/)).
 
 ```python
@@ -87,13 +87,11 @@ Process returns a list that contains for each word contained in the text or comp
 6. **Word Components** according to the Monnier Williams: (in this case none) 'prati—prasava’
 7. **Dictionary entries** in XML format. In the form of a dictionary for all the selected dictionaries: {'mw': {'pratiprasava': ['<s>prati—prasava</s> <hom>a</hom>   See under <s>prati-pra-</s> √ <hom>1.</hom> <s>sū</s>.', '<s>prati-°prasava</s> <hom>b</hom>   <lex>m.</lex> counter-order, suspension of a general prohibition in a particular case, <ls>Śaṃkarācārya  </ls>; <ls>Kātyāyana-śrauta-sūtra </ls>, <ab>Scholiast or Commentator</ab>; <ls>Manvarthamuktāvalī, KullūkaBhaṭṭa\'s commentary on Manu-smṛti </ls><info lex="m"/>', '  an exception to an exception, <ls>Taittirīya-prātiśākhya </ls>, <ab>Scholiast or Commentator</ab><info lex="inh"/>', '  return to the original state, <ls>Yoga-sūtra </ls><info lex="inh"/>']}
 
-:::note
-Process automatically `detects transliteration scheme` and `transliterate to IAST`. If that is problematic, pre-transliterate to IAST first using the *transliterate* function. 
+*Process automatically `detects transliteration scheme` and `transliterate to IAST`. If that is problematic, pre-transliterate to IAST first using the **transliterate** function.* 
 
-Also, ***the base version of Process is optimised for single words***, - if you have a sentence or book, split by spaces and pass each term to transliterate. 
+*Also, ***the base version of Process is optimised for single words***, - if you have a sentence or book, split by spaces and pass each term to transliterate.* 
 
-In the online interface it is possible to retrive the entries for the components (in this case *'prati'* and *'prasava'*) by clicking on them. Clicking automatically sends to the dictionary entry of the components. 
-:::
+*In the online interface it is possible to retrive the entries for the components (in this case **'prati'** and **'prasava'**) by clicking on them. Clicking automatically sends to the dictionary entry of the components.* 
 
 
 ### Dictionary Selection:
@@ -160,11 +158,8 @@ print(ps.process('yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasam
 ```
 
 
-:::note 
 
-In case of ambiguity the process function does not select between the two (or three) possibilities, but returns all of them.
-
-:::
+*In case of ambiguity the process function does not select between the two (or three) possibilities, but returns all of them.*
 
 
 ### Transliteration:
