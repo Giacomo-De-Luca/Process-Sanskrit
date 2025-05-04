@@ -57,7 +57,7 @@ def load_model():
 
 
 ### Set of tags to remove from the output
-tags_to_remove = {"cp", "snf", "SNNe", "PNF", "SNM", "U", "SGNe", "SBM", "SNF", "ḷ"} # Set for efficient lookup
+tags_to_remove = {"cp", "snf", "SNNe", "PNF", "SNM", "U", "SGNe", "SBM", "SNF", "ḷ", "ḷ"} # Set for efficient lookup
 
 
 def process_result(text):

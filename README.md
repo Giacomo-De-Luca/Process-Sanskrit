@@ -1,14 +1,16 @@
 # Process-Sanskrit
 
-Process-Sanskrit is a light-computing library for Sanskrit text analysis, annotation and inflected dictionary search. 
+Process-Sanskrit is a *python* open-source library for automatic Sanskrit text annotation and inflected dictionary search.**
 
 The library has two main use cases: 
 
 1. **Dictionary search:** multi dictionary lookup with grammatical annotation for words exactly as they are written in texts: in **any transliteration format, inflected, compounded and with sandhi**. 
 2. **Automatic Text Annotation:** generate automatically version of Sanskrit texts without sandhi and with split compounds, with grammatical annotations and dictionary entries for each word. 
 
-`The architecture of the library is based on a cascading approach to Sanskrit text analysis, as described in our NAACL 2025 paper:`*Accessible Sanskrit: A Cascading System for Text Analysis and Dictionary*
-*Access.*
+The architecture of the library is based on a cascading approach to Sanskrit text analysis, as described in our NAACL 2025 paper: [*`Accessible Sanskrit: A Cascading System for Text Analysis and Dictionary Access.`*](https://aclanthology.org/2025.alp-1.5/)
+
+The library is one of the main components powering up the [***Sanskrit Voyager*** backend](https://www.sanskritvoyager.com/). It is used for dictionary searches, stemming, and to pre-process texts for the corpus search. 
+
 
 ## Demo:
 
@@ -24,25 +26,39 @@ Or search some inflected and sandhi-ed words in the search bar to get the dictio
 
 To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database.
 
-A venv, colab, environment or docker is highly recommended to use gensim. 
-For the experimental BYT5 version 
+Use the optional dependency download to select the version with 'gensim' or the experimental version that uses the BYT5 model. 
+
+A virtual enviroment or docker is highly recommended to use gensim, as it downgrades *numpy*. 
+
 
 ```bash
 pip install process-sanskrit[gensim]
 update-ps-database
 
 or
-pip install process-sanskrit[BYT5]
+pip install process-sanskrit[byt5]
 update-ps-database
 ```
 
-The command downloads and setup the database with the dictionaries and the inflection tables in the resources folder (150 mb download, 583 mb uncompressed, (Creative Commons NC license)[[https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)]): 
+`***update-ps-database***` downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
+) in the resources folder (150 mb download, 583 mb uncompressed, released with [Creative Commons NC license](https://creativecommons.org/licenses/by-nc/4.0/)).
 
 ```python
 
 ## if inside jupyter or colab use:
 
 !pip install process-sanskrit[gensim]
+!update-ps-database
+
+```
+
+For the experimental version with byt5:
+
+```python
+
+## if inside jupyter or colab use:
+
+!pip install process-sanskrit[byt5]
 !update-ps-database
 
 ```
@@ -62,9 +78,6 @@ ps.process("pratiprasave")
 
 Process returns a list that contains for each word contained in the text or compounds: 
 
-![Screenshot 2025-04-26 at 15.45.17.png](Process-Sanskrit%201e1612d83c5180a8ac4bd8918e716d4b/Screenshot_2025-04-26_at_15.45.17.png)
-
-![Screenshot 2025-04-26 at 15.45.55.png](Process-Sanskrit%201e1612d83c5180a8ac4bd8918e716d4b/Screenshot_2025-04-26_at_15.45.55.png)
 
 1. **Word stem**: ‘pratiprasava’
 2. **Grammatical tagging**: masculine noun/adjective ending in a
@@ -74,25 +87,48 @@ Process returns a list that contains for each word contained in the text or comp
 6. **Word Components** according to the Monnier Williams: (in this case none) 'prati—prasava’
 7. **Dictionary entries** in XML format. In the form of a dictionary for all the selected dictionaries: {'mw': {'pratiprasava': ['<s>prati—prasava</s> <hom>a</hom>   See under <s>prati-pra-</s> √ <hom>1.</hom> <s>sū</s>.', '<s>prati-°prasava</s> <hom>b</hom>   <lex>m.</lex> counter-order, suspension of a general prohibition in a particular case, <ls>Śaṃkarācārya  </ls>; <ls>Kātyāyana-śrauta-sūtra </ls>, <ab>Scholiast or Commentator</ab>; <ls>Manvarthamuktāvalī, KullūkaBhaṭṭa\'s commentary on Manu-smṛti </ls><info lex="m"/>', '  an exception to an exception, <ls>Taittirīya-prātiśākhya </ls>, <ab>Scholiast or Commentator</ab><info lex="inh"/>', '  return to the original state, <ls>Yoga-sūtra </ls><info lex="inh"/>']}
 
+:::note
+Process automatically `detects transliteration scheme` and `transliterate to IAST`. If that is problematic, pre-transliterate to IAST first using the *transliterate* function. 
+
+Also, ***the base version of Process is optimised for single words***, - if you have a sentence or book, split by spaces and pass each term to transliterate. 
+
+In the online interface it is possible to retrive the entries for the components (in this case *'prati'* and *'prasava'*) by clicking on them. Clicking automatically sends to the dictionary entry of the components. 
+:::
+
+
 ### Dictionary Selection:
+
+
+The process function returns dictionary entries for the found roots. 
 
 **By default, only the Monnier Williams dictionary is selected.** 
 
-If there are words that are outside the MW (i.E. ‘dvandva’) the dictionaries that have the word are automatically selected. In this example the word is found in the Macdonnell dictionary. 
+In the following example we search for a word that is not in the MW: 'dvandva'. The process function automatically check if any of the dictionaries has it and automatically select it. In this case the word is found in the Macdonnell dictionary. 
 
-![Screenshot 2025-04-26 at 15.27.25.png](Process-Sanskrit%201e1612d83c5180a8ac4bd8918e716d4b/Screenshot_2025-04-26_at_15.27.25.png)
 
 ```python
-## additional dictionaries can be returned in the output by adding them as
-## arguments after the main text input. 
+ 
+import process_sanskrit as ps
+print(ps.process('dvandva'))
 
-import process-sanskrit as ps
-
-ps.process('saṃskāra', 'ap90', 'cae', 'gra', 'bhs')
 ```
 
-Available Dictionaries: 
+**To use more dictionaries**, process accepts as optional *`arguments`* the dictionary abbreviation. In the following code example we retrieve the entries for the word *'saṃskāra'*  from the *Apte, Cappeller, Grassman, and Edgerton* dictionaries. 
 
+
+```python 
+
+import process_sanskrit as ps
+
+print(ps.process('saṃskāra', 'ap90', 'cae', 'gra', 'bhs'))
+
+
+
+### Available Dictionaries and Abbreviations 
+
+Here is the list of all the currently available dictionaries with the abbreviations:
+
+```
 - 'mw': 'Monier-Williams Sanskrit-English Dictionary' ,
 - 'ap90': 'Apte Practical Sanskrit-English Dictionary'
 - ‘cae': 'Cappeller Sanskrit-English Dictionary'
@@ -100,8 +136,9 @@ Available Dictionaries:
 - 'gra': 'Grassmann Wörterbuch zum Rig Veda'
 - 'bhs': 'Edgerton Buddhist Hybrid Sanskrit Dictionary'
 - 'cped': 'Concise Pali English Dictionary'
+```
 
-All the dictionaries are slightly modified version of the *Cologne Digital Sanskrit Dictionaries, apart from the* (The Concise Pali-English Dictionary By Buddhadatta Mahathera)[https://buddhistuniversity.net/content/reference/concise-pali-dictionary] The Pali dictionary was added in to handle words that appears in the late Buddhist authors. 
+All the dictionaries are slightly modified version of the *Cologne Digital Sanskrit Dictionaries*, apart from the [The Concise Pali-English Dictionary By Buddhadatta Mahathera](https://buddhistuniversity.net/content/reference/concise-pali-dictionary). The Pali dictionary was added in to handle words that appears in the late Buddhist authors. 
 
 ```
 Cologne Digital Sanskrit Dictionaries, version 2.7.286,
@@ -111,41 +148,44 @@ https://www.sanskrit-lexicon.uni-koeln.de
 
 ### Stemming:
 
-To use the process function just for sandhi/compound split and stemming, use the process function with the flag: *output=’roots’*.
+The process function can be used just for simple sandhi/compound split and stemming, adding the optional flag: *mode=’roots’*.
 
 ```python
-import process-sanskrit as ps
+import process_sanskrit as ps
 
-ps.process('yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasamādhayo', output='roots')
+print(ps.process('yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasamādhayo', mode='roots'))
 
 ## output:
 ## ['yama', 'niyama', 'asana', 'prāṇāyāma', 'pratyāhāra', 'dhāraṇa', 'dhyāna', 'samādhi']
 ```
 
-![Screenshot 2025-04-26 at 15.58.49.png](Process-Sanskrit%201e1612d83c5180a8ac4bd8918e716d4b/Screenshot_2025-04-26_at_15.58.49.png)
 
-*!it is to note that in case of ambiguity the process function does not select between the two (or three) possibilities, but returns all of them as a tuple.*
+:::note 
 
-![Screenshot 2025-04-26 at 16.15.10.png](Process-Sanskrit%201e1612d83c5180a8ac4bd8918e716d4b/Screenshot_2025-04-26_at_16.15.10.png)
+In case of ambiguity the process function does not select between the two (or three) possibilities, but returns all of them.
 
-### Transliteration API:
+:::
 
-The library offers a function to transliterate texts with auto-detection for the transliteration input format. This function is a slight adaptation from (*Indic-Transliteration Detect)[”*[https://github.com/indic-transliteration/detect.py](https://github.com/indic-transliteration/detect.py)”].
+
+### Transliteration:
+
+The library offers a function to transliterate texts with auto-detection for the transliteration input format. This function is a slight adaptation from [*Indic-Transliteration Detect*](https://github.com/indic-transliteration/detect.py).
 
 ```python
 import process_sanskrit as ps
 
 # Transliteration
-ps.transliterate("patañjali", "DEVANAGARI") ## IAST 
-ps.transliterate("pataJjali", "DEVANAGARI") ## HK format
+print(ps.transliterate("patañjali", "DEVANAGARI")) ## IAST 
+print(ps.transliterate("pataJjali", "DEVANAGARI")) ## HK format
 
 ## same output:
 ## पतञ्जलि
 
-## In case you need to manually select the input scheme, you can force it using
-## the input_scheme flag, it's not case sensitive: 
+## In case you need to manually select the input scheme, 
+## force it using the optional 'input_scheme' flag
+## the scheme it's not case sensitive (slp1=SLP1): 
 
-ps.transliterate('pataYjali', 'tamil', input_scheme='slp1')
+print(ps.transliterate('pataYjali', 'tamil', input_scheme='slp1'))
 
 ## output: பதஞ்ஜலி
 ```

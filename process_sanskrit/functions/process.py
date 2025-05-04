@@ -15,7 +15,7 @@
 ### - MAIN FUNCTION:
 ### - Process function, executing all of the above at once
 ### - Return the results in a structured format
-### - call process with roots=True to get only the root of all the words in a Sanskrit text. 
+### - call process with mode='roots' to get only the root of all the words in a Sanskrit text. 
 
 
 ### packages and local modules import 
@@ -66,6 +66,7 @@ def preprocess(text, max_length=100, debug=False):
             # Trim up to the last whitespace
             text = text[:last_space_index]
 
+    ## TODO 
     ## this may lead to errors
     ## it should be like this:
     ## if jj in text
@@ -123,6 +124,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
+        transliterated_text = transliterate(text, "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if voc_entry is not None:
             return voc_entry
@@ -171,6 +173,8 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
 
         ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
         result = root_any_word(text, session=session)
+        if debug == True:
+            print("rooting result", result)
 
         if result is None and "ṅ" in text:
             ## this is removed, it was not triggering, and it was not clear if it was useful: or "ñ" in text
@@ -185,7 +189,6 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
             if attempt is not None:
                 result = attempt
 
-
         ## if the words starts with C, try to find out if it's the sandhied form of a word starting with S
         if result is None and text[0:1] == "ch":
             #print("tentative", text)
@@ -198,7 +201,6 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
         if result is not None:
             if debug == True: 
                 print("Getting some results with no splitting here:", result)
-
             for i, res in enumerate(result):
                 if isinstance(res, str):
                     result[i] = res.replace('-', '')

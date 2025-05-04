@@ -142,7 +142,7 @@ def dict_search(list_of_entries, *args, source: str = "mw", session=None):
         session: SQLAlchemy session to use (improves performance)
     """
 
-    print("list_of_entries", list_of_entries)
+    #print("list_of_entries", list_of_entries)
     # Create session at the top level if not provided
     close_session = False
     if session is None:
