@@ -109,16 +109,16 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
             if j < len(list_of_entries):
 
 
-                                ##non ha senso CHECK IF sam or sam  + list_of_entries[j][0]] are in MW dict
-                                ## a quel punto fai voc_entry di quello, e rimpiazza tutte le entry inutili.
+
                 
                 voc_entry = None
                 if list_of_entries[j][0] not in SANSKRIT_PREFIXES:
                     voc_entry = dict_search(["sam" + list_of_entries[j][0]])
                 #print("voc_entry", voc_entry)
 
-                ##non ha senso
+                ##
                 ## TODO replace this entirely
+                ## with a generalised function for prefixes
                 
                 # Ensure voc_entry is not None and has the expected structure
                 if (voc_entry is not None and len(voc_entry) > 0 and 
@@ -144,8 +144,8 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
             if j < len(list_of_entries):
                 voc_entry = dict_search(["anu" + list_of_entries[j][0]])
                 ## testing to see if the check works. 
-                print(voc_entry)
-                if voc_entry[0][0] != voc_entry[0][2][0]:
+                #print(voc_entry)
+                if not isinstance(voc_entry[0][2], list):
                     list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
                     del list_of_entries[i + 1:j + 1]
         
@@ -156,9 +156,10 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
                 j += 1
             if j < len(list_of_entries):
                 #print("testing with:", ["ava" + list_of_entries[j + 1][0]])
-                
+
                 voc_entry = dict_search(["ava" + list_of_entries[j + 1][0]])
-                if voc_entry[0][0] != voc_entry[0][2][0]:
+                
+                if not isinstance(voc_entry[0][2], list):
                     list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
                     del list_of_entries[i + 1:j + 1]        
         i += 1  

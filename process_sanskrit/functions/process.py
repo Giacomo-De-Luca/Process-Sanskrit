@@ -118,7 +118,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     if text.endswith('*'):
         transliterated_text = transliterate(text[:-1], "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
-        if voc_entry is not None:
+        if not isinstance(voc_entry[0][2], list):
             return voc_entry
         return process(text[:-1])
 
@@ -126,7 +126,7 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     if '_' in text or '%' in text:
         transliterated_text = transliterate(text, "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
-        if voc_entry is not None:
+        if not isinstance(voc_entry[0][2], list):
             return voc_entry
         return process(text)
 
@@ -221,7 +221,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
             ## if the word is inside the dictionary, we return the entry directly, since it will be accurate.
             ## 
             #if isinstance(result_vocabulary, list):
-            #    
+                
             #    if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
             #        replacement = dict_search([result[0][4]], *dict_names, session=session)
             #        if debug:
