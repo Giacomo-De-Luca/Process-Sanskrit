@@ -208,6 +208,18 @@ ps.dict_search(['pratiprasava', 'saṃskāra'], 'gra', 'bhs')
 
 *The library automatically handles the fact that the Apte records nominatives instead of un-inflected stems (i.E. yogaḥ instead of yoga)*. 
 
+### ProcessBYT5
+
+Experimental function -- preprocess the text with BYT5 then sends it to the process function after for stemming and grammatical results. 
+
+'''
+!pip install process-sanskrit[byt5]
+!update-ps-database
+
+from process_sanskrit.functions import processBYT5
+ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
+'''
+
 ## Sources:
 
 **CLS inflect** for the inflection tables: [https://github.com/sanskrit-lexicon/csl-inflect](https://github.com/sanskrit-lexicon/csl-inflect)

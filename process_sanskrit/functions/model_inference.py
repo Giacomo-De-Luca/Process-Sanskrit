@@ -92,6 +92,10 @@ def run_inference(sentences, mode="segmentation", batch_size=20):
     - sentences: List of Sanskrit text to process
     - mode: Processing mode
     - batch_size: Number of sentences to process at once (higher = more efficient)
+
+    TODO: add progress bar
+    --    add a flag to print at least one sentece from eatch batch for debugging
+    --    add a flag to save the output in a file
     """
     prefix_map = {
         "segmentation": "S ",
@@ -121,9 +125,21 @@ def run_inference(sentences, mode="segmentation", batch_size=20):
         batch_results = tokenizer.batch_decode(outputs, skip_special_tokens=True)
         results.extend(batch_results)
     
+    final_processed_results = []
+    
+    results_to_evaluate = results
     if mode == "segmentation":
-        # Process the results to remove unwanted tags
-        processed_results = [process_result(text) for text in results]        
-        return processed_results
+        # Apply process_result first for segmentation mode
+        results_to_evaluate = [process_result(text) for text in results]
 
-    return results
+    for i, output_text in enumerate(results_to_evaluate):
+        original_sentence = sentences[i] # Get the corresponding original sentence
+        
+        # Check if output is empty (or only whitespace) while original input was not
+        if not output_text.strip() and original_sentence.strip():
+            print(f"Warning: Inference returned empty for non-empty input. Returning original: '{original_sentence}'", file=sys.stderr)
+            final_processed_results.append(original_sentence)
+        else:
+            final_processed_results.append(output_text)
+            
+    return final_processed_results
