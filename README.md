@@ -1,6 +1,6 @@
 # Process-Sanskrit
 
-Process-Sanskrit is a *python* open-source library for automatic **Sanskrit text annotation and inflected dictionary search.**
+Process-Sanskrit is a *python* open-source library for automatic Sanskrit text annotation and inflected dictionary search.
 
 The library has two main use cases: 
 
@@ -212,13 +212,13 @@ ps.dict_search(['pratiprasava', 'saṃskāra'], 'gra', 'bhs')
 
 Experimental function -- preprocess the text with BYT5 then sends it to the process function after for stemming and grammatical results. 
 
-'''
+```
 !pip install process-sanskrit[byt5]
 !update-ps-database
 
 from process_sanskrit.functions import processBYT5
 ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
-'''
+```
 
 ## Sources:
 
