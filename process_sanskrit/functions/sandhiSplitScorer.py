@@ -7,11 +7,23 @@ from process_sanskrit.utils.lexicalResources import (
     UPASARGAS_WEIGHTS,
     INDECLINABLES
 )
+from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 
 class SandhiSplitScorer:
     def __init__(self):
         self.upasargas = UPASARGAS_WEIGHTS
         self.indeclinables = INDECLINABLES
+
+
+    def words_exist_in_dictionary(self, split: List[str]) -> bool:
+        """
+        Check if all words in the split exist in DICTIONARY_REFERENCES.
+        Returns False if any word is not found.
+        """
+        for word in split:
+            if word not in DICTIONARY_REFERENCES:
+                return False
+        return True
     
     def calculate_length_score(self, original_text: str, split: List[str]) -> float:
         """

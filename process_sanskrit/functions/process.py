@@ -220,15 +220,15 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
 
             ## if the word is inside the dictionary, we return the entry directly, since it will be accurate.
             ## 
-            #if isinstance(result_vocabulary, list):
+            if isinstance(result_vocabulary, list):
                 
-            #    if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
-            #        replacement = dict_search([result[0][4]], *dict_names, session=session)
-            #        if debug:
-            #            print("replacement", replacement[0])
-            #            print("len replacement", len(replacement[0]))
-            #        if replacement is not None:
-            #            result_vocabulary.insert(0, replacement[0])
+                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
+                    replacement = dict_search([result[0][4]], *dict_names, session=session)
+                    if debug:
+                        print("replacement", replacement[0])
+                        print("len replacement", len(replacement[0]))
+                    if replacement is not None:
+                        result_vocabulary.insert(0, replacement[0])
 
             #print("result_vocabulary", result_vocabulary)
             return clean_results(result_vocabulary, debug=debug, mode=mode)

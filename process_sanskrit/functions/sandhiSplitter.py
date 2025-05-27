@@ -20,7 +20,7 @@ class SplitResult:
     subscores: dict
     all_splits: Optional[List[Tuple[List[str], float, dict]]] = None
 
-def enhanced_sandhi_splitter(
+def sandhi_splitter(
     text_to_split: str, 
     cached: bool = False, 
     attempts: int = 10,

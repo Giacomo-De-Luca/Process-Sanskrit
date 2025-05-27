@@ -1,6 +1,6 @@
 
 from typing import List, Tuple, Dict, Union
-from process_sanskrit.functions.enhancedSandhiSplitter import enhanced_sandhi_splitter
+from process_sanskrit.functions.parserSandhiSplitter import sandhi_splitter
 from process_sanskrit.functions.compoundAnalysis import root_compounds, process_root_result
 from process_sanskrit.functions.sandhiSplitScorer import scorer
 
@@ -27,13 +27,13 @@ def hybrid_sandhi_splitter(
      # Initialize counts dictionary if tracking
     # First try our enhanced statistical splitter
     if detailed_output:
-        stat_split, stat_score, stat_subscores, all_splits = enhanced_sandhi_splitter(
+        stat_split, stat_score, stat_subscores, all_splits = sandhi_splitter(
             text_to_split, cached, attempts, detailed_output=True
         )
         if len(stat_split) == 1:
             stat_score = 0 
     else:
-        stat_split = enhanced_sandhi_splitter(
+        stat_split = sandhi_splitter(
             text_to_split, cached, attempts, detailed_output=False
         )
         # Get the score for comparison
