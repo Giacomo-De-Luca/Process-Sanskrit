@@ -1,16 +1,14 @@
-from .sandhiSplitScorer import SandhiSplitScorer
+from .sandhiSplitScorer import scorer
 # utils/sandhi_splitter.py
 from typing import List, Tuple, Dict, Union, Optional
 import ast
-from process_sanskrit.functions.sandhiSplitScorer import SandhiSplitScorer
 from dataclasses import dataclass
 from sanskrit_parser import Parser
 
 ## cache is currently not used and commented out
 
-scorer = SandhiSplitScorer()
-parser = Parser(output_encoding='iast')
 
+parser = Parser(output_encoding='iast')
 
 @dataclass
 class SplitResult:

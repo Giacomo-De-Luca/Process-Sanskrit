@@ -198,6 +198,15 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
             if attempt is not None:
                 result = attempt
 
+        if result is None:
+            # Check if word exists in dictionary references before trying to split
+            if text in DICTIONARY_REFERENCES:
+                if debug:
+                    print(f"Found {text} in dictionary references, doing direct lookup")
+                result_vocabulary = dict_search([text], *dict_names, session=session)
+                if isinstance(result_vocabulary[0][2], dict):
+                    return clean_results(result_vocabulary, debug=debug, mode=mode)
+
         if result is not None:
             if debug == True: 
                 print("Getting some results with no splitting here:", result)

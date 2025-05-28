@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "process-sanskrit"
-version = "1.0.27"  
+version = "1.0.3"  
 description = "Process-Sanskrit is python library for automatic Sanskrit text annotation and inflected dictionary search"
 readme = "README.md"
 authors = [
