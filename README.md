@@ -20,15 +20,11 @@ Select a book or paste some text, click on the words and see the library in acti
 
 Or search some inflected and sandhi-ed words in the search bar to get the dictionary entries. 
 
-*The following is the Quickstart guide. For a more detailed documentation and advanced features refer to the [documentation website](sanskritvoyager.com/docs).* 
+*The following is the Quickstart guide. For a more detailed documentation and advanced features refer to the [documentation website](https://sanskritvoyager.com/docs).* 
 
 ## Installation
 
 To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database.
-
-Sandhi splitting, with statistical (DCS word2vec) scoring, works out of the box —
-there is no longer a separate `gensim` extra, and nothing downgrades *numpy*.
-The optional `byt5` extra adds the experimental BYT5 model.
 
 ```bash
 pip install process-sanskrit
@@ -38,6 +34,17 @@ or, for the experimental BYT5 model:
 pip install process-sanskrit[byt5]
 update-ps-database
 ```
+
+Everything the core pipeline needs — including sandhi splitting with full
+statistical (DCS word2vec) scoring — is installed by the base package. There are
+no extras to remember and nothing pins an old *numpy*.
+
+> **Upgrading from 1.0.x?** The `[gensim]` extra is gone. Statistical scoring used
+> to be opt-in, which meant a plain `pip install process-sanskrit` silently ranked
+> sandhi splits by length and produced noticeably worse results. Scoring is now
+> always on, and gensim is no longer used at all. Just drop the extra:
+> `pip install process-sanskrit` (not `process-sanskrit[gensim]`). See
+> [documentation/sandhi-splitter.md](documentation/sandhi-splitter.md).
 
 ***`update-ps-database`*** downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
 ) in the resources folder (150 mb download, 583 mb uncompressed, released with [Creative Commons NC license](https://creativecommons.org/licenses/by-nc/4.0/)).
@@ -223,11 +230,16 @@ ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
 
 **CLS inflect** for the inflection tables: [https://github.com/sanskrit-lexicon/csl-inflect](https://github.com/sanskrit-lexicon/csl-inflect)
 
-The **Sanskrit Parser** library handles part of the Sandhi Splitting: [https://github.com/kmadathil/sanskrit_parser?tab=readme-ov-file](https://github.com/kmadathil/sanskrit_parser?tab=readme-ov-file)
+The **Sanskrit Parser** library by Karthik Madathil handles part of the Sandhi Splitting: [https://github.com/kmadathil/sanskrit_parser](https://github.com/kmadathil/sanskrit_parser)
 
-A reduced, split-only copy of it is vendored under `process_sanskrit/splitter/` (MIT).
-See [`process_sanskrit/splitter/NOTICE.md`](process_sanskrit/splitter/NOTICE.md) for what
-was taken and what was left behind.
+Since v1.1.0 a reduced, split-only copy of it is vendored under
+`process_sanskrit/splitter/` (MIT licensed, and gratefully used). The sandhi
+splitting behaviour is unchanged — it is verified split-for-split against the
+original. See [documentation/sandhi-splitter.md](documentation/sandhi-splitter.md)
+for what was kept, what was dropped, and why.
+
+The split scorer uses a **word2vec model trained on the Digital Corpus of Sanskrit
+(DCS)**, also from the Sanskrit Parser project: [http://www.sanskrit-linguistics.org/dcs/](http://www.sanskrit-linguistics.org/dcs/)
 
 The **BYT5 model** used in the experimental version of the process function is from the [https://huggingface.co/buddhist-nlp/byt5-sanskrit](https://huggingface.co/buddhist-nlp/byt5-sanskrit) discussed in the paper: 
 
