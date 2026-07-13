@@ -71,6 +71,11 @@ For the experimental version with byt5:
 
 *only **transliterate** works without the database!*
 
+Deployments that keep the database outside the Python package can set
+`PROCESS_SANSKRIT_DB_PATH` to the existing `SQliteDB.sqlite` file. The library
+opens it read-only; see
+[`documentation/database-location.md`](documentation/database-location.md).
+
 ### Persistent analysis cache
 
 Expensive sandhi and compound analyses are cached by default in a separate,

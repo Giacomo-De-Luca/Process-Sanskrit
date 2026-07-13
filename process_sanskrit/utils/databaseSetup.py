@@ -14,7 +14,6 @@ Features:
 """
 
 import os
-import importlib.resources
 import logging
 import threading
 from pathlib import Path
@@ -29,6 +28,8 @@ from sqlalchemy.exc import DisconnectionError, OperationalError
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 from sqlalchemy.pool import QueuePool
+
+from process_sanskrit.utils.resourcePaths import get_database_path
 
 # Configure logging
 log = logging.getLogger(__name__)
@@ -84,25 +85,7 @@ def get_db_path() -> str:
     Note:
         Uses a fallback path if importlib.resources resolution fails
     """
-    try:
-        # Modern approach (Python 3.9+)
-        resources_dir = importlib.resources.files('process_sanskrit').joinpath('resources')
-        db_file = resources_dir.joinpath('SQliteDB.sqlite')
-        
-        # Convert to string path
-        with importlib.resources.as_file(db_file) as path:
-            return str(path)
-    except (ImportError, ModuleNotFoundError, AttributeError, FileNotFoundError) as e:
-        # Fallback for older Python versions or unexpected package structure
-        log.warning(f"Could not resolve database path with importlib: {e}")
-        
-        # Try relative resolution from this file
-        module_dir = os.path.dirname(os.path.abspath(__file__))
-        parent_dir = os.path.dirname(module_dir)  # Up one level from utils
-        fallback_path = os.path.join(parent_dir, 'resources', 'SQliteDB.sqlite')
-        
-        log.info(f"Using fallback database path: {fallback_path}")
-        return fallback_path
+    return str(get_database_path())
 
 def database_exists(db_path: Optional[str] = None) -> bool:
     """

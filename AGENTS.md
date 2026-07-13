@@ -66,6 +66,7 @@ Key layers:
 - `splitter/` — **vendored** reduced copy of `kmadathil/sanskrit_parser` v0.2.6 (MIT, see `splitter/NOTICE.md` and `LICENSE.upstream`). Provides `Parser.split()` only. Two deliberate substitutions: a precomputed marisa-trie (`forms.trie`) replaces the sqlite/generative validity oracle, and a numpy scorer replaces gensim — the scorer intentionally reproduces gensim quirks (saturated-term skip, integer-division sigmoid scale); "fixing" them changes which split wins. `tools/build_splitter_data.py` regenerates `splitter/data/` from upstream.
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
+- External lexicon database paths are documented in `documentation/database-location.md`.
 - `setup/updateDB.py` — the `update-ps-database` console script.
 
 ## Conventions and cautions
