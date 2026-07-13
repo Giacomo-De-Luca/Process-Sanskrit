@@ -74,12 +74,12 @@ Key layers:
 - `functions/` — the cascading pipeline: `rootAnyWord.py` (stem identification), `inflect.py` (inflection tables), `sandhiSplitter.py` / `hybridSplitter.py` / `compoundAnalysis.py` (splitting), `SQLiteFind.py` (DB queries), `taddhitaDerivation.py` (productive `-tā`/`-tva` abstract nouns), `cleanResults.py` (output shaping), `model_inference.py` / `processBYT5.py` (optional BYT5 path).
 - `splitter/` — the public split-only facade, the default native Rust backend, and the vendored Python differential reference. See `documentation/rust-splitter.md` for architecture, backend selection, builds, assets, release validation status, and remaining publication work; the original vendoring contract is in `documentation/sandhi-splitter.md`.
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
-- Persistent split/morphology caching is documented in `documentation/local-cache.md`.
+- Persistent split/morphology caching is documented in `documentation/local-cache.md`. A result-changing hybrid/process change must bump `ANALYSIS_ALGORITHM_VERSION`; a direct statistical change must bump `STATISTICAL_ANALYSIS_ALGORITHM_VERSION` (both if both paths change), or stale rows can mask the change.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
 - Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
 - Productive `-tā`/`-tva` abstract nouns (`niṣyandatā`) are reconstructed from their base; see `documentation/taddhita-derivation.md`.
-- The `word_list` dictionary index is *derived* from the dictionary tables and is rebuilt, never patched; see `documentation/word-list-index.md`.
+- The `word_list` dictionary index is *derived* from the dictionary tables and is rebuilt, never patched; see `documentation/word-list-index.md`. It also flags bare Monier-Williams variant-reading pointers such as `tanni`, which rank behind genuine compound cuts while remaining eligible fallbacks. The flag must stay lexical: keying it to "heads no inflection table" instead silently destroys `gacchatā` → `gacchat`, since `gacchat` and `niṣyanda` have no paradigm either and are perfectly real.
 - `setup/updateDB.py` — the `update-ps-database` console script.
 
 ## Conventions and cautions

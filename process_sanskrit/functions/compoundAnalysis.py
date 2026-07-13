@@ -84,7 +84,7 @@ def evaluate_compound_split(
                     if debug:
                         print(f"Found base word {base_word} for {first_part}, "
                               f"penalizing by {properties.weight}")
-    
+
     # Check if remaining part forms valid words
     ## an empty remainder means first_part IS the whole word: there is nothing
     ## left to justify, so it counts as satisfied.  Otherwise an exact headword

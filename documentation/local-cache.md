@@ -30,10 +30,10 @@ not stored.
 
 Direct statistical results use the `statistical-splitter-v2` algorithm
 signature. Version 2 prevents an old `attempts=1` unsplit fallback—created by a
-wrapper return-shape bug—from masking the corrected ranked split. Existing rows
-under the legacy hybrid signature remain on disk until normal retention removes
-them, but direct statistical calls no longer read them. Hybrid morphology keeps
-its independent signature because it did not use that broken one-attempt path.
+wrapper return-shape bug—from masking the corrected ranked split. Rows stored
+under the legacy hybrid signature are evicted when the cache next opens. Hybrid
+morphology keeps an independent `hybrid-morphology-v3` signature because its
+compound-ranking behavior evolves separately from the statistical splitter.
 
 ## Configuration
 
@@ -64,9 +64,10 @@ age. Access timestamps are updated at most once per day to keep hits mostly
 read-only. Cleanup is opportunistic, indexed, and bounded; it uses passive WAL
 checkpoints and incremental vacuum rather than blocking full vacuum operations.
 
-`keep_all` never deletes analysis records. Changing from `keep_all` to `prune`
-makes old inactive records eligible for deletion; changing back cannot restore
-records already removed.
+`keep_all` never age-prunes records whose algorithm signature is still valid.
+Superseded or mismatched algorithm records are invalidated on open in both
+retention modes. Changing from `keep_all` to `prune` makes old inactive records
+eligible for age-based deletion; changing back cannot restore removed records.
 
 The cache uses a small SQLAlchemy `QueuePool` with one retained connection, one
 overflow connection, and a 2 MiB SQLite page cache per connection. Each web
@@ -84,10 +85,27 @@ splitter settings, algorithm signature, and lexicon fingerprint. It stores:
 - creation and last-access timestamps.
 
 Dictionary HTML, full candidate lists, request-event history, and human labels
-are not stored. Algorithm or lexicon changes produce a new key rather than
-overwriting an old prediction. In `keep_all` mode this creates a useful
-de-duplicated prediction corpus, but it is not ground-truth training data and
-does not preserve query frequency or every original-script variant.
+are not stored. Active lexicon and settings variants produce separate keys
+rather than overwriting predictions. In `keep_all` mode this creates a useful
+de-duplicated corpus for current algorithms, but it is not ground-truth training
+data and does not preserve query frequency or every original-script variant.
+
+## Algorithm version and eviction
+
+Each analysis family has an active signature. Hybrid/process changes bump
+`ANALYSIS_ALGORITHM_VERSION`; direct statistical changes bump
+`STATISTICAL_ANALYSIS_ALGORITHM_VERSION`. A signature is part of the cache key,
+so forgetting a bump can replay stale results and make a fix appear ineffective.
+
+Cache initialization deletes rows whose signature is no longer active, plus rows
+where a known analysis kind is paired with the wrong family's active signature.
+Both current hybrid and statistical signatures remain valid. This happens inside
+the same `BEGIN IMMEDIATE` that bootstraps the schema, once per engine and already
+serialized across workers; the cache recomputes invalidated results on demand.
+
+This is deliberately keyed on the algorithm signature alone, not on the lexicon
+fingerprint: swapping the lexicon back and forth (an externally provisioned
+database) should not throw away the other lexicon's work.
 
 Payloads use a strict tagged-JSON format that preserves list/tuple distinctions;
 pickle is never used. Schema migrations use SQLite `user_version`, independently

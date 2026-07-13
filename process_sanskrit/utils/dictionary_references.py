@@ -126,7 +126,10 @@ def _lookup(word: str) -> Optional[Tuple[str, ...]]:
 
 @lru_cache(maxsize=None)
 def _stubs_for_path(database_path: Path) -> frozenset:
-    """Load the small derived stub set once for hot compound membership checks."""
+    """Load the small derived stub set once for hot compound membership checks.
+
+    Every compound cut consults it, so a query per lookup would be pure overhead.
+    """
     return frozenset(WordListBuilder.stub_headwords(_connection(database_path)))
 
 

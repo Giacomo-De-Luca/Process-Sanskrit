@@ -295,7 +295,12 @@ class WordListBuilder:
     def _collect_stubs(
         cls, connection: sqlite3.Connection, dictionaries: List[str]
     ) -> Set[str]:
-        """Stream whether every attestation of each headword is a bare pointer."""
+        """Stream headwords whose every attestation is a bare pointer.
+
+        Requiring every entry protects real words that merely carry one variant
+        note. Keeping one boolean per headword avoids retaining all dictionary
+        bodies in memory during the rebuild.
+        """
         candidates: Dict[str, bool] = {}
         for dictionary in dictionaries:
             for headword, body in connection.execute(

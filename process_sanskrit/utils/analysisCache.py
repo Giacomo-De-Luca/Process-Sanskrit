@@ -49,8 +49,11 @@ from process_sanskrit.utils.resourcePaths import resolve_configured_path
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v2"
-# v2 ranks genuine compound headwords ahead of bare variant-reading pointers.
+# Bump this whenever a change can alter a split or morphology result. The
+# signature is part of the cache key, and superseded rows are evicted on open.
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v3"
+# v3 ranks genuine compound headwords ahead of bare variant-reading pointers;
+# the short-lived v2 implementation used an additive score penalty instead.
 # v1 could persist an unsplit fallback for direct `attempts=1` calls because
 # the wrapper mishandled Parser's list return. Keep that stale result contract
 # isolated from the corrected statistical splitter without invalidating hybrid
@@ -454,6 +457,8 @@ class AnalysisCache:
                 if current == 0:
                     connection.exec_driver_sql(f"PRAGMA user_version={SCHEMA_VERSION}")
 
+                # Keep each active analysis family while removing superseded
+                # signatures and known kinds paired with another family's key.
                 signature_column = analysis_cache_table.c.algorithm_signature
                 kind_column = analysis_cache_table.c.analysis_kind
                 superseded_condition = signature_column.not_in(

@@ -240,7 +240,7 @@ class AnalysisCacheTests(unittest.TestCase):
             self.record(
                 key=self.key(
                     normalized_input="stale",
-                    algorithm_signature="hybrid-morphology-v1",
+                    algorithm_signature="hybrid-morphology-v2",
                 )
             )
         )

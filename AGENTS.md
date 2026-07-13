@@ -77,6 +77,7 @@ Key layers:
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
 - External lexicon database paths are documented in `documentation/database-location.md`.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
+- Derived word-list indexing and bare variant-pointer classification are documented in `documentation/word-list-index.md`.
 - `setup/updateDB.py` — the `update-ps-database` console script.
 
 ## Conventions and cautions

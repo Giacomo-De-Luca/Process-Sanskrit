@@ -78,6 +78,69 @@ disk, and is slow. Rebuild with `--vacuum`, gzip, upload as the release asset,
 then bump `RELEASE_TAG` in `process_sanskrit/setup/updateDB.py`. Users on the
 old artifact are repaired by `update-ps-database` regardless.
 
+## `word_list_stubs`: bare variant-reading pointers
+
+Being a dictionary key does not make a form a word. Monier-Williams records
+manuscript spellings it does not endorse: the entry exists only to say *"this
+reading is a variant of that one"*. `tanni` heads nothing but
+
+> `tanni` `°nnī` variant reading (varia lectio) for `°nvī`, q.v.
+
+Such a headword is an artifact of the critical apparatus rather than a lexical
+definition — but it *is* a key, so the compound walk in
+`functions/compoundAnalysis.py` could cut a word on it, and being **longer** than
+the true cut it won the tie:
+
+```
+process("tannirodha", mode="roots")   # "the cessation of that"
+  ->  ['tanni', ('rodha', 'rudh')]    # before: tad + nirodha destroyed
+  ->  ['tad', 'nirodha']              # after
+```
+
+`WordListBuilder` flags these during the rebuild into a `word_list_stubs` table
+(432 headwords in the current seven-dictionary database). The flag is *derived*,
+like the index itself. The classifier is deliberately conservative: visible
+definition prose before or after the pointer rejects the entry, and every
+attestation across every dictionary must qualify. Rebuilding streams one boolean
+per headword instead of retaining all dictionary bodies in memory.
+
+**A headword qualifies only if every entry for it, in every dictionary, is such a
+pointer.** That quantifier is the core safety rule: a real word may well carry a
+cross-reference among its entries, and demanding that *all* entries be bare
+pointers keeps it out of the set. Same-entry definitions such as `cakṣūroga`
+("disease of the eye" plus a variant note) are also explicitly rejected.
+
+Two properties are deliberate:
+
+- **The stubs stay in the index.** They are ranked, not deleted, so
+  `dict_search("tanni")` still finds it — someone may well look up a spelling
+  they have actually read. The ordinary numeric score still decides whether a
+  candidate clears `dict_word_iterative`'s 0.6 acceptance gate. Among eligible
+  candidates, a genuine headword ranks before a stub; a stub therefore remains
+  available when nothing genuine fits.
+- **The signal is lexical, not morphological.** The tempting shortcut — demote
+  a first member that heads no inflection table — *cannot work*, and the near miss
+  is worth recording:
+
+  | | longer cut | shorter cut | which inflects | who must win |
+  | --- | --- | --- | --- | --- |
+  | `tannirodha` | `tanni` (5) | `tan` (3) | only `tan` | **shorter** |
+  | `gacchatā` | `gacchat` (7) | `gaccha` (6) | only `gaccha` | **longer** |
+
+  The two are the same shape, so any weight large enough to beat `tanni` also
+  beats `gacchat` and hands the participle `gacchatā` ("by the one going") to
+  `gaccha` + `tā`. `gacchat` and `niṣyanda` are real words that merely lack a
+  paradigm; `tanni` is not a word at all. Pinned by
+  `tests/test_compound_preference.py` and `tests/test_taddhita_derivation.py`.
+
+The index stores `STUB_CLASSIFIER_VERSION` in `word_list_metadata`. A missing
+stub table, missing metadata, or outdated classifier version makes the derived
+index stale and causes `update-ps-database` to rebuild it. Analysis against a
+legacy database degrades to "no stubs known" rather than failing a lookup, and
+logs an update warning. Changing this ranking changes hybrid/process results, so
+it requires a bump of `ANALYSIS_ALGORITHM_VERSION` — currently
+`hybrid-morphology-v3`; see [local-cache.md](local-cache.md).
+
 ## Staleness is reported, not hidden
 
 `word_list_sources` records which dictionaries the current index was built from,
