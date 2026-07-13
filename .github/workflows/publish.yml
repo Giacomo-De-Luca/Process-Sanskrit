@@ -1,0 +1,99 @@
+name: Publish to PyPI
+
+# Publishes whenever the version in pyproject.toml differs from what is on PyPI.
+# Pushes that do not bump the version end green without uploading anything.
+# See documentation/publishing.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One release at a time: two pushes in quick succession must not race to upload
+# the same version. Never cancel a run mid-upload.
+concurrency:
+  group: publish-pypi
+  cancel-in-progress: false
+
+jobs:
+  check-version:
+    name: Check version against PyPI
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+      should-publish: ${{ steps.check.outputs.should_publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - id: check
+        run: python .github/scripts/check_pypi_version.py
+
+  build:
+    name: Build distributions
+    needs: check-version
+    if: needs.check-version.outputs.should-publish == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The package is pure Python today, so one universal py3-none-any wheel
+      # serves every platform. When the Rust extension lands this single step
+      # must become a cibuildwheel matrix (one wheel per platform/interpreter)
+      # plus a separate sdist job; the publish job below needs no changes.
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade build twine
+          python -m build
+          python -m twine check dist/*
+
+      - name: Smoke-test the wheel
+        run: |
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install dist/*.whl
+          /tmp/smoke/bin/python -c "import process_sanskrit as ps; assert ps.transliterate('rāmaḥ', 'devanagari') == 'रामः'"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: Publish to PyPI
+    needs: [check-version, build]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/process-sanskrit
+    permissions:
+      id-token: write # required for PyPI Trusted Publishing (OIDC); no API token
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  tag:
+    name: Tag the release
+    needs: [check-version, publish]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag v${{ needs.check-version.outputs.version }}
+        env:
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin "v${VERSION}"

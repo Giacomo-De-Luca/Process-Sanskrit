@@ -56,6 +56,10 @@ python tests/runBenchmarks.py                   # benchmark suite / Yoga Sutra a
 
 `tests/test_splitter_parity.py` has an upstream-parity half that is skipped unless `sanskrit-parser==0.2.6` and `gensim` are installed (intentionally not dependencies).
 
+## Releasing
+
+Bumping `version` in `pyproject.toml` and pushing to `main` publishes to PyPI via `.github/workflows/publish.yml`; pushes that do not bump the version publish nothing. See `documentation/publishing.md` — including what must change in the build job once the Rust extension lands (a single universal wheel stops being valid).
+
 ## Architecture
 
 Public API (`process_sanskrit/__init__.py`) exports three functions:

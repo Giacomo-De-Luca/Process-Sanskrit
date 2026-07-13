@@ -117,7 +117,13 @@ class WordListBuilderTests(unittest.TestCase):
             [("shared", json.dumps(["mw"])), ("mwonly", json.dumps(["mw"]))],
         )
         self.connection.commit()
-        self.assertEqual(WordListBuilder.missing_dictionaries(self.connection), {"ddsa"})
+        # A legacy index carries no coverage marker, so it declares coverage of
+        # nothing -- establishing that it really covers 'mw' would need a scan of
+        # every row.  Reading it as stale is the safe answer, and a rebuild is
+        # cheap enough that distinguishing the two cases would not pay for itself.
+        self.assertEqual(
+            WordListBuilder.missing_dictionaries(self.connection), {"ddsa", "mw"}
+        )
 
         WordListBuilder.build(self.connection)
 

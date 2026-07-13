@@ -62,14 +62,13 @@ def _warn_if_stale(connection: sqlite3.Connection, database_path: Path) -> None:
         return
     if not missing:
         return
-    names = ", ".join(sorted(missing))
     logger.warning(
-        "The word_list index in %s does not cover %s. Dictionary references for "
-        "words attested in %s will be incomplete or missing. Run "
+        "The word_list index in %s does not record coverage of: %s. Dictionary "
+        "references may be incomplete for words attested in those dictionaries, "
+        "and words attested only there will not resolve at all. Run "
         "'update-ps-database' to rebuild the index.",
         database_path,
-        names,
-        names,
+        ", ".join(sorted(missing)),
     )
 
 

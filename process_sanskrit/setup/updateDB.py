@@ -94,6 +94,40 @@ def download_and_unzip(target_dir, asset_name, download_url):
     return False # Indicate failure
 
 
+def ensure_word_list_index(database_path):
+    """Rebuild the derived word_list index if it does not cover every dictionary.
+
+    The released artifact up to v1.0.2 indexed only five of the seven
+    dictionaries, so an already-downloaded database is repaired in place here
+    rather than forcing a fresh download of the whole file.
+    """
+    connection = sqlite3.connect(database_path)
+    try:
+        missing = WordListBuilder.missing_dictionaries(connection)
+        if not missing:
+            print("Dictionary index is up to date.")
+            return True
+
+        print(
+            f"Rebuilding the dictionary index: {', '.join(sorted(missing))} "
+            "not covered by the current word_list."
+        )
+        report = WordListBuilder.build(connection)
+        print(
+            f"Indexed {report.headwords} headwords across "
+            f"{len(report.dictionaries)} dictionaries "
+            f"({', '.join(report.dictionaries)})."
+        )
+        if report.dropped_tables:
+            print(f"Dropped unused table(s): {', '.join(report.dropped_tables)}.")
+        return True
+    except sqlite3.Error as error:
+        print(f"\nError rebuilding the dictionary index: {error}", file=sys.stderr)
+        return False
+    finally:
+        connection.close()
+
+
 def update_database():
     """
     Command-line entry point function to download/update the database.
@@ -115,8 +149,13 @@ def update_database():
         if not download_and_unzip(target_path, ASSET_NAME, DOWNLOAD_URL):
             print("\nDatabase download/update failed.", file=sys.stderr)
             sys.exit(1) # Exit with error code
-        else:
-            print("\nDatabase download/update process finished.")
+
+        database_path = os.path.join(target_path, UNZIPPED_FILENAME)
+        if not ensure_word_list_index(database_path):
+            print("\nDatabase download/update failed.", file=sys.stderr)
+            sys.exit(1)
+
+        print("\nDatabase download/update process finished.")
 
     except ModuleNotFoundError:
          print(f"Error: Could not find the installed package 'process_sanskrit'. Is it installed correctly?", file=sys.stderr)
