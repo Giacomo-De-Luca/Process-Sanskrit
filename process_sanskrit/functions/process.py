@@ -33,7 +33,7 @@ from process_sanskrit.utils.lexicalResources import (
     sanskritFixedSandhiMap, 
     SANSKRIT_PREFIXES
 )
-from process_sanskrit.utils.transliterationUtils import transliterate
+from process_sanskrit.utils.transliterationUtils import transliterate, normalize_avagraha
 
 ### import the sandhiSplitScorer and construct the scorer object. 
 
@@ -48,6 +48,11 @@ from process_sanskrit.utils.databaseSetup import session_scope, with_session, re
 ### get the version of the library
 
 def preprocess(text, max_length=100, debug=False):
+
+    ## editions, OCR and PDF copy-paste each spell the avagraha with a different
+    ## glyph ('  ’  ʼ  `  ´ ...); fold them onto the ASCII apostrophe before
+    ## scheme detection or the \p{L} filter below ever sees them
+    text = normalize_avagraha(text)
 
     text = transliterate(text, "IAST")
 
@@ -71,13 +76,18 @@ def preprocess(text, max_length=100, debug=False):
     if 'jj' in text:
         text = text.replace('jj', 'j j')
 
-    if "o'" in text:
-        text = re.sub(r"o'", "aḥ a", text)
+    ## an avagraha after a word-final "o" means that o came from -aḥ/-as
+    ## (saḥ anupalambhena -> so 'nupalambhena), so undo both at once.  Printed
+    ## text writes this with a space as often as without, hence the \s*
+    text = re.sub(r"o\s*'", "aḥ a", text)
 
-    ## an empty string reaches here from a bare separator ("hetu-" splits into
-    ## ("hetu", "")); guard the index rather than let it raise IndexError
-    if text and text[0] == "'":
-        text = 'a' + text[1:]
+    ## restore the elided initial a- on any word, not only the first one: the
+    ## check used to be `text[0] == "'"`, so in "tasmāt so 'nupalambhena" the
+    ## avagraha was left standing, then stripped as punctuation, and the word
+    ## shattered ("nupalambhena" -> nu + pa + pa + lambha).  An empty string
+    ## also reaches here from a bare separator ("hetu-" splits into
+    ## ("hetu", "")), which this form tolerates where indexing did not.
+    text = re.sub(r"(^|\s)'", r"\1a", text)
 
     text = regex.sub(r"[^\p{L}'_%*+\-]", ' ', text)
     text = re.sub(r'\s+', ' ', text)

@@ -17,7 +17,7 @@
 
 - If you make a plan, always define and plan tests first, or use a test generting agnet, then run the code against those tests after. 
 
-- Never stash changes without being directly asked. 
+- NEVER stash changes without being directly asked. 
 
 - For folders with multiple scripts or data files, add a readme explaining both the structure of the folder, the main classes or data structures present there. 
 
@@ -66,6 +66,7 @@ Key layers:
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
+- Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
 - `setup/updateDB.py` — the `update-ps-database` console script.
 
 ## Conventions and cautions

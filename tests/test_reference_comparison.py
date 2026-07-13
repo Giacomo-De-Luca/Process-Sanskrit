@@ -386,7 +386,14 @@ class ReferenceComparisonTests(unittest.TestCase):
 
     # -- change 4: sandhi table parity ----------------------------------------
 
+    @unittest.skipUnless(
+        APP_ROOT_SOURCE.exists(),
+        f"app-root reference not present at {APP_ROOT_SOURCE}",
+    )
     def test_sandhi_tables_match_app_root_modulo_documented_additions(self):
+        ## references/ is gitignored, so this reference is absent on a fresh
+        ## clone and in CI.  Skip rather than error, matching how
+        ## test_splitter_parity treats the optional upstream sanskrit-parser.
         tables = extract_app_root_tables()
 
         lib_variable = dict(lexicalResources.variableSandhi)
