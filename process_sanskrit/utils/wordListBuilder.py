@@ -43,6 +43,7 @@ class WordListBuilder:
     SOURCES_TABLE = "word_list_sources"
 
     INDEX_TABLE = "word_list"
+    INDEX_COLUMNS = frozenset({"keys_iast", "dict_names"})
 
     #: An unused byte-identical copy of ``word_list`` shipped in v1.0.2.
     LEGACY_TABLES = ("dictionary_cross_references",)
@@ -80,6 +81,22 @@ class WordListBuilder:
         return set(cls.discover_dictionaries(connection)) - cls.indexed_dictionaries(
             connection
         )
+
+    @classmethod
+    def index_is_current(cls, connection: sqlite3.Connection) -> bool:
+        """Return whether a structurally valid index covers the exact schema."""
+        dictionaries = set(cls.discover_dictionaries(connection))
+        if not dictionaries or not cls._table_exists(connection, cls.INDEX_TABLE):
+            return False
+        columns = {
+            row[1]
+            for row in connection.execute(
+                f'PRAGMA table_info("{cls.INDEX_TABLE}")'
+            )
+        }
+        if not cls.INDEX_COLUMNS <= columns:
+            return False
+        return cls.indexed_dictionaries(connection) == dictionaries
 
     @classmethod
     def build(

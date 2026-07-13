@@ -115,6 +115,20 @@ SUFFIXES: Tuple[TaddhitaSuffix, ...] = (
 
 
 @dataclass(frozen=True)
+class EndingSet:
+    """The two ending lists read off one exemplar row.
+
+    `endings` is the full paradigm in stored order, used to *generate* a table.
+    `licensing` is the subset allowed to *identify* a derivative -- deduplicated,
+    longest first, and with NON_LICENSING_ENDINGS removed.  They are kept together
+    because they must never disagree about which lexicon they came from.
+    """
+
+    endings: List[str]
+    licensing: Tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class DerivedForm:
     """A derivative reconstructed from its base."""
 
@@ -150,18 +164,21 @@ class TaddhitaDeriver:
     def __init__(self, suffixes: Sequence[TaddhitaSuffix] = SUFFIXES):
         self._suffixes = tuple(suffixes)
         ## Keyed on (lexicon identity, suffix), not on suffix alone: an
-        ## externally provisioned database (see commit 65151d6) can be swapped in
-        ## mid-process, and a stale ending list would then be reused instead of
-        ## raising the deliberately fatal error below.
-        self._endings: Dict[Tuple[str, str], List[str]] = {}
-        self._licensing: Dict[Tuple[str, str], Tuple[str, ...]] = {}
+        ## externally provisioned database (see commit 65151d6) can be pointed at
+        ## a different path mid-process, and a stale ending list would then be
+        ## reused instead of raising the deliberately fatal error below.
+        ##
+        ## The two ending sets live in ONE record rather than two parallel dicts:
+        ## they must never disagree, and reading them separately would mean
+        ## resolving the lexicon identity twice, which can change underneath a
+        ## caller mid-lookup and miss on the second read.
+        self._paradigms: Dict[Tuple[str, str], EndingSet] = {}
 
     ## -- paradigm construction ------------------------------------------------
 
     def clear_cache(self) -> None:
         """Drop the memoised exemplar paradigms."""
-        self._endings.clear()
-        self._licensing.clear()
+        self._paradigms.clear()
 
     def stored_paradigm(self, stem: str, suffix: str, session=None) -> Optional[List[str]]:
         """The paradigm the database stores for a lexicalised derivative."""
@@ -173,10 +190,14 @@ class TaddhitaDeriver:
         The exemplar's own base is stripped from each of its forms, which leaves
         the suffix plus the case ending ("tā", "tayā", "tānām", ...).
         """
+        return self._ending_set(suffix, session=session).endings
+
+    def _ending_set(self, suffix: str, session=None) -> "EndingSet":
+        """Everything read off one exemplar row, resolved in a single lookup."""
         spec = self._spec(suffix)
         key = (self._lexicon_identity(), suffix)
 
-        cached = self._endings.get(key)
+        cached = self._paradigms.get(key)
         if cached is not None:
             return cached
 
@@ -208,17 +229,18 @@ class TaddhitaDeriver:
                 "the database layout has changed."
             )
 
-        self._endings[key] = endings
         ## longest first, so a longer cell is never shadowed by a shorter one that
         ## happens to be its tail; -te is dropped, see NON_LICENSING_ENDINGS
-        self._licensing[key] = tuple(
+        licensing = tuple(
             sorted(
                 {e for e in endings if e not in NON_LICENSING_ENDINGS},
                 key=len,
                 reverse=True,
             )
         )
-        return endings
+        ending_set = EndingSet(endings=endings, licensing=licensing)
+        self._paradigms[key] = ending_set
+        return ending_set
 
     def paradigm(self, base: str, suffix: str, session=None) -> List[str]:
         """The full 24-form table of `base` + `suffix`."""
@@ -236,11 +258,16 @@ class TaddhitaDeriver:
             return None
 
         for spec in self._suffixes:
-            base = self._base_of(word, spec, session=session)
+            ## resolved once and threaded through, so the endings used to find the
+            ## base and the endings used to build its table cannot come from two
+            ## different lexicons
+            ending_set = self._ending_set(spec.suffix, session=session)
+
+            base = self._base_of(word, spec, ending_set, session=session)
             if base is None:
                 continue
 
-            forms = self.paradigm(base, spec.suffix, session=session)
+            forms = [base + ending for ending in ending_set.endings]
             return DerivedForm(
                 lemma=base + spec.suffix,
                 base=base,
@@ -264,24 +291,41 @@ class TaddhitaDeriver:
         raise KeyError(f"no such taddhita suffix: {suffix!r}")
 
     def _lexicon_identity(self) -> str:
-        from process_sanskrit.utils.analysisCache import lexicon_fingerprint
+        """Which lexicon the cached endings were read from.
+
+        Deliberately the configured path, and NOT analysisCache.lexicon_fingerprint():
+        that helper is @lru_cache'd on its `db_path` argument, so called the way we
+        would call it (with no argument) it freezes at its first answer and never
+        notices a swap -- which makes it useless as a cache key here.  get_db_path()
+        reflects the currently configured database on every call.
+        """
+        from process_sanskrit.utils.databaseSetup import get_db_path
 
         try:
-            return lexicon_fingerprint()
-        except Exception:
-            ## the fingerprint only keys the cache; failing to compute it must not
-            ## take down a derivation the database can perfectly well answer
+            return get_db_path()
+        except OSError:
+            ## the identity only keys the cache; a path that cannot be resolved
+            ## must not take down a derivation the session can perfectly well answer
             return "unknown"
 
-    def _base_of(self, word: str, spec: TaddhitaSuffix, session=None) -> Optional[str]:
-        """The stem `word` is built on, if it is built on one at all."""
-        self.endings(spec.suffix, session=session)  # populates the licensing set
-        licensing = self._licensing[(self._lexicon_identity(), spec.suffix)]
+    def _base_of(
+        self,
+        word: str,
+        spec: TaddhitaSuffix,
+        ending_set: EndingSet,
+        session=None,
+    ) -> Optional[str]:
+        """The stem `word` is built on, if it is built on one at all.
 
-        ## No ending in either set is a tail of another, so at most one can match;
-        ## the first hit is therefore the only hit, and there is nothing to fall
-        ## back to if it is rejected.
-        for ending in licensing:
+        Takes the already-resolved ending set rather than looking it up again:
+        resolving it twice means resolving the lexicon identity twice, and a swap
+        between the two reads would miss the cache and raise.
+        """
+        ## No licensing ending is a tail of another (pinned by
+        ## test_no_licensing_ending_is_a_tail_of_another), so at most one can
+        ## match: the first hit is the only hit, and a rejected hit has nothing to
+        ## fall back to.  Hence every rejection below returns rather than continues.
+        for ending in ending_set.licensing:
             if not word.endswith(ending):
                 continue
 
@@ -328,6 +372,7 @@ taddhita_deriver = TaddhitaDeriver()
 
 __all__ = [
     "DerivedForm",
+    "EndingSet",
     "MIN_BASE_LENGTH",
     "NON_LICENSING_ENDINGS",
     "SUFFIXES",

@@ -54,20 +54,48 @@ jobs:
           python -m build
           python -m twine check dist/*
 
-      - name: Smoke-test the wheel
-        run: |
-          python -m venv /tmp/smoke
-          /tmp/smoke/bin/pip install dist/*.whl
-          /tmp/smoke/bin/python -c "import process_sanskrit as ps; assert ps.transliterate('rāmaḥ', 'devanagari') == 'रामः'"
-
       - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
+          overwrite: true # so "Re-run all jobs" does not 409 on an existing artifact
+
+  smoke-test:
+    name: Smoke-test the wheel (py${{ matrix.python-version }})
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # The floor declared in pyproject.toml, and a current interpreter.
+        python-version: ["3.9", "3.12"]
+    steps:
+      # Deliberately no checkout: with no source tree in the working directory,
+      # `import process_sanskrit` cannot resolve to the repo instead of the
+      # installed wheel. The assertion below pins that invariant regardless.
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Runs with no database present, which is the point: `transliterate` is the
+      # only database-free entry point, so this proves the wheel imports and its
+      # packaged resources resolve on a bare machine.
+      - name: Install the wheel and exercise it
+        run: |
+          python -m pip install dist/*.whl
+          python - <<'PY'
+          import process_sanskrit as ps
+          assert "site-packages" in ps.__file__, f"imported the wrong thing: {ps.__file__}"
+          assert ps.transliterate("rāmaḥ", "devanagari") == "रामः"
+          print(f"OK: {ps.__file__}")
+          PY
 
   publish:
     name: Publish to PyPI
-    needs: [check-version, build]
+    needs: [check-version, build, smoke-test]
     runs-on: ubuntu-latest
     environment:
       name: pypi

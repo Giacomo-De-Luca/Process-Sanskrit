@@ -60,6 +60,15 @@ uv run python tools/build_word_list.py --vacuum    # + reclaim space, for a rele
 download and repairs a stale database in place, so existing installs converge in
 about a second without re-downloading 596 MB.
 
+When `PROCESS_SANSKRIT_DB_PATH` is set, the command rebuilds that existing
+external database without downloading anything. It writes and validates a
+sibling copy before atomically replacing the configured path, so immutable
+readers already holding the old inode are not mutated underneath. The database
+must exist and be readable, and its parent directory must be writable with room
+for a temporary full-size copy. A missing configured path is an error rather
+than a reason to create an empty SQLite file or fall back to the packaged
+database. External repairs preserve legacy tables owned by the deployment.
+
 ### Releasing a corrected artifact
 
 `--vacuum` is only worth running on the artifact you intend to publish: it
@@ -78,10 +87,11 @@ dictionary present logs a warning once per connection and keeps serving.
 
 This matters most for externally provisioned lexicons
 (`PROCESS_SANSKRIT_DB_PATH`, see [database-location.md](database-location.md)),
-which are opened read-only and immutable and therefore cannot be repaired in
-place. A five-dictionary lexicon returns wrong dictionary lists for roughly 19%
-of the vocabulary — exactly the silent failure the overlay was concealing — so
-it must announce itself.
+which are opened read-only and immutable by analysis workers. The updater's
+atomic replacement lets existing workers finish against the old inode; restart
+them so all workers converge on the new database. A five-dictionary lexicon
+returns wrong dictionary lists for roughly 19% of the vocabulary — exactly the
+silent failure the overlay was concealing — so it must announce itself.
 
 An index predating `word_list_sources` declares coverage of nothing and reads as
 stale. That is deliberate: proving a legacy index really covers `mw` would

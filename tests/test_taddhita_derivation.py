@@ -38,10 +38,12 @@ import unittest
 
 from process_sanskrit.functions.process import process
 from process_sanskrit.functions.taddhitaDerivation import (
+    SUFFIXES,
     TaddhitaDeriver,
     TaddhitaSuffix,
     taddhita_deriver,
 )
+from process_sanskrit.utils import databaseSetup
 from process_sanskrit.utils.databaseSetup import session_scope
 
 
@@ -133,6 +135,23 @@ class TaddhitaParadigmTest(unittest.TestCase):
                     generated = taddhita_deriver.paradigm(base, suffix, session=session)
                     self.assertEqual(generated, stored)
 
+    def test_no_licensing_ending_is_a_tail_of_another(self):
+        ## _base_of leans on this: because at most one ending can match a given
+        ## word, the first hit is the only hit, so every rejection returns instead
+        ## of trying the next ending.  A new suffix or a changed exemplar model
+        ## could break the invariant silently, and the control flow would then
+        ## quietly stop considering a legitimate longer match.
+        with session_scope() as session:
+            for spec in SUFFIXES:
+                endings = taddhita_deriver._ending_set(spec.suffix, session=session)
+                overlaps = [
+                    (a, b)
+                    for a in endings.licensing
+                    for b in endings.licensing
+                    if a != b and a.endswith(b)
+                ]
+                self.assertEqual(overlaps, [], f"-{spec.suffix} endings overlap")
+
     def test_paradigm_is_the_expected_shape(self):
         with session_scope() as session:
             forms = taddhita_deriver.paradigm("niṣyanda", "tā", session=session)
@@ -155,6 +174,28 @@ class TaddhitaFailureModeTest(unittest.TestCase):
             with self.assertRaises(RuntimeError) as caught:
                 deriver.derive("niṣyandatā", session=session)
         self.assertIn("update-ps-database", str(caught.exception))
+
+    def test_the_ending_cache_is_keyed_on_the_database(self):
+        ## The exemplar endings are memoised, so the key has to change when the
+        ## lexicon does -- an externally provisioned database can be pointed
+        ## somewhere else mid-process.  This must NOT be keyed on
+        ## analysisCache.lexicon_fingerprint(): that helper is @lru_cache'd on its
+        ## db_path argument, so called with no argument it freezes at its first
+        ## answer and would never notice the swap.
+        deriver = TaddhitaDeriver()
+        with session_scope() as session:
+            deriver.endings("tā", session=session)
+        keys_before = set(deriver._paradigms)
+        self.assertTrue(keys_before)
+
+        real_get_db_path = databaseSetup.get_db_path
+        databaseSetup.get_db_path = lambda: "/some/other/lexicon.sqlite"
+        try:
+            self.assertNotIn(deriver._lexicon_identity(), {k[0] for k in keys_before})
+        finally:
+            databaseSetup.get_db_path = real_get_db_path
+
+        self.assertIn(deriver._lexicon_identity(), {k[0] for k in keys_before})
 
     def test_a_missing_session_is_not_reported_as_a_stale_database(self):
         ## A dropped argument used to be laundered into "the database has no such
@@ -237,6 +278,20 @@ class TaddhitaProcessTest(unittest.TestCase):
             any(glosses.get(name) for name in glosses),
             f"expected a dictionary gloss inherited from the base: {glosses}",
         )
+
+    def test_an_unglossed_base_still_yields_a_well_formed_entry(self):
+        ## A base can be attested as an inflecting stem without heading a
+        ## dictionary entry.  The gloss then comes back empty -- which is honest,
+        ## the lexicon really has nothing to say -- but the entry SHAPE must still
+        ## hold, or downstream code that trusts the 7-slot layout breaks.  Pinned
+        ## so nobody later "fixes" the empty gloss into a fuzzy match that invents
+        ## a meaning.
+        entries = process("analānandatā")
+        self.assertEqual(len(entries), 1)
+        entry = entries[0]
+        self.assertEqual(len(entry), 7)
+        self.assertEqual(entry[0], "analānandatā")
+        self.assertEqual(process("analānandatā", mode="roots"), ["analānandatā"])
 
     def test_the_old_shattered_split_is_gone(self):
         ## The regression this whole module exists to prevent: the suffix must

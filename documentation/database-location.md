@@ -15,10 +15,19 @@ before importing or calling the library. Both the SQLAlchemy query engine and
 the lazy dictionary-reference mapping use this resolver, so they cannot drift
 to different lexicons.
 
-The configured database is opened read-only and immutable. It must already
-exist; a configured but missing path fails explicitly rather than falling back
-to the packaged database. `update-ps-database` is unchanged and still installs
-the released database into the package resources directory.
+The configured database is opened read-only and immutable during analysis. It
+must already exist; a configured but missing path fails explicitly rather than
+falling back to the packaged database.
+
+`update-ps-database` honours the same environment variable. When
+`PROCESS_SANSKRIT_DB_PATH` names an existing database, the command rebuilds its
+derived `word_list` index on a sibling copy, validates that copy, and atomically
+replaces the configured file. It does not download or modify the packaged
+database. Existing immutable readers retain the old inode while new workers
+open the repaired one. A configured but missing path fails explicitly; unset
+the variable when the intended target is the normal packaged database. The
+database must be readable and its parent directory must be writable with enough
+space for a temporary full-size copy.
 
 ## Path resolution is memoized
 

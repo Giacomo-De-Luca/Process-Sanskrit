@@ -20,18 +20,28 @@ emits `should_publish` accordingly. The rest of the workflow is gated on it:
 
 So a docs fix or a bugfix push is a no-op, and the release step is the version bump itself.
 
-## The four jobs
+## The jobs
 
 1. **check-version** — compares `pyproject.toml` against PyPI; everything below is skipped if
    the version is already released.
-2. **build** — `python -m build`, then `twine check`, then installs the wheel into a clean venv
-   and asserts `transliterate('rāmaḥ', 'devanagari') == 'रामः'`. That smoke test runs with **no
-   database present**, which is the point: `transliterate` is the only database-free entry point,
-   so it verifies the wheel imports and its packaged resources resolve on a bare machine. A
-   broken wheel fails here rather than on a user's `pip install`.
-3. **publish** — uploads via Trusted Publishing (see below).
-4. **tag** — pushes an annotated `v<version>` tag once the upload succeeds. Tags therefore
-   follow the release rather than triggering it; they cannot drift from what is on PyPI.
+2. **build** — `python -m build`, then `twine check`.
+3. **smoke-test** — installs the built wheel on Python 3.9 (the floor declared in
+   `pyproject.toml`) and 3.12, and asserts `transliterate('rāmaḥ', 'devanagari') == 'रामः'`.
+   This is the only gate standing in for the test suite, so two details are load-bearing:
+
+   - It runs with **no database present**. `transliterate` is the only database-free entry
+     point, so this proves the wheel imports and its packaged resources (`forms.trie`, the
+     resource JSON) resolve on a bare machine — a broken `package-data` glob fails here rather
+     than on a user's `pip install`.
+   - The job **deliberately does not check the repo out**, and asserts `site-packages` is in
+     `process_sanskrit.__file__`. `python -c` puts the working directory on `sys.path`, so with
+     a checkout present `import process_sanskrit` silently resolves to the *source tree* and the
+     test passes even if the wheel is empty or not installed at all. No checkout, no shadowing.
+
+4. **publish** — uploads via Trusted Publishing (see below).
+5. **tag** — pushes an annotated `v<version>` tag once the upload succeeds. Tags therefore
+   follow the release rather than triggering it; they cannot drift from what is on PyPI. The
+   step is a no-op if the tag already exists, so a re-run cannot redden an already-good release.
 
 ## One-time setup
 
@@ -49,9 +59,27 @@ and add a GitHub publisher with exactly these values:
 | Environment     | `pypi`               |
 
 **2. Create the `pypi` environment on GitHub.** Repository *Settings → Environments → New
-environment*, named `pypi`. It needs no secrets. Adding yourself as a *required reviewer* is
-worth considering: the run then pauses before the upload and waits for your click, which gives
-you a chance to stop an accidental bump.
+environment*, named `pypi`. It needs no secrets, but set one protection rule:
+
+- **Deployment branches: selected branches → `main`.** PyPI's Trusted Publisher binds
+  owner/repo/workflow/environment — *not* the branch. Without this rule, anyone who can run a
+  `workflow_dispatch` could publish from any branch, and PyPI would happily mint a token for it.
+  The environment is the real enforcement point, because the publish job is what it gates.
+- Optionally add yourself as a **required reviewer**: the run then pauses before the upload and
+  waits for your click, which gives you a chance to stop an accidental bump.
+
+## When something goes wrong
+
+The publish job cannot work until both setup steps above are done, so the first run after
+merging this workflow *will* fail there if you haven't done them yet.
+
+When retrying, prefer **Re-run failed jobs** over **Re-run all jobs**. Both work, but they differ
+in one case that matters: if the upload succeeded and only the `tag` job failed (a tag ruleset
+blocking `github-actions[bot]`, say), *Re-run failed jobs* re-runs `tag` with `check-version`'s
+original outputs intact. Any other route — a fresh push, a `workflow_dispatch` — is a dead end:
+`check-version` now sees the version on PyPI, `should-publish` flips to `false`, and the tag job
+is skipped forever. The version would ship untagged with no way for the workflow to fix it. (If
+that happens, just `git tag -a v<version> && git push origin v<version>` by hand.)
 
 ## Why Trusted Publishing and not an API token
 
