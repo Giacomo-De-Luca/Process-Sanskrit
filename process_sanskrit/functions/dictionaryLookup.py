@@ -1,9 +1,21 @@
-from typing import List, Dict, Tuple, Union
-from sqlalchemy import text, Column, String
+import re
+from typing import List, Dict
+
+from sqlalchemy import text
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import samMap
-import time
-from functools import lru_cache
+
+
+def _dictionary_table(dictionary_name: str) -> str:
+    table_name = dictionary_name.lower()
+    if re.fullmatch(r"[a-z_][a-z0-9_]*", table_name) is None:
+        raise ValueError(f"Invalid dictionary table name: {dictionary_name}")
+    return table_name
+
+
+def _glob_literal(value: str) -> str:
+    """Escape SQLite GLOB metacharacters in an internally generated prefix."""
+    return value.replace("[", "[[]").replace("*", "[*]").replace("?", "[?]")
 
 
 ## add implementation to handle better both the cases of various spellings of M 
@@ -35,46 +47,51 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
         
     # For each dictionary, perform queries and process results
     for dict_name in dict_names:
-        
-        # Initial query
-        query_builder = f"""
-        SELECT keys_iast, components, cleaned_body 
-        FROM {dict_name} 
-        WHERE keys_iast = :name 
-        OR keys_iast LIKE :wildcard_name
-        """
-        wildcard_name = f"{name}"
-        
-        # Use the session for the query
-        results = session.execute(
-            text(query_builder), 
-            {"name": name, "wildcard_name": wildcard_name}
-        ).fetchall()
+        table_name = _dictionary_table(dict_name)
+
+        if "_" in name or "%" in name:
+            # Preserve explicit SQL wildcard behavior. Leading wildcards cannot
+            # use a B-tree index and intentionally remain the uncommon slow path.
+            query_builder = text(
+                f"SELECT keys_iast, components, cleaned_body "
+                f"FROM {table_name} WHERE keys_iast LIKE :pattern"
+            )
+            results = session.execute(query_builder, {"pattern": name}).fetchall()
+        else:
+            # Equality is the overwhelmingly common path. Keeping LIKE out of
+            # this statement lets SQLite use the existing keys_iast index.
+            query_builder = text(
+                f"SELECT keys_iast, components, cleaned_body "
+                f"FROM {table_name} WHERE keys_iast = :name"
+            )
+            results = session.execute(query_builder, {"name": name}).fetchall()
 
         # Additional query if no results
         if not results and len(name) > 1:
-            query_builder = f"""
-            SELECT keys_iast, components, cleaned_body FROM {dict_name} 
-            WHERE keys_iast = :name 
-            OR keys_iast LIKE :wildcard_name
-            """
-            wildcard_name = f"{name[:-1]}_"
+            query_builder = text(
+                f"SELECT keys_iast, components, cleaned_body "
+                f"FROM {table_name} WHERE keys_iast GLOB :pattern"
+            )
+            pattern = _glob_literal(name[:-1]) + "?"
             results = session.execute(
-                text(query_builder), 
-                {"name": name, "wildcard_name": wildcard_name}
+                query_builder,
+                {"pattern": pattern},
             ).fetchall()
         
         #print(f"Results for {dict_name}: {results}")
         # Additional query if no results
         if not results and len(name) > 1:
-            query_builder = f"""
-            SELECT keys_iast, components, cleaned_body FROM {dict_name} 
-            WHERE keys_iast LIKE :name1 
-            OR keys_iast LIKE :name2
-            """
+            query_builder = text(
+                f"SELECT keys_iast, components, cleaned_body "
+                f"FROM {table_name} "
+                "WHERE keys_iast GLOB :name1 OR keys_iast GLOB :name2"
+            )
             results = session.execute(
-                text(query_builder), 
-                {"name1": name + "_", "name2": name[:-1] + "_"}
+                query_builder,
+                {
+                    "name1": _glob_literal(name) + "?",
+                    "name2": _glob_literal(name[:-1]) + "?",
+                },
             ).fetchall()
 
         #print(f"Results for {dict_name} after second query: {results}")
@@ -163,7 +180,7 @@ def dict_search(list_of_entries, *args, source: str = "mw", session=None):
                 word = entry[0]
 
                 if '*' not in word and '_' not in word and '%' not in word:
-                    if word in DICTIONARY_REFERENCES.keys():
+                    if word in DICTIONARY_REFERENCES:
                         entry = entry + consult_references(word, *dict_names, session=session)
                     else:
                         entry = [entry, entry, [entry]]
@@ -174,11 +191,11 @@ def dict_search(list_of_entries, *args, source: str = "mw", session=None):
                 
             elif isinstance(entry, str):
                 if '*' not in entry and '_' not in entry and '%' not in entry:
-                    if entry in DICTIONARY_REFERENCES.keys():
+                    if entry in DICTIONARY_REFERENCES:
                         entry = [entry] + consult_references(entry, *dict_names, session=session)
                     elif entry[:3] in samMap:
                         tentative = samMap[entry[:3]] + entry[3:]
-                        if tentative in DICTIONARY_REFERENCES.keys():
+                        if tentative in DICTIONARY_REFERENCES:
                             entry = [entry] + consult_references(tentative, *dict_names, session=session)
                         else:
                             entry = [entry, entry, [entry]]

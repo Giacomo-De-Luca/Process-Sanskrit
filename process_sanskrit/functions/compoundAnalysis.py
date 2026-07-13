@@ -32,7 +32,14 @@ SANSKRIT_ENDINGS: Dict[str, EndingProperties] = {
     #'ika': EndingProperties(weight=0.5, type='nominal')
 }
 
-def evaluate_compound_split(first_part: str, remaining: str,  session=None, debug: bool = False) -> float:
+def evaluate_compound_split(
+    first_part: str,
+    remaining: str,
+    session=None,
+    debug: bool = False,
+    _memo=None,
+    vowel_restorations=None,
+) -> float:
     """
     Evaluates the quality of a potential compound split by examining:
     1. Dictionary presence of both parts
@@ -65,16 +72,41 @@ def evaluate_compound_split(first_part: str, remaining: str,  session=None, debu
                               f"penalizing by {properties.weight}")
     
     # Check if remaining part forms valid words
-    remaining_analysis = root_any_word(remaining, session=session)
+    ## an empty remainder means first_part IS the whole word: there is nothing
+    ## left to justify, so it counts as satisfied.  Otherwise an exact headword
+    ## missing from the forms DB (vṛtti) scores below the gate and fragments.
+    if not remaining:
+        remaining_analysis = True
+    else:
+        remaining_analysis = root_any_word(
+            remaining, session=session, _memo=_memo
+        )
+        ## the cut may have swallowed the remainder's initial vowel; check the
+        ## same restorations root_compounds applies between segments, or
+        ## vowel-sandhi cuts (rājapuruṣo -> rājapuruṣa + uttamaḥ) score too low
+        if not remaining_analysis and vowel_restorations:
+            for initial_vowel in vowel_restorations:
+                remaining_analysis = root_any_word(
+                    initial_vowel + remaining, session=session, _memo=_memo
+                )
+                if remaining_analysis:
+                    break
+
     if remaining_analysis:
         score += 0.4
         if debug:
             print(f"Remaining part {remaining} forms valid word(s)")
-    
-    # Reward balanced splits (typical in Sanskrit compounds)
-    if len(first_part) >= 2 and len(remaining) >= 2:
+
+    # Penalise single-character segments
+    ## this bonus deliberately depends on first_part ALONE.  Any term keyed to
+    ## the tail's length or plausibility lets a shorter cut outscore a longer
+    ## one whenever the shorter cut happens to leave a nicer tail — which is
+    ## how dev+aq beat deva+q, and he+tur beat hetu.  Tail evidence is already
+    ## priced in above; here, ties are broken by length, since the cursor walks
+    ## longest-first and a tie does not displace the incumbent.
+    if len(first_part) >= 2:
         score += 0.2
-    
+
     return min(1.0, score)
 
 def try_match_with_prefixes(word, debug=False):
@@ -116,118 +148,63 @@ def try_match_with_prefixes(word, debug=False):
         print("No match found after prefix analysis")
     return None
 
-def dict_word_iterative(word, session=None, debug=False):
-    """
-    Dictionary lookup that integrates prefix matching with sandhi variations.
-    For each possible word length, tries:
-    1. Direct dictionary match
-    2. Prefix matches
-    3. Sandhi variations (with prefix checks on each variation)
-    """
-    temp_word = word
-    best_match = None
-    best_length = 0
-    
-    if debug:
-        print(f"Attempting to match word: {word}")
-    
-    # First try root_any_word on complete word
-    root_result = root_any_word(temp_word, session=session)
-    if root_result:
-        if debug:
-            print(f"Found inflected form: {temp_word}")
-        return (temp_word, temp_word[-1])
-    
-    while temp_word and len(temp_word) > 1:
-        # Try direct dictionary match
-        if temp_word in DICTIONARY_REFERENCES:
-            if len(temp_word) > best_length:
-                if debug:
-                    print(f"Found dictionary match: {temp_word}")
-                best_match = temp_word
-                best_length = len(temp_word)
-        
-        # Try prefix matches on current word
-        prefix_match = try_match_with_prefixes(temp_word, debug=debug)
-        if prefix_match and len(prefix_match[0]) > best_length:
-            if debug:
-                print(f"Found prefix match: {prefix_match[0]}")
-            best_match = prefix_match[0]
-            best_length = len(prefix_match[0])
-        
-        # Try sandhi variations and check prefixes on each variant
-        last_char = temp_word[-1]
-        if last_char in SANDHI_VARIATIONS:
-            for variant in SANDHI_VARIATIONS[last_char]:
-                test_word = temp_word[:-1] + variant
-                
-                # Try direct match of sandhi variant
-                if test_word in DICTIONARY_REFERENCES:
-                    if len(test_word) > best_length:
-                        if debug:
-                            print(f"Found match with sandhi variation: {test_word}")
-                        best_match = test_word
-                        best_length = len(test_word)
-                
-                # Try prefix match on sandhi variant
-                prefix_match = try_match_with_prefixes(test_word, debug=debug)
-                if prefix_match and len(prefix_match[0]) > best_length:
-                    if debug:
-                        print(f"Found prefix match on sandhi variant: {prefix_match[0]}")
-                    best_match = prefix_match[0]
-                    best_length = len(prefix_match[0])
-        
-        # If we found a match of full length, stop here
-        if best_match and len(best_match) == len(temp_word):
-            break
-            
-        temp_word = temp_word[:-1]
-    
-    if best_match:
-        return (best_match, word[len(best_match)-1])
-    
-    if debug:
-        print("No match found")
-    return None
-
-def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: bool = False) -> Optional[Tuple[str, str]]:
+def dict_word_iterative(
+    word: str,
+    min_score: float = 0.6,
+    session=None,
+    debug: bool = False,
+    _memo=None,
+) -> Optional[Tuple[str, str]]:
     """
     Enhanced dictionary word lookup that considers compound formation rules
     to avoid over-eager matching with common endings.
-    
+
     This is a modified version of the original dict_word_iterative that adds:
     1. Scoring system for potential splits
     2. Checks for problematic endings
     3. Minimum score threshold for accepting splits
-    
+
+    Candidates are walked longest-first and a tie does not displace the
+    incumbent, so among equally-scoring cuts the longest wins.
+
     Args:
         word: The Sanskrit word to analyze
         min_score: Minimum score threshold to accept a split
         debug: Whether to print debug information
-        
+
     Returns:
         Optional[Tuple[str, str]]: Matched word and its ending letter if found
     """
     temp_word = word
     best_match = None
     best_score = 0
-    
+
     if debug:
         print(f"Attempting to match word: {word}")
-    
+
     # First try root_any_word on complete word (keep existing logic)
-    root_result = root_any_word(temp_word, session=session)
+    root_result = root_any_word(temp_word, session=session, _memo=_memo)
     if root_result:
         if debug:
             print(f"Found inflected form: {temp_word}")
         return (temp_word, temp_word[-1])
-    
+
     while temp_word and len(temp_word) > 1:
         # Try dictionary match with scoring
+        ## the surface char at the cut decides which initial vowels the
+        ## remainder may have lost (same table root_compounds consults)
+        vowel_restorations = VOWEL_SANDHI_INITIALS.get(temp_word[-1])
         if temp_word in DICTIONARY_REFERENCES:
             remaining = word[len(temp_word):]
-            split_score = evaluate_compound_split(temp_word, remaining,  session=session, debug=debug)
-            
+            split_score = evaluate_compound_split(
+                temp_word,
+                remaining,
+                session=session,
+                debug=debug,
+                _memo=_memo,
+                vowel_restorations=vowel_restorations,
+            )
+
             if split_score > best_score:
                 if debug:
                     print(f"Found potential split: {temp_word} + {remaining}, "
@@ -242,7 +219,14 @@ def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: 
                 test_word = temp_word[:-1] + variant
                 if test_word in DICTIONARY_REFERENCES:
                     remaining = word[len(test_word):]
-                    split_score = evaluate_compound_split(test_word, remaining,  session=session, debug=debug)
+                    split_score = evaluate_compound_split(
+                        test_word,
+                        remaining,
+                        session=session,
+                        debug=debug,
+                        _memo=_memo,
+                        vowel_restorations=vowel_restorations,
+                    )
                     
                     if split_score > best_score:
                         if debug:
@@ -250,23 +234,32 @@ def dict_word_iterative(word: str, min_score: float = 0.6, session=None, debug: 
                                   f"{remaining}, score: {split_score}")
                         best_score = split_score
                         best_match = (test_word, variant)
-        
+
         temp_word = temp_word[:-1]
-    
+
     # Only return match if it meets minimum score
     if best_score >= min_score:
         return best_match
-    
+
     if debug:
         print("No match found meeting minimum score threshold")
     return None
 
 
 
-def root_compounds(word, debug=False, inflection=False, session=None):
+def root_compounds(
+    word,
+    debug=False,
+    inflection=False,
+    session=None,
+    _memo=None,
+):
     """
     Analyzes a long Sanskrit compound with improved sandhi handling between segments.
     """
+    if _memo is None:
+        _memo = {}
+
     if debug:
         print("\nStarting analysis of:", word)
         print("Length:", len(word))
@@ -286,7 +279,9 @@ def root_compounds(word, debug=False, inflection=False, session=None):
         # Try the base case first
         best_match = None
         best_length = 0
-        first_match = dict_word_iterative(remaining, session=session)
+        first_match = dict_word_iterative(
+            remaining, session=session, _memo=_memo
+        )
 
         
         if first_match:
@@ -318,7 +313,9 @@ def root_compounds(word, debug=False, inflection=False, session=None):
                         print(f"Trying with added {initial_vowel}: {test_word}")
 
                     # First try root_any_word with the sandhi-modified version
-                    root_result = root_any_word(test_word, session=session)
+                    root_result = root_any_word(
+                        test_word, session=session, _memo=_memo
+                    )
                     if root_result:
                         if debug:
                             print(f"Found inflected form with sandhi: {test_word}")
@@ -333,7 +330,9 @@ def root_compounds(word, debug=False, inflection=False, session=None):
 
                     # If no inflected form found, try dictionary match
                     if not root_result:
-                        test_match = dict_word_iterative(test_word, session=session)
+                        test_match = dict_word_iterative(
+                            test_word, session=session, _memo=_memo
+                        )
                         if test_match and len(test_match[0]) > best_length:
                             best_match = test_match
                             best_length = len(test_match[0])
@@ -345,7 +344,9 @@ def root_compounds(word, debug=False, inflection=False, session=None):
                 test_word = 'ś' + remaining[1:]
                 if debug:
                     print(f"Trying with S instead of ch: {test_word}")
-                test_match = dict_word_iterative(test_word, session=session)
+                test_match = dict_word_iterative(
+                    test_word, session=session, _memo=_memo
+                )
                 if test_match and len(test_match[0]) > best_length:
                     best_match = test_match
                     best_length = len(test_match[0])
@@ -362,7 +363,9 @@ def root_compounds(word, debug=False, inflection=False, session=None):
         
         if inflection==True:
             # Process the matched word
-            root_entry = root_any_word(matched_word, session=session)
+            root_entry = root_any_word(
+                matched_word, session=session, _memo=_memo
+            )
             if root_entry:
                 if isinstance(root_entry, list):
                     roots.extend(root_entry)

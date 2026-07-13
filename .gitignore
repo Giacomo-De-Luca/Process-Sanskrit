@@ -21,11 +21,14 @@ dist/
 build/
 *.egg-info/
 *.egg
+references/*
 
 # Database files
 /resources/*.sqlite
 resources/*.sqlite
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 *.db
 
 # Model files
@@ -47,3 +50,8 @@ htmlcov/
 
 # PyPI configuration
 .pypirc
+
+
+# Added by cargo
+
+/target

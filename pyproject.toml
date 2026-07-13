@@ -14,7 +14,7 @@ requires-python = ">=3.9"
 urls = {Repository = "https://github.com/Giacomo-De-Luca/Process-Sanskrit"}
 dependencies = [
     "requests>=2.20.0",
-    "sqlalchemy>=1.4.0",
+    "sqlalchemy>=1.4.33",
     "indic_transliteration>=2.0.0",
     "regex>=2022.0.0",
     "python-dotenv>=0.19.0",

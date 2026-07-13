@@ -11,8 +11,12 @@ from datetime import datetime
 import argparse
 import json
 
-from processSanskrit import process
-from tests.benchmarkTesting import SanskritBenchmark
+REPOSITORY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if REPOSITORY_ROOT not in sys.path:
+    sys.path.insert(0, REPOSITORY_ROOT)
+
+from process_sanskrit import process
+from tests.Removable.benchmarkTesting import SanskritBenchmark
 from tests.datasets.yogaSutra import ys
 
 def run_standard_benchmarks():
@@ -52,7 +56,7 @@ def run_yoga_sutra_analysis():
     from the Yoga Sutras.
     """
     try:
-        from testing.ysTest import YogaSutraAnalyzer
+        from tests.ysTest import YogaSutraAnalyzer
         
         print("\nRunning Yoga Sutra Analysis:")
         print("-" * 40)
@@ -165,7 +169,11 @@ def run_compound_processing():
     
     try:
         # Load compounds from JSON
-        with open("tests/sanskrit_compounds_benchmark.json", 'r', encoding='utf-8') as f:
+        with open(
+            "tests/datasets/sanskrit_compounds_benchmark.json",
+            'r',
+            encoding='utf-8',
+        ) as f:
             data = json.load(f)
             compounds = data['compounds']
         
@@ -335,6 +343,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
- 

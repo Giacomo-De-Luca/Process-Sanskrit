@@ -1,24 +1,43 @@
-import json 
+import json
 
 import importlib.resources
 import os
-from pathlib import Path
 
 # Use importlib.resources to get the correct path to the resources
 def get_resource_path(resource_name):
     """Get the path to a resource file using importlib.resources"""
     try:
         # For Python 3.9+
-        with importlib.resources.files('process_sanskrit.resources').joinpath(resource_name) as path:
-            return str(path)
+        return str(
+            importlib.resources.files('process_sanskrit.resources').joinpath(
+                resource_name
+            )
+        )
     except (AttributeError, ImportError):
         # Fallback for older Python versions
         package_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(package_dir, 'resources', resource_name)
 
-# Load the dictionary keys
-with open(get_resource_path('MWKeysOnly.json'), 'r', encoding='utf-8') as f:
-    mwdictionaryKeys = json.load(f)
+_mwdictionary_keys = None
+
+
+def _load_mw_dictionary_keys():
+    """Load the optional MW key list only when a caller explicitly requests it."""
+    global _mwdictionary_keys
+    if _mwdictionary_keys is None:
+        with open(
+            get_resource_path('MWKeysOnly.json'), 'r', encoding='utf-8'
+        ) as resource_file:
+            _mwdictionary_keys = json.load(resource_file)
+    return _mwdictionary_keys
+
+
+def __getattr__(name):
+    # Preserve ``from ...loadResources import mwdictionaryKeys`` without making
+    # every morphology lookup pay the cost of parsing the 4.1 MB JSON file.
+    if name == "mwdictionaryKeys":
+        return _load_mw_dictionary_keys()
+    raise AttributeError(name)
 
 
 def load_type_map(file_path):
@@ -34,5 +53,4 @@ def load_type_map(file_path):
     return type_map
 
 type_map = load_type_map(get_resource_path('type_map.tsv'))
-
 

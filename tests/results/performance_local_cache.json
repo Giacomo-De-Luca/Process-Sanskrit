@@ -1,0 +1,1082 @@
+{
+  "environment": {
+    "python": "3.12.11",
+    "gensim": "4.4.0",
+    "sentencepiece": "0.2.2",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "marisa_trie": "1.4.1",
+    "networkx": "3.6.1",
+    "sqlalchemy": "2.0.51"
+  },
+  "cold_import_runs": [
+    {
+      "seconds": 0.1710893749841489,
+      "current_rss_mib": 48.90625,
+      "peak_rss_mib": 48.921875
+    },
+    {
+      "seconds": 0.12232166601461358,
+      "current_rss_mib": 49.53125,
+      "peak_rss_mib": 49.546875
+    },
+    {
+      "seconds": 0.13021825000760145,
+      "current_rss_mib": 49.546875,
+      "peak_rss_mib": 49.5625
+    }
+  ],
+  "suite_runs": [
+    {
+      "case_count": 17,
+      "mean_ms": 49.466372351162136,
+      "median_ms": 6.252040999243036,
+      "p95_ms": 173.9045245922169,
+      "max_ms": 359.3654590076767,
+      "required_root_accuracy_pct": 90.19607843137256,
+      "current_rss_mib": 310.03125,
+      "peak_rss_mib": 312.140625,
+      "cases": [
+        {
+          "input": "rāmalakṣmaṇau",
+          "milliseconds": 359.3654590076767,
+          "required_roots": [
+            "lakṣmaṇa",
+            "rāma"
+          ],
+          "returned_roots": [
+            "lakṣmaṇa",
+            "rā",
+            "rāma"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "devamanuṣyāḥ",
+          "milliseconds": 3.01929097622633,
+          "required_roots": [
+            "deva",
+            "manuṣya"
+          ],
+          "returned_roots": [
+            "deva",
+            "devamanuṣya",
+            "manuṣya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣaḥ",
+          "milliseconds": 1.1319160112179816,
+          "required_roots": [
+            "puruṣa",
+            "rāja"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmajñānam",
+          "milliseconds": 1.3543750101234764,
+          "required_roots": [
+            "dharma",
+            "jñāna"
+          ],
+          "returned_roots": [
+            "dharma",
+            "dharmajñāna",
+            "jñāna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yathāśakti",
+          "milliseconds": 1.1091249762102962,
+          "required_roots": [
+            "yathā",
+            "śakti"
+          ],
+          "returned_roots": [
+            "yathā",
+            "yathāśakti",
+            "śakti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yadṛcchayā",
+          "milliseconds": 2.59591598296538,
+          "required_roots": [
+            "yad",
+            "ṛcchayā"
+          ],
+          "returned_roots": [
+            "yad",
+            "yadṛccha",
+            "yadṛcchayā",
+            "ṛccha",
+            "ṛcchayā"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "pratyakṣapramāṇam",
+          "milliseconds": 3.1237909861374646,
+          "required_roots": [
+            "akṣa",
+            "pramāṇa",
+            "prati"
+          ],
+          "returned_roots": [
+            "akṣa",
+            "pramāṇa",
+            "praty",
+            "pratyakṣapramāṇa"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "anupapannam",
+          "milliseconds": 3.097167005762458,
+          "required_roots": [
+            "an",
+            "upapanna"
+          ],
+          "returned_roots": [
+            "an",
+            "anupapanna",
+            "upapanna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmārthakāmamokṣāḥ",
+          "milliseconds": 1.496000011684373,
+          "required_roots": [
+            "artha",
+            "dharma",
+            "kāma",
+            "mokṣā"
+          ],
+          "returned_roots": [
+            "dharmārtha",
+            "dharmārthakāmamokṣa",
+            "kāma",
+            "mokṣa"
+          ],
+          "accuracy": 0.25
+        },
+        {
+          "input": "śabdajñānānupātī",
+          "milliseconds": 57.21962501411326,
+          "required_roots": [
+            "anupāti",
+            "jñāna",
+            "śabda"
+          ],
+          "returned_roots": [
+            "anu",
+            "anupātin",
+            "bda",
+            "jñāna",
+            "pātin",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "svarūpaśūnyevārthamātranirbhāsā",
+          "milliseconds": 90.92412499012426,
+          "required_roots": [
+            "arthamātra",
+            "bhās",
+            "iva",
+            "ni",
+            "svarūpa",
+            "śūnya"
+          ],
+          "returned_roots": [
+            "artha",
+            "arthamātra",
+            "bhās",
+            "iva",
+            "mātra",
+            "ni",
+            "rūpa",
+            "sva",
+            "svarūpa",
+            "śūnya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "cittavṛttinirodhaḥ",
+          "milliseconds": 42.16375001124106,
+          "required_roots": [
+            "citta",
+            "nirodha",
+            "vṛtti"
+          ],
+          "returned_roots": [
+            "citta",
+            "cittavṛtti",
+            "ni",
+            "nirodha",
+            "rodha",
+            "vṛtti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmalakṣaṇāvasthāpariṇāmā",
+          "milliseconds": 62.402832991210744,
+          "required_roots": [
+            "avasthā",
+            "dharma",
+            "lakṣaṇa",
+            "pariṇāmā"
+          ],
+          "returned_roots": [
+            "a",
+            "apariṇāma",
+            "ava",
+            "avasthā",
+            "dharma",
+            "dharmalakṣaṇa",
+            "lakṣaṇa",
+            "pariṇāma",
+            "sthā"
+          ],
+          "accuracy": 0.75
+        },
+        {
+          "input": "sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni",
+          "milliseconds": 127.53929098835215,
+          "required_roots": [
+            "darśana",
+            "ekāgrya",
+            "indriya",
+            "jaya",
+            "sattva",
+            "saumanasya",
+            "yogyatva",
+            "ātma",
+            "śuddhi"
+          ],
+          "returned_roots": [
+            "da",
+            "darśana",
+            "ddhi",
+            "ekāgrya",
+            "indriya",
+            "ja",
+            "jaya",
+            "rśana",
+            "sat",
+            "sattva",
+            "saumana",
+            "saumanasya",
+            "tva",
+            "yogya",
+            "yogyatva",
+            "ātma",
+            "śu",
+            "śuddhi"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tajjñānam",
+          "milliseconds": 6.252040999243036,
+          "required_roots": [
+            "jñāna",
+            "tad"
+          ],
+          "returned_roots": [
+            "d",
+            "jñāna",
+            "ta",
+            "tad"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tacchabdaḥ",
+          "milliseconds": 33.22937499615364,
+          "required_roots": [
+            "tad",
+            "śabda"
+          ],
+          "returned_roots": [
+            "bda",
+            "d",
+            "ta",
+            "tad",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣottamaḥ",
+          "milliseconds": 44.90425001131371,
+          "required_roots": [
+            "puruṣa",
+            "rāja",
+            "uttama"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa",
+            "tama",
+            "ut",
+            "uttama"
+          ],
+          "accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "case_count": 17,
+      "mean_ms": 45.92434799483539,
+      "median_ms": 4.986540996469557,
+      "p95_ms": 163.64035839214907,
+      "max_ms": 322.57729198317975,
+      "required_root_accuracy_pct": 90.19607843137256,
+      "current_rss_mib": 294.15625,
+      "peak_rss_mib": 309.25,
+      "cases": [
+        {
+          "input": "rāmalakṣmaṇau",
+          "milliseconds": 322.57729198317975,
+          "required_roots": [
+            "lakṣmaṇa",
+            "rāma"
+          ],
+          "returned_roots": [
+            "lakṣmaṇa",
+            "rā",
+            "rāma"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "devamanuṣyāḥ",
+          "milliseconds": 2.2957500186748803,
+          "required_roots": [
+            "deva",
+            "manuṣya"
+          ],
+          "returned_roots": [
+            "deva",
+            "devamanuṣya",
+            "manuṣya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣaḥ",
+          "milliseconds": 1.0754999821074307,
+          "required_roots": [
+            "puruṣa",
+            "rāja"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmajñānam",
+          "milliseconds": 1.0977499769069254,
+          "required_roots": [
+            "dharma",
+            "jñāna"
+          ],
+          "returned_roots": [
+            "dharma",
+            "dharmajñāna",
+            "jñāna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yathāśakti",
+          "milliseconds": 0.8624999900348485,
+          "required_roots": [
+            "yathā",
+            "śakti"
+          ],
+          "returned_roots": [
+            "yathā",
+            "yathāśakti",
+            "śakti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yadṛcchayā",
+          "milliseconds": 2.355540986172855,
+          "required_roots": [
+            "yad",
+            "ṛcchayā"
+          ],
+          "returned_roots": [
+            "yad",
+            "yadṛccha",
+            "yadṛcchayā",
+            "ṛccha",
+            "ṛcchayā"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "pratyakṣapramāṇam",
+          "milliseconds": 2.3293750127777457,
+          "required_roots": [
+            "akṣa",
+            "pramāṇa",
+            "prati"
+          ],
+          "returned_roots": [
+            "akṣa",
+            "pramāṇa",
+            "praty",
+            "pratyakṣapramāṇa"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "anupapannam",
+          "milliseconds": 2.6712499966379255,
+          "required_roots": [
+            "an",
+            "upapanna"
+          ],
+          "returned_roots": [
+            "an",
+            "anupapanna",
+            "upapanna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmārthakāmamokṣāḥ",
+          "milliseconds": 1.1804999958258122,
+          "required_roots": [
+            "artha",
+            "dharma",
+            "kāma",
+            "mokṣā"
+          ],
+          "returned_roots": [
+            "dharmārtha",
+            "dharmārthakāmamokṣa",
+            "kāma",
+            "mokṣa"
+          ],
+          "accuracy": 0.25
+        },
+        {
+          "input": "śabdajñānānupātī",
+          "milliseconds": 55.01770798582584,
+          "required_roots": [
+            "anupāti",
+            "jñāna",
+            "śabda"
+          ],
+          "returned_roots": [
+            "anu",
+            "anupātin",
+            "bda",
+            "jñāna",
+            "pātin",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "svarūpaśūnyevārthamātranirbhāsā",
+          "milliseconds": 80.81604199833237,
+          "required_roots": [
+            "arthamātra",
+            "bhās",
+            "iva",
+            "ni",
+            "svarūpa",
+            "śūnya"
+          ],
+          "returned_roots": [
+            "artha",
+            "arthamātra",
+            "bhās",
+            "iva",
+            "mātra",
+            "ni",
+            "rūpa",
+            "sva",
+            "svarūpa",
+            "śūnya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "cittavṛttinirodhaḥ",
+          "milliseconds": 42.700374993728474,
+          "required_roots": [
+            "citta",
+            "nirodha",
+            "vṛtti"
+          ],
+          "returned_roots": [
+            "citta",
+            "cittavṛtti",
+            "ni",
+            "nirodha",
+            "rodha",
+            "vṛtti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmalakṣaṇāvasthāpariṇāmā",
+          "milliseconds": 62.34591698739678,
+          "required_roots": [
+            "avasthā",
+            "dharma",
+            "lakṣaṇa",
+            "pariṇāmā"
+          ],
+          "returned_roots": [
+            "a",
+            "apariṇāma",
+            "ava",
+            "avasthā",
+            "dharma",
+            "dharmalakṣaṇa",
+            "lakṣaṇa",
+            "pariṇāma",
+            "sthā"
+          ],
+          "accuracy": 0.75
+        },
+        {
+          "input": "sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni",
+          "milliseconds": 123.90612499439158,
+          "required_roots": [
+            "darśana",
+            "ekāgrya",
+            "indriya",
+            "jaya",
+            "sattva",
+            "saumanasya",
+            "yogyatva",
+            "ātma",
+            "śuddhi"
+          ],
+          "returned_roots": [
+            "da",
+            "darśana",
+            "ddhi",
+            "ekāgrya",
+            "indriya",
+            "ja",
+            "jaya",
+            "rśana",
+            "sat",
+            "sattva",
+            "saumana",
+            "saumanasya",
+            "tva",
+            "yogya",
+            "yogyatva",
+            "ātma",
+            "śu",
+            "śuddhi"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tajjñānam",
+          "milliseconds": 4.986540996469557,
+          "required_roots": [
+            "jñāna",
+            "tad"
+          ],
+          "returned_roots": [
+            "d",
+            "jñāna",
+            "ta",
+            "tad"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tacchabdaḥ",
+          "milliseconds": 31.308042001910508,
+          "required_roots": [
+            "tad",
+            "śabda"
+          ],
+          "returned_roots": [
+            "bda",
+            "d",
+            "ta",
+            "tad",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣottamaḥ",
+          "milliseconds": 43.18770801182836,
+          "required_roots": [
+            "puruṣa",
+            "rāja",
+            "uttama"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa",
+            "tama",
+            "ut",
+            "uttama"
+          ],
+          "accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "case_count": 17,
+      "mean_ms": 53.07273776441648,
+      "median_ms": 5.992541991872713,
+      "p95_ms": 213.33889221423294,
+      "max_ms": 332.4306250142399,
+      "required_root_accuracy_pct": 90.19607843137256,
+      "current_rss_mib": 298.96875,
+      "peak_rss_mib": 314.96875,
+      "cases": [
+        {
+          "input": "rāmalakṣmaṇau",
+          "milliseconds": 332.4306250142399,
+          "required_roots": [
+            "lakṣmaṇa",
+            "rāma"
+          ],
+          "returned_roots": [
+            "lakṣmaṇa",
+            "rā",
+            "rāma"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "devamanuṣyāḥ",
+          "milliseconds": 1.8053330131806433,
+          "required_roots": [
+            "deva",
+            "manuṣya"
+          ],
+          "returned_roots": [
+            "deva",
+            "devamanuṣya",
+            "manuṣya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣaḥ",
+          "milliseconds": 1.4497079828288406,
+          "required_roots": [
+            "puruṣa",
+            "rāja"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmajñānam",
+          "milliseconds": 2.7791249740403146,
+          "required_roots": [
+            "dharma",
+            "jñāna"
+          ],
+          "returned_roots": [
+            "dharma",
+            "dharmajñāna",
+            "jñāna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yathāśakti",
+          "milliseconds": 0.9703329997137189,
+          "required_roots": [
+            "yathā",
+            "śakti"
+          ],
+          "returned_roots": [
+            "yathā",
+            "yathāśakti",
+            "śakti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "yadṛcchayā",
+          "milliseconds": 2.398582990281284,
+          "required_roots": [
+            "yad",
+            "ṛcchayā"
+          ],
+          "returned_roots": [
+            "yad",
+            "yadṛccha",
+            "yadṛcchayā",
+            "ṛccha",
+            "ṛcchayā"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "pratyakṣapramāṇam",
+          "milliseconds": 2.3117920209188014,
+          "required_roots": [
+            "akṣa",
+            "pramāṇa",
+            "prati"
+          ],
+          "returned_roots": [
+            "akṣa",
+            "pramāṇa",
+            "praty",
+            "pratyakṣapramāṇa"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "anupapannam",
+          "milliseconds": 2.689832996111363,
+          "required_roots": [
+            "an",
+            "upapanna"
+          ],
+          "returned_roots": [
+            "an",
+            "anupapanna",
+            "upapanna"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmārthakāmamokṣāḥ",
+          "milliseconds": 1.1842089879792184,
+          "required_roots": [
+            "artha",
+            "dharma",
+            "kāma",
+            "mokṣā"
+          ],
+          "returned_roots": [
+            "dharmārtha",
+            "dharmārthakāmamokṣa",
+            "kāma",
+            "mokṣa"
+          ],
+          "accuracy": 0.25
+        },
+        {
+          "input": "śabdajñānānupātī",
+          "milliseconds": 55.440208001527935,
+          "required_roots": [
+            "anupāti",
+            "jñāna",
+            "śabda"
+          ],
+          "returned_roots": [
+            "anu",
+            "anupātin",
+            "bda",
+            "jñāna",
+            "pātin",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "input": "svarūpaśūnyevārthamātranirbhāsā",
+          "milliseconds": 98.34283401141874,
+          "required_roots": [
+            "arthamātra",
+            "bhās",
+            "iva",
+            "ni",
+            "svarūpa",
+            "śūnya"
+          ],
+          "returned_roots": [
+            "artha",
+            "arthamātra",
+            "bhās",
+            "iva",
+            "mātra",
+            "ni",
+            "rūpa",
+            "sva",
+            "svarūpa",
+            "śūnya"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "cittavṛttinirodhaḥ",
+          "milliseconds": 48.51495797629468,
+          "required_roots": [
+            "citta",
+            "nirodha",
+            "vṛtti"
+          ],
+          "returned_roots": [
+            "citta",
+            "cittavṛtti",
+            "ni",
+            "nirodha",
+            "rodha",
+            "vṛtti"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "dharmalakṣaṇāvasthāpariṇāmā",
+          "milliseconds": 76.07541600009426,
+          "required_roots": [
+            "avasthā",
+            "dharma",
+            "lakṣaṇa",
+            "pariṇāmā"
+          ],
+          "returned_roots": [
+            "a",
+            "apariṇāma",
+            "ava",
+            "avasthā",
+            "dharma",
+            "dharmalakṣaṇa",
+            "lakṣaṇa",
+            "pariṇāma",
+            "sthā"
+          ],
+          "accuracy": 0.75
+        },
+        {
+          "input": "sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni",
+          "milliseconds": 183.56595901423134,
+          "required_roots": [
+            "darśana",
+            "ekāgrya",
+            "indriya",
+            "jaya",
+            "sattva",
+            "saumanasya",
+            "yogyatva",
+            "ātma",
+            "śuddhi"
+          ],
+          "returned_roots": [
+            "da",
+            "darśana",
+            "ddhi",
+            "ekāgrya",
+            "indriya",
+            "ja",
+            "jaya",
+            "rśana",
+            "sat",
+            "sattva",
+            "saumana",
+            "saumanasya",
+            "tva",
+            "yogya",
+            "yogyatva",
+            "ātma",
+            "śu",
+            "śuddhi"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tajjñānam",
+          "milliseconds": 5.992541991872713,
+          "required_roots": [
+            "jñāna",
+            "tad"
+          ],
+          "returned_roots": [
+            "d",
+            "jñāna",
+            "ta",
+            "tad"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "tacchabdaḥ",
+          "milliseconds": 37.51283400924876,
+          "required_roots": [
+            "tad",
+            "śabda"
+          ],
+          "returned_roots": [
+            "bda",
+            "d",
+            "ta",
+            "tad",
+            "śa",
+            "śabda"
+          ],
+          "accuracy": 1.0
+        },
+        {
+          "input": "rājapuruṣottamaḥ",
+          "milliseconds": 48.77225001109764,
+          "required_roots": [
+            "puruṣa",
+            "rāja",
+            "uttama"
+          ],
+          "returned_roots": [
+            "puruṣa",
+            "rāja",
+            "rājapuruṣa",
+            "tama",
+            "ut",
+            "uttama"
+          ],
+          "accuracy": 1.0
+        }
+      ]
+    }
+  ],
+  "microbenchmarks": {
+    "exact_dictionary_yoga": {
+      "runs": 1000,
+      "mean_ms": 0.056359458,
+      "median_ms": 0.051125,
+      "p95_ms": 0.080625
+    },
+    "ambiguous_morphology_legacy_n_plus_one": {
+      "runs": 500,
+      "mean_ms": 0.41556818,
+      "median_ms": 0.3444375,
+      "p95_ms": 0.7995
+    },
+    "ambiguous_morphology_indexed_join": {
+      "runs": 500,
+      "mean_ms": 0.117245576,
+      "median_ms": 0.091,
+      "p95_ms": 0.23725
+    },
+    "warm_yoga": {
+      "runs": 20,
+      "mean_ms": 0.2075126,
+      "median_ms": 0.174959,
+      "p95_ms": 0.380917
+    }
+  },
+  "cache_benchmarks": {
+    "input": "cittavṛttinirodhaḥ",
+    "outputs_equal": true,
+    "uncached_ms": {
+      "runs": 9,
+      "median": 39.777459,
+      "values": [
+        40.04625,
+        41.73875,
+        38.273,
+        43.958375,
+        44.039583,
+        39.777459,
+        38.831875,
+        38.403875,
+        38.389958
+      ]
+    },
+    "cache_miss_ms": {
+      "runs": 9,
+      "median": 39.909417,
+      "values": [
+        42.524333,
+        40.542833,
+        38.184125,
+        51.941708,
+        39.909417,
+        40.47225,
+        39.530334,
+        39.365,
+        39.6545
+      ]
+    },
+    "one_time_cache_bootstrap_ms": 42.031083,
+    "cache_miss_overhead_pct": 1.7986744137387312,
+    "cache_miss_paired_overhead_values_pct": [
+      6.1880525642226125,
+      -2.8652439280045554,
+      -0.2322133096438784,
+      18.16111946813321,
+      -9.378304058873589,
+      1.7466952828736548,
+      1.7986744137387312,
+      2.5026771387002036,
+      3.293939524497523
+    ],
+    "cache_hit_ms": {
+      "runs": 100,
+      "median": 0.355687,
+      "p95": 0.480125
+    },
+    "speedup": 111.83276026393993,
+    "rss_before_cache_mib": 94.75,
+    "rss_before_1000_hits_mib": 277.8125,
+    "rss_after_1000_hits_mib": 272.9375,
+    "rss_delta_after_1000_hits_mib": -4.875,
+    "locked_write_ms": 115.9665,
+    "database_bytes": 4096,
+    "wal_bytes": 251352,
+    "shm_bytes": 32768,
+    "targets": {
+      "outputs_equal": true,
+      "speedup_at_least_5x": true,
+      "miss_overhead_below_10_pct": true,
+      "rss_delta_below_5_mib": true,
+      "locked_write_below_500_ms": true
+    }
+  },
+  "memory_checks": {
+    "five_connections": {
+      "five_connections_rss_mib": 58.8125,
+      "five_connections_delta_mib": 36.59375,
+      "peak_rss_mib": 58.921875
+    },
+    "dictionary_references": {
+      "rows": 246955,
+      "current_rss_mib": 51.015625,
+      "peak_rss_mib": 51.03125
+    }
+  }
+}

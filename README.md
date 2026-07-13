@@ -71,6 +71,18 @@ For the experimental version with byt5:
 
 *only **transliterate** works without the database!*
 
+### Persistent analysis cache
+
+Expensive sandhi and compound analyses are cached by default in a separate,
+disk-backed SQLite database. The dictionary database remains read-only. Cached
+results expire after 90 inactive days by default; set
+`PROCESS_SANSKRIT_CACHE_RETENTION=keep_all` to retain the de-duplicated
+prediction corpus indefinitely, or `PROCESS_SANSKRIT_CACHE_ENABLED=false` to
+disable persistence. Individual calls can pass `cached=False` or `cached=True`.
+
+See [the local cache guide](documentation/local-cache.md) for paths, privacy,
+retention, web-worker behaviour, and ML-corpus limitations.
+
 
 ## Process Function:
 
@@ -248,4 +260,3 @@ The **BYT5 model** used in the experimental version of the process function is f
 [Sebastian Nehrdich](https://arxiv.org/search/cs?searchtype=author&query=Nehrdich,+S), [Oliver Hellwig](https://arxiv.org/search/cs?searchtype=author&query=Hellwig,+O), [Kurt Keutzer](https://arxiv.org/search/cs?searchtype=author&query=Keutzer,+K)
 
 [https://arxiv.org/abs/2409.13920](https://arxiv.org/abs/2409.13920)
-

@@ -94,7 +94,7 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
 
         if len(list_of_entries[i]) >= 5 and list_of_entries[i][0][-1] == "n" and list_of_entries[i][4] != list_of_entries[i][0]:
             #print("the one not replaced:", list_of_entries[i])
-            if list_of_entries[i][4] in DICTIONARY_REFERENCES.keys():
+            if list_of_entries[i][4] in DICTIONARY_REFERENCES:
                 replacement = dict_search([list_of_entries[i][4]])
                 if replacement is not None:
                     list_of_entries[i] = replacement[0]

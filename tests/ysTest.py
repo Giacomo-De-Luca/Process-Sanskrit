@@ -45,7 +45,11 @@ class YogaSutraAnalyzer:
         for i, sutra in enumerate(self.sutras, 1):
             try:
                 # Process the full line
-                result = process(sutra, dict_names[0] if dict_names else 'MW', roots="parts")
+                result = process(
+                    sutra,
+                    dict_names[0] if dict_names else 'MW',
+                    mode="parts",
+                )
                 
                 # Store the result with metadata
                 analysis = {
@@ -83,7 +87,11 @@ class YogaSutraAnalyzer:
                 word_results = []
                 for word in words:
                     # Process each word
-                    result = process(word, dict_names[0] if dict_names else 'MW', roots="parts")
+                    result = process(
+                        word,
+                        dict_names[0] if dict_names else 'MW',
+                        mode="parts",
+                    )
                     word_results.append({
                         'original_word': word,
                         'segmentation': result

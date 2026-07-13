@@ -1,0 +1,60 @@
+{
+  "environment": {
+    "python": "3.12.11",
+    "gensim": "4.4.0",
+    "sentencepiece": "0.2.2",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0"
+  },
+  "cold_import_runs": [
+    {"seconds": 9.4578, "current_rss_mib": 185.8, "peak_rss_mib": 577.5},
+    {"seconds": 4.6459, "current_rss_mib": 285.6, "peak_rss_mib": 618.6},
+    {"seconds": 2.9246, "current_rss_mib": 350.2, "peak_rss_mib": 895.0}
+  ],
+  "cold_import_median": {
+    "seconds": 4.6459,
+    "current_rss_mib": 285.6,
+    "peak_rss_mib": 618.6
+  },
+  "suite_runs": [
+    {
+      "mean_ms": 545.587,
+      "median_ms": 257.709,
+      "p95_ms": 1432.975,
+      "max_ms": 3167.618,
+      "root_accuracy_pct": 81.05,
+      "current_rss_mib": 280.5,
+      "peak_rss_mib": 676.8
+    },
+    {
+      "mean_ms": 544.034,
+      "median_ms": 244.769,
+      "p95_ms": 1473.369,
+      "max_ms": 3067.591,
+      "root_accuracy_pct": 81.05,
+      "current_rss_mib": 194.3,
+      "peak_rss_mib": 815.5
+    }
+  ],
+  "microbenchmarks": {
+    "warm_yoga": {
+      "runs": 20,
+      "mean_ms": 36.005,
+      "median_ms": 34.798,
+      "p95_ms": 40.623
+    },
+    "exact_dictionary_equality_with_or_like_median_ms": 26.03,
+    "ambiguous_morphology_n_plus_one_median_ms": 0.313
+  },
+  "memory_checks": {
+    "five_populated_64_mib_cache_connections_rss_mib": 266.0,
+    "dictionary_reference_module_peak_rss_mib": 790.0
+  },
+  "notes": [
+    "All 17 cases completed in both recorded runs.",
+    "A third fresh-process suite run terminated before producing results.",
+    "The current splitter import typo was bypassed with a runtime module alias.",
+    "The direct required-root metric intentionally does not normalize vowel endings.",
+    "Warm yoga was measured from an archived pre-optimization HEAD in the same gensim-enabled virtual environment."
+  ]
+}

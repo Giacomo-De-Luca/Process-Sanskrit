@@ -21,7 +21,6 @@
 ### packages and local modules import 
 
 
-import logging
 import re
 import regex
 from sqlalchemy.orm import sessionmaker, Session
@@ -41,17 +40,12 @@ from process_sanskrit.utils.transliterationUtils import transliterate
 from process_sanskrit.functions.rootAnyWord import root_any_word
 from process_sanskrit.functions.dictionaryLookup import dict_search, multidict
 from process_sanskrit.functions.cleanResults import clean_results
-from process_sanskrit.functions.hybridSplitter import hybrid_sandhi_splitter
-from process_sanskrit.functions.inflect import inflect
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.databaseSetup import session_scope, with_session, requires_database
 
 
 
 ### get the version of the library
-
-logging.basicConfig(level=logging.CRITICAL)
-
 
 def preprocess(text, max_length=100, debug=False):
 
@@ -80,17 +74,29 @@ def preprocess(text, max_length=100, debug=False):
     if "o'" in text:
         text = re.sub(r"o'", "aḥ a", text)
 
-    if text[0] == "'":
+    ## an empty string reaches here from a bare separator ("hetu-" splits into
+    ## ("hetu", "")); guard the index rather than let it raise IndexError
+    if text and text[0] == "'":
         text = 'a' + text[1:]
 
-    text = regex.sub('[^\p{L}\'_%*-+]', ' ', text)
+    text = regex.sub(r"[^\p{L}'_%*+\-]", ' ', text)
     text = re.sub(r'\s+', ' ', text)
     text = text.strip()
 
     return text
 
 
-def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] = None, session=None) -> Optional[List]:
+def handle_special_characters(
+    text: str,
+    dict_names: Optional[Tuple[str, ...]] = None,
+    *,
+    session,
+    _memo,
+    cached,
+    max_length,
+    debug,
+    mode,
+) -> Optional[List]:
     """
     Handle text preprocessing for special characters including wildcards and compound splits.
     This function processes special characters that require specific handling before 
@@ -104,38 +110,61 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
     Args:
         text: The Sanskrit text to process
         dict_names: Optional tuple of dictionary names to search in
-    
+        session, _memo, cached, max_length, debug, mode: forwarded verbatim to
+            the recursive process() calls below.  Those calls re-enter the
+            public entry point, so an option dropped here is silently demoted to
+            process()'s default -- which is how mode="roots" used to come back
+            as detailed entries.  They are deliberately keyword-only and have no
+            defaults: the defaults live on process() alone, so the two
+            signatures cannot drift apart.  Anything added to process() must be
+            added to `forwarded` below.
+
     Returns:
         List containing processed entries if special handling occurred,
         None if no special handling was needed
-    
-    Examples:
-        >>> handle_special_characters("deva*")  # Wildcard search
-        >>> handle_special_characters("dev_")   # Pattern matching
-        >>> handle_special_characters("deva-datta")  # Compound splitting
-    """    
+    """
+    forwarded = dict(
+        max_length=max_length,
+        debug=debug,
+        mode=mode,
+        session=session,
+        _memo=_memo,
+        cached=cached,
+    )
+    dict_names = dict_names or ()
+
+    ## both wildcard branches have two exits: a hit returns the dictionary entry
+    ## directly, a miss falls back to processing the text without the wildcard.
+    ## The hit used to bypass clean_results, so it ignored `mode` -- a roots
+    ## request came back as detailed entries.  For a pattern (_ or %) the stem is
+    ## the pattern itself; a pattern has no root to speak of.
+
     # Handle wildcard search with asterisk
     if text.endswith('*'):
         transliterated_text = transliterate(text[:-1], "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if not isinstance(voc_entry[0][2], list):
-            return voc_entry
-        return process(text[:-1])
+            return clean_results(voc_entry, debug=debug, mode=mode)
+        return process(text[:-1], *dict_names, **forwarded)
 
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
         transliterated_text = transliterate(text, "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if not isinstance(voc_entry[0][2], list):
-            return voc_entry
-        return process(text)
+            return clean_results(voc_entry, debug=debug, mode=mode)
+        return process(text, *dict_names, **forwarded)
 
-    # Handle pre-split compounds with - or + 
+    # Handle pre-split compounds with - or +
     if "-" in text or "+" in text:
         word_list = re.split(r'[-+]', text)
         processed_results = []
         for word in word_list:
-            result = process(word)
+            ## a leading, trailing or doubled separator splits to an empty
+            ## segment, which carries no analysis to contribute
+            if not word:
+                continue
+            result = process(word, *dict_names, **forwarded)
             processed_results.extend(result)
         return processed_results
 
@@ -146,10 +175,20 @@ def handle_special_characters(text: str, dict_names: Optional[Tuple[str, ...]] =
 ### by default, output = "detailed"
 @requires_database
 @with_session
-def process(text, *dict_names, max_length=100, debug=False, mode="detailed", session=None):
+def process(
+    text,
+    *dict_names,
+    max_length=100,
+    debug=False,
+    mode="detailed",
+    session=None,
+    _memo=None,
+    cached: Optional[bool] = None,
+):
 
-    
+    raw_text = text
     text = preprocess(text, max_length=max_length, debug=debug)
+    request_memo = {} if _memo is None else _memo
 
     ## if text is none return empty list
     if not text:
@@ -158,11 +197,29 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
         else:
             return []
 
+    ## the pre-split branch below is reachable only for single-word input, so a
+    ## separator inside a sentence would otherwise reach the splitter verbatim --
+    ## and the splitter does not read '-' or '+' as a boundary, so it merges the
+    ## very segments the caller separated.  Whitespace it does honour, so demote
+    ## the separator to a space and let the per-word path do the rest.
+    if ' ' in text and ('-' in text or '+' in text):
+        text = re.sub(r'[-+]', ' ', text)
+        text = re.sub(r'\s+', ' ', text).strip()
+
     ## if the text is a single word, try to find the word in the dictionary for exact match, the split if it fails
 
     if ' ' not in text:
 
-        check_special_characters = handle_special_characters(text, dict_names, session=session)
+        check_special_characters = handle_special_characters(
+            text,
+            dict_names,
+            session=session,
+            _memo=request_memo,
+            cached=cached,
+            max_length=max_length,
+            debug=debug,
+            mode=mode,
+        )
         if check_special_characters is not None:
             return check_special_characters
 
@@ -172,20 +229,24 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
             text = text[:-1] + sanskritFixedSandhiMap[text[-1]]
 
         ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
-        result = root_any_word(text, session=session)
+        result = root_any_word(text, session=session, _memo=request_memo)
         if debug == True:
             print("rooting result", result)
 
         if result is None and "ṅ" in text:
             ## this is removed, it was not triggering, and it was not clear if it was useful: or "ñ" in text
             tentative = text.replace("ṅ", "ṃ")
-            attempt = root_any_word(tentative, session=session)
+            attempt = root_any_word(
+                tentative, session=session, _memo=request_memo
+            )
             if attempt is not None:
                 result = attempt
         
         if result is None and "ṁ" in text:
             tentative = text.replace("ṁ", "ṃ")
-            attempt = root_any_word(tentative, session=session)
+            attempt = root_any_word(
+                tentative, session=session, _memo=request_memo
+            )
             if attempt is not None:
                 result = attempt
 
@@ -193,7 +254,9 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
         if result is None and text[0:1] == "ch":
             #print("tentative", text)
             tentative = 'ś' + text[1:] 
-            attempt = root_any_word(tentative, session=session)
+            attempt = root_any_word(
+                tentative, session=session, _memo=request_memo
+            )
             #print("attempt", attempt)
             if attempt is not None:
                 result = attempt
@@ -231,7 +294,7 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
             ## 
             if isinstance(result_vocabulary, list):
                 
-                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES.keys():
+                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES:
                     replacement = dict_search([result[0][4]], *dict_names, session=session)
                     if debug:
                         print("replacement", replacement[0])
@@ -253,10 +316,88 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
     ## attempt to remove sandhi and tokenise in any case
 
 
-    splitted_text = hybrid_sandhi_splitter(text)
+    from process_sanskrit.functions.hybridSplitter import analyze_hybrid
+    from process_sanskrit.functions.inflect import inflect
+
+    from process_sanskrit.utils.analysisCache import (
+        ANALYSIS_ALGORITHM_VERSION,
+        CacheKey,
+        CacheRecord,
+        get_analysis_cache,
+        lexicon_fingerprint,
+        resolve_cache_enabled,
+    )
+
+    cache = None
+    cache_key = None
+    cached_record = None
+    if resolve_cache_enabled(cached):
+        cache = get_analysis_cache(force_enabled=cached is True)
+        cache_key = CacheKey.from_settings(
+            normalized_input=text,
+            analysis_kind="hybrid_morphology",
+            algorithm_signature=ANALYSIS_ALGORITHM_VERSION,
+            lexicon_fingerprint=lexicon_fingerprint(),
+            settings={"attempts": 20, "score_threshold": 0.535},
+        )
+        cached_record = cache.get(cache_key)
+
+    if cached_record is not None and cached_record.grammar is not None:
+        splitted_text = list(cached_record.split)
+        inflections = cached_record.grammar
+    else:
+        lock_context = (
+            cache.compute_lock(cache_key)
+            if cache is not None and cache_key is not None
+            else None
+        )
+        if lock_context is None:
+            analysis_started = time.perf_counter()
+            analysis = analyze_hybrid(
+                text, session=session, _memo=request_memo
+            )
+            splitted_text = analysis.split
+            inflections = inflect(
+                splitted_text, session=session, _memo=request_memo
+            )
+        else:
+            with lock_context as acquired:
+                if acquired:
+                    cached_record = cache.get(cache_key)
+                if acquired and cached_record is not None and cached_record.grammar is not None:
+                    splitted_text = list(cached_record.split)
+                    inflections = cached_record.grammar
+                else:
+                    analysis_started = time.perf_counter()
+                    analysis = analyze_hybrid(
+                        text, session=session, _memo=request_memo
+                    )
+                    splitted_text = analysis.split
+                    inflections = inflect(
+                        splitted_text, session=session, _memo=request_memo
+                    )
+                    if acquired:
+                        canonical = cache.store(
+                            CacheRecord(
+                                key=cache_key,
+                                raw_input=str(raw_text),
+                                split=splitted_text,
+                                grammar=inflections,
+                                score=analysis.score,
+                                subscores=analysis.subscores,
+                                result_source=analysis.source,
+                                status=analysis.status,
+                                compute_ms=(
+                                    time.perf_counter() - analysis_started
+                                )
+                                * 1000,
+                            )
+                        )
+                        if canonical.grammar is not None:
+                            splitted_text = list(canonical.split)
+                            inflections = canonical.grammar
     if debug == True:
         print("splitted_text_here", splitted_text)
-    inflections = inflect(splitted_text, session=session) 
     if debug == True:
         print("inflections after splitting", inflections)
     inflections_vocabulary = dict_search(inflections, *dict_names, session=session)
@@ -265,5 +406,3 @@ def process(text, *dict_names, max_length=100, debug=False, mode="detailed", ses
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
       
     return clean_results(inflections_vocabulary, debug=debug, mode=mode)
-
-

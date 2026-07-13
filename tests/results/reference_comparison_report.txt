@@ -1,0 +1,195 @@
+====================================================================================================
+CHANGES 1 & 2 — COMPOUND CUTS, gold-labelled cases (tests/datasets/testCases.py)
+configs: scored_full = library | longest_full = app-root strategy on same lexicon | scored_mw = library strategy on MW-only lexicon
+====================================================================================================
+
+rāmalakṣmaṇau   (gold: rāma + lakṣmaṇa, dvandva/simple)  <-- configs disagree
+    scored_full   [gold       ] ['rāma', 'lakṣmaṇau']
+    longest_full  [other      ] ['rāmala', 'maṇau']
+    scored_mw     [gold       ] ['rāma', 'lakṣmaṇau']
+
+devamanuṣyāḥ   (gold: deva + manuṣya, dvandva/simple)
+    scored_full   [whole_word ] ['devamanuṣyāḥ']
+    longest_full  [whole_word ] ['devamanuṣyāḥ']
+    scored_mw     [whole_word ] ['devamanuṣyāḥ']
+
+rājapuruṣaḥ   (gold: rāja + puruṣa, tatpurusha/simple)
+    scored_full   [whole_word ] ['rājapuruṣaḥ']
+    longest_full  [whole_word ] ['rājapuruṣaḥ']
+    scored_mw     [whole_word ] ['rājapuruṣaḥ']
+
+dharmajñānam   (gold: dharma + jñāna, tatpurusha/simple)
+    scored_full   [whole_word ] ['dharmajñānam']
+    longest_full  [whole_word ] ['dharmajñānam']
+    scored_mw     [whole_word ] ['dharmajñānam']
+
+yathāśakti   (gold: yathā + śakti, avyayibhava/simple)
+    scored_full   [whole_word ] ['yathāśakti']
+    longest_full  [whole_word ] ['yathāśakti']
+    scored_mw     [whole_word ] ['yathāśakti']
+
+yadṛcchayā   (gold: yad + ṛcchayā, with_indeclinable/simple)
+    scored_full   [whole_word ] ['yadṛcchayā']
+    longest_full  [whole_word ] ['yadṛcchayā']
+    scored_mw     [whole_word ] ['yadṛcchayā']
+
+pratyakṣapramāṇam   (gold: prati + akṣa + pramāṇa, with_prefix/medium)
+    scored_full   [whole_word ] ['pratyakṣapramāṇam']
+    longest_full  [whole_word ] ['pratyakṣapramāṇam']
+    scored_mw     [whole_word ] ['pratyakṣapramāṇam']
+
+anupapannam   (gold: an + upapanna, with_prefix/simple)
+    scored_full   [whole_word ] ['anupapannam']
+    longest_full  [whole_word ] ['anupapannam']
+    scored_mw     [whole_word ] ['anupapannam']
+
+dharmārthakāmamokṣāḥ   (gold: dharma + artha + kāma + mokṣā, dvandva/medium)
+    scored_full   [whole_word ] ['dharmārthakāmamokṣāḥ']
+    longest_full  [whole_word ] ['dharmārthakāmamokṣāḥ']
+    scored_mw     [whole_word ] ['dharmārthakāmamokṣāḥ']
+
+śabdajñānānupātī   (gold: śabda + jñāna + anupāti, tatpurusha/medium)
+    scored_full   [other      ] ['śabda', 'jñānā', 'anupātī']
+    longest_full  [other      ] ['śabda', 'jñānā', 'anupātī']
+    scored_mw     [other      ] ['śabda', 'jñānā', 'anupātī']
+
+svarūpaśūnyevārthamātranirbhāsā   (gold: svarūpa + śūnya + iva + arthamātra + ni + bhās, complex_with_indeclinable/high)
+    scored_full   [other      ] ['svarūpa', 'śūnya', 'vār', 'tha', 'mātra', 'nirbhāsā']
+    longest_full  [other      ] ['svarūpa', 'śūnya', 'vār', 'tha', 'mātra', 'nirbhāsā']
+    scored_mw     [other      ] ['svarūpa', 'śūnya', 'vār', 'tha', 'mātra', 'nirbhāsā']
+
+cittavṛttinirodhaḥ   (gold: citta + vṛtti + nirodha, philosophical/medium)
+    scored_full   [other      ] ['cittavṛtti', 'nirodhaḥ']
+    longest_full  [other      ] ['cittavṛtti', 'nirodhaḥ']
+    scored_mw     [other      ] ['cittavṛtti', 'nirodhaḥ']
+
+dharmalakṣaṇāvasthāpariṇāmā   (gold: dharma + lakṣaṇa + avasthā + pariṇāmā, technical/high)
+    scored_full   [other      ] ['dharmalakṣaṇa', 'avasthā', 'apariṇāmā']
+    longest_full  [other      ] ['dharmalakṣaṇa', 'avasthā', 'apariṇāmā']
+    scored_mw     [other      ] ['dharmalakṣaṇa', 'avasthā', 'apariṇāmā']
+
+sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni   (gold: sattva + śuddhi + saumanasya + ekāgrya + indriya + jaya + ātma + darśana + yogyatva, technical/very_high)
+    scored_full   [other      ] ['sattva', 'śuddhi', 'saumanasya', 'kā', 'agrya', 'indriya', 'jayā', 'ātmadarśana', 'yogyatvāni']
+    longest_full  [other      ] ['sattva', 'śuddhi', 'saumanasya', 'kā', 'agrya', 'indriya', 'jayā', 'ātmadarśana', 'yogyatvāni']
+    scored_mw     [other      ] ['sattva', 'śuddhi', 'saumanasya', 'kā', 'agrya', 'indriya', 'jayā', 'ātmadarśana', 'yogyatvāni']
+
+tajjñānam   (gold: tad + jñāna, consonant_sandhi/simple)
+    scored_full   [other      ] ['tajjña', 'anam']
+    longest_full  [other      ] ['tajjña', 'anam']
+    scored_mw     [other      ] ['tajjña', 'anam']
+
+tacchabdaḥ   (gold: tad + śabda, consonant_sandhi/simple)  <-- configs disagree
+    scored_full   [other      ] ['taccha', 'daḥ']
+    longest_full  [other      ] ['taccha', 'daḥ']
+    scored_mw     [other      ] ['tac', 'cha', 'daḥ']
+
+rājapuruṣottamaḥ   (gold: rāja + puruṣa + uttama, ambiguous/medium)
+    scored_full   [other      ] ['rājapuruṣa', 'uttamaḥ']
+    longest_full  [other      ] ['rājapuruṣa', 'uttamaḥ']
+    scored_mw     [other      ] ['rājapuruṣa', 'uttamaḥ']
+
+SUMMARY over 17 gold cases (gold = matches labelled split; whole_word = kept as one word; other = different split):
+    scored_full   {'gold': 1, 'other': 8, 'whole_word': 8}
+    longest_full  {'other': 9, 'whole_word': 8}
+    scored_mw     {'gold': 1, 'other': 8, 'whole_word': 8}
+
+====================================================================================================
+CHANGES 1 & 2 — BENCHMARK COMPOUNDS (no gold labels, showing only disagreements)
+====================================================================================================
+
+anabhisaṃskṛtam
+    scored_full   ['an', 'abhisaṃskṛtam']
+    longest_full  ['anabhisaṃskṛta']
+    scored_mw     ['an', 'abhisaṃskṛtam']
+
+pravṛttyuparame
+    scored_full   ['pravṛtti', 'uparame']
+    longest_full  ['pravṛtty', 'uparame']
+    scored_mw     ['pravṛtti', 'uparame']
+
+āgacchantv
+    scored_full   ['āga', 'chand']
+    longest_full  ['āgaccha', 'tu']
+    scored_mw     ['āga', 'chand']
+
+pālayiṣyati
+    scored_full   ['pālay', 'iṣyati']
+    longest_full  ['pālay', 'iṣyati']
+    scored_mw     ['pāla', 'iṣyati']
+
+vidyāmavidyāṃ
+    scored_full   ['vidyā', 'ama', 'vidyāṃ']
+    longest_full  ['vidyā', 'āmav', 'id', 'yāṃ']
+    scored_mw     ['vidyā', 'ama', 'vidyāṃ']
+
+bhāvepyeteṣāṃ
+    scored_full   ['bhāva', 'pyā', 'teṣāṃ']
+    longest_full  ['bhāva', 'pyā', 'teṣāṃ']
+    scored_mw     ['bhāva', 'pi', 'eteṣāṃ']
+
+vargasaṃgrahaḥ
+    scored_full   ['varga', 'saṃgrahaḥ']
+    longest_full  ['vargas', 'aṃg', 'rahaḥ']
+    scored_mw     ['varga', 'saṃgrahaḥ']
+
+samupoṣyārcayedgaṇam
+    scored_full   ['samupoṣ', 'yā', 'arca', 'ya', 'id', 'gaṇam']
+    longest_full  ['samupoṣya', 'arca', 'ya', 'id', 'gaṇam']
+    scored_mw     ['samupoṣ', 'yā', 'ārca', 'ya', 'id', 'gaṇam']
+
+lajjāvismayamanmathaiḥ
+    scored_full   ['lajjā', 'vismaya', 'manmathaiḥ']
+    longest_full  ['lajjā', 'āvismaya', 'manmathaiḥ']
+    scored_mw     ['lajjā', 'vismaya', 'manmathaiḥ']
+
+bāṣpataraṅgadhūsarāntaiḥ
+    scored_full   ['bāṣpa', 'taraṅga', 'dhūsarā', 'antaiḥ']
+    longest_full  ['bāṣpa', 'taraṅga', 'dhūsarā', 'antaiḥ']
+    scored_mw     ['bāṣpa', 'tara', 'gadh', 'sarā', 'antaiḥ']
+
+anantataraduḥkhārtham
+    scored_full   ['ananta', 'tarad', 'uḥ', 'khā', 'artham']
+    longest_full  ['ananta', 'tarad', 'uḥ', 'khā', 'artham']
+    scored_mw     ['ananta', 'tarad', 'khā', 'artham']
+
+parahitārthamevātmānaṃ
+    scored_full   ['parahita', 'artham', 'evā', 'ātmānaṃ']
+    longest_full  ['parahita', 'artham', 'evā', 'ātmānaṃ']
+    scored_mw     ['parahita', 'artham', 'eva', 'ātmānaṃ']
+
+tatprāvaraṇamuttamam
+    scored_full   ['tat', 'prāvaraṇa', 'mutta', 'mam']
+    longest_full  ['tat', 'prāvaraṇa', 'mutta', 'mam']
+    scored_mw     ['tat', 'prāvaraṇa', 'mud', 'tamam']
+
+hetupadamadhikamasti
+    scored_full   ['hetu', 'pada', 'mad', 'hi', 'kam', 'asti']
+    longest_full  ['hetu', 'pada', 'mad', 'hika', 'masti']
+    scored_mw     ['hetu', 'pada', 'mad', 'hi', 'kam', 'asti']
+
+dravyaviśeṣatvādityarthaḥ
+    scored_full   ['dravya', 'viśeṣatva', 'aditi', 'arthaḥ']
+    longest_full  ['dravya', 'viśeṣatva', 'āditya', 'thaḥ']
+    scored_mw     ['dravya', 'viśeṣatva', 'aditi', 'arthaḥ']
+
+chalottaratvāpātādityapi
+    scored_full   ['chala', 'uttara', 'tvā', 'āpāta', 'āditya', 'pi']
+    longest_full  ['chala', 'uttarat', 'vāpa', 'ātāt', 'itya', 'pi']
+    scored_mw     ['chala', 'uttara', 'tva', 'āpāta', 'āditya', 'pi']
+
+gandharvāsurakinnaraiḥ
+    scored_full   ['gandharvā', 'asura', 'kinnara', 'iḥ']
+    longest_full  ['gandharvā', 'asura', 'kinnara', 'iḥ']
+    scored_mw     ['gandharvā', 'asura', 'kim', 'naraiḥ']
+
+17/60 sampled compounds get different splits across the three configurations.
+
+====================================================================================================
+CHANGE 3 — PREFIX STRIPPING, root_any_word over unique Yoga Sutra tokens
+library = nested prefixes inside root_any_word | app_root = one-level loop outside root_any_word
+====================================================================================================
+
+570 unique tokens: 276 same analysis, 293 unanalyzed by both, 1 analyzed only by library, 0 only by app-root, 0 different.
+
+Analyzed ONLY by the library (nested prefixes) — check each for spurious prefix-stripping:
+    asaṃsargaḥ                          -> ['a', 'saṃsarga']

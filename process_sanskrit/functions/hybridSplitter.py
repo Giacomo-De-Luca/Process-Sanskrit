@@ -1,8 +1,104 @@
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple, Union
 
-from typing import List, Tuple, Dict, Union
-from process_sanskrit.functions.parserSandhiSplitter import sandhi_splitter
+from process_sanskrit.functions.sandhiSplitter import sandhi_splitter
 from process_sanskrit.functions.compoundAnalysis import root_compounds, process_root_result
 from process_sanskrit.functions.sandhiSplitScorer import scorer
+
+
+@dataclass
+class HybridAnalysis:
+    """Internal structured result used by caching and public adapters."""
+
+    split: List[str]
+    score: float
+    subscores: Dict
+    source: str
+    status: str
+    all_splits: Optional[List] = None
+
+
+def analyze_hybrid(
+    text_to_split: str,
+    attempts: int = 20,
+    score_threshold: float = 0.535,
+    *,
+    include_candidates: bool = False,
+    session=None,
+    _memo=None,
+) -> HybridAnalysis:
+    """Compute one hybrid analysis without consulting the persistent cache."""
+    if include_candidates:
+        stat_split, stat_score, stat_subscores, all_splits = sandhi_splitter(
+            text_to_split,
+            cached=False,
+            attempts=attempts,
+            detailed_output=True,
+        )
+        if len(stat_split) == 1:
+            stat_score = 0
+    else:
+        stat_split = sandhi_splitter(
+            text_to_split,
+            cached=False,
+            attempts=attempts,
+            detailed_output=False,
+        )
+        all_splits = None
+        if len(stat_split) == 1:
+            stat_score = 0
+            stat_subscores = {}
+        else:
+            stat_score, stat_subscores = scorer.score_split(
+                text_to_split, stat_split
+            )
+
+    statistical = HybridAnalysis(
+        split=stat_split,
+        score=stat_score,
+        subscores=stat_subscores,
+        source="statistical",
+        status="success" if len(stat_split) > 1 else "fallback",
+        all_splits=all_splits,
+    )
+    if stat_score >= score_threshold:
+        return statistical
+
+    try:
+        root_analysis = root_compounds(
+            text_to_split,
+            inflection=False,
+            session=session,
+            _memo=_memo,
+        )
+        if root_analysis:
+            root_split = [process_root_result(item) for item in root_analysis]
+            root_split = [
+                value
+                for index, value in enumerate(root_split)
+                if index == 0 or value != root_split[index - 1]
+            ]
+            root_score, root_subscores = scorer.score_split(
+                text_to_split, root_split
+            )
+            if root_score > stat_score:
+                candidates = all_splits
+                if include_candidates:
+                    candidates = [(root_split, root_score, root_subscores)] + (
+                        all_splits if all_splits else []
+                    )
+                return HybridAnalysis(
+                    split=root_split,
+                    score=root_score,
+                    subscores=root_subscores,
+                    source="root_compound",
+                    status="success",
+                    all_splits=candidates,
+                )
+    except Exception as error:
+        print(f"Root compound analysis failed: {str(error)}")
+        statistical.status = "root_analysis_failed"
+    return statistical
 
 
 def hybrid_sandhi_splitter(
@@ -11,6 +107,8 @@ def hybrid_sandhi_splitter(
     attempts: int = 20,
     detailed_output: bool = False,
     score_threshold: float = 0.535,
+    session=None,
+    _memo=None,
 ) -> Union[List[str], Tuple[List[str], float, Dict, List], Tuple[List[str], Dict]]:
     """
     Enhanced sandhi splitter that combines statistical splitting with root compound analysis.
@@ -24,69 +122,68 @@ def hybrid_sandhi_splitter(
     - score_threshold: Minimum score to accept statistical split
     """
 
-     # Initialize counts dictionary if tracking
-    # First try our enhanced statistical splitter
-    if detailed_output:
-        stat_split, stat_score, stat_subscores, all_splits = sandhi_splitter(
-            text_to_split, cached, attempts, detailed_output=True
+    if cached and not detailed_output:
+        from process_sanskrit.utils.analysisCache import (
+            ANALYSIS_ALGORITHM_VERSION,
+            CacheKey,
+            CacheRecord,
+            get_analysis_cache,
+            lexicon_fingerprint,
         )
-        if len(stat_split) == 1:
-            stat_score = 0 
-    else:
-        stat_split = sandhi_splitter(
-            text_to_split, cached, attempts, detailed_output=False
+
+        cache = get_analysis_cache(force_enabled=True)
+        key = CacheKey.from_settings(
+            normalized_input=text_to_split,
+            analysis_kind="hybrid",
+            algorithm_signature=ANALYSIS_ALGORITHM_VERSION,
+            lexicon_fingerprint=lexicon_fingerprint(),
+            settings={
+                "attempts": attempts,
+                "score_threshold": score_threshold,
+            },
         )
-        # Get the score for comparison
-        if len(stat_split) == 1:
-            stat_score = 0 
-        else: 
-            stat_score, stat_subscores = scorer.score_split(text_to_split, stat_split)
+        record = cache.get(key)
+        if record is not None:
+            return list(record.split)
+        with cache.compute_lock(key) as acquired:
+            if acquired:
+                record = cache.get(key)
+                if record is not None:
+                    return list(record.split)
+                analysis = analyze_hybrid(
+                    text_to_split,
+                    attempts,
+                    score_threshold,
+                    session=session,
+                    _memo=_memo,
+                )
+                canonical = cache.store(
+                    CacheRecord(
+                        key=key,
+                        raw_input=text_to_split,
+                        split=analysis.split,
+                        score=analysis.score,
+                        subscores=analysis.subscores,
+                        result_source=analysis.source,
+                        status=analysis.status,
+                    )
+                )
+                return list(canonical.split)
 
-
-    # If score is good enough, return statistical result
-    if stat_score >= score_threshold:
-        if detailed_output:
-            print("stat_score", stat_score)
-            print("stat_split", stat_split)
-        if detailed_output:
-            return stat_split, stat_score, stat_subscores, all_splits
-        return stat_split
-
-    # If score is too low, try root compound analysis
-    try:
-        if detailed_output == True:
-            print("text_to_split", text_to_split)
-        root_analysis = root_compounds(text_to_split, inflection=False)
-        if detailed_output == True:
-            print("root_analysis", root_analysis)
-        if root_analysis:
-            # Process the root analysis results into a simple word list
-            root_split = [process_root_result(item) for item in root_analysis]
-            root_split = [x for i, x in enumerate(root_split) if i == 0 or x != root_split[i-1]]
-            if detailed_output == True:
-                print("root_split", root_split)
-            # Score the processed root split
-            root_score, root_subscores = scorer.score_split(text_to_split, root_split)
-            if detailed_output == True:
-                print("root_score", root_score)
-                print("root_subscores", root_subscores)
-
-            # Compare scores and choose the better result
-            if root_score > stat_score:
-                if detailed_output:
-                    # Add root split to all_splits for reference
-                    all_splits = [(root_split, root_score, root_subscores)] + (all_splits if all_splits else [])
-                    return root_split, root_score, root_subscores, all_splits
-                return root_split
-
-    except Exception as e:
-        print(f"Root compound analysis failed: {str(e)}")
-
-    # Fall back to statistical split if root analysis fails or scores lower
+    analysis = analyze_hybrid(
+        text_to_split,
+        attempts,
+        score_threshold,
+        include_candidates=detailed_output,
+        session=session,
+        _memo=_memo,
+    )
     if detailed_output:
-        print("stat_split", stat_split)
-        return stat_split, stat_score, stat_subscores, all_splits
-
-    return stat_split
-
-
+        print("stat_split", analysis.split)
+        return (
+            analysis.split,
+            analysis.score,
+            analysis.subscores,
+            analysis.all_splits,
+        )
+    return analysis.split

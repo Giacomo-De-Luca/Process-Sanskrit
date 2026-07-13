@@ -5,8 +5,6 @@ import ast
 import threading
 from dataclasses import dataclass
 
-## cache is currently not used and commented out
-
 
 _parser = None
 _parser_lock = threading.Lock()
@@ -31,6 +29,39 @@ class SplitResult:
     subscores: dict
     all_splits: Optional[List[Tuple[List[str], float, dict]]] = None
 
+
+def analyze_sandhi(
+    text_to_split: str,
+    attempts: int = 10,
+) -> SplitResult:
+    """Compute one statistical split and its score without cache I/O."""
+    try:
+        splits = _get_parser().split(text_to_split, limit=attempts)
+        if splits is None:
+            simple_split = text_to_split.split()
+            if simple_split:
+                score, subscores = scorer.score_split(text_to_split, simple_split)
+            else:
+                score, subscores = 0.0, {}
+            return SplitResult(simple_split, score, subscores, None)
+
+        if attempts == 1:
+            parsed_splits = [ast.literal_eval(f"{next(splits)}")]
+        else:
+            parsed_splits = [ast.literal_eval(f"{split}") for split in splits]
+        ranked_splits = scorer.rank_splits(text_to_split, parsed_splits)
+        best_split, best_score, subscores = ranked_splits[0]
+        return SplitResult(best_split, best_score, subscores, ranked_splits)
+    except Exception as error:
+        print(f"Could not split the line: {text_to_split}")
+        print(f"Error: {error}")
+        simple_split = text_to_split.split()
+        if simple_split:
+            score, subscores = scorer.score_split(text_to_split, simple_split)
+        else:
+            score, subscores = 0.0, {}
+        return SplitResult(simple_split, score, subscores, None)
+
 def sandhi_splitter(
     text_to_split: str, 
     cached: bool = False, 
@@ -50,72 +81,53 @@ def sandhi_splitter(
     - List[str]: The best split by default
     - If detailed_output=True: Tuple[List[str], float, Dict, Optional[List]]
     """
-    # Check cache first
-    #if cached:
-    #    cached_result = session.query(SplitCache).filter_by(input=text_to_split).first()
-    #    if cached_result:
-    #        cached_splits = ast.literal_eval(cached_result.splitted_text)
-    #        print(f"Retrieved from cache: {cached_splits}")
-            
-            # Even for cached results, we'll score them to ensure best split
-    #        if isinstance(cached_splits, list) and isinstance(cached_splits[0], list):
-    #            splits_to_score = cached_splits
-    #        else:
-    #            splits_to_score = [cached_splits]
-            
-    #        ranked_splits = scorer.rank_splits(splits_to_score)
-    #        best_split, best_score, subscores = ranked_splits[0]
-    #        
-    #        if detailed_output:
-    #            return best_split, best_score, subscores, ranked_splits
-    #        return best_split
+    if cached and not detailed_output:
+        from process_sanskrit.utils.analysisCache import (
+            ANALYSIS_ALGORITHM_VERSION,
+            CacheKey,
+            CacheRecord,
+            get_analysis_cache,
+            lexicon_fingerprint,
+        )
 
-    try:
-        # Get all possible splits
-        splits = _get_parser().split(text_to_split, limit=attempts)
-        
-        # Handle None result
-        if splits is None:
-            simple_split = text_to_split.split()
-            if detailed_output:
-                ## put a check here to avoid error if missing
-                if simple_split:
-                    score, subscores = scorer.score_split(simple_split, text_to_split)
-                    return simple_split, score, subscores, None
-            return simple_split
+        cache = get_analysis_cache(force_enabled=True)
+        key = CacheKey.from_settings(
+            normalized_input=text_to_split,
+            analysis_kind="statistical",
+            algorithm_signature=ANALYSIS_ALGORITHM_VERSION,
+            lexicon_fingerprint=lexicon_fingerprint(),
+            settings={"attempts": attempts},
+        )
+        record = cache.get(key)
+        if record is not None:
+            return list(record.split)
+        with cache.compute_lock(key) as acquired:
+            if acquired:
+                record = cache.get(key)
+                if record is not None:
+                    return list(record.split)
+                analysis = analyze_sandhi(text_to_split, attempts)
+                canonical = cache.store(
+                    CacheRecord(
+                        key=key,
+                        raw_input=text_to_split,
+                        split=analysis.split,
+                        score=analysis.score,
+                        subscores=analysis.subscores,
+                        result_source="statistical",
+                        status=(
+                            "success" if len(analysis.split) > 1 else "fallback"
+                        ),
+                    )
+                )
+                return list(canonical.split)
 
-        # Process splits based on attempts
-        if attempts == 1:
-            splits = [ast.literal_eval(f'{next(splits)}')]
-        else:
-            splits = [ast.literal_eval(f'{split}') for split in splits]
-
-        # Score all splits
-        #print("Splits", splits)
-        ranked_splits = scorer.rank_splits(text_to_split, splits)  # Pass original text
-        best_split, best_score, subscores = ranked_splits[0]
-        
-        # Cache the result if needed
-        #if cached:
-        #    new_cache_entry = SplitCache(
-        #        input=text_to_split, 
-        #        splitted_text=str([split for split, _, _ in ranked_splits])
-        #    )
-        #    session.add(new_cache_entry)
-        #    session.commit()
-            #print(f"Added to cache: {best_split}")
-
-        if detailed_output:
-            return best_split, best_score, subscores, ranked_splits
-        return best_split
-
-    except Exception as e:
-        print(f"Could not split the line: {text_to_split}")
-        print(f"Error: {e}")
-        simple_split = text_to_split.split()
-        
-        if detailed_output:
-            if simple_split:
-                score, subscores = scorer.score_split(simple_split, text_to_split)
-                return simple_split, score, subscores, None
-        return simple_split
+    analysis = analyze_sandhi(text_to_split, attempts)
+    if detailed_output:
+        return (
+            analysis.split,
+            analysis.score,
+            analysis.subscores,
+            analysis.all_splits,
+        )
+    return analysis.split

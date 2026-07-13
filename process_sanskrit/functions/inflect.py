@@ -5,7 +5,9 @@ from process_sanskrit.functions.compoundAnalysis import root_compounds
 
 prefixes = ['sva', 'anu', 'sam', 'pra', 'upa', 'vi', 'nis', 'abhi', 'ni', 'pari', 'prati', 'parā', 'ava', 'adhi', 'api', 'ati', 'ud', 'dvi', 'su', 'dur', 'duḥ']
 
-def inflect(splitted_text, debug=False, session=None):
+def inflect(splitted_text, debug=False, session=None, _memo=None):
+    if _memo is None:
+        _memo = {}
     roots = []
     
     i = 0
@@ -29,7 +31,9 @@ def inflect(splitted_text, debug=False, session=None):
             for combined_word in combined_words:
                 if debug == True:
                     start_time = time.time()
-                rooted = root_any_word(combined_word, session=session)
+                rooted = root_any_word(
+                    combined_word, session=session, _memo=_memo
+                )
                 
                 if debug == True:
                     print(f"root_any_word({combined_word}) took {time.time() - start_time:.6f} seconds")
@@ -43,7 +47,7 @@ def inflect(splitted_text, debug=False, session=None):
             else:
                 if debug == True:
                     start_time = time.time()
-                rooted_word = root_any_word(word, session=session)
+                rooted_word = root_any_word(word, session=session, _memo=_memo)
                 if debug == True:
                     print(f"root_any_word({word}) took {time.time() - start_time:.6f} seconds")
                 if rooted_word is not None:
@@ -51,7 +55,9 @@ def inflect(splitted_text, debug=False, session=None):
                 else:
                     if debug == True:
                         start_time = time.time()
-                    compound_try = root_compounds(word, session=session)
+                    compound_try = root_compounds(
+                        word, session=session, _memo=_memo
+                    )
                     if debug == True:
                         print(f"root_compounds({word}) took {time.time() - start_time:.6f} seconds")
                     if compound_try is not None:
@@ -62,7 +68,7 @@ def inflect(splitted_text, debug=False, session=None):
         else:
             if debug == True:
                 start_time = time.time()
-            rooted = root_any_word(word, session=session)
+            rooted = root_any_word(word, session=session, _memo=_memo)
             if debug == True:
                 print(f"root_any_word({word}) took {time.time() - start_time:.6f} seconds")
             if rooted is not None:
@@ -70,7 +76,9 @@ def inflect(splitted_text, debug=False, session=None):
             else:
                 if debug == True:
                     start_time = time.time()
-                compound_try = root_compounds(word, session=session)
+                compound_try = root_compounds(
+                    word, session=session, _memo=_memo
+                )
                 if debug == True:
                     print(f"root_compounds({word}) took {time.time() - start_time:.6f} seconds")
                 if compound_try is not None:

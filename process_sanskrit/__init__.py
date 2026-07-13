@@ -12,9 +12,7 @@ import os # Needed for os.devnull
 from contextlib import contextmanager, redirect_stdout, redirect_stderr
 
 
-# 1. Configure the root logger to only show CRITICAL messages
-logging.getLogger().setLevel(logging.CRITICAL)
-# 2. Permanently silence the vendored sandhi splitter, which logs every sandhi
+# Permanently silence the vendored sandhi splitter, which logs every sandhi
 #    rule it tries at DEBUG. (Formerly 'sanskrit_parser'; see splitter/NOTICE.md.)
 sp_logger = logging.getLogger('process_sanskrit.splitter')
 sp_logger.addHandler(logging.NullHandler()) # Add handler that does nothing

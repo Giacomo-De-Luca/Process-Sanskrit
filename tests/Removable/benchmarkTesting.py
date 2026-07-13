@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import logging
 from typing import Dict, List, Any, Tuple
-from test.datasets.testCases import test_cases
+from tests.datasets.testCases import test_cases
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -278,7 +278,7 @@ class SanskritBenchmark:
                 processed_result = process(
                     case['input'],
                     dict_names[0] if dict_names else 'MW',  # Default to MW if none specified
-                    roots="parts"
+                    mode="parts"
                 )
                 processing_time = time.time() - start_time
                 

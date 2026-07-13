@@ -54,7 +54,7 @@ def process_compounds(
                 entry += f"Input: {text}\n"
                 
                 try:
-                    result = process(text, roots="roots")
+                    result = process(text, mode="roots")
                     entry += f"Result: {result}\n"
                 except Exception as e:
                     error = f"Error processing compound: {str(e)}\n"
