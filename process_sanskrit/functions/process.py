@@ -308,9 +308,31 @@ def process(
             ## if the word is inside the dictionary, we return the entry directly, since it will be accurate.
             ## 
             if isinstance(result_vocabulary, list):
-                
-                if len(result[0]) > 4 and result[0][0] != result[0][4] and result[0][4] in DICTIONARY_REFERENCES:
-                    replacement = dict_search([result[0][4]], *dict_names, session=session)
+
+                ## Ask the *last* entry for the whole word, not result[0]: when the
+                ## word was resolved by stripping a prefix, result[0] is the prefix
+                ## (`vi` of `virati`) and carries only its own surface, so keying the
+                ## lookup on it drops the attested entry for the whole word.  The
+                ## root entries carry the whole word *as matched*, which is also why
+                ## the raw `text` will not do -- saṃskāro is matched as saṃskāraḥ,
+                ## saṅgrahaḥ as saṃgrahaḥ, and only the matched form is a headword.
+                last_entry = result[-1]
+                whole_word = (
+                    last_entry[4]
+                    if isinstance(last_entry, list) and len(last_entry) > 4
+                    else None
+                )
+                analysed_stems = {
+                    entry[0] for entry in result if isinstance(entry, list) and entry
+                }
+                ## Offer it only when no analysis already yields it, or pratyakṣam is
+                ## reported twice: once as itself, once as the inserted headword.
+                if (
+                    whole_word
+                    and whole_word not in analysed_stems
+                    and whole_word in DICTIONARY_REFERENCES
+                ):
+                    replacement = dict_search([whole_word], *dict_names, session=session)
                     if debug:
                         print("replacement", replacement[0])
                         print("len replacement", len(replacement[0]))

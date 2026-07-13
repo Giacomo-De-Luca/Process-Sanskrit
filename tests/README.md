@@ -11,6 +11,8 @@ uv run python -m unittest tests.test_publish_workflow
 uv run python -m unittest tests.test_optimizations
 uv run python -m unittest tests.test_reference_comparison
 uv run python -m unittest tests.test_analysis_cache tests.test_database_lifecycle
+uv run python -m unittest tests.test_prefix_merge
+uv run python -m unittest tests.test_null_dictionary_components
 ```
 
 Most pipeline tests require `process_sanskrit/resources/SQliteDB.sqlite`. The
@@ -37,8 +39,15 @@ PROCESS_SANSKRIT_FULL_NATIVE_PARITY=1 \
   asset/concurrency behavior; `BenchmarkConfigurationTests` pins the
   config-driven runner; `NativePublishWorkflowTests` prevents the release
   workflow from losing its native build, smoke, collection, or authentication
-  gates; and `UpstreamParityTests` is the optional upstream reference
-  comparison.
+  gates; `SamPrefixRejoinTests` pins the prefix re-joining block in
+  `clean_results` in both directions (an unattested join such as `samupekṣa`
+  stays split, an attested one such as `samādhi` still collapses), with
+  `DictSearchStubShapeTests` pinning the `dict_search` miss/hit shapes that
+  guard depends on — see `documentation/prefix-rejoin.md`;
+  `NullDictionaryComponentsTests` pins the headword fallback for dictionary
+  rows without component metadata, including Yoga Sutra 53 — see
+  `documentation/dictionary-results.md`; and
+  `UpstreamParityTests` is the optional upstream reference comparison.
 - `datasets/` contains reusable Sanskrit corpora and compound fixtures. Dataset
   modules expose lists/dictionaries consumed by benchmarks; the two JSON files
   contain compound records used by reference comparisons.

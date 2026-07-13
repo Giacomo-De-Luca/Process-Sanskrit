@@ -41,6 +41,7 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
     dict_names: List[str] = []
     dict_results: Dict[str, Dict[str, List[str]]] = {}
     name_component: str = ""
+    fallback_headword: str = ""
     
     # Collect dictionary names4
     if not args:
@@ -107,7 +108,9 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
         for row in results:
             #print(f"Row: {row}")
             key_iast, components, cleaned_body = row
-            if not name_component:
+            if not fallback_headword:
+                fallback_headword = key_iast
+            if not name_component and components:
                 name_component = components
             #print(f"key_iast: {key_iast}, components: {components}, cleaned_body: {cleaned_body}")
             if key_iast in component_dict:
@@ -117,7 +120,10 @@ def multidict(name: str, *args: str, source: str = "MW", session=None) -> Dict[s
         # Add to dict_results
         dict_results[dict_name] = component_dict
     
-    return [name_component, dict_results]
+    # Some source dictionaries leave ``components`` NULL even for a real
+    # headword.  Downstream ``parts`` output needs a string in this slot, so use
+    # the matched headword when no dictionary supplied a decomposition.
+    return [name_component or fallback_headword, dict_results]
 
 
 

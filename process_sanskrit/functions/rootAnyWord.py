@@ -51,6 +51,26 @@ def _direct_roots(word, session, memo):
     return result_roots
 
 
+def _stamp_whole_word(matches, span, word):
+    """Record `word` as the surface of the entries that resolved `span` itself.
+
+    `entry[4]` is read two incompatible ways downstream.  `extract_roots` folds a
+    run of entries that share it into one tuple of rival readings, so a *prefix*
+    entry must keep its own surface -- stamped with the whole word, `upa` and
+    `diś` read as "upa OR diś" rather than as the two words of `upadiśyate`.  But
+    the `-n` lemma rule and the whole-word dictionary check both want the whole
+    word an analysis came from, and they only ever look at the root entries.
+    Stamping exactly the entries that resolved `span` serves both.
+
+    `matches` can already hold a deeper decomposition (`a` + `vi` + `rati`), whose
+    inner prefix entries carry their own surface and so fail the `span` test --
+    which is the point: re-stamping them would collapse the nested split again.
+    """
+    for match in matches:
+        if len(match) == 5 and match[4] == span:
+            match[4] = word
+
+
 def root_any_word(
     word,
     attempted_words=None,
@@ -168,9 +188,7 @@ def root_any_word(
                         prefix, session=session, _memo=_memo
                     )
                     result = prefix_root + attempt if prefix_root else attempt
-                for match in result: 
-                    if len(match) == 5:
-                        match[4] = word
+                _stamp_whole_word(attempt, remainder, word)
                 return result
             else: 
                 for nested_prefix in SANSKRIT_PREFIXES:
@@ -189,9 +207,7 @@ def root_any_word(
                                 nested_prefix, session=session, _memo=_memo
                             ) or []
                             result = prefix_result + nested_prefix_result + nested_attempt
-                            for match in result: 
-                                if len(match) == 5:
-                                    match[4] = word
+                            _stamp_whole_word(nested_attempt, nested_remainder, word)
                             return result
             
     return None

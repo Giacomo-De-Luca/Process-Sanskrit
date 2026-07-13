@@ -48,8 +48,10 @@ construction. The only case the key cannot see is the same value now resolving
 elsewhere (a retargeted symlink, a recreated directory); for that, call
 `reset_database_path_cache()`. The `_reset_database_state()` and
 `_reset_reference_state()` helpers already do. The `os.register_at_fork` hook
-deliberately does not: the cache holds no file descriptors, so a forked child
-inherits a valid entry.
+retains this path cache because it holds no file descriptors. It closes the
+module-owned SQLAlchemy session and engine in the parent immediately before the
+fork, then the parent and child reopen independent read-only engines lazily.
+No SQLite connection created in the parent is used or closed by the child.
 
 ## Known issue: the engine does not follow a runtime path change
 

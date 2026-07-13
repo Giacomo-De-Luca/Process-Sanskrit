@@ -71,8 +71,10 @@ eligible for age-based deletion; changing back cannot restore removed records.
 
 The cache uses a small SQLAlchemy `QueuePool` with one retained connection, one
 overflow connection, and a 2 MiB SQLite page cache per connection. Each web
-worker owns its own engine; inherited connections and sessions are discarded
-after `fork()`.
+worker owns its own engine. Checked-in cache connections are closed immediately
+before `fork()`; the parent and child then reopen independent engines lazily.
+This avoids carrying an open SQLite WAL handle into the child, which older
+SQLite versions can reject with a `locking protocol` error.
 
 ## Stored data and ML use
 

@@ -51,7 +51,9 @@ log = logging.getLogger(__name__)
 SCHEMA_VERSION = 1
 # Bump this whenever a change can alter a split or morphology result. The
 # signature is part of the cache key, and superseded rows are evicted on open.
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v3"
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v4"
+# v4 reports a stripped upasarga as its own word instead of folding it into the
+# stem's list of rival readings (upadiśyate -> upa, diś -- not "upa OR diś").
 # v3 ranks genuine compound headwords ahead of bare variant-reading pointers;
 # the short-lived v2 implementation used an additive score penalty instead.
 # v1 could persist an unsplit fallback for direct `attempts=1` calls because
@@ -827,13 +829,11 @@ class AnalysisCache:
 
     def reset_after_fork(self) -> None:
         """Drop inherited pool state in a child process."""
-        engine, self._engine = self._engine, None
+        self._engine = None
         self._engine_lock = threading.RLock()
         self._key_locks_guard = threading.Lock()
         self._maintenance_lock = threading.Lock()
         self._key_locks.clear()
-        if engine is not None:
-            engine.dispose(close=False)
 
 
 def resolve_cache_enabled(
@@ -867,6 +867,8 @@ def lexicon_fingerprint(db_path: Optional[str] = None) -> str:
 
 _cache_singleton: Optional[AnalysisCache] = None
 _cache_singleton_lock = threading.RLock()
+_cache_fork_locks_held = False
+_cache_prepared_for_fork: Optional[AnalysisCache] = None
 
 
 def get_analysis_cache(
@@ -899,13 +901,55 @@ def reset_analysis_cache() -> None:
         cache.close()
 
 
+def _prepare_analysis_cache_before_fork() -> None:
+    """Close checked-in SQLite handles before the process is copied."""
+    global _cache_fork_locks_held, _cache_prepared_for_fork
+
+    _cache_singleton_lock.acquire()
+    cache = _cache_singleton
+    try:
+        if cache is not None:
+            cache._engine_lock.acquire()
+            try:
+                cache.close()
+            except BaseException:
+                cache._engine_lock.release()
+                raise
+    except BaseException:
+        _cache_singleton_lock.release()
+        raise
+    _cache_prepared_for_fork = cache
+    _cache_fork_locks_held = True
+
+
+def _restore_analysis_cache_after_fork_in_parent() -> None:
+    """Release lifecycle locks retained by the parent-side fork hook."""
+    global _cache_fork_locks_held, _cache_prepared_for_fork
+
+    if not _cache_fork_locks_held:
+        return
+    cache, _cache_prepared_for_fork = _cache_prepared_for_fork, None
+    _cache_fork_locks_held = False
+    if cache is not None:
+        cache._engine_lock.release()
+    _cache_singleton_lock.release()
+
+
 def _reset_analysis_cache_after_fork() -> None:
-    global _cache_singleton_lock
+    global _cache_singleton_lock, _cache_fork_locks_held
+    global _cache_prepared_for_fork
+
     cache = _cache_singleton
     _cache_singleton_lock = threading.RLock()
+    _cache_fork_locks_held = False
+    _cache_prepared_for_fork = None
     if cache is not None:
         cache.reset_after_fork()
 
 
 if hasattr(os, "register_at_fork"):
-    os.register_at_fork(after_in_child=_reset_analysis_cache_after_fork)
+    os.register_at_fork(
+        before=_prepare_analysis_cache_before_fork,
+        after_in_parent=_restore_analysis_cache_after_fork_in_parent,
+        after_in_child=_reset_analysis_cache_after_fork,
+    )

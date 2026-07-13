@@ -76,6 +76,7 @@ Key layers:
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
 - External lexicon database paths are documented in `documentation/database-location.md`.
+- Dictionary result shapes and null-component normalization are documented in `documentation/dictionary-results.md`.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Derived word-list indexing and bare variant-pointer classification are documented in `documentation/word-list-index.md`.
 - `setup/updateDB.py` — the `update-ps-database` console script.

@@ -52,17 +52,22 @@ def roots_splitted(list_of_entries, debug=False):
         separators = r"[-—,/]"
         for entry in list_of_entries:
             if len(entry) == 7:
-                parts = re.split(separators, entry[5])
-                parts = [regex.sub(r'[^\p{L}]', '', part) for part in parts if part]
-                parts = list(dict.fromkeys(parts))  # Remove duplicates while preserving order
-                if entry[0] not in root_dict:
-                    root_dict[entry[0]] = parts
+                components = entry[5]
             elif len(entry) == 3:
-                parts = re.split(separators, entry[1])
-                parts = [regex.sub(r'[^\p{L}]', '', part) for part in parts if part]
-                parts = list(dict.fromkeys(parts))  # Remove duplicates while preserving order
-                if entry[0] not in root_dict:
-                    root_dict[entry[0]] = parts
+                components = entry[1]
+            else:
+                continue
+
+            # Dictionary rows may omit their optional component analysis.  The
+            # headword is the conservative one-part representation in that case.
+            if not isinstance(components, str) or not components:
+                components = entry[0]
+
+            parts = re.split(separators, components)
+            parts = [regex.sub(r'[^\p{L}]', '', part) for part in parts if part]
+            parts = list(dict.fromkeys(parts))  # Remove duplicates while preserving order
+            if entry[0] not in root_dict:
+                root_dict[entry[0]] = parts
         return root_dict
     
 
@@ -132,10 +137,19 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
                         voc_entry = dict_search("saṃ" + list_of_entries[j][0])
                         #print("revise_voc_entry", voc_entry)
         
-                if voc_entry is not None:
+                ## dict_search never returns None: a word it cannot find comes back
+                ## as a stub whose [2] is a list holding the word itself, while a
+                ## real hit carries a dict keyed by dictionary name.  Merging on the
+                ## stub replaces a correct prefix analysis (sam + upekṣa) with a
+                ## lookup failure for a headword that does not exist (samupekṣa),
+                ## which is how samupekṣa came back empty.  Only merge on a real hit.
+                ## The `is not None` test still earns its place: voc_entry stays None
+                ## when the stem is itself a prefix and the lookup above was skipped.
+                if (voc_entry is not None and len(voc_entry) > 0
+                        and len(voc_entry[0]) > 2 and isinstance(voc_entry[0][2], dict)):
                     list_of_entries[i] = [item for sublist in voc_entry for item in sublist]
                     del list_of_entries[i + 1:j + 1]
-        
+
         # Check if the word is "anu"
         if list_of_entries[i][0] == "anu":
             j = i + 1

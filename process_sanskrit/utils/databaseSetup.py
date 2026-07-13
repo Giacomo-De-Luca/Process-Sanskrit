@@ -53,6 +53,7 @@ _scoped_session: Optional[scoped_session] = None
 _engine_path: Optional[Path] = None
 _engine_lock = threading.RLock()
 _session_lock = threading.RLock()
+_database_fork_locks_held = False
 
 
 def _positive_int_env(name: str, default: int) -> int:
@@ -376,8 +377,8 @@ def requires_database(func: F) -> F:
         return func(*args, **kwargs)
     return cast(F, wrapper)
 
-def _reset_database_state() -> None:
-    """Dispose global database state; used by tests and controlled shutdown."""
+def _detach_database_state() -> tuple[Optional[scoped_session], Optional[Engine]]:
+    """Atomically detach module-owned sessions and the lexicon engine."""
     global _engine, _session_factory, _scoped_session, _engine_path
 
     with _engine_lock, _session_lock:
@@ -385,15 +386,57 @@ def _reset_database_state() -> None:
         engine, _engine = _engine, None
         _session_factory = None
         _engine_path = None
+    return scoped, engine
+
+
+def _dispose_database_state(
+    scoped: Optional[scoped_session], engine: Optional[Engine]
+) -> None:
+    """Close detached state while it still belongs to the current process."""
     if scoped is not None:
         scoped.remove()
     if engine is not None:
         engine.dispose()
+
+
+def _reset_database_state() -> None:
+    """Dispose global database state; used by tests and controlled shutdown."""
+    _dispose_database_state(*_detach_database_state())
     reset_database_path_cache()
 
 
+def _prepare_database_state_before_fork() -> None:
+    """Close SQLite state in the parent before creating a worker process."""
+    global _database_fork_locks_held
+
+    _engine_lock.acquire()
+    try:
+        _session_lock.acquire()
+    except BaseException:
+        _engine_lock.release()
+        raise
+    try:
+        _dispose_database_state(*_detach_database_state())
+    except BaseException:
+        _session_lock.release()
+        _engine_lock.release()
+        raise
+    _database_fork_locks_held = True
+
+
+def _restore_database_state_after_fork_in_parent() -> None:
+    """Release lifecycle locks retained by the parent-side fork hook."""
+    global _database_fork_locks_held
+
+    if not _database_fork_locks_held:
+        return
+    _database_fork_locks_held = False
+    _session_lock.release()
+    _engine_lock.release()
+
+
 def _reset_database_state_after_fork() -> None:
-    """Discard inherited pools and thread-local sessions in a child process.
+    """Reset locks and process-local globals in a newly forked child.
 
     The memoized path cache is deliberately *retained* here, unlike in
     ``_reset_database_state``: it is keyed on the environment value and holds no
@@ -403,21 +446,20 @@ def _reset_database_state_after_fork() -> None:
     """
     global _engine, _session_factory, _scoped_session
     global _engine_path, _engine_lock, _session_lock
+    global _database_fork_locks_held
 
-    scoped, _scoped_session = _scoped_session, None
-    engine, _engine = _engine, None
+    _scoped_session = None
+    _engine = None
     _session_factory = None
     _engine_path = None
     _engine_lock = threading.RLock()
     _session_lock = threading.RLock()
-    if scoped is not None:
-        try:
-            scoped.remove()
-        except Exception:
-            pass
-    if engine is not None:
-        engine.dispose(close=False)
+    _database_fork_locks_held = False
 
 
 if hasattr(os, "register_at_fork"):
-    os.register_at_fork(after_in_child=_reset_database_state_after_fork)
+    os.register_at_fork(
+        before=_prepare_database_state_before_fork,
+        after_in_parent=_restore_database_state_after_fork_in_parent,
+        after_in_child=_reset_database_state_after_fork,
+    )

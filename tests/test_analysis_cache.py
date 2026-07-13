@@ -14,6 +14,7 @@ import tempfile
 import threading
 import time
 import unittest
+from importlib import import_module
 from pathlib import Path
 from unittest.mock import patch
 
@@ -34,6 +35,10 @@ from process_sanskrit.utils.analysisCache import (
     reset_analysis_cache,
     resolve_cache_enabled,
 )
+
+
+_INFLECT_MODULE = import_module("process_sanskrit.functions.inflect")
+_PROCESS_MODULE = import_module("process_sanskrit.functions.process")
 
 
 def _multiprocess_cache_writer(path: str, start_event, result_queue, index: int) -> None:
@@ -704,13 +709,15 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         with patch.dict(os.environ, environment, clear=False), patch(
             "process_sanskrit.functions.hybridSplitter.analyze_hybrid",
             return_value=analysis,
-        ) as split_mock, patch(
-            "process_sanskrit.functions.inflect.inflect", return_value=grammar
-        ) as inflect_mock, patch(
-            "process_sanskrit.functions.process.dict_search",
+        ) as split_mock, patch.object(
+            _INFLECT_MODULE, "inflect", return_value=grammar
+        ) as inflect_mock, patch.object(
+            _PROCESS_MODULE,
+            "dict_search",
             side_effect=lambda entries, *args, **kwargs: list(entries),
-        ) as dictionary_mock, patch(
-            "process_sanskrit.functions.process.clean_results",
+        ) as dictionary_mock, patch.object(
+            _PROCESS_MODULE,
+            "clean_results",
             side_effect=lambda entries, mode, debug=False: {
                 "mode": mode,
                 "entries": entries,
@@ -760,8 +767,8 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         with patch.dict(os.environ, environment, clear=False), patch(
             "process_sanskrit.functions.hybridSplitter.analyze_hybrid",
             return_value=analysis,
-        ) as split_mock, patch(
-            "process_sanskrit.functions.inflect.inflect", return_value=grammar
+        ) as split_mock, patch.object(
+            _INFLECT_MODULE, "inflect", return_value=grammar
         ) as inflect_mock:
             uncached_outputs = [
                 process_impl(
@@ -807,13 +814,15 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         with patch.dict(os.environ, environment, clear=False), patch(
             "process_sanskrit.functions.hybridSplitter.analyze_hybrid",
             return_value=analysis,
-        ), patch(
-            "process_sanskrit.functions.inflect.inflect", return_value=["yoga", "sūtra"]
-        ), patch(
-            "process_sanskrit.functions.process.dict_search",
+        ), patch.object(
+            _INFLECT_MODULE, "inflect", return_value=["yoga", "sūtra"]
+        ), patch.object(
+            _PROCESS_MODULE,
+            "dict_search",
             side_effect=lambda entries, *args, **kwargs: list(entries),
-        ), patch(
-            "process_sanskrit.functions.process.clean_results",
+        ), patch.object(
+            _PROCESS_MODULE,
+            "clean_results",
             side_effect=lambda entries, **kwargs: entries,
         ):
             process_impl("yoga sūtra", session=object(), cached=False)
@@ -839,14 +848,17 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         with patch.dict(os.environ, environment, clear=False), patch(
             "process_sanskrit.functions.hybridSplitter.analyze_hybrid",
             return_value=analysis,
-        ) as split_mock, patch(
-            "process_sanskrit.functions.inflect.inflect",
+        ) as split_mock, patch.object(
+            _INFLECT_MODULE,
+            "inflect",
             return_value=["yoga", "sūtra"],
-        ), patch(
-            "process_sanskrit.functions.process.dict_search",
+        ), patch.object(
+            _PROCESS_MODULE,
+            "dict_search",
             side_effect=lambda entries, *args, **kwargs: list(entries),
-        ), patch(
-            "process_sanskrit.functions.process.clean_results",
+        ), patch.object(
+            _PROCESS_MODULE,
+            "clean_results",
             side_effect=lambda entries, **kwargs: entries,
         ):
             process_impl("yoga sūtra", session=object(), cached=True)
@@ -886,6 +898,7 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
             child_pid = os.fork()
             if child_pid == 0:
                 os.close(read_fd)
+                exit_code = 0
                 try:
                     inherited_engine_was_cleared = cache._engine is None
                     record = cache.get(key)
@@ -899,21 +912,64 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
                         "process_pid": os.getpid(),
                         "split": record.split if record is not None else None,
                     }
-                    os.write(write_fd, json.dumps(payload).encode("utf-8"))
+                except BaseException as error:
+                    exit_code = 1
+                    payload = {
+                        "error": f"{type(error).__name__}: {error}",
+                    }
                 finally:
+                    os.write(write_fd, json.dumps(payload).encode("utf-8"))
                     os.close(write_fd)
-                    os._exit(0)
+                    os._exit(exit_code)
 
             os.close(write_fd)
             payload = json.loads(os.read(read_fd, 4096).decode("utf-8"))
             os.close(read_fd)
             _, status = os.waitpid(child_pid, 0)
 
-        self.assertEqual(status, 0)
+        self.assertEqual(status, 0, payload)
+        self.assertNotIn("error", payload)
         self.assertTrue(payload["cleared"])
         self.assertNotEqual(payload["record_pid"], parent_record_pid)
         self.assertEqual(payload["record_pid"], payload["process_pid"])
         self.assertEqual(payload["split"], ["forked"])
+        self.assertIsNone(cache._engine)
+        parent_record = cache.get(key)
+        self.assertIsNotNone(parent_record)
+        self.assertEqual(parent_record.split, ["forked"])
+
+    @unittest.skipUnless(hasattr(os, "register_at_fork"), "requires fork hooks")
+    def test_fork_preparation_blocks_cache_reinitialization(self):
+        import process_sanskrit.utils.analysisCache as analysis_cache
+
+        environment = {
+            "PROCESS_SANSKRIT_CACHE_ENABLED": "true",
+            "PROCESS_SANSKRIT_CACHE_PATH": str(self.cache_path),
+        }
+        started = threading.Event()
+        engines = []
+
+        def reopen_cache() -> None:
+            started.set()
+            engines.append(cache.engine)
+
+        with patch.dict(os.environ, environment, clear=False):
+            cache = get_analysis_cache()
+            cache.engine
+            analysis_cache._prepare_analysis_cache_before_fork()
+            thread = threading.Thread(target=reopen_cache)
+            try:
+                self.assertIsNone(cache._engine)
+                thread.start()
+                self.assertTrue(started.wait(timeout=1))
+                thread.join(timeout=0.1)
+                self.assertTrue(thread.is_alive())
+            finally:
+                analysis_cache._restore_analysis_cache_after_fork_in_parent()
+            thread.join(timeout=2)
+
+        self.assertFalse(thread.is_alive())
+        self.assertEqual(len(engines), 1)
 
     def test_direct_sandhi_cache_is_opt_in_and_detailed_calls_bypass_it(self):
         from process_sanskrit.functions.sandhiSplitter import (
