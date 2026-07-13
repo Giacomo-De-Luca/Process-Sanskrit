@@ -93,6 +93,38 @@ This is deliberately conservative. It also declines the genuinely ambiguous case
 an attested stem with a manufactured one. Only `-tā` is guarded; `-tva` has no
 consonant-stem competitor.
 
+## `-te` is generated but never licenses a derivation
+
+A second collision is worse than the first, and is handled by
+`NON_LICENSING_ENDINGS`.
+
+`-te` is the ā-stem's Voc. Sg. and all three of its dual cells. It is *also* the
+ending of every ātmanepada and every passive 3rd sg. in the language — `śocate`
+"he grieves", `dṛśyate` "it is seen", `kriyate` "it is done". Such verbs routinely
+miss the verb tables, and would then reach the deriver, which would strip the
+`-te`, find the perfectly real nominal stem underneath, and bury a correct verbal
+root under a fabricated noun:
+
+```
+śocate     deriver OFF: ['śuc', ...]      <- correct root
+           deriver ON : ['śocatā']        <- fabricated: "grievingness (Voc. Sg.)"
+```
+
+That is precisely the damage this module exists to undo, running backwards. So
+`-te` **is** generated into the paradigm (the table stays complete and still
+matches the stored one form for form) but is **never accepted as the ending that
+identifies a derivative**. The trade is lopsided: a vocative or dual of an
+abstract noun ("O emptiness!", "two emptinesses") is vanishingly rare, while
+ātmanepada and passive 3rd sg. are among the commonest forms in Sanskrit.
+
+`-tām` is deliberately **not** de-licensed, even though it is also the 3rd person
+imperative (`kurutām` "let him do"). It is the ā-stem's Acc. Sg. (`śūnyatām`),
+which is common in the philosophical corpus, and the imperatives all resolve in
+the verb tables long before the deriver is consulted — measured at **zero** changed
+analyses across an imperative probe set, against two real gains (`niṣyandatām`,
+`nirākāṅkṣatām`). De-licensing it would cost real coverage to prevent a collision
+that never actually arrives.
+
 ## Glossing
 
 `niṣyandatā` heads no dictionary entry, but `niṣyanda` does — and that is where
@@ -113,9 +145,42 @@ removed tva endings"). It hand-listed 14 endings, handled only bases in `-a`, an
 returned a marker string rather than a stem. It was deleted; this module covers
 every ending it enumerated, on any base, with a real paradigm.
 
-## Known gap
+## Known gaps
 
-`vidvatā` (Inst. Sg. of `vidvas`/`vidvat`) is correctly *declined* by the deriver
-— `vidvat` is attested, so the guard fires — but nothing downstream then supplies
-the participle reading, and the splitter still returns `['vid', 'vata']`. That is
-a pre-existing splitter limitation, untouched by this change.
+**The deriver never fires inside a compound.** It is called only on the
+single-word path in `process()`, before the splitter, and the splitter path
+(`analyze_hybrid` + `inflect`) never re-enters `process()`. So a derivative that
+sits *inside* a compound is still shattered:
+
+```python
+process("niṣyandatāvāda", mode="roots")
+['niṣyanda', ('ta', 'tā', 'tas', 'tad'), 'vāda']     # still broken
+```
+
+Given that `-tā` compounds (`śūnyatāvāda`, medial `-tā-`) are pervasive in exactly
+the philosophical corpus this feature targets, this is arguably the more common
+real-world case than the standalone word. Fixing it means running the deriver over
+splitter segments, which is a larger design change and a separate decision.
+
+**Pre-split input is not derived either.** `process("niṣyanda-tā")` routes through
+`handle_special_characters`, which processes each segment independently, so the
+suffix is analysed on its own.
+
+**`vidvatā`** (Inst. Sg. of `vidvas`/`vidvat`) is correctly *declined* by the
+deriver — `vidvat` is attested, so the guard fires — but nothing downstream then
+supplies the participle reading, and the splitter still returns `['vid', 'vata']`.
+A pre-existing splitter limitation, untouched by this change.
+
+## A pre-existing bug this routes around
+
+`dict_search` (`functions/dictionaryLookup.py`) has a latent bug: for a *list*
+entry whose lemma is not a dictionary headword it runs
+`entry = [entry, entry, [entry]]`, a fallback shape that is only correct for
+*string* entries. For a 5-slot list entry it nests the entry inside itself, so
+`mode="roots"` returns a list instead of the lemma and `mode="parts"` raises
+`TypeError`. It fires for any word whose lemma is in the inflection tables but in
+no dictionary (e.g. `process("kṣaṇeṇa", mode="parts")`).
+
+This is **not** fixed here. The taddhita path assembles its entry directly in
+`process()` rather than passing the 5-slot row through `dict_search`, so it never
+touches the broken branch.

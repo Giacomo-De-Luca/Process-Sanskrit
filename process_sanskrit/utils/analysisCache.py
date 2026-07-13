@@ -43,6 +43,8 @@ from sqlalchemy.engine import Engine, URL
 from sqlalchemy.exc import DisconnectionError, SQLAlchemyError
 from sqlalchemy.pool import QueuePool
 
+from process_sanskrit.utils.resourcePaths import resolve_configured_path
+
 
 log = logging.getLogger(__name__)
 
@@ -811,7 +813,7 @@ def lexicon_fingerprint(db_path: Optional[str] = None) -> str:
         from process_sanskrit.utils.databaseSetup import get_db_path
 
         db_path = get_db_path()
-    path = Path(db_path).expanduser().resolve()
+    path = resolve_configured_path(db_path)
     stat = path.stat()
     try:
         from process_sanskrit.setup.updateDB import RELEASE_TAG

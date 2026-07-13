@@ -37,7 +37,11 @@ the participles below intact.
 import unittest
 
 from process_sanskrit.functions.process import process
-from process_sanskrit.functions.taddhitaDerivation import taddhita_deriver
+from process_sanskrit.functions.taddhitaDerivation import (
+    TaddhitaDeriver,
+    TaddhitaSuffix,
+    taddhita_deriver,
+)
 from process_sanskrit.utils.databaseSetup import session_scope
 
 
@@ -90,6 +94,21 @@ PARTICIPLES = {
     "jayatā": ["jayat"],
 }
 
+## The -te collision, and the reason NON_LICENSING_ENDINGS exists.  -te is the
+## ā-stem's Voc. Sg. and all three of its duals, but it is also the ending of
+## every ātmanepada and every passive 3rd sg.  These verbs miss the verb tables
+## and reach the deriver; if -te were allowed to license a derivation it would
+## strip it, find the real nominal stem underneath, and bury a correct verbal
+## root under a fabricated noun (śocate "he grieves" -> "śocatā").  The values are
+## the outputs recorded before the deriver existed -- noisy, but with the right
+## root in them.
+ATMANEPADA = {
+    "śocate": ["śuc", ("ta", "tā", "tad", "yuṣmad")],
+    "nandate": [("nanda", "nand"), ("ta", "tā", "tad", "yuṣmad")],
+    "pīḍate": ["pīḍa", ("ta", "tā", "tad", "yuṣmad")],
+    "stanate": ["stana", ("ta", "tā", "tad", "yuṣmad")],
+}
+
 
 class TaddhitaParadigmTest(unittest.TestCase):
     """The generated paradigm must be byte-identical to the database's own."""
@@ -123,6 +142,30 @@ class TaddhitaParadigmTest(unittest.TestCase):
         self.assertIn("niṣyandatānām", forms)  # Gen. Pl.
 
 
+class TaddhitaFailureModeTest(unittest.TestCase):
+    """The two ways this can go wrong quietly."""
+
+    def test_a_missing_exemplar_is_fatal(self):
+        ## Degrading silently here would look exactly like the bug the module
+        ## fixes -- "this word has no analysis" -- so it must say so out loud.
+        deriver = TaddhitaDeriver(
+            suffixes=(TaddhitaSuffix(suffix="tā", model="f_A", exemplar="no-such-stem"),)
+        )
+        with session_scope() as session:
+            with self.assertRaises(RuntimeError) as caught:
+                deriver.derive("niṣyandatā", session=session)
+        self.assertIn("update-ps-database", str(caught.exception))
+
+    def test_a_missing_session_is_not_reported_as_a_stale_database(self):
+        ## A dropped argument used to be laundered into "the database has no such
+        ## row", telling the user to re-download 583 MB to fix a programming
+        ## error.  Whatever it raises now, it must not claim that.
+        deriver = TaddhitaDeriver()
+        with self.assertRaises(Exception) as caught:
+            deriver.derive("niṣyandatā", session=None)
+        self.assertNotIn("update-ps-database", str(caught.exception))
+
+
 class TaddhitaDeriverTest(unittest.TestCase):
     """Unit level: does the rule fire, and on what."""
 
@@ -144,6 +187,23 @@ class TaddhitaDeriverTest(unittest.TestCase):
             for surface in PARTICIPLES:
                 with self.subTest(word=surface):
                     self.assertIsNone(taddhita_deriver.derive(surface, session=session))
+
+    def test_declines_a_bare_te_ending(self):
+        ## -te may be generated into the paradigm but must never identify a
+        ## derivative, or every ātmanepada verb in the language becomes an
+        ## abstract noun.
+        with session_scope() as session:
+            for surface in ATMANEPADA:
+                with self.subTest(word=surface):
+                    self.assertIsNone(taddhita_deriver.derive(surface, session=session))
+
+    def test_te_is_still_generated_into_the_paradigm(self):
+        ## de-licensing it must not punch a hole in the table: the stored tables
+        ## have -te in them, and test_regenerates_lexicalised_tables_exactly
+        ## compares against those.
+        with session_scope() as session:
+            forms = taddhita_deriver.paradigm("niṣyanda", "tā", session=session)
+        self.assertIn("niṣyandate", forms)
 
     def test_declines_when_the_base_is_not_a_word(self):
         ## The base carries the meaning; inventing one from an arbitrary string
@@ -188,9 +248,22 @@ class TaddhitaProcessTest(unittest.TestCase):
             self.assertNotIn(spurious, flattened)
 
     def test_existing_analyses_are_untouched(self):
-        for surface, expected in {**UNCHANGED, **PARTICIPLES}.items():
+        for surface, expected in {**UNCHANGED, **PARTICIPLES, **ATMANEPADA}.items():
             with self.subTest(word=surface):
                 self.assertEqual(process(surface, mode="roots"), expected)
+
+    def test_atmanepada_verbs_keep_their_root(self):
+        ## the sharper statement of the above: whatever noise surrounds it, the
+        ## verbal root must still be in the answer and the fabricated abstract
+        ## noun must not be.
+        for surface, root in (("śocate", "śuc"), ("nandate", "nand"), ("pīḍate", "pīḍa")):
+            with self.subTest(word=surface):
+                roots = process(surface, mode="roots")
+                flattened = [
+                    r for item in roots for r in (item if isinstance(item, tuple) else (item,))
+                ]
+                self.assertIn(root, flattened)
+                self.assertNotIn(surface[:-2] + "tā", flattened)
 
 
 if __name__ == "__main__":

@@ -32,6 +32,7 @@ from sqlalchemy.pool import QueuePool
 from process_sanskrit.utils.resourcePaths import (
     get_database_path,
     reset_database_path_cache,
+    resolve_configured_path,
 )
 
 # Configure logging
@@ -133,7 +134,7 @@ def _create_read_only_engine(
     pool_timeout: float = 30,
 ) -> Engine:
     """Construct, but do not globally publish, a read-only lexicon engine."""
-    resolved_path = Path(db_path).expanduser().resolve()
+    resolved_path = resolve_configured_path(db_path)
     quoted_path = quote(resolved_path.as_posix(), safe="/:")
     database_url = (
         f"sqlite+pysqlite:///file:{quoted_path}"
@@ -182,7 +183,7 @@ def get_engine(db_path: Optional[str] = None) -> Engine:
     global _engine, _engine_path
 
     selected_path = (
-        Path(db_path).expanduser().resolve()
+        resolve_configured_path(db_path)
         if db_path is not None
         else None
     )
@@ -203,7 +204,7 @@ def get_engine(db_path: Optional[str] = None) -> Engine:
                 )
             return _engine
         if selected_path is None:
-            selected_path = Path(get_db_path()).expanduser().resolve()
+            selected_path = get_database_path()
         if not database_exists(str(selected_path)):
             error_msg = (
                 f"Database file not found at: {selected_path}\n"

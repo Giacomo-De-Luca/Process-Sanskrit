@@ -7,10 +7,10 @@ productive, a text may coin one from any stem at all, and no lexicon can list
 them exhaustively.
 
 The database lexicalises the common ones -- roughly 2050 in -tā and 2340 in -tva,
-each stored with a hyphenated stem and a full paradigm ("śūnya-tā", model f_A --
-so the storage convention already treats them as base + suffix.  Anything
-outside that list resolves nowhere, and the compound splitter then cuts the word
-in two and analyses the orphaned suffix as a verb (-tā as a form of tṛ or tan),
+each stored with a hyphenated stem and a full paradigm ("śūnya-tā", model f_A), so
+the storage convention already treats them as base + suffix.  Anything outside
+that list resolves nowhere, and the compound splitter then cuts the word in two
+and analyses the orphaned suffix as a verb (-tā as a form of tṛ or tan),
 destroying the lemma and inventing a root that is not there.
 
 This module rebuilds those derivatives instead.  Given an unresolved word it
@@ -19,25 +19,30 @@ stem, and regenerates the paradigm from the database's own exemplar row -- so a
 coined derivative comes back with the same lemma, model and case tags a
 lexicalised one would have.
 
-Ambiguity.  *-atā* has a second, equally valid parse.  A consonant stem in *-at*
-(typically a present participle) makes its Inst. Sg. in *-atā*, its Gen. Pl. in
-*-atām* and its Dat. Sg. in *-ate*, all of which collide with base(-a) + tā:
-
-    gacchatā  =  gacchat + ā   Inst. Sg., "by the one going"    <- gacchat is attested
-    gacchatā  =  gaccha  + tā  abstract noun, "going-ness"      <- spurious
-
-Nothing in the surface form separates them, so the tie is broken on evidence: if
-the competing *-at* stem is itself attested, it owns the word and no derivation
-is offered.  This is deliberately conservative -- it also declines the handful of
-genuinely ambiguous cases (jayatā: "by the conquering one", or "victoriousness")
-rather than overriding an attested stem with a manufactured one.
-
 Order matters as much as the rule.  The deriver is consulted only once every
 other layer has missed: a direct hit in the inflection tables, and then a
 whole-word dictionary match, both win first.  That is what keeps the look-alikes
 safe -- feminine past participles (kṛtā, gatā), instrumentals of -vat stems
 (bhagavatā), agent nouns (pitā, kartā) and plain words that merely end in -tā
 (sītā, latā) all resolve earlier and never reach this code.
+
+Two collisions survive that ordering and are handled explicitly.
+
+1. *-atā* is ambiguous.  A consonant stem in *-at* (typically a present
+   participle) makes its Inst. Sg. in *-atā*, its Gen. Pl. in *-atām* and its
+   Dat. Sg. in *-ate*, all of which collide with base(-a) + tā:
+
+       gacchatā  =  gacchat + ā   Inst. Sg., "by the one going"    <- gacchat is attested
+       gacchatā  =  gaccha  + tā  abstract noun, "going-ness"      <- spurious
+
+   Nothing in the surface form separates them, so the tie is broken on evidence:
+   if the competing *-at* stem is itself attested, it owns the word and no
+   derivation is offered.  This is deliberately conservative -- it also declines
+   the genuinely ambiguous cases (jayatā: "by the conquering one", or
+   "victoriousness") rather than overriding an attested stem with a manufactured
+   one.
+
+2. *-te* is not usable as evidence at all; see NON_LICENSING_ENDINGS.
 """
 
 from dataclasses import dataclass
@@ -46,17 +51,38 @@ from typing import Dict, List, Optional, Sequence, Tuple
 from process_sanskrit.functions.SQLiteFind import SQLite_paradigm, SQLite_stem_exists
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.loadResources import type_map
+from process_sanskrit.utils.paradigm import NOMINAL_CASES, tags_for
 
-
-## the inflection tables lay a paradigm out as 8 cases x 3 numbers, read across
-CASES = ("Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc")
-NUMBERS = ("Sg", "Du", "Pl")
 
 ## A base shorter than this is never accepted.  It is the last line of defence
 ## against re-analysing a monosyllable as a suffix carrier -- kṛ-tā, ga-tā, jā-tā
 ## are past participles, not abstract nouns, and their would-be bases (kṛ, ga,
 ## jā) are all real dictionary headwords, so nothing else would reject them.
 MIN_BASE_LENGTH = 3
+
+## Cells that are *generated* into the paradigm but must never *license* a
+## derivation.
+##
+## -te is the ā-stem's Voc. Sg. and all three of its dual cells.  It is also the
+## ending of every ātmanepada and every passive 3rd sg. in the language: śocate
+## "he grieves", dṛśyate "it is seen", kriyate "it is done".  When such a verb
+## misses the verb tables -- which it routinely does -- the deriver would strip
+## the -te, find the (perfectly real) nominal stem underneath, and replace a
+## correct verbal root with a fabricated abstract noun: śocate -> "śocatā".  That
+## is precisely the damage this module exists to undo, running backwards.
+##
+## The trade is lopsided.  A vocative or dual of an abstract noun -- "O
+## emptiness!", "two emptinesses" -- is vanishingly rare; ātmanepada and passive
+## 3rd sg. are among the commonest forms in the language.  So -te is generated
+## (the table stays complete and matches the stored one form for form) but is
+## never accepted as the ending that identifies a derivative.
+##
+## -tām is deliberately NOT listed here even though it is the 3rd person
+## imperative (kurutām "let him do"): it is also the ā-stem's Acc. Sg. (śūnyatām),
+## which is common in the philosophical corpus, and the imperatives all resolve in
+## the verb tables long before the deriver is consulted -- measured at zero
+## changed analyses over an imperative probe set.
+NON_LICENSING_ENDINGS = frozenset({"te"})
 
 
 @dataclass(frozen=True)
@@ -71,6 +97,15 @@ class TaddhitaSuffix:
     suffix: str
     model: str
     exemplar: str
+
+    @property
+    def stem_consonant(self) -> str:
+        """The part of the suffix that survives declension.
+
+        Only the final vowel inflects -- -tā becomes -te and -tayā, -tva becomes
+        -tve and -tvāni -- so this ("t", "tv") is the invariant worth asserting on.
+        """
+        return self.suffix[:-1]
 
 
 SUFFIXES: Tuple[TaddhitaSuffix, ...] = (
@@ -92,11 +127,13 @@ class DerivedForm:
     surface: str
 
     def as_entry(self) -> list:
-        """Render as the 5-slot row SQLite_find_name returns.
+        """Render as the 5-slot row root_any_word yields for an attested word.
 
         Downstream code must not be able to tell a reconstructed analysis from a
-        stored one, so the shape has to match exactly: stem, human-readable
-        model, case/number tags, full paradigm, the surface form looked up.
+        stored one, so the shape has to match exactly: stem, model, case/number
+        tags, full paradigm, the surface form looked up.  The model is mapped
+        through type_map here because that is what root_any_word does to
+        SQLite_find_name's raw model code before anyone downstream sees it.
         """
         return [
             self.lemma,
@@ -112,18 +149,23 @@ class TaddhitaDeriver:
 
     def __init__(self, suffixes: Sequence[TaddhitaSuffix] = SUFFIXES):
         self._suffixes = tuple(suffixes)
-        self._endings: Dict[str, List[str]] = {}
+        ## Keyed on (lexicon identity, suffix), not on suffix alone: an
+        ## externally provisioned database (see commit 65151d6) can be swapped in
+        ## mid-process, and a stale ending list would then be reused instead of
+        ## raising the deliberately fatal error below.
+        self._endings: Dict[Tuple[str, str], List[str]] = {}
+        self._licensing: Dict[Tuple[str, str], Tuple[str, ...]] = {}
 
     ## -- paradigm construction ------------------------------------------------
 
     def clear_cache(self) -> None:
-        """Drop the memoised exemplar paradigms (the database may have changed)."""
+        """Drop the memoised exemplar paradigms."""
         self._endings.clear()
+        self._licensing.clear()
 
     def stored_paradigm(self, stem: str, suffix: str, session=None) -> Optional[List[str]]:
         """The paradigm the database stores for a lexicalised derivative."""
-        spec = self._spec(suffix)
-        return SQLite_paradigm(stem, spec.model, session=session)
+        return SQLite_paradigm(stem, self._spec(suffix).model, session=session)
 
     def endings(self, suffix: str, session=None) -> List[str]:
         """The 24 endings of this suffix, read off its exemplar row.
@@ -131,10 +173,13 @@ class TaddhitaDeriver:
         The exemplar's own base is stripped from each of its forms, which leaves
         the suffix plus the case ending ("tā", "tayā", "tānām", ...).
         """
-        if suffix in self._endings:
-            return self._endings[suffix]
-
         spec = self._spec(suffix)
+        key = (self._lexicon_identity(), suffix)
+
+        cached = self._endings.get(key)
+        if cached is not None:
+            return cached
+
         forms = SQLite_paradigm(spec.exemplar, spec.model, session=session)
         if not forms:
             ## Silently skipping the derivation would look like "this word has no
@@ -153,13 +198,8 @@ class TaddhitaDeriver:
         exemplar_base = spec.exemplar.replace("-", "")[: -len(suffix)]
         endings = [form[len(exemplar_base):] for form in forms]
 
-        ## Only the suffix's consonant survives declension: -tā inflects to -te
-        ## and -tayā, -tva to -tve and -tvāni, so the final vowel is not an
-        ## invariant and must not be asserted on.  What must hold is that every
-        ## form is the base plus something that still begins with that consonant.
-        stem_consonant = suffix[:-1]
         if not all(
-            form.startswith(exemplar_base) and ending.startswith(stem_consonant)
+            form.startswith(exemplar_base) and ending.startswith(spec.stem_consonant)
             for form, ending in zip(forms, endings)
         ):
             raise RuntimeError(
@@ -168,7 +208,16 @@ class TaddhitaDeriver:
                 "the database layout has changed."
             )
 
-        self._endings[suffix] = endings
+        self._endings[key] = endings
+        ## longest first, so a longer cell is never shadowed by a shorter one that
+        ## happens to be its tail; -te is dropped, see NON_LICENSING_ENDINGS
+        self._licensing[key] = tuple(
+            sorted(
+                {e for e in endings if e not in NON_LICENSING_ENDINGS},
+                key=len,
+                reverse=True,
+            )
+        )
         return endings
 
     def paradigm(self, base: str, suffix: str, session=None) -> List[str]:
@@ -192,20 +241,14 @@ class TaddhitaDeriver:
                 continue
 
             forms = self.paradigm(base, spec.suffix, session=session)
-            ## one surface form can fill several cells (X-te is Voc. Sg. and both
-            ## duals), so report every cell it fills, as the stored lookup does
-            positions = [index for index, form in enumerate(forms) if form == word]
-            tags = [
-                (CASES[index // len(NUMBERS)], NUMBERS[index % len(NUMBERS)])
-                for index in positions
-            ] or None
-
             return DerivedForm(
                 lemma=base + spec.suffix,
                 base=base,
                 suffix=spec.suffix,
                 model=spec.model,
-                tags=tags,
+                ## one surface form can fill several cells, so report them all,
+                ## exactly as the stored lookup does
+                tags=tags_for(forms, word, rows=NOMINAL_CASES),
                 forms=forms,
                 surface=word,
             )
@@ -220,21 +263,35 @@ class TaddhitaDeriver:
                 return spec
         raise KeyError(f"no such taddhita suffix: {suffix!r}")
 
+    def _lexicon_identity(self) -> str:
+        from process_sanskrit.utils.analysisCache import lexicon_fingerprint
+
+        try:
+            return lexicon_fingerprint()
+        except Exception:
+            ## the fingerprint only keys the cache; failing to compute it must not
+            ## take down a derivation the database can perfectly well answer
+            return "unknown"
+
     def _base_of(self, word: str, spec: TaddhitaSuffix, session=None) -> Optional[str]:
         """The stem `word` is built on, if it is built on one at all."""
-        ## longest ending first: -tāyāḥ must not be mistaken for a shorter match
-        for ending in sorted(set(self.endings(spec.suffix, session=session)), key=len, reverse=True):
+        self.endings(spec.suffix, session=session)  # populates the licensing set
+        licensing = self._licensing[(self._lexicon_identity(), spec.suffix)]
+
+        ## No ending in either set is a tail of another, so at most one can match;
+        ## the first hit is therefore the only hit, and there is nothing to fall
+        ## back to if it is rejected.
+        for ending in licensing:
             if not word.endswith(ending):
                 continue
 
             base = word[: -len(ending)]
             if len(base) < MIN_BASE_LENGTH:
-                continue
+                return None
             if not self._is_attested_stem(base, session=session):
-                continue
+                return None
             if self._at_stem_wins(base, spec, session=session):
                 return None
-
             return base
 
         return None
@@ -264,13 +321,15 @@ class TaddhitaDeriver:
 
 
 ## The exemplar paradigms are structural facts about the lexicon, so one shared
-## instance memoises them for the whole process; call clear_cache() if the
-## database underneath is ever swapped.
+## instance memoises them for the whole process; the cache is keyed on the
+## lexicon's identity, so swapping the database underneath is safe.
 taddhita_deriver = TaddhitaDeriver()
 
 
 __all__ = [
     "DerivedForm",
+    "MIN_BASE_LENGTH",
+    "NON_LICENSING_ENDINGS",
     "SUFFIXES",
     "TaddhitaDeriver",
     "TaddhitaSuffix",

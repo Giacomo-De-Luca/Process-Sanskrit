@@ -1,7 +1,10 @@
 """Indexed morphology lookups for nouns and verbs."""
 
 import regex
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.sql import text
+
+from process_sanskrit.utils.paradigm import NOMINAL_CASES, VERBAL_PERSONS, tags_for
 
 
 _NAME_QUERY = text(
@@ -58,21 +61,28 @@ def _name_rows(word, session):
         return []
 
 
+## These two deliberately do NOT swallow every exception the way the lookups
+## above do.  A missing `session` is a programming error, and laundering the
+## resulting AttributeError into "no such row" makes the taddhita deriver report
+## a *stale database* -- telling the user to re-download 583 MB to fix a dropped
+## argument.  Only genuine database errors are caught.
+
+
 def SQLite_stem_exists(stem, session=None):
     """True when `stem` is itself a nominal stem in the inflection tables."""
     try:
         return session.execute(_STEM_QUERY, {"stem": stem}).fetchone() is not None
-    except Exception:
+    except SQLAlchemyError:
         return False
 
 
 def SQLite_paradigm(stem, model, session=None):
-    """Return the 24 inflected forms stored for one (stem, model), or None."""
+    """Return the inflected forms stored for one (stem, model), or None."""
     try:
         row = session.execute(
             _PARADIGM_QUERY, {"stem": stem, "model": model}
         ).fetchone()
-    except Exception:
+    except SQLAlchemyError:
         return None
     return row[0].split(":") if row and row[0] else None
 
@@ -91,8 +101,6 @@ def SQLite_find_name(name, session=None):
             rows = _name_rows(lookup_name, session)
 
     outcome = []
-    row_titles = ["Nom", "Acc", "Inst", "Dat", "Abl", "Gen", "Loc", "Voc"]
-    column_titles = ["Sg", "Du", "Pl"]
 
     for _key, model, stem, refs, inflection_data in rows:
         if not stem:
@@ -100,24 +108,11 @@ def SQLite_find_name(name, session=None):
         reference_matches = regex.findall(r",(\p{L}+)", refs or "")
         word_reference = reference_matches[0] if reference_matches else stem
         inflection_words = inflection_data.split(":")
-        indices = [
-            index
-            for index, inflected_word in enumerate(inflection_words)
-            if inflected_word == lookup_name
-        ]
-        row_column_names = (
-            [
-                (row_titles[index // 3], column_titles[index % 3])
-                for index in indices
-            ]
-            if indices
-            else None
-        )
         outcome.append(
             [
                 word_reference,
                 model,
-                row_column_names,
+                tags_for(inflection_words, lookup_name, rows=NOMINAL_CASES),
                 inflection_words,
                 lookup_name,
             ]
@@ -145,22 +140,15 @@ def SQLite_find_verb(verb, session=None):
         stem = reference_match.group(1)
 
     inflection_words = inflection_data.split(":")
-    indices = [
-        index
-        for index, inflected_word in enumerate(inflection_words)
-        if inflected_word == verb
-    ]
-    row_titles = ["First", "Second", "Third"]
-    column_titles = ["Sg", "Du", "Pl"]
-    row_column_names = (
+    return [
         [
-            (row_titles[index // 3], column_titles[index % 3])
-            for index in indices
+            stem,
+            model,
+            tags_for(inflection_words, verb, rows=VERBAL_PERSONS),
+            inflection_words,
+            verb,
         ]
-        if indices
-        else None
-    )
-    return [[stem, model, row_column_names, inflection_words, verb]]
+    ]
 
 
 def optimized_find_name(name, session=None):

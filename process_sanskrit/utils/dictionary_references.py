@@ -27,6 +27,7 @@ from typing import List, Optional, Tuple
 from process_sanskrit.utils.resourcePaths import (
     get_database_path,
     reset_database_path_cache,
+    resolve_configured_path,
 )
 from process_sanskrit.utils.wordListBuilder import WordListBuilder
 
@@ -76,7 +77,7 @@ def _connection(database_path: Optional[Path] = None) -> sqlite3.Connection:
     selected_path = (
         get_database_path()
         if database_path is None
-        else Path(database_path).expanduser().resolve()
+        else resolve_configured_path(database_path)
     )
     connection = getattr(_thread_state, "reference_connection", None)
     connection_path = getattr(_thread_state, "reference_connection_path", None)
