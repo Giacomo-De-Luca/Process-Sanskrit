@@ -26,16 +26,15 @@ Or search some inflected and sandhi-ed words in the search bar to get the dictio
 
 To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database.
 
-Use the optional dependency download to select the version with 'gensim' or the experimental version that uses the BYT5 model. 
-
-A virtual enviroment or docker is highly recommended to use gensim, as it downgrades *numpy*. 
-
+Sandhi splitting, with statistical (DCS word2vec) scoring, works out of the box —
+there is no longer a separate `gensim` extra, and nothing downgrades *numpy*.
+The optional `byt5` extra adds the experimental BYT5 model.
 
 ```bash
-pip install process-sanskrit[gensim]
+pip install process-sanskrit
 update-ps-database
 
-or
+or, for the experimental BYT5 model:
 pip install process-sanskrit[byt5]
 update-ps-database
 ```
@@ -47,7 +46,7 @@ update-ps-database
 
 ## if inside jupyter or colab use:
 
-!pip install process-sanskrit[gensim]
+!pip install process-sanskrit
 !update-ps-database
 
 ```
@@ -225,6 +224,10 @@ ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
 **CLS inflect** for the inflection tables: [https://github.com/sanskrit-lexicon/csl-inflect](https://github.com/sanskrit-lexicon/csl-inflect)
 
 The **Sanskrit Parser** library handles part of the Sandhi Splitting: [https://github.com/kmadathil/sanskrit_parser?tab=readme-ov-file](https://github.com/kmadathil/sanskrit_parser?tab=readme-ov-file)
+
+A reduced, split-only copy of it is vendored under `process_sanskrit/splitter/` (MIT).
+See [`process_sanskrit/splitter/NOTICE.md`](process_sanskrit/splitter/NOTICE.md) for what
+was taken and what was left behind.
 
 The **BYT5 model** used in the experimental version of the process function is from the [https://huggingface.co/buddhist-nlp/byt5-sanskrit](https://huggingface.co/buddhist-nlp/byt5-sanskrit) discussed in the paper: 
 

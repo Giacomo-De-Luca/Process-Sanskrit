@@ -8,6 +8,11 @@ recursive-include process_sanskrit/resources *.csv
 recursive-include process_sanskrit/resources *.tsv
 recursive-include process_sanskrit/resources *.xlsx
 
+# Vendored sandhi splitter (see process_sanskrit/splitter/NOTICE.md)
+include process_sanskrit/splitter/LICENSE.upstream
+include process_sanskrit/splitter/NOTICE.md
+recursive-include process_sanskrit/splitter/data *.trie *.npz *.zip *.model
+
 # Include tests for the sdist
 recursive-include tests *.py
 recursive-include tests *.json

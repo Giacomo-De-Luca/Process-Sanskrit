@@ -2,13 +2,26 @@ from .sandhiSplitScorer import scorer
 # utils/sandhi_splitter.py
 from typing import List, Tuple, Dict, Union, Optional
 import ast
+import threading
 from dataclasses import dataclass
-from sanskrit_parser import Parser
 
 ## cache is currently not used and commented out
 
 
-parser = Parser(output_encoding='iast')
+_parser = None
+_parser_lock = threading.Lock()
+
+
+def _get_parser():
+    """Construct the comparatively heavy Sanskrit parser on first use."""
+    global _parser
+    if _parser is None:
+        with _parser_lock:
+            if _parser is None:
+                from ..splitter import Parser
+
+                _parser = Parser(output_encoding='iast')
+    return _parser
 
 @dataclass
 class SplitResult:
@@ -59,7 +72,7 @@ def sandhi_splitter(
 
     try:
         # Get all possible splits
-        splits = parser.split(text_to_split, limit=attempts)
+        splits = _get_parser().split(text_to_split, limit=attempts)
         
         # Handle None result
         if splits is None:

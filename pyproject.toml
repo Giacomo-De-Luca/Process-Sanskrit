@@ -10,7 +10,7 @@ readme = "README.md"
 authors = [
     {name = "Giacomo De Luca", email = "giacomo.deluca@hotmail.it"}
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 urls = {Repository = "https://github.com/Giacomo-De-Luca/Process-Sanskrit"}
 dependencies = [
     "requests>=2.20.0",
@@ -18,20 +18,22 @@ dependencies = [
     "indic_transliteration>=2.0.0",
     "regex>=2022.0.0",
     "python-dotenv>=0.19.0",
-    "sanskrit-parser==0.2.6",   
+    # Sandhi splitting. Formerly sanskrit-parser==0.2.6, now vendored in
+    # process_sanskrit/splitter/ -- see that package's NOTICE.md. These are the
+    # only runtime deps that subset actually needs.
+    "networkx>=2.5",
+    "marisa-trie>=1.0",
+    "numpy>=1.21",
+    "sentencepiece>=0.1.95",
 ]
 
 [project.optional-dependencies]
 
-gensim = [
-    "gensim>=4.0.0",
-    "sentencepiece>=0.1.95",    
-]
 byt5 = [
     "torch>=1.9.0",
     "transformers>=4.5.0",
     "numpy>=2.0.0",
-    "scipy>=1.13.0"   
+    "scipy>=1.13.0"
 ]
 
 
@@ -40,7 +42,14 @@ update-ps-database = "process_sanskrit.setup.updateDB:update_database"
 
 [tool.setuptools.package-data]
 "process_sanskrit.resources" = ["*.json", "*.csv", "*.tsv", "*.xlsx"]
+"process_sanskrit.splitter" = ["LICENSE.upstream", "NOTICE.md", "data/*"]
 "tests" = ["*.py", "*.json", "*.txt"]
 
 [tool.setuptools]
 include-package-data = true
+
+# Declare the packages explicitly. Flat-layout auto-discovery scans the working
+# tree, so any stray top-level directory (a scratch checkout, a notebook dir)
+# breaks the build with "Multiple top-level packages discovered".
+[tool.setuptools.packages.find]
+include = ["process_sanskrit*"]
