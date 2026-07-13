@@ -1,27 +1,37 @@
 """Low-memory dictionary cross-reference mapping.
 
-The historical implementation embedded roughly 247,000 entries in one Python
-literal.  Compiling that module caused a very large transient memory spike.
-This module keeps the same mapping-style interface while reading unchanged
-entries from the indexed ``word_list`` SQLite table.  A small generated overlay
-preserves entries that differ from the historical mapping.
+Maps an IAST headword to the dictionaries that attest it.  The historical
+implementation embedded roughly 247,000 entries in one Python literal, which
+cost ~558 MB of transient RSS to compile.  This module keeps the same
+mapping-style interface while reading the entries from the indexed ``word_list``
+SQLite table.
+
+``word_list`` is derived from the dictionary tables in the same database; see
+``utils/wordListBuilder.py``.  An index that does not cover every dictionary
+present in the database under-reports which dictionaries attest a word, so a
+stale one is reported rather than served silently.
 """
 
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sqlite3
 import threading
 from collections.abc import Iterator, Mapping
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
-from process_sanskrit.utils.resourcePaths import get_database_path
+from process_sanskrit.utils.resourcePaths import (
+    get_database_path,
+    reset_database_path_cache,
+)
+from process_sanskrit.utils.wordListBuilder import WordListBuilder
 
-_RESOURCES = Path(__file__).resolve().parents[1] / "resources"
-_OVERLAY = _RESOURCES / "dictionary_references_overlay.json"
+logger = logging.getLogger(__name__)
+
 _thread_state = threading.local()
 
 
@@ -40,10 +50,27 @@ def _cache_size() -> int:
     return parsed
 
 
-@lru_cache(maxsize=1)
-def _overlay() -> Dict[str, object]:
-    with _OVERLAY.open("r", encoding="utf-8") as overlay_file:
-        return json.load(overlay_file)
+def _warn_if_stale(connection: sqlite3.Connection, database_path: Path) -> None:
+    """Report a ``word_list`` that does not cover every dictionary present.
+
+    Emitted once per connection, so once per database per thread rather than
+    once per lookup.
+    """
+    try:
+        missing = WordListBuilder.missing_dictionaries(connection)
+    except sqlite3.Error:  # pragma: no cover - a database too broken to inspect
+        return
+    if not missing:
+        return
+    names = ", ".join(sorted(missing))
+    logger.warning(
+        "The word_list index in %s does not cover %s. Dictionary references for "
+        "words attested in %s will be incomplete or missing. Run "
+        "'update-ps-database' to rebuild the index.",
+        database_path,
+        names,
+        names,
+    )
 
 
 def _connection(database_path: Optional[Path] = None) -> sqlite3.Connection:
@@ -71,20 +98,12 @@ def _connection(database_path: Optional[Path] = None) -> sqlite3.Connection:
         connection.execute("PRAGMA cache_size=-2048")
         _thread_state.reference_connection = connection
         _thread_state.reference_connection_path = selected_path
+        _warn_if_stale(connection, selected_path)
     return connection
 
 
 @lru_cache(maxsize=_cache_size())
 def _lookup_for_path(word: str, database_path: Path) -> Optional[Tuple[str, ...]]:
-    overlay = _overlay()
-    overrides = overlay["overrides"]
-    if word in overrides:
-        return tuple(overrides[word])
-
-    only_python = overlay["only_python"]
-    if word in only_python:
-        return tuple(only_python[word])
-
     row = _connection(database_path).execute(
         "SELECT dict_names FROM word_list WHERE keys_iast = ?",
         (word,),
@@ -107,6 +126,7 @@ def _reset_reference_state() -> None:
         if hasattr(_thread_state, attribute):
             delattr(_thread_state, attribute)
     _lookup_for_path.cache_clear()
+    reset_database_path_cache()
 
 
 class DictionaryReferences(Mapping):
@@ -126,13 +146,11 @@ class DictionaryReferences(Mapping):
             "SELECT keys_iast FROM word_list ORDER BY keys_iast"
         ):
             yield word
-        yield from _overlay()["only_python"]
 
     def __len__(self) -> int:
-        database_rows = _connection(get_database_path()).execute(
+        return _connection(get_database_path()).execute(
             "SELECT COUNT(*) FROM word_list"
         ).fetchone()[0]
-        return database_rows + len(_overlay()["only_python"])
 
 
 DICTIONARY_REFERENCES = DictionaryReferences()

@@ -3,7 +3,10 @@ import sys
 import requests
 import gzip
 import shutil
+import sqlite3
 import importlib.resources
+
+from process_sanskrit.utils.wordListBuilder import WordListBuilder
 
 # --- Configuration ---
 # GitHub Release Info

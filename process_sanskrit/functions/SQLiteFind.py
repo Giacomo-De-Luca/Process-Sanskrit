@@ -39,11 +39,42 @@ _VERB_QUERY = text(
 )
 
 
+## A stem is listed in lgtab2 under its own name (key == stem) as well as under
+## every form it inflects to; matching both columns is what distinguishes a
+## prātipadika ("śūnya") from an inflected form of one ("śūnyāya").
+_STEM_QUERY = text(
+    "SELECT 1 FROM lgtab2 WHERE key = :stem AND stem = :stem LIMIT 1"
+)
+
+_PARADIGM_QUERY = text(
+    "SELECT data FROM lgtab1 WHERE stem = :stem AND model = :model LIMIT 1"
+)
+
+
 def _name_rows(word, session):
     try:
         return session.execute(_NAME_QUERY, {"word": word}).fetchall()
     except Exception:
         return []
+
+
+def SQLite_stem_exists(stem, session=None):
+    """True when `stem` is itself a nominal stem in the inflection tables."""
+    try:
+        return session.execute(_STEM_QUERY, {"stem": stem}).fetchone() is not None
+    except Exception:
+        return False
+
+
+def SQLite_paradigm(stem, model, session=None):
+    """Return the 24 inflected forms stored for one (stem, model), or None."""
+    try:
+        row = session.execute(
+            _PARADIGM_QUERY, {"stem": stem, "model": model}
+        ).fetchone()
+    except Exception:
+        return None
+    return row[0].split(":") if row and row[0] else None
 
 
 def SQLite_find_name(name, session=None):
@@ -145,6 +176,8 @@ def optimized_find_verb(verb, session=None):
 __all__ = [
     "SQLite_find_name",
     "SQLite_find_verb",
+    "SQLite_paradigm",
+    "SQLite_stem_exists",
     "optimized_find_name",
     "optimized_find_verb",
 ]

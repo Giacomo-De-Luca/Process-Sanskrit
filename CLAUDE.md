@@ -19,6 +19,8 @@
 
 - NEVER stash changes without being directly asked. 
 
+- NEVER ever commit. 
+
 - For folders with multiple scripts or data files, add a readme explaining both the structure of the folder, the main classes or data structures present there. 
 
 - After finishing a plan, always use the agent: *code-quality-reviewer* to review the quality of the generated code. 
@@ -48,6 +50,7 @@ python -m unittest tests.test_splitter_parity   # vendored splitter behaviour pi
 python -m unittest tests.test_optimizations
 python -m unittest tests.test_reference_comparison
 python -m unittest tests.test_analysis_cache tests.test_database_lifecycle
+python -m unittest tests.test_taddhita_derivation
 python tests/runBenchmarks.py                   # benchmark suite / Yoga Sutra analysis
 ```
 
@@ -61,12 +64,13 @@ Public API (`process_sanskrit/__init__.py`) exports three functions:
 - `transliterate` (`utils/transliterationUtils.py`) — scheme detection + conversion to IAST.
 
 Key layers:
-- `functions/` — the cascading pipeline: `rootAnyWord.py` (stem identification), `inflect.py` (inflection tables), `sandhiSplitter.py` / `hybridSplitter.py` / `compoundAnalysis.py` (splitting), `SQLiteFind.py` (DB queries), `cleanResults.py` (output shaping), `model_inference.py` / `processBYT5.py` (optional BYT5 path).
+- `functions/` — the cascading pipeline: `rootAnyWord.py` (stem identification), `inflect.py` (inflection tables), `sandhiSplitter.py` / `hybridSplitter.py` / `compoundAnalysis.py` (splitting), `SQLiteFind.py` (DB queries), `taddhitaDerivation.py` (productive `-tā`/`-tva` abstract nouns), `cleanResults.py` (output shaping), `model_inference.py` / `processBYT5.py` (optional BYT5 path).
 - `splitter/` — **vendored** reduced copy of `kmadathil/sanskrit_parser` v0.2.6 (MIT, see `splitter/NOTICE.md` and `LICENSE.upstream`). Provides `Parser.split()` only. Two deliberate substitutions: a precomputed marisa-trie (`forms.trie`) replaces the sqlite/generative validity oracle, and a numpy scorer replaces gensim — the scorer intentionally reproduces gensim quirks (saturated-term skip, integer-division sigmoid scale); "fixing" them changes which split wins. `tools/build_splitter_data.py` regenerates `splitter/data/` from upstream.
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
 - Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
+- Productive `-tā`/`-tva` abstract nouns (`niṣyandatā`) are reconstructed from their base; see `documentation/taddhita-derivation.md`.
 - `setup/updateDB.py` — the `update-ps-database` console script.
 
 ## Conventions and cautions
@@ -77,3 +81,4 @@ Key layers:
 - The recursive `process()` calls inside `handle_special_characters` re-enter the public entry point. Any new parameter added to `process` must also be added to the `forwarded` dict there, or it is silently dropped for wildcard and pre-split input.
 - `process` is optimized for single words; sentences should be split on whitespace by callers.
 - Root logging is silenced to CRITICAL at import time in `__init__.py` (the vendored splitter logs every sandhi rule at DEBUG).
+- The `-tā`/`-tva` deriver must stay *after* the whole-word dictionary lookup in `process()` and out of `root_any_word`. Moving it earlier lets a manufactured analysis outrank an attested word (`vārtā` → `vār` + `tā`). Pinned by `tests/test_taddhita_derivation.py`.

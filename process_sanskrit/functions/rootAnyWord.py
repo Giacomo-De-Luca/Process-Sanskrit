@@ -139,16 +139,12 @@ def root_any_word(
         if attempt is not None:
             return attempt
         
-    ### possibility two, adding compound handling here 
-
-    #if result_roots is None:
-        #print("to test with tva", word)
-    #    tva_result = handle_tva(word, session=session)
-        #print("tva_result", tva_result)
-    #    if tva_result:
-    #        return tva_result
-    
-    #print("to test with prefixes", word)
+    ## Productive -tā / -tva derivatives (niṣyanda-tā) are NOT reconstructed here.
+    ## They are handled in process(), after the whole-word dictionary lookup has
+    ## also missed -- see functions/taddhitaDerivation.py.  Doing it at this level
+    ## would let a manufactured analysis outrank an attested word: root_any_word
+    ## runs before the dictionary, so vārtā would come back as vār + tā rather
+    ## than as itself.
 
     if not allow_prefixes:
         return None

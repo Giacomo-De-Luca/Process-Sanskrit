@@ -6,6 +6,12 @@ from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import samMap
 
 
+## The dictionary consulted when the caller names none.  consult_references()
+## widens the search anyway if the word is not in it, so this is a starting
+## point rather than a limit.
+DEFAULT_DICTIONARY = "mw"
+
+
 def _dictionary_table(dictionary_name: str) -> str:
     table_name = dictionary_name.lower()
     if re.fullmatch(r"[a-z_][a-z0-9_]*", table_name) is None:
@@ -148,7 +154,7 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
 
 
 
-def dict_search(list_of_entries, *args, source: str = "mw", session=None):
+def dict_search(list_of_entries, *args, source: str = DEFAULT_DICTIONARY, session=None):
     """
     Get vocabulary entries for a list of words.
     

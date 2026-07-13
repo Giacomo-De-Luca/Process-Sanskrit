@@ -42,8 +42,14 @@ from process_sanskrit.utils.transliterationUtils import (
 ### import the sandhiSplitScorer and construct the scorer object. 
 
 from process_sanskrit.functions.rootAnyWord import root_any_word
-from process_sanskrit.functions.dictionaryLookup import dict_search, multidict
+from process_sanskrit.functions.dictionaryLookup import (
+    DEFAULT_DICTIONARY,
+    consult_references,
+    dict_search,
+    multidict,
+)
 from process_sanskrit.functions.cleanResults import clean_results
+from process_sanskrit.functions.taddhitaDerivation import taddhita_deriver
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.databaseSetup import session_scope, with_session, requires_database
 
@@ -51,7 +57,7 @@ from process_sanskrit.utils.databaseSetup import session_scope, with_session, re
 
 ### get the version of the library
 
-def preprocess(text, max_length=100, debug=False):
+def preprocess(text, max_length=150, debug=False):
 
     ## editions, OCR and PDF copy-paste each spell the avagraha with a different
     ## glyph ('  ’  ʼ  `  ´ ...); fold them onto the ASCII apostrophe before
@@ -315,12 +321,34 @@ def process(
             return clean_results(result_vocabulary, debug=debug, mode=mode)
         else:
             ## if result is None, we try to find the word in the dictionary for exact match
-            result_vocabulary = dict_search([text], *dict_names, session=session)  
+            result_vocabulary = dict_search([text], *dict_names, session=session)
             #print("result_vocabulary", result_vocabulary)
             if isinstance(result_vocabulary[0][2], dict):
             #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
                 return clean_results(result_vocabulary, debug=debug, mode=mode)
-    
+
+            ## The lexicon lists only the *lexicalised* -tā / -tva abstract nouns.
+            ## Both suffixes are productive, so a coined derivative (niṣyanda-tā)
+            ## reaches this point unresolved -- and the splitter below would cut
+            ## it in two and read the orphaned suffix as a verb (tā -> tṛ, tan),
+            ## losing the lemma.  Rebuild it from its base instead.  This runs
+            ## last on purpose: an attested word, however it ends, is already
+            ## resolved above and never gets here.
+            derived = taddhita_deriver.derive(text, session=session)
+            if derived is not None:
+                if debug:
+                    print("taddhita derivation", derived)
+                ## Gloss the *base*, not the derivative: niṣyandatā heads no
+                ## dictionary entry, but niṣyanda does, and that is where its
+                ## meaning lives.  Appending the payload here mirrors what
+                ## dict_search does for an attested word, and yields the same
+                ## entry shape -- the asymmetry (lemma from the derivation,
+                ## gloss from the base) is why dict_search cannot do it for us.
+                entry = derived.as_entry() + consult_references(
+                    derived.base, *(dict_names or (DEFAULT_DICTIONARY,)), session=session
+                )
+                return clean_results([entry], debug=debug, mode=mode)
+
     ## given that the text is composed of multiple words, we split them first then analyse one by one
     ## attempt to remove sandhi and tokenise in any case
 

@@ -29,7 +29,10 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 from sqlalchemy.pool import QueuePool
 
-from process_sanskrit.utils.resourcePaths import get_database_path
+from process_sanskrit.utils.resourcePaths import (
+    get_database_path,
+    reset_database_path_cache,
+)
 
 # Configure logging
 log = logging.getLogger(__name__)
@@ -77,13 +80,14 @@ def _nonnegative_int_env(name: str, default: int) -> int:
 # --- Database Path Resolution ---
 def get_db_path() -> str:
     """
-    Get the path to the SQLite database file using importlib.resources.
-    
+    Get the path to the SQLite database file.
+
     Returns:
         str: The resolved path to the database file
-        
+
     Note:
-        Uses a fallback path if importlib.resources resolution fails
+        A configured but missing path fails explicitly; there is no fallback to
+        the packaged database.
     """
     return str(get_database_path())
 
@@ -384,10 +388,18 @@ def _reset_database_state() -> None:
         scoped.remove()
     if engine is not None:
         engine.dispose()
+    reset_database_path_cache()
 
 
 def _reset_database_state_after_fork() -> None:
-    """Discard inherited pools and thread-local sessions in a child process."""
+    """Discard inherited pools and thread-local sessions in a child process.
+
+    The memoized path cache is deliberately *retained* here, unlike in
+    ``_reset_database_state``: it is keyed on the environment value and holds no
+    file descriptors or other process-affine state, so the child inherits a
+    still-valid entry.  Clearing it would only make every forked worker re-pay
+    the cold resolve.
+    """
     global _engine, _session_factory, _scoped_session
     global _engine_path, _engine_lock, _session_lock
 
