@@ -49,8 +49,8 @@ def _log_sigmoid_table() -> np.ndarray:
 class Scorer:
     """Log-probability of a split under the DCS word2vec model.
 
-    Falls back to a length heuristic (as upstream does) if the optional
-    sentencepiece tokenizer is unavailable.
+    Unlike upstream, this does not fall back to a length heuristic when the model
+    is unavailable -- see _load().
     """
 
     def __init__(self):
@@ -59,8 +59,21 @@ class Scorer:
         self._enabled = None
 
     def _load(self) -> bool:
-        if self._enabled is not None:
-            return self._enabled
+        """Load the model, or raise.
+
+        Upstream degrades gracefully here: if gensim/sentencepiece are missing it
+        logs a warning, sets gensim_enabled = False, and silently ranks splits by
+        length instead of likelihood. That was reasonable when scoring was an
+        optional extra -- but it is the single worst failure mode this package
+        has, because the splitter keeps working and just gets quietly worse, and
+        process_sanskrit/__init__.py silences this logger outright, so the warning
+        would never reach anyone.
+
+        Scoring is not optional here: sentencepiece and numpy are hard
+        dependencies. A scorer that cannot load is a broken install, so say so.
+        """
+        if self._enabled:
+            return True
         try:
             import sentencepiece as spm
 
@@ -78,14 +91,16 @@ class Scorer:
             self._point = np.split(z["point_flat"], np.cumsum(z["point_len"])[:-1])
             self._log_table = _log_sigmoid_table()
             self._enabled = True
-        except Exception:
-            logger.warning(
-                "sentencepiece not available; sandhi splits will be ranked by "
-                "length instead of DCS likelihood. Install sentencepiece to "
-                "restore statistical scoring."
-            )
-            self._enabled = False
-        return self._enabled
+        except Exception as e:
+            raise RuntimeError(
+                "The sandhi split scorer failed to load, so splits cannot be "
+                "ranked by DCS likelihood. Splitting would still run, but would "
+                "silently produce worse splits, so this is fatal instead. "
+                "Check that sentencepiece is installed and that the splitter's "
+                "data files (sentencepiece.model, w2v.npz) shipped with the "
+                f"package. Underlying error: {e}"
+            ) from e
+        return True
 
     def _score_pieces(self, pieces) -> float:
         ids = [self._index[p] for p in pieces if p in self._index]
@@ -117,7 +132,5 @@ class Scorer:
         return self.score_strings([" ".join(map(str, s)) for s in splits])
 
     def score_strings(self, sentences) -> list:
-        if not self._load():
-            # Upstream's fallback: prefer fewer words.
-            return [-len(s.split(" ")) for s in sentences]
+        self._load()
         return [self._score_pieces(self._sp.EncodeAsPieces(s)) for s in sentences]

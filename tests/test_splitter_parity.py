@@ -67,6 +67,22 @@ class SplitterTests(unittest.TestCase):
         self.assertLess(score, -1.0)
         self.assertNotEqual(score, -3)
 
+    def test_missing_model_raises_instead_of_degrading(self):
+        """Without the model, splits still *work* -- they just get quietly worse.
+
+        Upstream ranks by length in that case and logs a warning that
+        process_sanskrit/__init__.py silences. Ranking must fail loudly instead.
+        """
+        from process_sanskrit.splitter import scorer as scorer_module
+
+        original = scorer_module.data_file_path
+        scorer_module.data_file_path = lambda f: "/nonexistent/" + f
+        try:
+            with self.assertRaises(RuntimeError):
+                Scorer().score_strings(["asti uttarasyAm diSi"])
+        finally:
+            scorer_module.data_file_path = original
+
     def test_scoring_changes_the_ranking(self):
         """Guards against the scorer loading but contributing nothing."""
         scored = [str(s) for s in Parser(output_encoding="iast", score=True)
