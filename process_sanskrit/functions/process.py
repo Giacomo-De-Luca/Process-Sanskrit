@@ -33,7 +33,11 @@ from process_sanskrit.utils.lexicalResources import (
     sanskritFixedSandhiMap, 
     SANSKRIT_PREFIXES
 )
-from process_sanskrit.utils.transliterationUtils import transliterate, normalize_avagraha
+from process_sanskrit.utils.transliterationUtils import (
+    transliterate,
+    normalize_avagraha,
+    restore_avagraha,
+)
 
 ### import the sandhiSplitScorer and construct the scorer object. 
 
@@ -76,18 +80,13 @@ def preprocess(text, max_length=100, debug=False):
     if 'jj' in text:
         text = text.replace('jj', 'j j')
 
-    ## an avagraha after a word-final "o" means that o came from -aḥ/-as
-    ## (saḥ anupalambhena -> so 'nupalambhena), so undo both at once.  Printed
-    ## text writes this with a space as often as without, hence the \s*
-    text = re.sub(r"o\s*'", "aḥ a", text)
-
-    ## restore the elided initial a- on any word, not only the first one: the
-    ## check used to be `text[0] == "'"`, so in "tasmāt so 'nupalambhena" the
+    ## restore every elided initial a-, on any word rather than only the first:
+    ## the check used to be `text[0] == "'"`, so in "tasmāt so 'nupalambhena" the
     ## avagraha was left standing, then stripped as punctuation, and the word
-    ## shattered ("nupalambhena" -> nu + pa + pa + lambha).  An empty string
-    ## also reaches here from a bare separator ("hetu-" splits into
-    ## ("hetu", "")), which this form tolerates where indexing did not.
-    text = re.sub(r"(^|\s)'", r"\1a", text)
+    ## shattered ("nupalambhena" -> nu + pa + pa + lambha).  An empty string also
+    ## reaches here from a bare separator ("hetu-" splits into ("hetu", "")),
+    ## which the regexes tolerate where indexing did not.
+    text = restore_avagraha(text)
 
     text = regex.sub(r"[^\p{L}'_%*+\-]", ' ', text)
     text = re.sub(r'\s+', ' ', text)

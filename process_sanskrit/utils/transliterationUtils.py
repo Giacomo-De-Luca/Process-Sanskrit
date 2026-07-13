@@ -1,3 +1,5 @@
+import regex
+
 import indic_transliteration
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate as indic_transliterate
@@ -46,6 +48,69 @@ def normalize_avagraha(text):
         "so'nupalambhena"
     """
     return text.translate(_AVAGRAHA_TABLE)
+
+
+## An avagraha marks an *a-* elided after a preceding **e** or **o**, and after
+## nothing else -- that is the whole of the sandhi rule.  So position, not the
+## glyph, is what identifies one: an apostrophe anywhere else is a quotation
+## mark or OCR noise, and turning it into a vowel silently corrupts the word
+## (`iti ‘yoga’ ucyate` would otherwise yield the real-but-wrong lemma *ayoga*).
+## A leading apostrophe is ambiguous -- "'nupalambhena" is an avagraha, "'tapas'"
+## is a quotation -- and what tells them apart is that a quotation gets *closed*.
+## Strip balanced quotes before the rules below read anything as an elision.
+_BALANCED_QUOTES = regex.compile(r"^'(.+)'$")
+
+_AVAGRAHA_AFTER_O = regex.compile(r"(\p{L}*o)\s*'")
+_AVAGRAHA_AFTER_E = regex.compile(r"(\p{L}*e)\s*'")
+_AVAGRAHA_INITIAL = regex.compile(r"^'")
+_LEFTOVER_APOSTROPHE = regex.compile(r"'")
+
+## A word-final -o before an avagraha normally comes from -aḥ/-as, and is undone
+## along with the elision (saḥ + anupalambhena -> so 'nupalambhena).  These
+## indeclinables are the exception: their -o is original and must be kept, so
+## only the elided a- is restored (aho 'yam -> aho ayam, never *ahaḥ ayam).
+O_NOT_FROM_VISARGA = frozenset({"o", "aho", "bho", "ho"})
+
+
+def _restore_after_o(match):
+    word = match.group(1)
+    if word.lower() in O_NOT_FROM_VISARGA:
+        return f"{word} a"
+    return f"{word[:-1]}aḥ a"
+
+
+def restore_avagraha(text):
+    """
+    Undo avagraha elision: put the elided initial *a-* back on the word.
+
+    Expects IAST.  Handles every glyph in AVAGRAHA_VARIANTS, spaced or not,
+    and undoes the -aḥ/-as -> -o sandhi on the preceding word where that is
+    what produced the o.  Any apostrophe that is not in an avagraha position is
+    dropped rather than passed on -- notably U+02BC, which is a Unicode *letter*
+    and would otherwise reach the splitter as a bogus consonant.
+
+    Args:
+        text: IAST text, avagrahas written with any of AVAGRAHA_VARIANTS.
+
+    Returns:
+        The text with elided vowels restored and stray apostrophes removed.
+
+    Examples:
+        >>> restore_avagraha("so 'nupalambhena")
+        'saḥ anupalambhena'
+        >>> restore_avagraha("te’pi")
+        'te api'
+        >>> restore_avagraha("aho 'yam")
+        'aho ayam'
+        >>> restore_avagraha("iti ‘yoga’ ucyate")
+        'iti yoga ucyate'
+    """
+    text = normalize_avagraha(text)
+    text = _BALANCED_QUOTES.sub(r"\1", text)
+    text = _AVAGRAHA_AFTER_O.sub(_restore_after_o, text)
+    text = _AVAGRAHA_AFTER_E.sub(r"\1 a", text)
+    text = _AVAGRAHA_INITIAL.sub("a", text)
+    return _LEFTOVER_APOSTROPHE.sub("", text)
 
 
 def transliterate(text, transliteration_scheme, input_scheme=None):
