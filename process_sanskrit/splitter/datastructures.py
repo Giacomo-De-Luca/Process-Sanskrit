@@ -41,7 +41,7 @@ class SandhiGraph(object):
         '''
         self.roots = []
         self.G = nx.DiGraph()
-        self.scorer = scorer.Scorer()
+        self.scorer = scorer.Scorer.shared()
 
     def __iter__(self):
         ''' Iterate over nodes '''
@@ -184,4 +184,3 @@ class SandhiGraph(object):
         # H_layout = nx.nx_pydot.pydot_layout(G, prog=’dot’)
         # G_layout = {H.nodes[n][‘node_label’]: p for n, p in H_layout.items()}
         nx.drawing.nx_pydot.write_dot(self.G, path)
-

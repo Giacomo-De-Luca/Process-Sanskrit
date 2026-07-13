@@ -12,22 +12,82 @@ import json
 import os
 import sys
 import time
-import tomllib
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python 3.9/3.10 release checks
+    import toml as tomllib
 
 PYPI_JSON_URL = "https://pypi.org/pypi/{name}/json"
 REQUEST_TIMEOUT_SECONDS = 30
 RETRY_DELAYS_SECONDS = (2, 8)  # a PyPI blip must not redden an unrelated push
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+LOCKED_WORKSPACE_PACKAGES = frozenset(
+    {
+        "process-sanskrit-python",
+        "process-sanskrit-resource-builder",
+        "process-sanskrit-splitter-core",
+    }
+)
 
 
 def read_project(pyproject: Path) -> tuple[str, str]:
     """Return (name, version) declared in pyproject.toml."""
     project = tomllib.loads(pyproject.read_text(encoding="utf-8"))["project"]
     return project["name"], project["version"]
+
+
+def read_release_project(
+    pyproject: Path,
+    cargo_manifest: Path,
+    cargo_lock: Path,
+) -> tuple[str, str]:
+    """Return the release identity after proving all package versions agree."""
+    name, python_version = read_project(pyproject)
+    cargo = tomllib.loads(cargo_manifest.read_text(encoding="utf-8"))
+    try:
+        rust_version = cargo["workspace"]["package"]["version"]
+    except KeyError as error:
+        raise RuntimeError("Cargo.toml has no workspace.package.version") from error
+    if rust_version != python_version:
+        raise RuntimeError(
+            "release version mismatch: pyproject.toml declares "
+            f"{python_version}, but Cargo.toml declares {rust_version}"
+        )
+
+    lock = tomllib.loads(cargo_lock.read_text(encoding="utf-8"))
+    locked_versions = {
+        package["name"]: package["version"]
+        for package in lock.get("package", [])
+        if package.get("name") in LOCKED_WORKSPACE_PACKAGES
+    }
+    missing = LOCKED_WORKSPACE_PACKAGES - locked_versions.keys()
+    mismatched = {
+        package: version
+        for package, version in locked_versions.items()
+        if version != python_version
+    }
+    if missing or mismatched:
+        details = []
+        if missing:
+            details.append("missing " + ", ".join(sorted(missing)))
+        if mismatched:
+            details.append(
+                "mismatched "
+                + ", ".join(
+                    f"{package}={version}"
+                    for package, version in sorted(mismatched.items())
+                )
+            )
+        raise RuntimeError(
+            "Cargo.lock does not match release version "
+            f"{python_version}: {'; '.join(details)}. Run cargo check to refresh it."
+        )
+    return name, python_version
 
 
 def fetch_pypi(name: str) -> dict | None:
@@ -90,7 +150,11 @@ def emit_outputs(**outputs: str) -> None:
 
 
 def main() -> int:
-    name, version = read_project(REPO_ROOT / "pyproject.toml")
+    name, version = read_release_project(
+        REPO_ROOT / "pyproject.toml",
+        REPO_ROOT / "Cargo.toml",
+        REPO_ROOT / "Cargo.lock",
+    )
     released, latest = published_state(name)
     should_publish = version not in released
 
@@ -98,7 +162,7 @@ def main() -> int:
         print(f"{name} {version} is not on PyPI (latest there: {latest}) -> publishing.")
     else:
         print(f"{name} {version} is already on PyPI -> nothing to do.")
-        print("Bump the version in pyproject.toml to cut a new release.")
+        print("Bump the versions in pyproject.toml and Cargo.toml to cut a new release.")
 
     emit_outputs(version=version, should_publish=str(should_publish).lower())
     return 0

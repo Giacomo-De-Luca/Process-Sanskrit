@@ -1,7 +1,6 @@
 from .sandhiSplitScorer import scorer
 # utils/sandhi_splitter.py
 from typing import List, Tuple, Dict, Union, Optional
-import ast
 import threading
 from dataclasses import dataclass
 
@@ -35,32 +34,22 @@ def analyze_sandhi(
     attempts: int = 10,
 ) -> SplitResult:
     """Compute one statistical split and its score without cache I/O."""
-    try:
-        splits = _get_parser().split(text_to_split, limit=attempts)
-        if splits is None:
-            simple_split = text_to_split.split()
-            if simple_split:
-                score, subscores = scorer.score_split(text_to_split, simple_split)
-            else:
-                score, subscores = 0.0, {}
-            return SplitResult(simple_split, score, subscores, None)
-
-        if attempts == 1:
-            parsed_splits = [ast.literal_eval(f"{next(splits)}")]
-        else:
-            parsed_splits = [ast.literal_eval(f"{split}") for split in splits]
-        ranked_splits = scorer.rank_splits(text_to_split, parsed_splits)
-        best_split, best_score, subscores = ranked_splits[0]
-        return SplitResult(best_split, best_score, subscores, ranked_splits)
-    except Exception as error:
-        print(f"Could not split the line: {text_to_split}")
-        print(f"Error: {error}")
+    splits = _get_parser().split(text_to_split, limit=attempts)
+    if splits is None:
         simple_split = text_to_split.split()
         if simple_split:
             score, subscores = scorer.score_split(text_to_split, simple_split)
         else:
             score, subscores = 0.0, {}
         return SplitResult(simple_split, score, subscores, None)
+
+    if attempts == 1:
+        parsed_splits = [splits[0]._transcoded_tokens()]
+    else:
+        parsed_splits = [split._transcoded_tokens() for split in splits]
+    ranked_splits = scorer.rank_splits(text_to_split, parsed_splits)
+    best_split, best_score, subscores = ranked_splits[0]
+    return SplitResult(best_split, best_score, subscores, ranked_splits)
 
 def sandhi_splitter(
     text_to_split: str, 
@@ -83,9 +72,9 @@ def sandhi_splitter(
     """
     if cached and not detailed_output:
         from process_sanskrit.utils.analysisCache import (
-            ANALYSIS_ALGORITHM_VERSION,
             CacheKey,
             CacheRecord,
+            STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
             get_analysis_cache,
             lexicon_fingerprint,
         )
@@ -94,7 +83,7 @@ def sandhi_splitter(
         key = CacheKey.from_settings(
             normalized_input=text_to_split,
             analysis_kind="statistical",
-            algorithm_signature=ANALYSIS_ALGORITHM_VERSION,
+            algorithm_signature=STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
             lexicon_fingerprint=lexicon_fingerprint(),
             settings={"attempts": attempts},
         )

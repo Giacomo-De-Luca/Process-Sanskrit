@@ -1506,7 +1506,7 @@ requires-dist = [
     { name = "regex", specifier = ">=2022.0.0" },
     { name = "requests", specifier = ">=2.20.0" },
     { name = "scipy", marker = "extra == 'byt5'", specifier = ">=1.13.0" },
-    { name = "sentencepiece", specifier = ">=0.1.95" },
+    { name = "sentencepiece", specifier = ">=0.1.95,<0.3" },
     { name = "sqlalchemy", specifier = ">=1.4.33" },
     { name = "torch", marker = "extra == 'byt5'", specifier = ">=1.9.0" },
     { name = "transformers", marker = "extra == 'byt5'", specifier = ">=4.5.0" },

@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from process_sanskrit.setup import updateDB
+from process_sanskrit.utils.wordListBuilder import WordListBuilder
 
 
 def _dictionary_table(
@@ -145,6 +146,40 @@ class ExternalDatabaseUpdateTests(unittest.TestCase):
         self.assertEqual(
             connection.execute("SELECT COUNT(*) FROM word_list").fetchone()[0],
             3,
+        )
+
+    def test_complete_legacy_index_rebuilds_when_stub_metadata_is_missing(self):
+        connection = sqlite3.connect(self.database_path)
+        connection.execute(
+            "CREATE TABLE word_list (keys_iast TEXT PRIMARY KEY, dict_names TEXT)"
+        )
+        connection.executemany(
+            "INSERT INTO word_list VALUES (?, ?)",
+            [
+                ("shared", '["ddsa", "mw"]'),
+                ("mwonly", '["mw"]'),
+                ("ddsaonly", '["ddsa"]'),
+            ],
+        )
+        connection.execute("CREATE TABLE word_list_sources (name TEXT PRIMARY KEY)")
+        connection.executemany(
+            "INSERT INTO word_list_sources VALUES (?)",
+            [("ddsa",), ("mw",)],
+        )
+        connection.commit()
+        connection.close()
+
+        self.run_configured_update()
+
+        connection = sqlite3.connect(self.database_path)
+        self.addCleanup(connection.close)
+        self.assertTrue(WordListBuilder.index_is_current(connection))
+        self.assertEqual(
+            connection.execute(
+                f'SELECT value FROM "{WordListBuilder.METADATA_TABLE}" WHERE key = ?',
+                (WordListBuilder.STUB_CLASSIFIER_KEY,),
+            ).fetchone(),
+            (str(WordListBuilder.STUB_CLASSIFIER_VERSION),),
         )
 
     def test_external_repair_atomically_replaces_the_database(self):

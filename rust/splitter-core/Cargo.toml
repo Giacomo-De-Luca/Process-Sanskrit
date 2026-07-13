@@ -1,0 +1,17 @@
+[package]
+name = "process-sanskrit-splitter-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+fst = "0.4.7"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+sha2 = "0.10.9"
+thiserror = "1.0.69"
+
+[dev-dependencies]
+tempfile = "3.23.0"

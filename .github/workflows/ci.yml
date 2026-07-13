@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: Rust ${{ matrix.toolchain }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: ["1.83.0", stable]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python for PyO3 tests
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Rust toolchain
+        shell: bash
+        run: |
+          rustup toolchain install "${{ matrix.toolchain }}" --profile minimal
+          rustup default "${{ matrix.toolchain }}"
+          if [[ "${{ matrix.toolchain }}" == "stable" ]]; then
+            rustup component add rustfmt clippy
+          fi
+
+      - name: Check formatting
+        if: matrix.toolchain == 'stable'
+        run: cargo fmt --all --check
+
+      - name: Run Clippy
+        if: matrix.toolchain == 'stable'
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: Run Rust tests
+        run: cargo test --workspace --locked
+
+      - name: Link the Python extension
+        run: cargo build --package process-sanskrit-python --locked
+
+  python-reference:
+    name: Python reference (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12", "3.14"]
+    env:
+      PROCESS_SANSKRIT_SPLITTER_BACKEND: python
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install locked dependencies without the native project
+        run: uv sync --frozen --no-install-project
+
+      - name: Assert explicit backend selection
+        run: >-
+          uv run --frozen --no-sync python -c
+          "from process_sanskrit.splitter.backends import selected_backend_name;
+          assert selected_backend_name() == 'python'"
+
+      - name: Run database-free Python contracts
+        run: >-
+          uv run --frozen --no-sync python -m unittest
+          tests.test_splitter_parity
+          tests.test_splitter_benchmark
+          tests.test_publish_workflow
+          tests.test_rust_third_party_notices

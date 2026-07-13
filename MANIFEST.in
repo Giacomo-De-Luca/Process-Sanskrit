@@ -1,7 +1,24 @@
 include LICENSE.md
+include THIRD_PARTY_NOTICES.md
 include README.md
 include pyproject.toml
+include setup.cfg
+include Cargo.toml
+include Cargo.lock
+include tools/generate_rust_third_party_notices.py
+include .github/workflows/publish.yml
+include .github/workflows/wheels.yml
+include .github/workflows/ci.yml
+include .github/scripts/check_pypi_version.py
+graft rust
+recursive-include benchmarks *.json
+recursive-include documentation *.md
+recursive-include scripts *.md *.py
+recursive-include tools *.py
 global-exclude *.sqlite *.sqlite.gz
+exclude .sentencepiece_debug.cc
+exclude process_sanskrit/splitter/_native*.so
+exclude process_sanskrit/splitter/_native*.pyd
 
 recursive-include process_sanskrit/resources *.json
 recursive-include process_sanskrit/resources *.csv
@@ -10,8 +27,11 @@ recursive-include process_sanskrit/resources *.xlsx
 
 # Vendored sandhi splitter (see process_sanskrit/splitter/NOTICE.md)
 include process_sanskrit/splitter/LICENSE.upstream
+include process_sanskrit/splitter/LICENSE.sentencepiece
+include process_sanskrit/splitter/LICENSE.protobuf-lite
+include process_sanskrit/splitter/LICENSE.darts-clone
 include process_sanskrit/splitter/NOTICE.md
-recursive-include process_sanskrit/splitter/data *.trie *.npz *.zip *.model
+recursive-include process_sanskrit/splitter/data *.trie *.npz *.zip *.model *.fst *.bin *.json
 
 # Include tests for the sdist
 recursive-include tests *.py
@@ -21,6 +41,8 @@ recursive-include tests *.txt
 # Exclude compiled files and caches
 global-exclude *.py[cod]
 global-exclude __pycache__
-global-exclude .git*
+exclude .git
+exclude .gitignore
+exclude .gitattributes
+prune .git
 global-exclude .DS_Store
-

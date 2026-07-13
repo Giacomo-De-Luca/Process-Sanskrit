@@ -28,6 +28,13 @@ existing `cached=False` default. Passing `cached=True` caches their chosen
 non-detailed result. Detailed calls always recompute because candidate lists are
 not stored.
 
+Direct statistical results use the `statistical-splitter-v2` algorithm
+signature. Version 2 prevents an old `attempts=1` unsplit fallback—created by a
+wrapper return-shape bug—from masking the corrected ranked split. Existing rows
+under the legacy hybrid signature remain on disk until normal retention removes
+them, but direct statistical calls no longer read them. Hybrid morphology keeps
+its independent signature because it did not use that broken one-attempt path.
+
 ## Configuration
 
 Set configuration before the first cached request in a process:
@@ -85,4 +92,3 @@ does not preserve query frequency or every original-script variant.
 Payloads use a strict tagged-JSON format that preserves list/tuple distinctions;
 pickle is never used. Schema migrations use SQLite `user_version`, independently
 from the analysis signature used for result invalidation.
-

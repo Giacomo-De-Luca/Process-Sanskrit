@@ -14,6 +14,20 @@ class EndingProperties:
     weight: float  # How much to penalize this ending when found
     type: str     # Category of the ending (derivational, abstract, etc.)
 
+
+@dataclass(frozen=True, order=True)
+class _CompoundCandidateRank:
+    """Order eligible genuine headwords ahead of bare dictionary pointers."""
+
+    genuine_headword: bool
+    score: float
+
+    @classmethod
+    def for_word(cls, word: str, score: float) -> "_CompoundCandidateRank":
+        stub_lookup = getattr(DICTIONARY_REFERENCES, "is_stub", None)
+        is_stub = bool(stub_lookup and stub_lookup(word))
+        return cls(genuine_headword=not is_stub, score=score)
+
 # Dictionary of problematic Sanskrit endings with their properties
 SANSKRIT_ENDINGS: Dict[str, EndingProperties] = {
     # Primary derivational suffixes (kṛt pratyayas)
@@ -164,8 +178,10 @@ def dict_word_iterative(
     2. Checks for problematic endings
     3. Minimum score threshold for accepting splits
 
-    Candidates are walked longest-first and a tie does not displace the
-    incumbent, so among equally-scoring cuts the longest wins.
+    Only candidates meeting ``min_score`` are ranked. Genuine headwords rank
+    before bare variant-reading pointers; within either group the numeric score
+    wins. Candidates are walked longest-first and an exact tie does not displace
+    the incumbent, so the longest wins.
 
     Args:
         word: The Sanskrit word to analyze
@@ -177,7 +193,7 @@ def dict_word_iterative(
     """
     temp_word = word
     best_match = None
-    best_score = 0
+    best_rank = None
 
     if debug:
         print(f"Attempting to match word: {word}")
@@ -204,12 +220,15 @@ def dict_word_iterative(
                 _memo=_memo,
                 vowel_restorations=vowel_restorations,
             )
+            candidate_rank = _CompoundCandidateRank.for_word(temp_word, split_score)
 
-            if split_score > best_score:
+            if split_score >= min_score and (
+                best_rank is None or candidate_rank > best_rank
+            ):
                 if debug:
                     print(f"Found potential split: {temp_word} + {remaining}, "
                           f"score: {split_score}")
-                best_score = split_score
+                best_rank = candidate_rank
                 best_match = (temp_word, word[len(temp_word)-1])
         
         # Try sandhi variations (keep existing logic)
@@ -227,18 +246,22 @@ def dict_word_iterative(
                         _memo=_memo,
                         vowel_restorations=vowel_restorations,
                     )
-                    
-                    if split_score > best_score:
+                    candidate_rank = _CompoundCandidateRank.for_word(
+                        test_word, split_score
+                    )
+
+                    if split_score >= min_score and (
+                        best_rank is None or candidate_rank > best_rank
+                    ):
                         if debug:
                             print(f"Found sandhi variant split: {test_word} + "
                                   f"{remaining}, score: {split_score}")
-                        best_score = split_score
+                        best_rank = candidate_rank
                         best_match = (test_word, variant)
 
         temp_word = temp_word[:-1]
 
-    # Only return match if it meets minimum score
-    if best_score >= min_score:
+    if best_match is not None:
         return best_match
 
     if debug:

@@ -33,69 +33,135 @@ jobs:
       - id: check
         run: python .github/scripts/check_pypi_version.py
 
-  build:
-    name: Build distributions
+  build-wheels:
+    name: Build and validate native wheels
+    needs: check-version
+    if: needs.check-version.outputs.should-publish == 'true'
+    uses: ./.github/workflows/wheels.yml
+
+  build-sdist:
+    name: Build and validate source distribution
     needs: check-version
     if: needs.check-version.outputs.should-publish == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # The package is pure Python today, so one universal py3-none-any wheel
-      # serves every platform. When the Rust extension lands this single step
-      # must become a cibuildwheel matrix (one wheel per platform/interpreter)
-      # plus a separate sdist job; the publish job below needs no changes.
-      - name: Build sdist and wheel
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.83.0 --profile minimal
+          rustup default 1.83.0
+
+      - name: Build and check sdist
         run: |
           python -m pip install --upgrade build twine
-          python -m build
-          python -m twine check dist/*
+          python -m build --sdist --outdir sdist
+          python -m twine check sdist/*
 
-      - uses: actions/upload-artifact@v4
+      - name: Verify sdist native sources and notices
+        run: >-
+          python -c
+          "from pathlib import Path;
+          import tarfile;
+          archives = list(Path('sdist').glob('*.tar.gz'));
+          assert len(archives) == 1, archives;
+          names = tarfile.open(archives[0], 'r:gz').getnames();
+          required = ('Cargo.lock', 'Cargo.toml', 'THIRD_PARTY_NOTICES.md', 'benchmarks/splitter-benchmark.json', 'documentation/rust-splitter.md', 'rust/python/Cargo.toml', 'process_sanskrit/splitter/LICENSE.sentencepiece', 'scripts/benchmark_splitter.py', 'tools/build_splitter_data.py');
+          assert all(any(name.endswith('/' + required_name) for name in names) for required_name in required), names"
+
+      - name: Build native wheel from sdist
+        shell: bash
+        run: |
+          python -m pip wheel --no-deps --wheel-dir sdist-smoke-wheel sdist/*.tar.gz
+          wheels=(sdist-smoke-wheel/*.whl)
+          [[ -e "${wheels[0]}" && "${#wheels[@]}" -eq 1 ]]
+          [[ "$(basename "${wheels[0]}")" == *-cp39-abi3-* ]]
+
+      - name: Smoke-test wheel rebuilt from sdist
+        shell: bash
+        run: |
+          python -m venv sdist-smoke-venv
+          sdist-smoke-venv/bin/python -m pip install sdist-smoke-wheel/*.whl
+          mkdir -p sdist-smoke
+          cd sdist-smoke
+          ../sdist-smoke-venv/bin/python - <<'PY'
+          from pathlib import Path
+
+          import process_sanskrit as ps
+          from process_sanskrit.splitter import Parser, _native
+
+          assert any(
+              part.lower() == "site-packages" for part in Path(ps.__file__).parts
+          ), ps.__file__
+          assert ps.transliterate("rāmaḥ", "devanagari") == "रामः"
+          assert _native.BUILD_PROFILE == 'release'
+          result = Parser(input_encoding="slp1", output_encoding="slp1").split(
+              "astyuttarasyAMdiSi", limit=1
+          )
+          assert result and [token.canonical() for token in result[0].split] == [
+              "asti", "uttarasyAm", "diSi"
+          ]
+          PY
+
+      - uses: actions/upload-artifact@v6
         with:
-          name: dist
-          path: dist/
-          overwrite: true # so "Re-run all jobs" does not 409 on an existing artifact
+          name: sdist
+          path: sdist/*.tar.gz
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
 
-  smoke-test:
-    name: Smoke-test the wheel (py${{ matrix.python-version }})
-    needs: build
+  collect-distributions:
+    name: Collect checked release distributions
+    needs: [check-version, build-wheels, build-sdist]
+    if: needs.check-version.outputs.should-publish == 'true'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # The floor declared in pyproject.toml, and a current interpreter.
-        python-version: ["3.9", "3.12"]
     steps:
-      # Deliberately no checkout: with no source tree in the working directory,
-      # `import process_sanskrit` cannot resolve to the repo instead of the
-      # installed wheel. The assertion below pins that invariant regardless.
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
 
-      # Runs with no database present, which is the point: `transliterate` is the
-      # only database-free entry point, so this proves the wheel imports and its
-      # packaged resources resolve on a bare machine.
-      - name: Install the wheel and exercise it
+      - name: Download all native wheels
+        uses: actions/download-artifact@v6
+        with:
+          pattern: wheel-*
+          path: dist
+          merge-multiple: true
+
+      - name: Download source distribution
+        uses: actions/download-artifact@v6
+        with:
+          name: sdist
+          path: dist
+
+      - name: Verify complete release set
+        shell: bash
         run: |
-          python -m pip install dist/*.whl
-          python - <<'PY'
-          import process_sanskrit as ps
-          assert "site-packages" in ps.__file__, f"imported the wrong thing: {ps.__file__}"
-          assert ps.transliterate("rāmaḥ", "devanagari") == "रामः"
-          print(f"OK: {ps.__file__}")
-          PY
+          wheels=(dist/*.whl)
+          sdists=(dist/*.tar.gz)
+          [[ -e "${wheels[0]}" && "${#wheels[@]}" -eq 4 ]]
+          [[ -e "${sdists[0]}" && "${#sdists[@]}" -eq 1 ]]
+          python -m pip install --upgrade twine
+          python -m twine check dist/*
+
+      - name: Upload complete release set
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-dist
+          path: dist/
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
 
   publish:
     name: Publish to PyPI
-    needs: [check-version, build, smoke-test]
+    needs: [check-version, collect-distributions]
+    if: needs.check-version.outputs.should-publish == 'true'
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -103,9 +169,9 @@ jobs:
     permissions:
       id-token: write # required for PyPI Trusted Publishing (OIDC); no API token
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v6
         with:
-          name: dist
+          name: release-dist
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
 
@@ -120,12 +186,23 @@ jobs:
       - name: Tag v${{ needs.check-version.outputs.version }}
         env:
           VERSION: ${{ needs.check-version.outputs.version }}
+          EXPECTED_COMMIT: ${{ github.sha }}
         run: |
-          # The upload already succeeded by this point, so a tag that is merely
-          # already there must not turn the release red.
-          if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
-            echo "Tag v${VERSION} already exists on origin; nothing to do."
-            exit 0
+          # The upload already succeeded by this point. A retry may find the
+          # correct tag already present, but a stale/pre-created tag must fail.
+          if remote_tag_lines="$(git ls-remote --exit-code --tags origin \
+            "refs/tags/v${VERSION}" "refs/tags/v${VERSION}^{}" 2>/dev/null)"; then
+            remote_commit="$(printf '%s\n' "${remote_tag_lines}" | awk '
+              NR == 1 { direct = $1 }
+              /\^\{\}$/ { peeled = $1 }
+              END { print peeled != "" ? peeled : direct }
+            ')"
+            if [[ "${remote_commit}" == "${EXPECTED_COMMIT}" ]]; then
+              echo "Tag v${VERSION} already points to ${EXPECTED_COMMIT}; nothing to do."
+              exit 0
+            fi
+            echo "Tag v${VERSION} points to ${remote_commit}, expected ${EXPECTED_COMMIT}." >&2
+            exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -14,11 +14,13 @@ adding a dictionary to the database and rebuilding is enough to index it.
 
 from __future__ import annotations
 
+import html
 import json
+import re
 import sqlite3
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 
 
 @dataclass(frozen=True)
@@ -28,6 +30,7 @@ class WordListReport:
     dictionaries: List[str]
     headwords: int
     dropped_tables: List[str]
+    stub_headwords: int = 0
 
 
 class WordListBuilder:
@@ -44,6 +47,41 @@ class WordListBuilder:
 
     INDEX_TABLE = "word_list"
     INDEX_COLUMNS = frozenset({"keys_iast", "dict_names"})
+
+    #: Bare variant-reading pointers stay in ``word_list`` for direct lookup,
+    #: but compound scoring needs to rank genuine lexical entries ahead of them.
+    STUBS_TABLE = "word_list_stubs"
+    STUBS_COLUMNS = frozenset({"keys_iast"})
+
+    #: The classifier is derived-data schema. Bump this when its conservative
+    #: predicate changes so updater repairs databases built by older code.
+    METADATA_TABLE = "word_list_metadata"
+    STUB_CLASSIFIER_KEY = "stub_classifier_version"
+    STUB_CLASSIFIER_VERSION = 1
+
+    _VARIANT_POINTER = re.compile(
+        r"<ab>\s*variant reading \(varia lectio\)\s*</ab>\s*for\b",
+        re.IGNORECASE,
+    )
+    _TAG = re.compile(r"<[^>]+>")
+    _WORD = re.compile(r"[^\W\d_]+", re.UNICODE)
+    _ALLOWED_POINTER_SUFFIX_WORDS = frozenset(
+        {
+            "above",
+            "and",
+            "below",
+            "cf",
+            "column",
+            "ibidem",
+            "next",
+            "or",
+            "p",
+            "preceding",
+            "q",
+            "see",
+            "v",
+        }
+    )
 
     #: An unused byte-identical copy of ``word_list`` shipped in v1.0.2.
     LEGACY_TABLES = ("dictionary_cross_references",)
@@ -86,17 +124,40 @@ class WordListBuilder:
     def index_is_current(cls, connection: sqlite3.Connection) -> bool:
         """Return whether a structurally valid index covers the exact schema."""
         dictionaries = set(cls.discover_dictionaries(connection))
-        if not dictionaries or not cls._table_exists(connection, cls.INDEX_TABLE):
+        required_tables = (
+            cls.INDEX_TABLE,
+            cls.STUBS_TABLE,
+            cls.METADATA_TABLE,
+        )
+        if not dictionaries or any(
+            not cls._table_exists(connection, table) for table in required_tables
+        ):
             return False
-        columns = {
+        index_columns = {
             row[1]
             for row in connection.execute(
                 f'PRAGMA table_info("{cls.INDEX_TABLE}")'
             )
         }
-        if not cls.INDEX_COLUMNS <= columns:
+        stub_columns = {
+            row[1]
+            for row in connection.execute(
+                f'PRAGMA table_info("{cls.STUBS_TABLE}")'
+            )
+        }
+        if (
+            not cls.INDEX_COLUMNS <= index_columns
+            or not cls.STUBS_COLUMNS <= stub_columns
+        ):
             return False
-        return cls.indexed_dictionaries(connection) == dictionaries
+        classifier_version = connection.execute(
+            f'SELECT value FROM "{cls.METADATA_TABLE}" WHERE key = ?',
+            (cls.STUB_CLASSIFIER_KEY,),
+        ).fetchone()
+        return (
+            classifier_version == (str(cls.STUB_CLASSIFIER_VERSION),)
+            and cls.indexed_dictionaries(connection) == dictionaries
+        )
 
     @classmethod
     def build(
@@ -112,6 +173,7 @@ class WordListBuilder:
         """
         dictionaries = cls.discover_dictionaries(connection)
         mapping = cls._collect(connection, dictionaries)
+        stubs = cls._collect_stubs(connection, dictionaries)
 
         dropped: List[str] = []
         with connection:  # commit on success, roll back on exception
@@ -126,6 +188,25 @@ class WordListBuilder:
                     (word, json.dumps(sorted(names)))
                     for word, names in mapping.items()
                 ),
+            )
+
+            connection.execute(f'DROP TABLE IF EXISTS "{cls.STUBS_TABLE}"')
+            connection.execute(
+                f'CREATE TABLE "{cls.STUBS_TABLE}" (keys_iast TEXT PRIMARY KEY)'
+            )
+            connection.executemany(
+                f'INSERT INTO "{cls.STUBS_TABLE}" VALUES (?)',
+                ((word,) for word in sorted(stubs)),
+            )
+
+            connection.execute(f'DROP TABLE IF EXISTS "{cls.METADATA_TABLE}"')
+            connection.execute(
+                f'CREATE TABLE "{cls.METADATA_TABLE}" '
+                "(key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+            )
+            connection.execute(
+                f'INSERT INTO "{cls.METADATA_TABLE}" VALUES (?, ?)',
+                (cls.STUB_CLASSIFIER_KEY, str(cls.STUB_CLASSIFIER_VERSION)),
             )
 
             connection.execute(f'DROP TABLE IF EXISTS "{cls.SOURCES_TABLE}"')
@@ -152,6 +233,7 @@ class WordListBuilder:
             dictionaries=dictionaries,
             headwords=len(mapping),
             dropped_tables=dropped,
+            stub_headwords=len(stubs),
         )
 
     @classmethod
@@ -167,6 +249,75 @@ class WordListBuilder:
             ):
                 mapping[headword].append(dictionary)
         return mapping
+
+    @classmethod
+    def _without_elements(cls, text: str, names: Tuple[str, ...]) -> str:
+        """Remove selected tagged elements while retaining other visible text."""
+        for name in names:
+            text = re.sub(
+                rf"<{name}\b[^>]*>.*?</{name}>",
+                " ",
+                text,
+                flags=re.IGNORECASE | re.DOTALL,
+            )
+        return text
+
+    @classmethod
+    def _is_stub_body(cls, body: str) -> bool:
+        """Return whether one entry is only a conservative variant pointer.
+
+        Dictionary definitions often mention a variant in parentheses. A bare
+        pointer has no visible prose before the marker and, after its Sanskrit
+        target and citations are removed, only cross-reference connective words.
+        """
+        if not body:
+            return False
+        marker = cls._VARIANT_POINTER.search(body)
+        if marker is None:
+            return False
+
+        prefix = cls._without_elements(body[: marker.start()], ("s", "lex", "hom"))
+        prefix = html.unescape(cls._TAG.sub(" ", prefix))
+        if any(character.isalnum() for character in prefix):
+            return False
+
+        suffix = cls._without_elements(
+            body[marker.end() :],
+            ("s", "s1", "lex", "hom", "ls", "pcol"),
+        )
+        visible_suffix = html.unescape(cls._TAG.sub(" ", suffix))
+        suffix_words = {
+            word.casefold() for word in cls._WORD.findall(visible_suffix)
+        }
+        return suffix_words <= cls._ALLOWED_POINTER_SUFFIX_WORDS
+
+    @classmethod
+    def _collect_stubs(
+        cls, connection: sqlite3.Connection, dictionaries: List[str]
+    ) -> Set[str]:
+        """Stream whether every attestation of each headword is a bare pointer."""
+        candidates: Dict[str, bool] = {}
+        for dictionary in dictionaries:
+            for headword, body in connection.execute(
+                f'SELECT keys_iast, cleaned_body FROM "{dictionary}" '
+                "WHERE keys_iast IS NOT NULL"
+            ):
+                candidates[headword] = (
+                    candidates.get(headword, True) and cls._is_stub_body(body)
+                )
+        return {headword for headword, is_stub in candidates.items() if is_stub}
+
+    @classmethod
+    def stub_headwords(cls, connection: sqlite3.Connection) -> Set[str]:
+        """Return flags from the last rebuild, or none for a legacy database."""
+        if not cls._table_exists(connection, cls.STUBS_TABLE):
+            return set()
+        return {
+            headword
+            for (headword,) in connection.execute(
+                f'SELECT keys_iast FROM "{cls.STUBS_TABLE}"'
+            )
+        }
 
     @staticmethod
     def _table_exists(connection: sqlite3.Connection, name: str) -> bool:

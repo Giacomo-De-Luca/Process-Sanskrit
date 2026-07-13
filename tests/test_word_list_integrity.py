@@ -77,6 +77,60 @@ class WordListBuilderTests(unittest.TestCase):
             },
         )
 
+    def test_build_flags_only_bare_cross_reference_headwords_as_stubs(self):
+        stub_body = (
+            "<s>tanni</s> <s>°nnī</s> "
+            "<ab>variant reading (varia lectio)</ab> for <s>°nvī</s>, "
+            "<ab>q.v., see</ab>"
+        )
+        entries = [
+            ("tanni", stub_body),
+            ("mixed", stub_body),
+            (
+                "cakṣūroga",
+                "<s>cakṣū-roga</s> <lex>m.</lex> disease of the eye "
+                "(<ab>variant reading (varia lectio)</ab> <s>°kṣu-r°</s>),",
+            ),
+            (
+                "falsepointer",
+                "<s>falsepointer</s> <ab>variant reading (varia lectio)</ab> "
+                "for <s>°other</s>, a genuine definition",
+            ),
+        ]
+        self.connection.executemany(
+            'INSERT INTO "mw" VALUES (?, ?, ?, ?)',
+            [(word, "", 0.0, body) for word, body in entries],
+        )
+        self.connection.executemany(
+            'INSERT INTO "ddsa" VALUES (?, ?, ?, ?)',
+            [
+                ("tanni", "", 0.0, stub_body),
+                ("mixed", "", 0.0, "a genuine definition"),
+            ],
+        )
+
+        report = WordListBuilder.build(self.connection)
+
+        self.assertEqual(WordListBuilder.stub_headwords(self.connection), {"tanni"})
+        self.assertEqual(report.stub_headwords, 1)
+
+    def test_stub_classifier_version_participates_in_staleness(self):
+        WordListBuilder.build(self.connection)
+        self.assertTrue(WordListBuilder.index_is_current(self.connection))
+
+        self.connection.execute(
+            f'UPDATE "{WordListBuilder.METADATA_TABLE}" SET value = ?',
+            (str(WordListBuilder.STUB_CLASSIFIER_VERSION - 1),),
+        )
+
+        self.assertFalse(WordListBuilder.index_is_current(self.connection))
+
+    def test_index_without_stub_metadata_is_stale(self):
+        WordListBuilder.build(self.connection)
+        self.connection.execute(f'DROP TABLE "{WordListBuilder.METADATA_TABLE}"')
+
+        self.assertFalse(WordListBuilder.index_is_current(self.connection))
+
     def test_dictionary_names_are_stored_sorted(self):
         """The pre-overlay mapping stored sorted lists; callers compare by equality."""
         WordListBuilder.build(self.connection)
@@ -206,6 +260,31 @@ class StaleDatabaseWarningTests(unittest.TestCase):
                 for _ in range(5):
                     dictionary_references.DICTIONARY_REFERENCES["shared"]
         self.assertEqual(len(captured.output), 1)
+
+    def test_complete_source_coverage_still_warns_without_stub_metadata(self):
+        connection = sqlite3.connect(self.database_path)
+        connection.execute("CREATE TABLE word_list_sources (name TEXT PRIMARY KEY)")
+        connection.executemany(
+            "INSERT INTO word_list_sources VALUES (?)",
+            [("ddsa",), ("mw",)],
+        )
+        connection.commit()
+        connection.close()
+        dictionary_references._reset_reference_state()
+
+        with patch.dict(
+            os.environ, {"PROCESS_SANSKRIT_DB_PATH": str(self.database_path)}
+        ):
+            with self.assertLogs(
+                "process_sanskrit.utils.dictionary_references", level=logging.WARNING
+            ) as captured:
+                self.assertEqual(
+                    dictionary_references.DICTIONARY_REFERENCES["shared"], ["mw"]
+                )
+
+        message = "\n".join(captured.output)
+        self.assertIn("stub", message.lower())
+        self.assertIn("update-ps-database", message)
 
 
 @unittest.skipUnless(

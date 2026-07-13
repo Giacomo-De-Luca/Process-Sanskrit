@@ -74,3 +74,33 @@ Two subtleties, both covered by `tests/test_splitter_parity.py`:
 - `valid()` agrees on **100%** of queries a real corpus generates (24,309/24,309).
 - Splits are **identical** on every word of the Yoga Sutra test corpus.
 - Scores match gensim to within float32 rounding (max |Δ| ~1e-4).
+
+## Native Rust implementation and SentencePiece
+
+The native splitter in `rust/` is a Process-Sanskrit implementation of the
+same split, validity, and scoring contract described above. The Python
+reference remains available for differential testing, and the original
+`sanskrit_parser` attribution and MIT license continue to apply to the
+vendored reference implementation and its derived data.
+
+The native Python extension statically compiles the deterministic inference
+portion of [Google SentencePiece](https://github.com/google/sentencepiece)
+v0.2.1, commit `31646a467d2051eb904e0b45de3a73e91fe1c1e3`. SentencePiece is
+Copyright 2016 Google Inc. and is distributed under the Apache License 2.0;
+see `LICENSE.sentencepiece`. Only model loading and deterministic piece-string
+encoding are exposed by Process-Sanskrit; training and SentencePiece
+command-line tools are not linked into the extension.
+
+That SentencePiece source snapshot includes three third-party components used by
+the compiled inference path:
+
+- Abseil compatibility headers/source, Copyright 2016 Google Inc., under
+  Apache-2.0 (`LICENSE.sentencepiece` contains the applicable license text).
+- Protocol Buffers lite runtime, Copyright 2008 Google Inc., under the
+  three-clause BSD license; see `LICENSE.protobuf-lite`.
+- Darts-clone trie headers, Copyright 2008–2011 Susumu Yata, under the
+  three-clause BSD license; see `LICENSE.darts-clone`.
+
+Source distributions retain the complete vendored SentencePiece tree and its
+original component license files. Binary wheels carry this notice and the
+three license files named above next to the splitter package.

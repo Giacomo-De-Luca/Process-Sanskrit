@@ -1,0 +1,21 @@
+schema_version = 1
+
+[generation]
+legacy_data = "../process_sanskrit/splitter/data"
+neutral_output = "../build/splitter-native-input"
+
+[inputs]
+forms = "../build/splitter-native-input/forms.txt"
+sandhi_rules = "../build/splitter-native-input/sandhi-rules.jsonl"
+scorer_metadata = "../build/splitter-native-input/scorer.json"
+syn0 = "../build/splitter-native-input/syn0.npy"
+syn1 = "../build/splitter-native-input/syn1.npy"
+code_offsets = "../build/splitter-native-input/code-offsets.npy"
+code_data = "../build/splitter-native-input/code-data.npy"
+point_offsets = "../build/splitter-native-input/point-offsets.npy"
+point_data = "../build/splitter-native-input/point-data.npy"
+log_table = "../build/splitter-native-input/log-table.npy"
+sentencepiece_model = "../process_sanskrit/splitter/data/sentencepiece.model"
+
+[output]
+directory = "../process_sanskrit/splitter/data/native"

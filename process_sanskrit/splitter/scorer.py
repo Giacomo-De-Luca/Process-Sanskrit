@@ -26,25 +26,19 @@ score_pair_cbow_hs.
 """
 
 import logging
+import threading
 
 import numpy as np
 
 from .data_manager import data_file_path
+from .scorer_model import (
+    EXP_TABLE_SIZE,
+    INDEX_SCALE as _INDEX_SCALE,
+    MAX_EXP,
+    log_sigmoid_table as _log_sigmoid_table,
+)
 
 logger = logging.getLogger(__name__)
-
-# gensim/models/word2vec_inner.pyx
-EXP_TABLE_SIZE = 1000
-MAX_EXP = 6
-# NOTE: integer division, matching Cython's DEF constant folding. Not 83.33.
-_INDEX_SCALE = EXP_TABLE_SIZE // MAX_EXP // 2
-
-
-def _log_sigmoid_table() -> np.ndarray:
-    i = np.arange(EXP_TABLE_SIZE, dtype=np.float32)
-    e = np.exp((i / np.float32(EXP_TABLE_SIZE) * 2 - 1) * MAX_EXP).astype(np.float32)
-    return np.log((e / (e + 1)).astype(np.float32)).astype(np.float32)
-
 
 class Scorer:
     """Log-probability of a split under the DCS word2vec model.
@@ -53,10 +47,23 @@ class Scorer:
     is unavailable -- see _load().
     """
 
+    _shared_instance = None
+    _shared_instance_lock = threading.Lock()
+
     def __init__(self):
         self._model = None
         self._sp = None
         self._enabled = None
+        self._load_lock = threading.Lock()
+
+    @classmethod
+    def shared(cls):
+        """Return the process-wide read-only scorer used by split graphs."""
+        if cls._shared_instance is None:
+            with cls._shared_instance_lock:
+                if cls._shared_instance is None:
+                    cls._shared_instance = cls()
+        return cls._shared_instance
 
     def _load(self) -> bool:
         """Load the model, or raise.
@@ -74,32 +81,39 @@ class Scorer:
         """
         if self._enabled:
             return True
-        try:
-            import sentencepiece as spm
+        with self._load_lock:
+            if self._enabled:
+                return True
+            try:
+                import sentencepiece as spm
 
-            self._sp = spm.SentencePieceProcessor()
-            self._sp.Load(data_file_path("sentencepiece.model"))
+                self._sp = spm.SentencePieceProcessor()
+                self._sp.Load(data_file_path("sentencepiece.model"))
 
-            z = np.load(data_file_path("w2v.npz"))
-            self._syn0 = z["syn0"]
-            self._syn1 = z["syn1"]
-            # vocab is stored in row order, so position == row in syn0/syn1.
-            self._index = {w: i for i, w in enumerate(z["vocab"])}
-            self._window = int(z["window"])
-            self._cbow_mean = int(z["cbow_mean"])
-            self._code = np.split(z["code_flat"], np.cumsum(z["code_len"])[:-1])
-            self._point = np.split(z["point_flat"], np.cumsum(z["point_len"])[:-1])
-            self._log_table = _log_sigmoid_table()
-            self._enabled = True
-        except Exception as e:
-            raise RuntimeError(
-                "The sandhi split scorer failed to load, so splits cannot be "
-                "ranked by DCS likelihood. Splitting would still run, but would "
-                "silently produce worse splits, so this is fatal instead. "
-                "Check that sentencepiece is installed and that the splitter's "
-                "data files (sentencepiece.model, w2v.npz) shipped with the "
-                f"package. Underlying error: {e}"
-            ) from e
+                z = np.load(data_file_path("w2v.npz"))
+                self._syn0 = z["syn0"]
+                self._syn1 = z["syn1"]
+                # vocab is stored in row order, so position == row in syn0/syn1.
+                self._index = {w: i for i, w in enumerate(z["vocab"])}
+                self._window = int(z["window"])
+                self._cbow_mean = int(z["cbow_mean"])
+                self._code = np.split(
+                    z["code_flat"], np.cumsum(z["code_len"])[:-1]
+                )
+                self._point = np.split(
+                    z["point_flat"], np.cumsum(z["point_len"])[:-1]
+                )
+                self._log_table = _log_sigmoid_table()
+                self._enabled = True
+            except Exception as e:
+                raise RuntimeError(
+                    "The sandhi split scorer failed to load, so splits cannot be "
+                    "ranked by DCS likelihood. Splitting would still run, but would "
+                    "silently produce worse splits, so this is fatal instead. "
+                    "Check that sentencepiece is installed and that the splitter's "
+                    "data files (sentencepiece.model, w2v.npz) shipped with the "
+                    f"package. Underlying error: {e}"
+                ) from e
         return True
 
     def _score_pieces(self, pieces) -> float:

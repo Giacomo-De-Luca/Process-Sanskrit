@@ -103,6 +103,7 @@ import itertools
 import pickle
 import logging
 import datetime
+import threading
 from zipfile import ZipFile
 from .sanskrit_base import SanskritNormalizedString, outputctx
 from .data_manager import data_file_path
@@ -124,6 +125,8 @@ class Sandhi(object):
         """
         self.forward = None
         self.backward = None
+        self._forward_load_lock = threading.Lock()
+        self._backward_load_lock = threading.Lock()
         self.logger = logger or logging.getLogger(__name__)
 
     @staticmethod
@@ -135,16 +138,22 @@ class Sandhi(object):
 
     def _load_forward(self):
         if self.forward is None:
-            self.forward = self._load_rules_pickle('sandhi_forward.pkl')
-            keys = self.forward.keys()
-            self.lc_len_max = max(len(k[0]) for k in keys)
-            self.rc_len_max = max(len(k[1]) for k in keys)
+            with self._forward_load_lock:
+                if self.forward is None:
+                    forward = self._load_rules_pickle('sandhi_forward.pkl')
+                    keys = forward.keys()
+                    self.lc_len_max = max(len(k[0]) for k in keys)
+                    self.rc_len_max = max(len(k[1]) for k in keys)
+                    self.forward = forward
 
     def _load_backward(self):
         if self.backward is None:
-            self.backward = self._load_rules_pickle('sandhi_backward.pkl')
-            keys = self.backward.keys()
-            self.after_len_max = max(len(k) for k in keys)
+            with self._backward_load_lock:
+                if self.backward is None:
+                    backward = self._load_rules_pickle('sandhi_backward.pkl')
+                    keys = backward.keys()
+                    self.after_len_max = max(len(k) for k in keys)
+                    self.backward = backward
 
     def join(self, first_in, second_in):
         """

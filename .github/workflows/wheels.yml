@@ -1,0 +1,214 @@
+name: Wheel builds
+
+on:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - "LICENSE.md"
+      - "THIRD_PARTY_NOTICES.md"
+      - "MANIFEST.in"
+      - "README.md"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - "rust/**"
+      - "tools/generate_rust_third_party_notices.py"
+      - "tests/test_rust_third_party_notices.py"
+      - "tests/test_splitter_backends.py"
+      - "tests/datasets/sanskrit_compounds_benchmark.json"
+      - "tests/datasets/sanskrit_compounds_benchmark2.json"
+      - "process_sanskrit/splitter/**"
+      - ".github/workflows/wheels.yml"
+  pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - "LICENSE.md"
+      - "THIRD_PARTY_NOTICES.md"
+      - "MANIFEST.in"
+      - "README.md"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - "rust/**"
+      - "tools/generate_rust_third_party_notices.py"
+      - "tests/test_rust_third_party_notices.py"
+      - "tests/test_splitter_backends.py"
+      - "tests/datasets/sanskrit_compounds_benchmark.json"
+      - "tests/datasets/sanskrit_compounds_benchmark2.json"
+      - "process_sanskrit/splitter/**"
+      - ".github/workflows/wheels.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wheels-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build ${{ matrix.artifact }} wheel
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            artifact: linux-x86-64
+          - os: macos-15-intel
+            arch: x86_64
+            artifact: macos-x86-64
+          - os: macos-latest
+            arch: arm64
+            artifact: macos-arm64
+          - os: windows-latest
+            arch: AMD64
+            artifact: windows-x86-64
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install Rust on native build hosts
+        if: runner.os != 'Linux'
+        run: |
+          rustup toolchain install 1.83.0 --profile minimal
+          rustup default 1.83.0
+
+      - name: Build abi3 wheel
+        uses: pypa/cibuildwheel@v4.1.0
+        env:
+          CIBW_ARCHS: ${{ matrix.arch }}
+        with:
+          package-dir: .
+          output-dir: wheelhouse
+
+      - name: Check wheel ABI tag and compressed size
+        shell: bash
+        run: |
+          set -- wheelhouse/*.whl
+          [[ "$#" -eq 1 ]]
+          wheel="$1"
+          [[ "$(basename "$wheel")" == *-cp39-abi3-* ]]
+          [[ "$(wc -c < "$wheel")" -lt 52428800 ]]
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: wheel-${{ matrix.artifact }}
+          path: wheelhouse/*.whl
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
+
+  smoke:
+    name: Smoke ${{ matrix.platform.artifact }} on Python ${{ matrix.python-version }}
+    needs: build
+    runs-on: ${{ matrix.platform.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12", "3.14"]
+        platform:
+          - os: ubuntu-latest
+            artifact: linux-x86-64
+          - os: macos-15-intel
+            artifact: macos-x86-64
+          - os: macos-latest
+            artifact: macos-arm64
+          - os: windows-latest
+            artifact: windows-x86-64
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Download wheel
+        uses: actions/download-artifact@v6
+        with:
+          name: wheel-${{ matrix.platform.artifact }}
+          path: wheelhouse
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Audit checked Rust dependency notices
+        if: matrix.platform.artifact == 'linux-x86-64' && matrix.python-version == '3.12'
+        run: >-
+          uv run --no-project python -m unittest
+          tests.test_rust_third_party_notices
+
+      - name: Create isolated smoke directory
+        shell: bash
+        run: mkdir -p smoke
+
+      - name: Install wheel and dependencies
+        shell: bash
+        working-directory: smoke
+        run: |
+          uv venv .smoke-venv --python "${{ matrix.python-version }}"
+          uv pip install --python .smoke-venv ../wheelhouse/*.whl
+          uv pip check --python .smoke-venv
+
+      - name: Import native extension and split canonical input
+        shell: bash
+        working-directory: smoke
+        run: >-
+          uv run --no-project --python .smoke-venv python -c
+          "import hashlib;
+          import importlib.metadata as metadata;
+          import importlib.resources as resources;
+          import process_sanskrit as ps;
+          from pathlib import Path;
+          from process_sanskrit.splitter import Parser, _native;
+          distribution = metadata.distribution('process-sanskrit');
+          package_metadata = distribution.metadata;
+          assert package_metadata['License-Expression'] == 'CC-BY-NC-ND-4.0';
+          license_files = package_metadata.get_all('License-File') or [];
+          metadata_required = ('LICENSE.md', 'THIRD_PARTY_NOTICES.md', 'LICENSE.upstream', 'LICENSE.sentencepiece', 'LICENSE.protobuf-lite', 'LICENSE.darts-clone', 'NOTICE.md');
+          assert all(any(path.endswith(name) for path in license_files) for name in metadata_required);
+          notice_entry = next(path for path in distribution.files or [] if str(path).endswith('THIRD_PARTY_NOTICES.md'));
+          notice = distribution.locate_file(notice_entry).read_text(encoding='utf-8');
+          lock_digest = hashlib.sha256(Path('../Cargo.lock').read_bytes()).hexdigest();
+          assert f'Cargo.lock SHA-256: `{lock_digest}`' in notice;
+          assert '| `pyo3` |' in notice and '| `cc` |' in notice;
+          splitter_files = resources.files('process_sanskrit.splitter');
+          splitter_required = ('LICENSE.upstream', 'LICENSE.sentencepiece', 'LICENSE.protobuf-lite', 'LICENSE.darts-clone', 'NOTICE.md');
+          assert all(splitter_files.joinpath(name).is_file() for name in splitter_required);
+          assert any(part.lower() == 'site-packages' for part in Path(ps.__file__).parts), ps.__file__;
+          assert ps.transliterate('rāmaḥ', 'devanagari') == 'रामः';
+          assert _native.ASSET_SCHEMA_VERSION == 1;
+          assert _native.SENTENCEPIECE_VERSION == '0.2.1';
+          assert _native.BUILD_PROFILE == 'release';
+          result = Parser(input_encoding='slp1', output_encoding='slp1').split('astyuttarasyAMdiSi', limit=1);
+          assert result and len(result) == 1;
+          assert [token.canonical() for token in result[0].split] == ['asti', 'uttarasyAm', 'diSi']"
+
+      - name: Run installed-wheel backend contracts
+        shell: bash
+        working-directory: smoke
+        run: >-
+          uv run --no-project --python .smoke-venv python
+          ../tests/test_splitter_backends.py
+
+      - name: Run installed-wheel complex-compound differential
+        if: matrix.platform.artifact == 'linux-x86-64' && matrix.python-version == '3.12'
+        shell: bash
+        working-directory: smoke
+        env:
+          PROCESS_SANSKRIT_FULL_NATIVE_PARITY: "1"
+        run: >-
+          uv run --no-project --python .smoke-venv python
+          ../tests/test_splitter_backends.py
+          NativeBackendTests.test_all_complex_compounds_match

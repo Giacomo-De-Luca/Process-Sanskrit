@@ -1,8 +1,13 @@
 # The sandhi splitter
 
-Process-Sanskrit splits sandhi with a vendored, reduced copy of
+Process-Sanskrit retains a vendored, reduced copy of
 [kmadathil/sanskrit_parser](https://github.com/kmadathil/sanskrit_parser) v0.2.6
-(MIT), living in [`process_sanskrit/splitter/`](../process_sanskrit/splitter/).
+(MIT) as its Python reference implementation. The normal runtime is now the
+Rust backend behind the same `Parser.split()` API. Backend architecture,
+selection, build requirements, native assets, and Rust differential validation
+are documented in
+[`rust-splitter.md`](rust-splitter.md).
+
 Before v1.1.0 we depended on the published `sanskrit-parser` package instead.
 
 This document explains what changed, why, and — most importantly — the two places
@@ -30,11 +35,11 @@ Depending on the package to reach that one method cost:
 `DhatuWrapper` (tinydb) and of the 33 MB stems-and-tags pickle. Dropping it removes
 most of the code *and* most of the data.
 
-## What the splitter actually needs
+## What the Python reference actually needs
 
 Three things, and nothing else:
 
-| need | how upstream does it | how we do it |
+| need | how upstream does it | how the Python reference does it |
 |---|---|---|
 | sandhi rules | `sandhi_rules.zip` | same file, verbatim |
 | a **validity oracle** — "is this string a real Sanskrit word form?" | 2 sqlite DBs + a 33 MB pickle, behind the `sanskrit_util` ORM | one marisa-trie |
@@ -44,7 +49,10 @@ Splitting only ever asks *is this a word*. It never asks *what are its tags* —
 is `parse()`'s question. Upstream answers the first by way of the second, which is
 why it carries so much machinery.
 
-Result: **88.9 MB → 22.7 MB**, **44 → 27 packages**, and splitting is ~1.5× faster.
+That original Python vendoring reduced the data from **88.9 MB → 22.7 MB** and
+the dependency set from **44 → 27 packages**; its measured splitter speedup was
+about 1.5×. These figures describe the Python reference migration, not the Rust
+port.
 
 ## The two things that could silently break
 
@@ -91,7 +99,7 @@ Writing the mathematically-correct version instead shifts every score by
 ~0.07 per token. That is more than enough to reorder near-tied candidates and change
 which split wins. If you touch `scorer.py`, run the parity test.
 
-## Guarantees, and how to check them
+## Python-reference guarantees, and how to check them
 
 Verified against the real `sanskrit_parser` **with gensim enabled** (the correctly
 configured upstream, not the degraded one):
@@ -105,11 +113,16 @@ The parity tests are skipped by default — the whole point is not to depend on
 upstream — so to actually run them:
 
 ```bash
-pip install sanskrit-parser==0.2.6 gensim sentencepiece
-python -m unittest tests.test_splitter_parity
+uv pip install sanskrit-parser==0.2.6 gensim sentencepiece
+PROCESS_SANSKRIT_SPLITTER_BACKEND=python \
+  uv run python -m unittest tests.test_splitter_parity
 ```
 
-## Scoring is no longer optional
+These guarantees establish the Python oracle. They do not, by themselves,
+establish Rust parity; use the differential checks in
+[`rust-splitter.md`](rust-splitter.md) for that.
+
+## Scoring support is no longer optional
 
 This is a **behaviour change**, and it is a fix.
 
@@ -127,17 +140,22 @@ The degradation is not subtle:
 | unscored (the old default) | `['astī', 'uttarasyām', 'di', 'ṣi']` ✗ |
 | scored | `['asti', 'uttarasyām', 'di', 'ṣi']` ✓ |
 
-`numpy` and `sentencepiece` are now hard dependencies and scoring is unconditional.
-A scorer that cannot load is a **broken install, not a valid configuration**, so it
-raises `RuntimeError` rather than falling back.
+Scoring is installed and enabled by default in both backends. The explicit
+`Parser(score=False)` API remains available for compatibility and diagnostics;
+it is not an automatic response to a missing model. The native extension
+statically links SentencePiece and reads `scorer.bin`; the Python reference
+uses the hard runtime dependencies `numpy` and `sentencepiece`. When scoring is
+requested, a scorer that cannot load is a **broken install, not a valid
+configuration**, so either backend raises instead of falling back to length
+ranking.
 
-## Regenerating the data
+## Regenerating the Python reference data
 
 `splitter/data/` is committed. Rebuild it only if upstream's data changes:
 
 ```bash
-pip install sanskrit-parser==0.2.6 gensim sentencepiece marisa-trie
-python tools/build_splitter_data.py
+uv pip install sanskrit-parser==0.2.6 gensim sentencepiece marisa-trie
+uv run python tools/build_splitter_data.py --upstream
 ```
 
 | file | size | replaces |
@@ -147,7 +165,10 @@ python tools/build_splitter_data.py
 | `sandhi_rules.zip` | 3.0 MB | verbatim |
 | `sentencepiece.model` | 0.4 MB | verbatim |
 
-Then re-run the parity suite above. Do not hand-edit these files.
+Then regenerate the native format and run both reference and backend parity
+suites. The normal native export path does not need upstream packages; see
+[`rust-splitter.md`](rust-splitter.md#native-resource-contract-and-regeneration). Do not
+hand-edit generated files.
 
 ## Layout
 
@@ -155,7 +176,8 @@ Then re-run the parity suite above. Do not hand-edit these files.
 process_sanskrit/splitter/
 ├── NOTICE.md          provenance, module-by-module
 ├── LICENSE.upstream   sanskrit_parser's MIT licence
-├── api.py             Parser.split() — the only public entry point
+├── api.py             public Parser.split() facade and Split objects
+├── backends.py        strict process-wide Rust/Python selection
 ├── sandhi_analyzer.py drives splitting (tagging removed)
 ├── datastructures.py  SandhiGraph  (VakyaGraph dropped: 1,373 → 187 lines)
 ├── lookup.py          the trie validity oracle
@@ -163,7 +185,10 @@ process_sanskrit/splitter/
 ├── sandhi.py          sandhi rule application
 ├── sanskrit_base.py   SanskritString / transliteration
 ├── normalization.py   input normalisation
-└── data/              forms.trie, w2v.npz, sandhi_rules.zip, sentencepiece.model
+├── _native.*          generated private PyO3 extension (do not commit locally)
+└── data/
+    ├── forms.trie, w2v.npz, sandhi_rules.zip, sentencepiece.model
+    └── native/        verified FST/binary assets for the Rust backend
 ```
 
 Upstream credit remains with Karthik Madathil and the sanskrit_parser contributors;

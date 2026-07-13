@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "generator": {
+    "name": "process-sanskrit-resource-builder",
+    "version": "1.1.0"
+  },
+  "sources": {
+    "code_data": {
+      "bytes": 114984,
+      "sha256": "ceffe852f9bffba40f16d66c5a7ba1439a0955531d01bf28bff188d500f5d3b2"
+    },
+    "code_offsets": {
+      "bytes": 64096,
+      "sha256": "ca56bc98f6a8559b123b10802da6b76adb95bcf8cbd179644c2067d0bee81d37"
+    },
+    "forms": {
+      "bytes": 68501492,
+      "sha256": "fe93703c9b5a0592e4c20e305fcb8b81808bf4ae34c6003b4b99f2c1c960bbb4"
+    },
+    "log_table": {
+      "bytes": 4128,
+      "sha256": "9eb9f08545e54f1cd9bc6e4aff7655f8770e512956c95461747246dfd7a8ef47"
+    },
+    "point_data": {
+      "bytes": 459552,
+      "sha256": "ec8bd1515d30f79580668ddff4d6b4abeec8cbd2714b84652a7e3edec2ba6c47"
+    },
+    "point_offsets": {
+      "bytes": 64096,
+      "sha256": "ca56bc98f6a8559b123b10802da6b76adb95bcf8cbd179644c2067d0bee81d37"
+    },
+    "sandhi_rules": {
+      "bytes": 15486595,
+      "sha256": "7747981dd1fbdad0a13af20f8b5cce0b0a7075430c6584307cc46fe456d93ea7"
+    },
+    "scorer_metadata": {
+      "bytes": 91072,
+      "sha256": "cf747c155101d3a36118760f9ea82043db782851398ec9685b415b5b9c3e2931"
+    },
+    "sentencepiece_model": {
+      "bytes": 376653,
+      "sha256": "521f3be47eabe4b2a0b010a1a488302f787131d42ed29c1169a0b205cdfe0550"
+    },
+    "syn0": {
+      "bytes": 3198128,
+      "sha256": "195d27c7ca29137c8a0eae7620ae5a1c7f54cd3d42957cff732bdff99f9ed6f1"
+    },
+    "syn1": {
+      "bytes": 3198128,
+      "sha256": "c50712a6cf9ccb08cd9160ba7e2b3c4b672ce9585a0301b234299b2eb48b8ee5"
+    }
+  },
+  "assets": {
+    "forms.fst": {
+      "format": "fst-set-v1",
+      "bytes": 2551685,
+      "sha256": "8dd81dd09160f76c8c52ddf31e709f62260cb0941022978a34945122d8bb66c2"
+    },
+    "sandhi_after.fst": {
+      "format": "fst-map-v1",
+      "bytes": 15341,
+      "sha256": "ed87f1390fbb44e0f752a988a00034db80eb7243e558793ed1120480bb466900"
+    },
+    "sandhi_variants.bin": {
+      "format": "process-sanskrit-sandhi-variants-v1",
+      "bytes": 5786437,
+      "sha256": "753f5977dedbccc0eb077deaf80ccb438a65389e6fa0d940bf355ea5fb736c78"
+    },
+    "scorer.bin": {
+      "format": "process-sanskrit-scorer-v1",
+      "bytes": 7134496,
+      "sha256": "fcb01ce925f2a2f5a5731339f316bc007085c3fad5042270e0230874420e7b94"
+    },
+    "scorer_vocab.fst": {
+      "format": "fst-map-v1",
+      "bytes": 61446,
+      "sha256": "37ea60aa0bb36c5e9a903209d1093f739d093e152ec9f714e393b93b7ef1f01a"
+    },
+    "sentencepiece.model": {
+      "format": "sentencepiece-model-protobuf",
+      "bytes": 376653,
+      "sha256": "521f3be47eabe4b2a0b010a1a488302f787131d42ed29c1169a0b205cdfe0550"
+    }
+  },
+  "counts": {
+    "forms": 5474379,
+    "sandhi_keys": 197792,
+    "sandhi_variants": 350937,
+    "word2vec_vocab": 7995,
+    "sentencepiece_vocab": 8000
+  },
+  "scorer": {
+    "vector_dimension": 100,
+    "window": 5,
+    "cbow_mean": true,
+    "log_table_entries": 1000
+  }
+}

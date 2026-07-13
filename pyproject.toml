@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "requests"]
+requires = ["setuptools>=77", "setuptools-rust>=1.12,<2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,13 @@ name = "process-sanskrit"
 version = "1.1.0"
 description = "Process-Sanskrit is python library for automatic Sanskrit text annotation and inflected dictionary search"
 readme = "README.md"
+license = "CC-BY-NC-ND-4.0"
+license-files = [
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md",
+    "process_sanskrit/splitter/LICENSE.*",
+    "process_sanskrit/splitter/NOTICE.md",
+]
 authors = [
     {name = "Giacomo De Luca", email = "giacomo.deluca@hotmail.it"}
 ]
@@ -24,7 +31,7 @@ dependencies = [
     "networkx>=2.5",
     "marisa-trie>=1.0",
     "numpy>=1.21",
-    "sentencepiece>=0.1.95",
+    "sentencepiece>=0.1.95,<0.3",
 ]
 
 [project.optional-dependencies]
@@ -42,7 +49,15 @@ update-ps-database = "process_sanskrit.setup.updateDB:update_database"
 
 [tool.setuptools.package-data]
 "process_sanskrit.resources" = ["*.json", "*.csv", "*.tsv", "*.xlsx"]
-"process_sanskrit.splitter" = ["LICENSE.upstream", "NOTICE.md", "data/*"]
+"process_sanskrit.splitter" = [
+    "LICENSE.upstream",
+    "LICENSE.sentencepiece",
+    "LICENSE.protobuf-lite",
+    "LICENSE.darts-clone",
+    "NOTICE.md",
+    "data/*",
+    "data/native/*",
+]
 "tests" = ["*.py", "*.json", "*.txt"]
 
 [tool.setuptools]
@@ -53,3 +68,30 @@ include-package-data = true
 # breaks the build with "Multiple top-level packages discovered".
 [tool.setuptools.packages.find]
 include = ["process_sanskrit*"]
+
+[[tool.setuptools-rust.ext-modules]]
+target = "process_sanskrit.splitter._native"
+path = "rust/python/Cargo.toml"
+binding = "PyO3"
+debug = false
+optional = false
+quiet = true
+cargo-manifest-args = ["--locked"]
+
+[tool.cibuildwheel]
+build = "cp39-*"
+skip = "*-musllinux*"
+build-frontend = "build"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64"]
+manylinux-x86_64-image = "manylinux2014"
+before-all = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0"
+environment = { PATH = "$HOME/.cargo/bin:$PATH" }
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+environment = { MACOSX_DEPLOYMENT_TARGET = "11.0" }
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]

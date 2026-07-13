@@ -16,18 +16,24 @@ it agrees with upstream's CombinedWrapper.valid() on every query a real corpus
 generates.
 """
 
+import threading
+
 import marisa_trie
 
 from .data_manager import data_file_path
 
 _trie = None
+_trie_lock = threading.Lock()
 
 
 def _forms():
     global _trie
     if _trie is None:
-        _trie = marisa_trie.Trie()
-        _trie.load(data_file_path("forms.trie"))
+        with _trie_lock:
+            if _trie is None:
+                trie = marisa_trie.Trie()
+                trie.load(data_file_path("forms.trie"))
+                _trie = trie
     return _trie
 
 

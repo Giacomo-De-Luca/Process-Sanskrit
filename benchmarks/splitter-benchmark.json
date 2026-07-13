@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "backends": [
+    "python",
+    "rust"
+  ],
+  "reference_backend": "python",
+  "backend_environment_variable": "PROCESS_SANSKRIT_SPLITTER_BACKEND",
+  "datasets": [
+    {
+      "path": "tests/datasets/sanskrit_compounds_benchmark.json",
+      "categories": [
+        "long",
+        "medium",
+        "short",
+        "very_short"
+      ]
+    },
+    {
+      "path": "tests/datasets/sanskrit_compounds_benchmark2.json",
+      "categories": [
+        "long",
+        "medium",
+        "short"
+      ]
+    }
+  ],
+  "extra_cases": [
+    {
+      "text": "pṛthagjanatvamityevamādibhedasamādānāḥ",
+      "category": "requested_complex",
+      "source": "user-request",
+      "warm_repetitions": 20
+    }
+  ],
+  "length_buckets": [
+    {
+      "name": "0-9",
+      "min_length": 0,
+      "max_length": 9
+    },
+    {
+      "name": "10-19",
+      "min_length": 10,
+      "max_length": 19
+    },
+    {
+      "name": "20-39",
+      "min_length": 20,
+      "max_length": 39
+    },
+    {
+      "name": "40-79",
+      "min_length": 40,
+      "max_length": 79
+    },
+    {
+      "name": "80+",
+      "min_length": 80
+    }
+  ],
+  "splitter": {
+    "limit": 10,
+    "score": true,
+    "input_encoding": "iast",
+    "output_encoding": "iast"
+  },
+  "execution": {
+    "warm_repetitions": 2,
+    "cold_repetitions": 7,
+    "warmup_cases": [
+      "yoga"
+    ],
+    "cold_case": "pṛthagjanatvamityevamādibhedasamādānāḥ",
+    "require_release_native": true
+  },
+  "correctness": {
+    "fail_on_mismatch": true
+  },
+  "output": {
+    "path": "build/benchmarks/splitter-benchmark.json",
+    "include_cases": true
+  }
+}

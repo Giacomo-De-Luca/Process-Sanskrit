@@ -22,6 +22,7 @@ from sqlalchemy.pool import QueuePool
 
 from process_sanskrit.utils.analysisCache import (
     ANALYSIS_ALGORITHM_VERSION,
+    STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
     AnalysisCache,
     CacheConfig,
     CacheConfigurationError,
@@ -223,6 +224,60 @@ class AnalysisCacheTests(unittest.TestCase):
         self.assertIsNone(
             self.cache.get(self.key(lexicon_fingerprint="lexicon-v2"))
         )
+
+    def test_reopening_evicts_only_superseded_algorithm_versions(self):
+        self.cache.store(self.record())
+        self.cache.store(
+            self.record(
+                key=self.key(
+                    normalized_input="statistical-current",
+                    analysis_kind="statistical",
+                    algorithm_signature=STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
+                )
+            )
+        )
+        self.cache.store(
+            self.record(
+                key=self.key(
+                    normalized_input="stale",
+                    algorithm_signature="hybrid-morphology-v1",
+                )
+            )
+        )
+        self.cache.store(
+            self.record(
+                key=self.key(
+                    normalized_input="legacy-statistical",
+                    analysis_kind="statistical",
+                    algorithm_signature="hybrid-morphology-v1",
+                )
+            )
+        )
+        self.cache.close()
+
+        reopened = AnalysisCache(self.config, clock=self.clock)
+        self.addCleanup(reopened.close)
+        with reopened.engine.connect() as connection:
+            active_pairs = sorted(
+                connection.execute(
+                    select(
+                        analysis_cache_table.c.analysis_kind,
+                        analysis_cache_table.c.algorithm_signature,
+                    )
+                )
+                .all()
+            )
+
+        self.assertEqual(
+            active_pairs,
+            sorted(
+                [
+                    ("hybrid_morphology", ANALYSIS_ALGORITHM_VERSION),
+                    ("statistical", STATISTICAL_ANALYSIS_ALGORITHM_VERSION),
+                ]
+            ),
+        )
+        self.assertIsNotNone(reopened.get(self.key()))
 
     def test_disabled_cache_never_creates_a_file(self):
         disabled_path = self.path.with_name("disabled.sqlite3")
@@ -892,6 +947,68 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         self.assertEqual(second, first)
         self.assertEqual(detailed, (result.split, result.score, result.subscores, result.all_splits))
         self.assertEqual(analysis_mock.call_count, 2)
+
+    def test_attempt_one_ignores_the_legacy_statistical_cache_signature(self):
+        from process_sanskrit.functions.sandhiSplitter import (
+            SplitResult,
+            sandhi_splitter,
+        )
+
+        environment = {
+            "PROCESS_SANSKRIT_CACHE_ENABLED": "true",
+            "PROCESS_SANSKRIT_CACHE_PATH": str(self.cache_path),
+        }
+        legacy_key = CacheKey.from_settings(
+            normalized_input="astyuttarasyāṃdiśi",
+            analysis_kind="statistical",
+            algorithm_signature="hybrid-morphology-v1",
+            lexicon_fingerprint="test-lexicon",
+            settings={"attempts": 1},
+        )
+        corrected = SplitResult(
+            split=["asti", "uttarasyām", "diśi"],
+            score=0.8,
+            subscores={},
+            all_splits=None,
+        )
+        with patch.dict(os.environ, environment, clear=False), patch(
+            "process_sanskrit.utils.analysisCache.lexicon_fingerprint",
+            return_value="test-lexicon",
+        ), patch(
+            "process_sanskrit.functions.sandhiSplitter.analyze_sandhi",
+            return_value=corrected,
+        ) as analysis_mock:
+            cache = get_analysis_cache(force_enabled=True)
+            cache.store(
+                CacheRecord(
+                    key=legacy_key,
+                    raw_input="astyuttarasyāṃdiśi",
+                    split=["astyuttarasyāṃdiśi"],
+                    result_source="statistical",
+                    status="fallback",
+                )
+            )
+            actual = sandhi_splitter(
+                "astyuttarasyāṃdiśi", cached=True, attempts=1
+            )
+
+            corrected_key = CacheKey.from_settings(
+                normalized_input="astyuttarasyāṃdiśi",
+                analysis_kind="statistical",
+                algorithm_signature=STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
+                lexicon_fingerprint="test-lexicon",
+                settings={"attempts": 1},
+            )
+            stored = cache.get(corrected_key)
+
+        self.assertNotEqual(
+            STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
+            "hybrid-morphology-v1",
+        )
+        self.assertEqual(actual, corrected.split)
+        self.assertEqual(analysis_mock.call_count, 1)
+        self.assertIsNotNone(stored)
+        self.assertEqual(stored.split, corrected.split)
 
 
 if __name__ == "__main__":

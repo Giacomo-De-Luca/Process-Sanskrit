@@ -1,6 +1,19 @@
-[package]
-name = "Process-Sanskrit"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+members = [
+    "rust/python",
+    "rust/resource-builder",
+    "rust/splitter-core",
+]
+resolver = "2"
 
-[dependencies]
+[workspace.package]
+version = "1.1.0"
+edition = "2021"
+rust-version = "1.83"
+license = "CC-BY-NC-ND-4.0"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

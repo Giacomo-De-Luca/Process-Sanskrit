@@ -49,7 +49,22 @@ from process_sanskrit.utils.resourcePaths import resolve_configured_path
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v1"
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v2"
+# v2 ranks genuine compound headwords ahead of bare variant-reading pointers.
+# v1 could persist an unsplit fallback for direct `attempts=1` calls because
+# the wrapper mishandled Parser's list return. Keep that stale result contract
+# isolated from the corrected statistical splitter without invalidating hybrid
+# morphology records that never used the broken branch.
+STATISTICAL_ANALYSIS_ALGORITHM_VERSION = "statistical-splitter-v2"
+ACTIVE_ANALYSIS_ALGORITHM_SIGNATURES = (
+    ANALYSIS_ALGORITHM_VERSION,
+    STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
+)
+ANALYSIS_SIGNATURE_BY_KIND = {
+    "hybrid": ANALYSIS_ALGORITHM_VERSION,
+    "hybrid_morphology": ANALYSIS_ALGORITHM_VERSION,
+    "statistical": STATISTICAL_ANALYSIS_ALGORITHM_VERSION,
+}
 _TYPE_TAG = "__process_sanskrit_type__"
 _KEY_COLUMNS = (
     "normalized_input",
@@ -438,6 +453,26 @@ class AnalysisCache:
                 cache_metadata.create_all(connection)
                 if current == 0:
                     connection.exec_driver_sql(f"PRAGMA user_version={SCHEMA_VERSION}")
+
+                signature_column = analysis_cache_table.c.algorithm_signature
+                kind_column = analysis_cache_table.c.analysis_kind
+                superseded_condition = signature_column.not_in(
+                    ACTIVE_ANALYSIS_ALGORITHM_SIGNATURES
+                )
+                for analysis_kind, active_signature in ANALYSIS_SIGNATURE_BY_KIND.items():
+                    superseded_condition |= (kind_column == analysis_kind) & (
+                        signature_column != active_signature
+                    )
+                superseded = connection.execute(
+                    analysis_cache_table.delete().where(superseded_condition)
+                )
+                if superseded.rowcount > 0:
+                    log.info(
+                        "analysis cache: dropped %d record(s) from superseded "
+                        "algorithm versions",
+                        superseded.rowcount,
+                    )
+
                 now = int(self._clock())
                 connection.execute(
                     sqlite_insert(cache_metadata_table)

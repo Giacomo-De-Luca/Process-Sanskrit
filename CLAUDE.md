@@ -58,7 +58,10 @@ python tests/runBenchmarks.py                   # benchmark suite / Yoga Sutra a
 
 ## Releasing
 
-Bumping `version` in `pyproject.toml` and pushing to `main` publishes to PyPI via `.github/workflows/publish.yml`; pushes that do not bump the version publish nothing. See `documentation/publishing.md` — including what must change in the build job once the Rust extension lands (a single universal wheel stops being valid).
+Bump the synchronized versions in `pyproject.toml` and `Cargo.toml`, refresh
+`Cargo.lock` and the generated notices, then push to `main`; unchanged versions
+publish nothing. See `documentation/publishing.md` for the four-platform native
+wheel matrix, sdist and installed-wheel gates, approval flow, and release steps.
 
 ## Architecture
 
@@ -69,9 +72,10 @@ Public API (`process_sanskrit/__init__.py`) exports three functions:
 
 Key layers:
 - `functions/` — the cascading pipeline: `rootAnyWord.py` (stem identification), `inflect.py` (inflection tables), `sandhiSplitter.py` / `hybridSplitter.py` / `compoundAnalysis.py` (splitting), `SQLiteFind.py` (DB queries), `taddhitaDerivation.py` (productive `-tā`/`-tva` abstract nouns), `cleanResults.py` (output shaping), `model_inference.py` / `processBYT5.py` (optional BYT5 path).
-- `splitter/` — **vendored** reduced copy of `kmadathil/sanskrit_parser` v0.2.6 (MIT, see `splitter/NOTICE.md` and `LICENSE.upstream`). Provides `Parser.split()` only. Two deliberate substitutions: a precomputed marisa-trie (`forms.trie`) replaces the sqlite/generative validity oracle, and a numpy scorer replaces gensim — the scorer intentionally reproduces gensim quirks (saturated-term skip, integer-division sigmoid scale); "fixing" them changes which split wins. `tools/build_splitter_data.py` regenerates `splitter/data/` from upstream.
+- `splitter/` — the public split-only facade, the default native Rust backend, and the vendored Python differential reference. See `documentation/rust-splitter.md` for architecture, backend selection, builds, assets, release validation status, and remaining publication work; the original vendoring contract is in `documentation/sandhi-splitter.md`.
 - `utils/` — database session management (`databaseSetup.py`, with `session_scope`/`with_session`/`requires_database` decorators), transliteration, lexical resources, dictionary reference tables.
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
+- Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
 - Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
 - Productive `-tā`/`-tva` abstract nouns (`niṣyandatā`) are reconstructed from their base; see `documentation/taddhita-derivation.md`.
@@ -80,8 +84,8 @@ Key layers:
 
 ## Conventions and cautions
 
-- All internal processing is in IAST; input is auto-transliterated on entry.
-- Do not "modernize" or refactor `splitter/` toward upstream style — it is pinned by `tests/test_splitter_parity.py`; behaviour changes there silently alter split results.
+- Pipeline processing is in IAST, while the private splitter backend boundary uses canonical SLP1 as documented in `documentation/rust-splitter.md`.
+- Do not "modernize" the vendored Python reference modules toward upstream style — they are pinned by `tests/test_splitter_parity.py`; behaviour changes there silently alter split results.
 - The character class in `preprocess` (`process.py`) must keep `-` escaped and last. Folding it back into a range (`*-+`) silently turns `-` into a range operator and strips hyphens, disabling pre-split compounds. Pinned by `tests/test_presplit_options.py`.
 - The recursive `process()` calls inside `handle_special_characters` re-enter the public entry point. Any new parameter added to `process` must also be added to the `forwarded` dict there, or it is silently dropped for wildcard and pre-split input.
 - `process` is optimized for single words; sentences should be split on whitespace by callers.

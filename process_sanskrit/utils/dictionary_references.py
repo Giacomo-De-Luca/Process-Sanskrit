@@ -59,18 +59,25 @@ def _warn_if_stale(connection: sqlite3.Connection, database_path: Path) -> None:
     """
     try:
         missing = WordListBuilder.missing_dictionaries(connection)
+        index_is_current = WordListBuilder.index_is_current(connection)
     except sqlite3.Error:  # pragma: no cover - a database too broken to inspect
         return
-    if not missing:
-        return
-    logger.warning(
-        "The word_list index in %s does not record coverage of: %s. Dictionary "
-        "references may be incomplete for words attested in those dictionaries, "
-        "and words attested only there will not resolve at all. Run "
-        "'update-ps-database' to rebuild the index.",
-        database_path,
-        ", ".join(sorted(missing)),
-    )
+    if missing:
+        logger.warning(
+            "The word_list index in %s does not record coverage of: %s. Dictionary "
+            "references may be incomplete for words attested in those dictionaries, "
+            "and words attested only there will not resolve at all. Run "
+            "'update-ps-database' to rebuild the index.",
+            database_path,
+            ", ".join(sorted(missing)),
+        )
+    elif not index_is_current:
+        logger.warning(
+            "The word_list index in %s predates the current cross-reference stub "
+            "classifier metadata. Compound preference may use legacy results. Run "
+            "'update-ps-database' to rebuild the derived index.",
+            database_path,
+        )
 
 
 def _connection(database_path: Optional[Path] = None) -> sqlite3.Connection:
@@ -117,6 +124,16 @@ def _lookup(word: str) -> Optional[Tuple[str, ...]]:
     return _lookup_for_path(word, get_database_path())
 
 
+@lru_cache(maxsize=None)
+def _stubs_for_path(database_path: Path) -> frozenset:
+    """Load the small derived stub set once for hot compound membership checks."""
+    return frozenset(WordListBuilder.stub_headwords(_connection(database_path)))
+
+
+def _stubs() -> frozenset:
+    return _stubs_for_path(get_database_path())
+
+
 def _reset_reference_state() -> None:
     """Close thread-local state and clear lookups after configuration changes."""
     connection = getattr(_thread_state, "reference_connection", None)
@@ -126,6 +143,7 @@ def _reset_reference_state() -> None:
         if hasattr(_thread_state, attribute):
             delattr(_thread_state, attribute)
     _lookup_for_path.cache_clear()
+    _stubs_for_path.cache_clear()
     reset_database_path_cache()
 
 
@@ -151,6 +169,14 @@ class DictionaryReferences(Mapping):
         return _connection(get_database_path()).execute(
             "SELECT COUNT(*) FROM word_list"
         ).fetchone()[0]
+
+    def is_stub(self, word: str) -> bool:
+        """Return whether a headword is only a bare variant-reading pointer.
+
+        Stubs remain normal dictionary keys and eligible compound fallbacks;
+        callers use this flag only as a preference when genuine cuts compete.
+        """
+        return word in _stubs()
 
 
 DICTIONARY_REFERENCES = DictionaryReferences()

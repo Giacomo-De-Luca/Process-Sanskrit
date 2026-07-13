@@ -23,6 +23,11 @@ build/
 *.egg
 references/*
 
+# Local native-extension build/scratch outputs
+/process_sanskrit/splitter/_native*.so
+/process_sanskrit/splitter/_native*.pyd
+/.sentencepiece_debug.cc
+
 # Database files
 /resources/*.sqlite
 resources/*.sqlite
