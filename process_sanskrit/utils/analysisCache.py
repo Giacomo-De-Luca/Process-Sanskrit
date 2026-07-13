@@ -49,7 +49,12 @@ from process_sanskrit.utils.resourcePaths import resolve_configured_path
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v1"
+## Bump this whenever a change can alter the split or the morphology a given input
+## produces.  It is part of the cache key, so a stale record is otherwise replayed
+## forever and the change silently appears not to have taken effect; records from
+## superseded versions are evicted on open (see AnalysisCache._bootstrap).
+## v2: compound cuts are penalised for landing on a cross-reference stub.
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v2"
 _TYPE_TAG = "__process_sanskrit_type__"
 _KEY_COLUMNS = (
     "normalized_input",
@@ -438,6 +443,28 @@ class AnalysisCache:
                 cache_metadata.create_all(connection)
                 if current == 0:
                     connection.exec_driver_sql(f"PRAGMA user_version={SCHEMA_VERSION}")
+
+                ## A record is only valid for the algorithm that produced it.  The
+                ## signature is part of the cache key, so a superseded record can
+                ## never be *read* back -- but nothing would ever evict it either,
+                ## and the file would accumulate every split every past version of
+                ## the library ever computed.  Drop them on the way in: this is the
+                ## one path that already serializes across workers, and it runs once
+                ## per engine, not per lookup.
+                superseded = connection.execute(
+                    analysis_cache_table.delete().where(
+                        analysis_cache_table.c.algorithm_signature
+                        != ANALYSIS_ALGORITHM_VERSION
+                    )
+                )
+                if superseded.rowcount > 0:
+                    log.info(
+                        "analysis cache: dropped %d record(s) from superseded "
+                        "algorithm versions (current: %s)",
+                        superseded.rowcount,
+                        ANALYSIS_ALGORITHM_VERSION,
+                    )
+
                 now = int(self._clock())
                 connection.execute(
                     sqlite_insert(cache_metadata_table)

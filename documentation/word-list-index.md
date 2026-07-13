@@ -78,6 +78,63 @@ disk, and is slow. Rebuild with `--vacuum`, gzip, upload as the release asset,
 then bump `RELEASE_TAG` in `process_sanskrit/setup/updateDB.py`. Users on the
 old artifact are repaired by `update-ps-database` regardless.
 
+## `word_list_stubs`: headwords that are not words
+
+Being a dictionary key does not make a form a word. Monier-Williams records
+manuscript spellings it does not endorse: the entry exists only to say *"this
+reading is a variant of that one"*. `tanni` heads nothing but
+
+> `tanni` `°nnī` variant reading (varia lectio) for `°nvī`, q.v.
+
+Such a headword is an artifact of the critical apparatus. It cannot occur in a
+text — but it *is* a key, so the compound walk in
+`functions/compoundAnalysis.py` could cut a word on it, and being **longer** than
+the true cut it won the tie:
+
+```
+process("tannirodha", mode="roots")   # "the cessation of that"
+  ->  ['tanni', ('rodha', 'rudh')]    # before: tad + nirodha destroyed
+  ->  ['tad', 'nirodha']              # after
+```
+
+`WordListBuilder` flags these during the rebuild into a `word_list_stubs` table
+(231 headwords), and `evaluate_compound_split` subtracts `STUB_HEADWORD_PENALTY`
+when a cut lands on one. The flag is *derived*, like the index itself.
+
+**A headword qualifies only if every entry for it, in every dictionary, is such a
+pointer.** That quantifier is the whole safety argument: a real word may well
+carry a cross-reference among its entries — `abhipālin` does — and demanding that
+*all* of them be pointers is what keeps it out of the set. A looser rule
+("mentions q.v.") flags 1,549 keys including real words; this one flags 231.
+
+Two properties are deliberate:
+
+- **The stubs stay in the index.** They are penalised, not deleted, so
+  `dict_search("tanni")` still finds it — someone may well look up a spelling
+  they have actually read. The penalty demotes a stub cut from 1.0 to 0.7, still
+  above `dict_word_iterative`'s 0.6 acceptance gate, so a stub can still be
+  matched when nothing else fits. It simply loses to any real word that also
+  fits, whatever their lengths.
+- **The signal is lexical, not morphological.** The tempting shortcut — penalise
+  a first member that heads no inflection table — *cannot work*, and the near miss
+  is worth recording:
+
+  | | longer cut | shorter cut | which inflects | who must win |
+  | --- | --- | --- | --- | --- |
+  | `tannirodha` | `tanni` (5) | `tan` (3) | only `tan` | **shorter** |
+  | `gacchatā` | `gacchat` (7) | `gaccha` (6) | only `gaccha` | **longer** |
+
+  The two are the same shape, so any weight large enough to beat `tanni` also
+  beats `gacchat` and hands the participle `gacchatā` ("by the one going") to
+  `gaccha` + `tā`. `gacchat` and `niṣyanda` are real words that merely lack a
+  paradigm; `tanni` is not a word at all. Pinned by
+  `tests/test_compound_preference.py` and `tests/test_taddhita_derivation.py`.
+
+An index predating the stub table reads as stale and is rebuilt; a database that
+still lacks the table degrades to "no stubs known" rather than failing a lookup.
+Changing which cuts are penalised changes split results, so it requires a bump of
+`ANALYSIS_ALGORITHM_VERSION` — see [local-cache.md](local-cache.md).
+
 ## Staleness is reported, not hidden
 
 `word_list_sources` records which dictionaries the current index was built from,

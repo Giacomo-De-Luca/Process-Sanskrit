@@ -82,6 +82,25 @@ overwriting an old prediction. In `keep_all` mode this creates a useful
 de-duplicated prediction corpus, but it is not ground-truth training data and
 does not preserve query frequency or every original-script variant.
 
+## Algorithm version and eviction
+
+`ANALYSIS_ALGORITHM_VERSION` must be bumped by any change that can alter the split
+or the morphology a given input produces. It is part of the cache key, so without
+a bump a stale record is replayed forever and the change silently appears not to
+have taken effect — a splitter fix will pass its unit tests and still be invisible
+through `process()`.
+
+Because a superseded record can never be read back, nothing else would ever delete
+it, and the file would accumulate the output of every version of the splitter ever
+shipped. So records whose `algorithm_signature` is not the current one are deleted
+when the cache is opened, inside the same `BEGIN IMMEDIATE` that bootstraps the
+schema (once per engine, already serialized across workers). Bumping the version
+therefore also clears the old rows; the cache simply recomputes them.
+
+This is deliberately keyed on the algorithm signature alone, not on the lexicon
+fingerprint: swapping the lexicon back and forth (an externally provisioned
+database) should not throw away the other lexicon's work.
+
 Payloads use a strict tagged-JSON format that preserves list/tuple distinctions;
 pickle is never used. Schema migrations use SQLite `user_version`, independently
 from the analysis signature used for result invalidation.

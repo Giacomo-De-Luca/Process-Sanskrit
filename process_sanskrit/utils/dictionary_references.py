@@ -117,6 +117,20 @@ def _lookup(word: str) -> Optional[Tuple[str, ...]]:
     return _lookup_for_path(word, get_database_path())
 
 
+@lru_cache(maxsize=None)
+def _stubs_for_path(database_path: Path) -> frozenset:
+    """The flagged non-words, held in memory: a few hundred keys, read once.
+
+    Small enough to load whole, and every compound cut consults it, so a query per
+    lookup would be pure overhead.
+    """
+    return frozenset(WordListBuilder.stub_headwords(_connection(database_path)))
+
+
+def _stubs() -> frozenset:
+    return _stubs_for_path(get_database_path())
+
+
 def _reset_reference_state() -> None:
     """Close thread-local state and clear lookups after configuration changes."""
     connection = getattr(_thread_state, "reference_connection", None)
@@ -126,6 +140,7 @@ def _reset_reference_state() -> None:
         if hasattr(_thread_state, attribute):
             delattr(_thread_state, attribute)
     _lookup_for_path.cache_clear()
+    _stubs_for_path.cache_clear()
     reset_database_path_cache()
 
 
@@ -151,6 +166,16 @@ class DictionaryReferences(Mapping):
         return _connection(get_database_path()).execute(
             "SELECT COUNT(*) FROM word_list"
         ).fetchone()[0]
+
+    def is_stub(self, word: str) -> bool:
+        """Whether this headword is an apparatus artefact rather than a word.
+
+        Such a headword stays in the index -- it is still worth looking up a
+        spelling one has actually read -- but it is not something a text can be
+        built out of, so the compound splitter must not cut a word on it.  See
+        ``utils/wordListBuilder.py`` for what qualifies.
+        """
+        return word in _stubs()
 
 
 DICTIONARY_REFERENCES = DictionaryReferences()

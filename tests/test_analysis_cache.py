@@ -224,6 +224,39 @@ class AnalysisCacheTests(unittest.TestCase):
             self.cache.get(self.key(lexicon_fingerprint="lexicon-v2"))
         )
 
+    def test_reopening_evicts_records_from_superseded_algorithm_versions(self):
+        ## the signature is part of the key, so a stale record is already
+        ## unreadable -- but nothing would ever delete it, and the file would grow
+        ## a full copy of the output of every version of the splitter ever shipped
+        self.cache.store(self.record())
+        self.cache.store(
+            self.record(
+                key=self.key(
+                    normalized_input="stale",
+                    algorithm_signature="hybrid-morphology-v0",
+                )
+            )
+        )
+        with self.cache.engine.connect() as connection:
+            self.assertEqual(
+                connection.scalar(
+                    select(func.count()).select_from(analysis_cache_table)
+                ),
+                2,
+            )
+        self.cache.close()
+
+        reopened = AnalysisCache(self.config, clock=self.clock)
+        self.addCleanup(reopened.close)
+        with reopened.engine.connect() as connection:
+            signatures = connection.execute(
+                select(analysis_cache_table.c.algorithm_signature)
+            ).scalars().all()
+
+        self.assertEqual(signatures, [ANALYSIS_ALGORITHM_VERSION])
+        ## and the current record is still served
+        self.assertIsNotNone(reopened.get(self.key()))
+
     def test_disabled_cache_never_creates_a_file(self):
         disabled_path = self.path.with_name("disabled.sqlite3")
         cache = AnalysisCache(

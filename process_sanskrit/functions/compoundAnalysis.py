@@ -32,6 +32,21 @@ SANSKRIT_ENDINGS: Dict[str, EndingProperties] = {
     #'ika': EndingProperties(weight=0.5, type='nominal')
 }
 
+## What a cut costs for landing on a headword that is not a word: a Monier-Williams
+## apparatus entry whose whole body says "this spelling is a variant reading of
+## that one" (tanni -> "°nnī variant reading for °nvī, q.v.").  Being a dictionary
+## key, such a form used to score exactly as well as a real one, and because it is
+## *longer* than the true cut it won the tie: tannirodha ("the cessation of that")
+## came back as tanni + rodha instead of tad + nirodha.
+## Sized to demote, not to forbid.  A penalised cut still clears the 0.6 gate in
+## dict_word_iterative on full evidence (1.0 - 0.3), so a stub can still be matched
+## when nothing else fits -- someone may genuinely have typed the variant spelling.
+## It simply loses to any real word that also fits, whatever their lengths.
+## Note this is NOT "the first part has no inflection table": gacchat and niṣyanda
+## have none either and are perfectly real, and penalising them would hand gacchatā
+## to gaccha + tā.  The signal is lexical, not morphological.
+STUB_HEADWORD_PENALTY = 0.3
+
 def evaluate_compound_split(
     first_part: str,
     remaining: str,
@@ -70,7 +85,15 @@ def evaluate_compound_split(
                     if debug:
                         print(f"Found base word {base_word} for {first_part}, "
                               f"penalizing by {properties.weight}")
-    
+
+        ## the key exists, but the dictionary only records the spelling to reject
+        ## it -- see STUB_HEADWORD_PENALTY
+        if DICTIONARY_REFERENCES.is_stub(first_part):
+            score -= STUB_HEADWORD_PENALTY
+            if debug:
+                print(f"{first_part} is a cross-reference stub, "
+                      f"penalizing by {STUB_HEADWORD_PENALTY}")
+
     # Check if remaining part forms valid words
     ## an empty remainder means first_part IS the whole word: there is nothing
     ## left to justify, so it counts as satisfied.  Otherwise an exact headword

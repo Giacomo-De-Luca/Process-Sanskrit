@@ -15,6 +15,7 @@ adding a dictionary to the database and rebuilding is enough to index it.
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from collections import defaultdict
 from dataclasses import dataclass
@@ -28,6 +29,7 @@ class WordListReport:
     dictionaries: List[str]
     headwords: int
     dropped_tables: List[str]
+    stub_headwords: int = 0
 
 
 class WordListBuilder:
@@ -45,8 +47,27 @@ class WordListBuilder:
     INDEX_TABLE = "word_list"
     INDEX_COLUMNS = frozenset({"keys_iast", "dict_names"})
 
+    #: Headwords that are not words: see ``_is_stub_body``.  Kept beside the index
+    #: rather than inside it, so a database built by an older version simply has no
+    #: stub table and behaves as it always did instead of failing a lookup.
+    STUBS_TABLE = "word_list_stubs"
+
     #: An unused byte-identical copy of ``word_list`` shipped in v1.0.2.
     LEGACY_TABLES = ("dictionary_cross_references",)
+
+    #: Monier-Williams records manuscript spellings it does not endorse: the entry
+    #: exists only to say "this reading is a variant of that one".  Such a headword
+    #: is an artefact of the apparatus, not a word a text can contain -- ``tanni``
+    #: heads nothing but "°nnī variant reading (varia lectio) for °nvī, q.v.".
+    #: Left in the index, because someone may still look up a spelling they read;
+    #: flagged, because the compound splitter must not cut a word on one.
+    _VARIA_LECTIO = re.compile(r"varia lectio", re.I)
+    _TAGS = re.compile(r"<[^>]+>")
+    _WHITESPACE = re.compile(r"\s+")
+
+    #: A body long enough to be a definition is one, whatever else it also says;
+    #: and a real entry does not abbreviate its own headword away to a ``°``.
+    _MAX_STUB_BODY = 90
 
     @classmethod
     def discover_dictionaries(cls, connection: sqlite3.Connection) -> List[str]:
@@ -96,6 +117,10 @@ class WordListBuilder:
         }
         if not cls.INDEX_COLUMNS <= columns:
             return False
+        ## an index predating the stub flags is stale: it would let the compound
+        ## splitter keep cutting words on apparatus artefacts
+        if not cls._table_exists(connection, cls.STUBS_TABLE):
+            return False
         return cls.indexed_dictionaries(connection) == dictionaries
 
     @classmethod
@@ -112,6 +137,7 @@ class WordListBuilder:
         """
         dictionaries = cls.discover_dictionaries(connection)
         mapping = cls._collect(connection, dictionaries)
+        stubs = cls._collect_stubs(connection, dictionaries)
 
         dropped: List[str] = []
         with connection:  # commit on success, roll back on exception
@@ -126,6 +152,15 @@ class WordListBuilder:
                     (word, json.dumps(sorted(names)))
                     for word, names in mapping.items()
                 ),
+            )
+
+            connection.execute(f'DROP TABLE IF EXISTS "{cls.STUBS_TABLE}"')
+            connection.execute(
+                f'CREATE TABLE "{cls.STUBS_TABLE}" (keys_iast TEXT PRIMARY KEY)'
+            )
+            connection.executemany(
+                f'INSERT INTO "{cls.STUBS_TABLE}" VALUES (?)',
+                ((word,) for word in sorted(stubs)),
             )
 
             connection.execute(f'DROP TABLE IF EXISTS "{cls.SOURCES_TABLE}"')
@@ -152,6 +187,7 @@ class WordListBuilder:
             dictionaries=dictionaries,
             headwords=len(mapping),
             dropped_tables=dropped,
+            stub_headwords=len(stubs),
         )
 
     @classmethod
@@ -167,6 +203,56 @@ class WordListBuilder:
             ):
                 mapping[headword].append(dictionary)
         return mapping
+
+    @classmethod
+    def _is_stub_body(cls, body: str) -> bool:
+        """Whether one dictionary entry is a bare pointer to another spelling."""
+        text = cls._WHITESPACE.sub(" ", cls._TAGS.sub(" ", body or "")).strip()
+        return (
+            bool(cls._VARIA_LECTIO.search(text))
+            and len(text) < cls._MAX_STUB_BODY
+            and "°" in text
+        )
+
+    @classmethod
+    def _collect_stubs(
+        cls, connection: sqlite3.Connection, dictionaries: List[str]
+    ) -> Set[str]:
+        """Headwords whose every entry, in every dictionary, is such a pointer.
+
+        The quantifier is the whole safety argument.  A real word may well carry a
+        cross-reference among its entries -- ``abhipālin`` does -- and demanding
+        that *all* of them be pointers is what keeps it out of this set.  Only a
+        headword that no dictionary ever defines qualifies.
+        """
+        bodies: Dict[str, List[str]] = defaultdict(list)
+        for dictionary in dictionaries:
+            for headword, body in connection.execute(
+                f'SELECT keys_iast, cleaned_body FROM "{dictionary}" '
+                "WHERE keys_iast IS NOT NULL"
+            ):
+                bodies[headword].append(body)
+        return {
+            headword
+            for headword, entries in bodies.items()
+            if entries and all(cls._is_stub_body(entry) for entry in entries)
+        }
+
+    @classmethod
+    def stub_headwords(cls, connection: sqlite3.Connection) -> Set[str]:
+        """The flagged headwords recorded by the last rebuild.
+
+        An index built before stubs were flagged has no such table; an empty set
+        then means "none known", and every caller degrades to its old behaviour.
+        """
+        if not cls._table_exists(connection, cls.STUBS_TABLE):
+            return set()
+        return {
+            headword
+            for (headword,) in connection.execute(
+                f'SELECT keys_iast FROM "{cls.STUBS_TABLE}"'
+            )
+        }
 
     @staticmethod
     def _table_exists(connection: sqlite3.Connection, name: str) -> bool:

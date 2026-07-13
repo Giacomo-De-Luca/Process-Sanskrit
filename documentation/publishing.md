@@ -45,7 +45,8 @@ So a docs fix or a bugfix push is a no-op, and the release step is the version b
 
 ## One-time setup
 
-Neither of these exists yet — the workflow will fail at the publish step until both are done.
+**Both of these are already configured** — recorded here because the publish job fails without
+them, so they must be recreated if the project is ever moved, renamed, or forked.
 
 **1. Register the Trusted Publisher on PyPI.** Go to the project's
 [publishing settings](https://pypi.org/manage/project/process-sanskrit/settings/publishing/)
@@ -65,13 +66,31 @@ environment*, named `pypi`. It needs no secrets, but set one protection rule:
   owner/repo/workflow/environment — *not* the branch. Without this rule, anyone who can run a
   `workflow_dispatch` could publish from any branch, and PyPI would happily mint a token for it.
   The environment is the real enforcement point, because the publish job is what it gates.
-- Optionally add yourself as a **required reviewer**: the run then pauses before the upload and
-  waits for your click, which gives you a chance to stop an accidental bump.
+
+  Use *selected branches* naming `main` explicitly, not the *protected branches* option: the
+  latter matches only branches that carry a branch-protection rule, so if `main` has none it
+  matches nothing and blocks every deploy. Equivalently, from the CLI:
+
+  ```bash
+  gh api --method PUT repos/OWNER/REPO/environments/pypi \
+    -F 'deployment_branch_policy[protected_branches]=false' \
+    -F 'deployment_branch_policy[custom_branch_policies]=true'
+  gh api --method POST repos/OWNER/REPO/environments/pypi/deployment-branch-policies \
+    -f name=main -f type=branch
+  ```
+- **Required reviewer: `Giacomo-De-Luca`.** The publish job pauses and waits for an approval
+  click before uploading. A version number spent on PyPI is spent forever — it cannot be
+  re-uploaded even after deleting the release — so the gate exists to catch an accidental bump
+  before it becomes permanent.
+
+## Approving a release
+
+Because of that reviewer rule, a push to `main` with a bumped version does not publish on its
+own. It builds, smoke-tests, and then **waits**: GitHub notifies you and the run sits pending
+until you open it and click *Review deployments → Approve and deploy*. Check the version it is
+about to ship, then approve. Rejecting it leaves nothing on PyPI.
 
 ## When something goes wrong
-
-The publish job cannot work until both setup steps above are done, so the first run after
-merging this workflow *will* fail there if you haven't done them yet.
 
 When retrying, prefer **Re-run failed jobs** over **Re-run all jobs**. Both work, but they differ
 in one case that matters: if the upload succeeded and only the `tag` job failed (a tag ruleset
