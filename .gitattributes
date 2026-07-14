@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Cargo.lock is hashed into THIRD_PARTY_NOTICES.md. A CRLF checkout on Windows
+# changes those bytes and therefore the digest, so pin it to LF everywhere.
+Cargo.lock text eol=lf

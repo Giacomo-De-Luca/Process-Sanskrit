@@ -111,8 +111,8 @@ class Scorer:
                     "ranked by DCS likelihood. Splitting would still run, but would "
                     "silently produce worse splits, so this is fatal instead. "
                     "Check that sentencepiece is installed and that the splitter's "
-                    "data files (sentencepiece.model, w2v.npz) shipped with the "
-                    f"package. Underlying error: {e}"
+                    "data files (sentencepiece.model, w2v.npz, log-table.npy) "
+                    f"shipped with the package. Underlying error: {e}"
                 ) from e
         return True
 

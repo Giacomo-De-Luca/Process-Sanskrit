@@ -29,6 +29,18 @@ NOTICE_FILE_PATTERN = re.compile(
 )
 
 
+def cargo_lock_digest(repository_root: Path = REPOSITORY_ROOT) -> str:
+    """SHA-256 of ``Cargo.lock`` over its canonical LF bytes.
+
+    A Windows checkout materialises the lockfile with CRLF endings, which
+    changes the raw bytes and therefore the digest published in the notices.
+    Normalising here keeps the published digest identical on every host that
+    generates or verifies it.
+    """
+    content = (repository_root / "Cargo.lock").read_bytes()
+    return hashlib.sha256(content.replace(b"\r\n", b"\n")).hexdigest()
+
+
 @dataclass(frozen=True)
 class DependencyRecord:
     """A third-party Cargo package selected for distribution notices."""
@@ -321,9 +333,7 @@ class NoticeApplication:
             package["id"]: package for package in metadata["packages"]
         }
         materials = LicenseCollector(packages_by_id).collect(dependencies)
-        lock_digest = hashlib.sha256(
-            (self._repository_root / "Cargo.lock").read_bytes()
-        ).hexdigest()
+        lock_digest = cargo_lock_digest(self._repository_root)
         return NoticeRenderer(lock_digest).render(dependencies, materials)
 
     def _cargo_metadata(self) -> Mapping[str, Any]:

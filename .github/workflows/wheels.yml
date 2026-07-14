@@ -199,7 +199,10 @@ jobs:
               if str(path).endswith('THIRD_PARTY_NOTICES.md')
           )
           notice = distribution.locate_file(notice_entry).read_text(encoding='utf-8')
-          lock_digest = hashlib.sha256(Path('../Cargo.lock').read_bytes()).hexdigest()
+          # A Windows checkout materialises Cargo.lock with CRLF endings; the
+          # published digest is over the canonical LF bytes.
+          lock_bytes = Path('../Cargo.lock').read_bytes().replace(b'\r\n', b'\n')
+          lock_digest = hashlib.sha256(lock_bytes).hexdigest()
           assert f'Cargo.lock SHA-256: `{lock_digest}`' in notice, lock_digest
           assert '| `pyo3` |' in notice and '| `cc` |' in notice
 

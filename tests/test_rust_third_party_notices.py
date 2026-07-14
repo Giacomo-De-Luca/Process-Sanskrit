@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 from typing import Optional
 
-from tools.generate_rust_third_party_notices import DependencyGraph
+from tools.generate_rust_third_party_notices import DependencyGraph, cargo_lock_digest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -107,7 +107,7 @@ class DependencyGraphTests(unittest.TestCase):
 class CheckedNoticeTests(unittest.TestCase):
     def test_notice_tracks_lockfile_and_expected_extension_dependencies(self):
         notice = NOTICE_PATH.read_text(encoding="utf-8")
-        lock_digest = hashlib.sha256((ROOT / "Cargo.lock").read_bytes()).hexdigest()
+        lock_digest = cargo_lock_digest(ROOT)
 
         self.assertIn(f"Cargo.lock SHA-256: `{lock_digest}`", notice)
         for dependency in ("fst", "pyo3", "serde", "sha2", "cc"):
