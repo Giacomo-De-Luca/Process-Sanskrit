@@ -250,6 +250,13 @@ contents of `process_sanskrit/splitter/data/native/` through a staging
 directory. The builder rejects unsorted, duplicate, malformed, or
 shape-inconsistent inputs rather than silently normalizing them.
 
+The 1,000-entry `splitter/data/log-table.npy` is a canonical source asset, not
+a platform-generated approximation. The Python scorer and neutral exporter
+both load those exact float32 bytes because NumPy's `exp` and `log` ufuncs can
+differ in their low-order bits across operating systems. The parity suite pins
+both the complete NPY file hash and the exported raw table hash, keeping future
+native regeneration byte-identical to the committed `scorer.bin` table.
+
 Only when deliberately refreshing from `sanskrit_parser==0.2.6` should the
 legacy assets also be regenerated:
 

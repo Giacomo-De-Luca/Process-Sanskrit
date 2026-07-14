@@ -164,36 +164,75 @@ jobs:
       - name: Import native extension and split canonical input
         shell: bash
         working-directory: smoke
-        run: >-
-          uv run --no-project --python .smoke-venv python -c
-          "import hashlib;
-          import importlib.metadata as metadata;
-          import importlib.resources as resources;
-          import process_sanskrit as ps;
-          from pathlib import Path;
-          from process_sanskrit.splitter import Parser, _native;
-          distribution = metadata.distribution('process-sanskrit');
-          package_metadata = distribution.metadata;
-          assert package_metadata['License-Expression'] == 'CC-BY-NC-ND-4.0';
-          license_files = package_metadata.get_all('License-File') or [];
-          metadata_required = ('LICENSE.md', 'THIRD_PARTY_NOTICES.md', 'LICENSE.upstream', 'LICENSE.sentencepiece', 'LICENSE.protobuf-lite', 'LICENSE.darts-clone', 'NOTICE.md');
-          assert all(any(path.endswith(name) for path in license_files) for name in metadata_required);
-          notice_entry = next(path for path in distribution.files or [] if str(path).endswith('THIRD_PARTY_NOTICES.md'));
-          notice = distribution.locate_file(notice_entry).read_text(encoding='utf-8');
-          lock_digest = hashlib.sha256(Path('../Cargo.lock').read_bytes()).hexdigest();
-          assert f'Cargo.lock SHA-256: `{lock_digest}`' in notice;
-          assert '| `pyo3` |' in notice and '| `cc` |' in notice;
-          splitter_files = resources.files('process_sanskrit.splitter');
-          splitter_required = ('LICENSE.upstream', 'LICENSE.sentencepiece', 'LICENSE.protobuf-lite', 'LICENSE.darts-clone', 'NOTICE.md');
-          assert all(splitter_files.joinpath(name).is_file() for name in splitter_required);
-          assert any(part.lower() == 'site-packages' for part in Path(ps.__file__).parts), ps.__file__;
-          assert ps.transliterate('rāmaḥ', 'devanagari') == 'रामः';
-          assert _native.ASSET_SCHEMA_VERSION == 1;
-          assert _native.SENTENCEPIECE_VERSION == '0.2.1';
-          assert _native.BUILD_PROFILE == 'release';
-          result = Parser(input_encoding='slp1', output_encoding='slp1').split('astyuttarasyAMdiSi', limit=1);
-          assert result and len(result) == 1;
-          assert [token.canonical() for token in result[0].split] == ['asti', 'uttarasyAm', 'diSi']"
+        run: |
+          uv run --no-project --python .smoke-venv python - <<'PY'
+          import hashlib
+          import importlib.metadata as metadata
+          import importlib.resources as resources
+          from pathlib import Path
+
+          import process_sanskrit as ps
+          from process_sanskrit.splitter import Parser, _native
+
+          distribution = metadata.distribution('process-sanskrit')
+          package_metadata = distribution.metadata
+          assert package_metadata['License-Expression'] == 'CC-BY-NC-ND-4.0'
+
+          license_files = package_metadata.get_all('License-File') or []
+          metadata_required = (
+              'LICENSE.md',
+              'THIRD_PARTY_NOTICES.md',
+              'LICENSE.upstream',
+              'LICENSE.sentencepiece',
+              'LICENSE.protobuf-lite',
+              'LICENSE.darts-clone',
+              'NOTICE.md',
+          )
+          assert all(
+              any(path.endswith(name) for path in license_files)
+              for name in metadata_required
+          ), license_files
+
+          notice_entry = next(
+              path
+              for path in distribution.files or []
+              if str(path).endswith('THIRD_PARTY_NOTICES.md')
+          )
+          notice = distribution.locate_file(notice_entry).read_text(encoding='utf-8')
+          lock_digest = hashlib.sha256(Path('../Cargo.lock').read_bytes()).hexdigest()
+          assert f'Cargo.lock SHA-256: `{lock_digest}`' in notice, lock_digest
+          assert '| `pyo3` |' in notice and '| `cc` |' in notice
+
+          splitter_files = resources.files('process_sanskrit.splitter')
+          splitter_required = (
+              'LICENSE.upstream',
+              'LICENSE.sentencepiece',
+              'LICENSE.protobuf-lite',
+              'LICENSE.darts-clone',
+              'NOTICE.md',
+          )
+          assert all(
+              splitter_files.joinpath(name).is_file() for name in splitter_required
+          )
+
+          assert any(
+              part.lower() == 'site-packages' for part in Path(ps.__file__).parts
+          ), ps.__file__
+          assert ps.transliterate('rāmaḥ', 'devanagari') == 'रामः'
+          assert _native.ASSET_SCHEMA_VERSION == 1
+          assert _native.SENTENCEPIECE_VERSION == '0.2.1'
+          assert _native.BUILD_PROFILE == 'release'
+
+          result = Parser(input_encoding='slp1', output_encoding='slp1').split(
+              'astyuttarasyAMdiSi', limit=1
+          )
+          assert result and len(result) == 1
+          assert [token.canonical() for token in result[0].split] == [
+              'asti',
+              'uttarasyAm',
+              'diSi',
+          ]
+          PY
 
       - name: Run installed-wheel backend contracts
         shell: bash

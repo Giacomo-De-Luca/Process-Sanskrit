@@ -162,13 +162,16 @@ uv run python tools/build_splitter_data.py --upstream
 |---|---|---|
 | `forms.trie` | 13.2 MB | `inria_forms_pos.db` (28 MB) + `inria_stems_tags_buf.pkl` (33 MB) + `sanskrit_data.db` (17 MB) |
 | `w2v.npz` | 6.1 MB | `word2vec_model.dat` (7.6 MB, a gensim pickle) |
+| `log-table.npy` | 4.1 KB | canonical float32 scorer lookup table |
 | `sandhi_rules.zip` | 3.0 MB | verbatim |
 | `sentencepiece.model` | 0.4 MB | verbatim |
 
 Then regenerate the native format and run both reference and backend parity
 suites. The normal native export path does not need upstream packages; see
 [`rust-splitter.md`](rust-splitter.md#native-resource-contract-and-regeneration). Do not
-hand-edit generated files.
+hand-edit generated files. The lookup table is loaded from committed bytes
+rather than recalculated because transcendental float32 results vary in their
+low-order bits across platforms.
 
 ## Layout
 
@@ -187,7 +190,8 @@ process_sanskrit/splitter/
 ├── normalization.py   input normalisation
 ├── _native.*          generated private PyO3 extension (do not commit locally)
 └── data/
-    ├── forms.trie, w2v.npz, sandhi_rules.zip, sentencepiece.model
+    ├── forms.trie, w2v.npz, log-table.npy, sandhi_rules.zip
+    ├── sentencepiece.model
     └── native/        verified FST/binary assets for the Rust backend
 ```
 

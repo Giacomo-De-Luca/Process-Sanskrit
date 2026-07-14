@@ -4,7 +4,7 @@ The splitter is a vendored, split-only subset of kmadathil/sanskrit_parser
 (MIT).  Upstream ships 85 MB of data across seven files, most of which exists
 to serve ``Parser.parse()`` and morphological tagging -- neither of which
 Process-Sanskrit uses.  This script distils the parts that ``split()`` actually
-needs into four legacy files (~23 MB):
+needs into five legacy files (~23 MB):
 
   forms.trie         validity oracle.  Upstream answers "is this a real Sanskrit
                      form?" from inria_forms_pos.db (28 MB) + sanskrit_data.db
@@ -21,6 +21,10 @@ needs into four legacy files (~23 MB):
 
   w2v.npz            the DCS word2vec scorer, exported from gensim's pickle so
                      it can be loaded with numpy alone.  See splitter/scorer.py.
+
+  log-table.npy      the canonical 1,000-entry float32 log-sigmoid table. It is
+                     pinned because transcendental ufunc results differ in
+                     their low-order bits across platforms.
 
   sandhi_rules.zip   copied verbatim from upstream.
   sentencepiece.model  copied verbatim from upstream.

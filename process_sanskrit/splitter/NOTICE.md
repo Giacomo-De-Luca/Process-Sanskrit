@@ -47,6 +47,7 @@ so dropping it removes most of the code *and* most of the data.
 |---|---|---|
 | `forms.trie` | 13.2 MB | `inria_forms_pos.db` (28 MB) + `inria_stems_tags_buf.pkl` (33 MB) + `sanskrit_data.db` (17 MB) |
 | `w2v.npz` | 6.1 MB | `word2vec_model.dat` (7.6 MB, a gensim pickle) |
+| `log-table.npy` | 4.1 KB | canonical float32 scorer lookup table |
 | `sandhi_rules.zip` | 3.0 MB | verbatim |
 | `sentencepiece.model` | 0.4 MB | verbatim |
 
@@ -64,7 +65,9 @@ Two subtleties, both covered by `tests/test_splitter_parity.py`:
 2. **The scorer reproduces gensim's quirks on purpose.** It skips saturated terms
    (`|f| >= 6`) and indexes a 1000-entry sigmoid table with an *integer*-division
    scale (83, not 83.33). These are faithfully ported; correcting them shifts
-   every score by ~0.07/token and would change which split wins.
+   every score by ~0.07/token and would change which split wins. The table's
+   exact float32 bytes are committed because recomputing `exp` and `log` changes
+   low-order bits between operating systems.
 
 ## Equivalence
 

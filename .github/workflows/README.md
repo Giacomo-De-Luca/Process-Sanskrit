@@ -8,7 +8,9 @@
   tested on Python 3.9, 3.12, and 3.14, including the installed-wheel backend
   contract suite. Linux/Python 3.12 also runs the complete complex-compound
   Python/Rust differential. The workflow enforces the 50 MB compressed-wheel
-  release ceiling.
+  release ceiling. Its multiline Python smoke program uses a literal Bash
+  heredoc so Markdown backticks in notice assertions cannot trigger shell
+  command substitution.
 
 The wheel workflow uploads short-lived artifacts and never publishes by itself.
 `publish.yml` calls it as a reusable workflow after the PyPI version gate, adds

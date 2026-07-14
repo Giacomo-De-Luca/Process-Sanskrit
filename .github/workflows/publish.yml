@@ -71,7 +71,7 @@ jobs:
           archives = list(Path('sdist').glob('*.tar.gz'));
           assert len(archives) == 1, archives;
           names = tarfile.open(archives[0], 'r:gz').getnames();
-          required = ('Cargo.lock', 'Cargo.toml', 'THIRD_PARTY_NOTICES.md', 'benchmarks/splitter-benchmark.json', 'documentation/rust-splitter.md', 'rust/python/Cargo.toml', 'process_sanskrit/splitter/LICENSE.sentencepiece', 'scripts/benchmark_splitter.py', 'tools/build_splitter_data.py');
+          required = ('Cargo.lock', 'Cargo.toml', 'THIRD_PARTY_NOTICES.md', 'benchmarks/splitter-benchmark.json', 'documentation/rust-splitter.md', 'rust/python/Cargo.toml', 'process_sanskrit/splitter/LICENSE.sentencepiece', 'process_sanskrit/splitter/data/log-table.npy', 'scripts/benchmark_splitter.py', 'tools/build_splitter_data.py');
           assert all(any(name.endswith('/' + required_name) for name in names) for required_name in required), names"
 
       - name: Build native wheel from sdist

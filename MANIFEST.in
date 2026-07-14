@@ -31,7 +31,7 @@ include process_sanskrit/splitter/LICENSE.sentencepiece
 include process_sanskrit/splitter/LICENSE.protobuf-lite
 include process_sanskrit/splitter/LICENSE.darts-clone
 include process_sanskrit/splitter/NOTICE.md
-recursive-include process_sanskrit/splitter/data *.trie *.npz *.zip *.model *.fst *.bin *.json
+recursive-include process_sanskrit/splitter/data *.trie *.npz *.npy *.zip *.model *.fst *.bin *.json *.md
 
 # Include tests for the sdist
 recursive-include tests *.py

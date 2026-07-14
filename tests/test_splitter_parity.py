@@ -180,8 +180,17 @@ class SplitterTests(unittest.TestCase):
 
         import numpy as np
 
+        from process_sanskrit.splitter.data_manager import data_file_path
         from process_sanskrit.splitter.scorer_model import log_sigmoid_table
         from tools.build_splitter_data import NativeInputExporter
+
+        canonical_path = Path(data_file_path("log-table.npy"))
+        canonical = np.load(canonical_path, allow_pickle=False)
+        canonical_file_hash = hashlib.sha256(canonical_path.read_bytes()).hexdigest()
+        self.assertEqual(
+            canonical_file_hash,
+            "9eb9f08545e54f1cd9bc6e4aff7655f8770e512956c95461747246dfd7a8ef47",
+        )
 
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
@@ -194,8 +203,12 @@ class SplitterTests(unittest.TestCase):
                 codes=[np.array([0], dtype=np.uint8)],
                 points=[np.array([0], dtype=np.uint32)],
             )
-            exported = np.load(output / "log-table.npy", allow_pickle=False)
+            exported_path = output / "log-table.npy"
+            exported = np.load(exported_path, allow_pickle=False)
+            exported_file_hash = hashlib.sha256(exported_path.read_bytes()).hexdigest()
 
+        self.assertEqual(exported_file_hash, canonical_file_hash)
+        self.assertTrue(np.array_equal(exported, canonical))
         self.assertTrue(np.array_equal(exported, log_sigmoid_table()))
         self.assertEqual(
             hashlib.sha256(exported.tobytes()).hexdigest(),
@@ -203,21 +216,22 @@ class SplitterTests(unittest.TestCase):
         )
 
     def test_shared_scorer_initializes_once_under_concurrency(self):
-        """Concurrent first use publishes one completely loaded model."""
+        """Concurrent first use loads each scorer asset exactly once."""
+        from pathlib import Path
+
         from process_sanskrit.splitter import scorer as scorer_module
 
         instance = Scorer()
         real_load = scorer_module.np.load
-        load_count = 0
+        load_counts = Counter()
         count_lock = threading.Lock()
         barrier = threading.Barrier(8)
         results = []
         errors = []
 
         def counted_load(*args, **kwargs):
-            nonlocal load_count
             with count_lock:
-                load_count += 1
+                load_counts[Path(args[0]).name] += 1
             # Widen the race between the initial enabled check and publication.
             time.sleep(0.03)
             return real_load(*args, **kwargs)
@@ -239,7 +253,7 @@ class SplitterTests(unittest.TestCase):
         self.assertTrue(all(not thread.is_alive() for thread in threads))
         self.assertEqual(errors, [])
         self.assertEqual(results, [True] * 8)
-        self.assertEqual(load_count, 1)
+        self.assertEqual(load_counts, Counter({"w2v.npz": 1, "log-table.npy": 1}))
 
     def test_forms_trie_is_not_published_before_loading_finishes(self):
         from process_sanskrit.splitter import lookup

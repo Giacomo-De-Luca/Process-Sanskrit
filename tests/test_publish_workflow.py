@@ -43,6 +43,14 @@ class NativePublishWorkflowTests(unittest.TestCase):
         self.assertIn("site-packages", self.wheels)
         self.assertIn("ps.transliterate", self.wheels)
 
+    def test_wheel_smoke_python_is_shell_literal(self):
+        """Markdown backticks in Python must never reach Bash interpolation."""
+        self.assertIn("python - <<'PY'", self.wheels)
+        self.assertNotRegex(
+            self.wheels,
+            r'(?s)Import native extension and split canonical input.*?python -c\s+"',
+        )
+
     def test_wheel_inputs_and_static_contracts_trigger_validation(self):
         for path in (
             "tests/test_splitter_backends.py",
@@ -86,9 +94,15 @@ class NativePublishWorkflowTests(unittest.TestCase):
         ):
             self.assertIn(directive, self.manifest)
 
+        self.assertRegex(
+            self.manifest,
+            r"recursive-include process_sanskrit/splitter/data .*\*\.npy",
+        )
+
         for required_suffix in (
             "benchmarks/splitter-benchmark.json",
             "documentation/rust-splitter.md",
+            "process_sanskrit/splitter/data/log-table.npy",
             "scripts/benchmark_splitter.py",
             "tools/build_splitter_data.py",
         ):

@@ -31,7 +31,9 @@ are resolved from the config file, not from the current directory.
 - NPY files: little-endian-neutral scorer matrices, Huffman data and offsets,
   and the exact 1,000-entry gensim-compatible log-sigmoid table. Matrix and
   table values must all be finite, and each vocabulary row must have equal
-  Huffman code and point spans.
+  Huffman code and point spans. The exporter loads the lookup values from the
+  committed `process_sanskrit/splitter/data/log-table.npy` source rather than
+  recomputing platform-dependent transcendental functions.
 - `sentencepiece.model`: the authoritative tokenizer protobuf. The builder
   reads its piece order to create the tokenizer-ID-to-word2vec-row map.
 
