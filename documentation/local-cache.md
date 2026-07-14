@@ -32,7 +32,7 @@ Direct statistical results use the `statistical-splitter-v2` algorithm
 signature. Version 2 prevents an old `attempts=1` unsplit fallback—created by a
 wrapper return-shape bug—from masking the corrected ranked split. Rows stored
 under the legacy hybrid signature are evicted when the cache next opens. Hybrid
-morphology keeps an independent `hybrid-morphology-v3` signature because its
+morphology keeps an independent `hybrid-morphology-v4` signature because its
 compound-ranking behavior evolves separately from the statistical splitter.
 
 ## Configuration

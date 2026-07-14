@@ -256,7 +256,7 @@ ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
 
 The **Sanskrit Parser** library by Karthik Madathil handles part of the Sandhi Splitting: [https://github.com/kmadathil/sanskrit_parser](https://github.com/kmadathil/sanskrit_parser)
 
-Since v1.1.0 a reduced, split-only copy of it is vendored under
+Since v1.5 a reduced, split-only copy of it is vendored under
 `process_sanskrit/splitter/` (MIT licensed, and gratefully used). The sandhi
 splitting behaviour is unchanged — it is verified split-for-split against the
 original. See [documentation/sandhi-splitter.md](documentation/sandhi-splitter.md)

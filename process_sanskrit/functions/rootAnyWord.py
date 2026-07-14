@@ -51,8 +51,8 @@ def _direct_roots(word, session, memo):
     return result_roots
 
 
-def _stamp_whole_word(matches, span, word):
-    """Record `word` as the surface of the entries that resolved `span` itself.
+def _stamp_whole_word(matches, word):
+    """Record `word` as the surface of the entries that resolved the remainder.
 
     `entry[4]` is read two incompatible ways downstream.  `extract_roots` folds a
     run of entries that share it into one tuple of rival readings, so a *prefix*
@@ -60,14 +60,23 @@ def _stamp_whole_word(matches, span, word):
     `diś` read as "upa OR diś" rather than as the two words of `upadiśyate`.  But
     the `-n` lemma rule and the whole-word dictionary check both want the whole
     word an analysis came from, and they only ever look at the root entries.
-    Stamping exactly the entries that resolved `span` serves both.
 
-    `matches` can already hold a deeper decomposition (`a` + `vi` + `rati`), whose
-    inner prefix entries carry their own surface and so fail the `span` test --
-    which is the point: re-stamping them would collapse the nested split again.
+    Those are the entries sharing the *last* match's surface: the remainder's own
+    lookup appends them last, while a deeper decomposition (`a` + `vi` + `rati`)
+    leaves its inner prefix entries a surface of their own, which puts them
+    outside the group -- re-stamping those would collapse the nested split again.
+
+    Take that surface from the entries, never from the remainder as requested:
+    the lookup may have resolved through a sandhi variant or `samMap`
+    (`pratisaṃvedanā` reaches its stem as `samvedanā`), and then no entry carries
+    the remainder that was asked for, so keying on it would stamp nothing at all.
     """
+    root = matches[-1] if matches else None
+    if not isinstance(root, list) or len(root) != 5:
+        return  ## the `api` early-return is a flat 3-list, not entries
+    span = root[4]
     for match in matches:
-        if len(match) == 5 and match[4] == span:
+        if isinstance(match, list) and len(match) == 5 and match[4] == span:
             match[4] = word
 
 
@@ -188,7 +197,7 @@ def root_any_word(
                         prefix, session=session, _memo=_memo
                     )
                     result = prefix_root + attempt if prefix_root else attempt
-                _stamp_whole_word(attempt, remainder, word)
+                _stamp_whole_word(attempt, word)
                 return result
             else: 
                 for nested_prefix in SANSKRIT_PREFIXES:
@@ -207,7 +216,7 @@ def root_any_word(
                                 nested_prefix, session=session, _memo=_memo
                             ) or []
                             result = prefix_result + nested_prefix_result + nested_attempt
-                            _stamp_whole_word(nested_attempt, nested_remainder, word)
+                            _stamp_whole_word(nested_attempt, word)
                             return result
             
     return None

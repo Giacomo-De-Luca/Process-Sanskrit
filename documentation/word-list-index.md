@@ -139,7 +139,7 @@ index stale and causes `update-ps-database` to rebuild it. Analysis against a
 legacy database degrades to "no stubs known" rather than failing a lookup, and
 logs an update warning. Changing this ranking changes hybrid/process results, so
 it requires a bump of `ANALYSIS_ALGORITHM_VERSION` — currently
-`hybrid-morphology-v3`; see [local-cache.md](local-cache.md).
+`hybrid-morphology-v4`; see [local-cache.md](local-cache.md).
 
 ## Staleness is reported, not hidden
 

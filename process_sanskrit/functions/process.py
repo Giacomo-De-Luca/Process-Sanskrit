@@ -325,8 +325,9 @@ def process(
                 analysed_stems = {
                     entry[0] for entry in result if isinstance(entry, list) and entry
                 }
-                ## Offer it only when no analysis already yields it, or pratyakṣam is
-                ## reported twice: once as itself, once as the inserted headword.
+                ## Offer it only when no analysis already yields it; otherwise
+                ## pratyakṣam is reported twice -- once as itself, once as the
+                ## inserted headword.
                 if (
                     whole_word
                     and whole_word not in analysed_stems
@@ -336,7 +337,8 @@ def process(
                     if debug:
                         print("replacement", replacement[0])
                         print("len replacement", len(replacement[0]))
-                    if replacement is not None:
+                    ## A miss is a stub, never None -- see documentation/prefix-rejoin.md
+                    if replacement and isinstance(replacement[0][2], dict):
                         result_vocabulary.insert(0, replacement[0])
 
             #print("result_vocabulary", result_vocabulary)

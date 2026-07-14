@@ -12,6 +12,7 @@ uv run python -m unittest tests.test_optimizations
 uv run python -m unittest tests.test_reference_comparison
 uv run python -m unittest tests.test_analysis_cache tests.test_database_lifecycle
 uv run python -m unittest tests.test_prefix_merge
+uv run python -m unittest tests.test_prefix_segmentation
 uv run python -m unittest tests.test_null_dictionary_components
 ```
 
@@ -44,8 +45,12 @@ PROCESS_SANSKRIT_FULL_NATIVE_PARITY=1 \
   stays split, an attested one such as `samādhi` still collapses), with
   `DictSearchStubShapeTests` pinning the `dict_search` miss/hit shapes that
   guard depends on — see `documentation/prefix-rejoin.md`;
+  `PrefixIsItsOwnWordTests` and its collateral-regression classes pin prefix
+  segmentation and matched-surface handling — see
+  `documentation/prefix-segmentation.md`;
   `NullDictionaryComponentsTests` pins the headword fallback for dictionary
-  rows without component metadata, including Yoga Sutra 53 — see
+  rows without component metadata, while `YogaSutraNullComponentsTests` pins
+  Yoga Sutra 53 end to end — see
   `documentation/dictionary-results.md`; and
   `UpstreamParityTests` is the optional upstream reference comparison.
 - `datasets/` contains reusable Sanskrit corpora and compound fixtures. Dataset

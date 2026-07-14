@@ -57,6 +57,28 @@ class NullDictionaryComponentsTests(unittest.TestCase):
             {"samādhibhāvanā": ["samādhibhāvanā"]},
         )
 
+    def test_seven_field_parts_formatting_falls_back_for_null_components(self):
+        entries = [
+            [
+                "samādhibhāvanā",
+                "f",
+                [("Nom", "Sg")],
+                ["samādhibhāvanā"],
+                "samādhibhāvanā",
+                None,
+                {
+                    "CPED": {
+                        "samādhibhāvanā": ["cultivation of concentration"]
+                    }
+                },
+            ]
+        ]
+
+        self.assertEqual(
+            roots_splitted(entries),
+            {"samādhibhāvanā": ["samādhibhāvanā"]},
+        )
+
 
 @unittest.skipUnless(
     get_database_path().exists(), "packaged lexicon database is not installed"

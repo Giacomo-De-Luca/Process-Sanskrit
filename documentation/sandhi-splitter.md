@@ -8,7 +8,7 @@ selection, build requirements, native assets, and Rust differential validation
 are documented in
 [`rust-splitter.md`](rust-splitter.md).
 
-Before v1.1.0 we depended on the published `sanskrit-parser` package instead.
+Before v1.5 we depended on the published `sanskrit-parser` package instead.
 
 This document explains what changed, why, and — most importantly — the two places
 where the vendored copy could silently drift from the original and produce worse

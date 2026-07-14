@@ -443,7 +443,7 @@ dependencies = [
 
 [[package]]
 name = "process-sanskrit-python"
-version = "1.1.0"
+version = "1.5.1"
 dependencies = [
  "cc",
  "process-sanskrit-splitter-core",
@@ -453,7 +453,7 @@ dependencies = [
 
 [[package]]
 name = "process-sanskrit-resource-builder"
-version = "1.1.0"
+version = "1.5.1"
 dependencies = [
  "anyhow",
  "fst",
@@ -470,7 +470,7 @@ dependencies = [
 
 [[package]]
 name = "process-sanskrit-splitter-core"
-version = "1.1.0"
+version = "1.5.1"
 dependencies = [
  "fst",
  "serde",

@@ -65,6 +65,40 @@ class PrefixIsItsOwnWordTests(unittest.TestCase):
         )
 
 
+    def test_remainder_resolved_through_a_sandhi_variant_is_still_stamped(self):
+        """`prati` + a remainder that only matches as a variant.
+
+        `pratisaṃvedanā` reaches its stem through `samMap`/`variableSandhi`, so no
+        entry comes back carrying the remainder *as requested*.  Keying the stamp on
+        the requested remainder therefore stamps nothing, and the root entry keeps a
+        sub-span surface -- which then feeds the `-n` rule and the whole-word
+        dictionary check a fragment of the word.  The stamp must read the surface off
+        the entries instead.
+
+        The trailing lemma is `saṃvedana`, not the `samvedana` that was queried: the
+        re-join takes it from the dictionary payload rather than echoing the query
+        back.  Incidental to the stamp under test here -- see CanonicalLemmaTests in
+        tests/test_prefix_merge.py.
+        """
+        roots = process("pratisaṃvedanā", mode="roots", cached=False)
+        self.assertEqual(roots, ["pratisaṃvedanā", "prati", "saṃvedana"])
+
+
+class ApiEarlyReturnTests(unittest.TestCase):
+    """`root_any_word('api')` returns a flat 3-list, not a list of 5-slot entries.
+
+    Both the stamp and the whole-word check must tolerate that shape rather than
+    index into it -- which is the only reason their `isinstance(..., list)` guards
+    exist.  Without a test, someone simplifies them away and this raises.
+    """
+
+    def test_api_does_not_raise(self):
+        self.assertTrue(process("api", mode="roots", cached=False))
+
+    def test_word_beginning_with_api_does_not_raise(self):
+        self.assertTrue(process("apidhāya", mode="roots", cached=False))
+
+
 class WholeWordEntrySurvivesTests(unittest.TestCase):
     """An attested prefixed word keeps its own dictionary entry alongside the split."""
 
@@ -97,6 +131,23 @@ class WholeWordEntrySurvivesTests(unittest.TestCase):
             process("pratyakṣam", mode="roots", cached=False),
             [("pratyakṣam", "pratyakṣa")],
         )
+
+    def test_detailed_mode_inserts_one_real_dictionary_entry(self):
+        """The default mode is what dictionary consumers see, so pin it too.
+
+        `mode='roots'` collapses each entry to its stem and would hide both a stub
+        insertion and a duplicated one.
+        """
+        entries = process("virati", cached=False)
+        whole = [e for e in entries if e[0] == "virati"]
+        self.assertEqual(len(whole), 1, "the whole word is offered exactly once")
+        self.assertIsInstance(
+            whole[0][2], dict, "a stub must never be inserted -- a miss is not None"
+        )
+        ## `vi` heads two rows; they are rival readings of the *prefix*, and collapse
+        ## into one root only in mode='roots'.  What matters here is the order.
+        stems = list(dict.fromkeys(e[0] for e in entries))
+        self.assertEqual(stems, ["virati", "vi", "ratī"])
 
 
 class NoLemmaDegradationTests(unittest.TestCase):
