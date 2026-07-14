@@ -54,8 +54,8 @@ jobs:
 
       - name: Install pinned Rust toolchain
         run: |
-          rustup toolchain install 1.83.0 --profile minimal
-          rustup default 1.83.0
+          rustup toolchain install 1.87.0 --profile minimal
+          rustup default 1.87.0
 
       - name: Build and check sdist
         run: |

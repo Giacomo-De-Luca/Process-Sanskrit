@@ -78,8 +78,8 @@ jobs:
       - name: Install Rust on native build hosts
         if: runner.os != 'Linux'
         run: |
-          rustup toolchain install 1.83.0 --profile minimal
-          rustup default 1.83.0
+          rustup toolchain install 1.87.0 --profile minimal
+          rustup default 1.87.0
 
       - name: Build abi3 wheel
         uses: pypa/cibuildwheel@v4.1.0

@@ -127,7 +127,7 @@ from the parser's returned list; the previous `next(list)` call raised a
 Supported source builds require:
 
 - CPython 3.9 or newer;
-- Rust 1.83 or newer;
+- Rust 1.87 or newer;
 - a C++17 compiler for the statically linked SentencePiece processor;
 - the ordinary Python build tooling declared in `pyproject.toml`.
 
@@ -155,11 +155,16 @@ Build a local wheel through the declared setuptools/setuptools-rust backend:
 uv build --wheel
 ```
 
-The validated local artifacts used Rust 1.83: all 32 Rust tests passed, and the
-final arm64 wheel was 21.5 MiB with 75 files. The source distribution was
-23.2 MiB with 397 entries. Licence, archive, and dynamic-library audits passed.
-These are local release checks, not a statement that artifacts have been
-published.
+Release and minimum-toolchain validation use Rust 1.87. The minimum covers the
+complete locked workspace metadata graph, including target-specific development
+dependencies that Cargo parses before compiling the native extension. Keeping
+the declared MSRV and release toolchain synchronized prevents clean wheel builds
+from failing during `cargo metadata --locked`. All 32 Rust tests pass under
+Rust 1.87, and the resulting local arm64 `cp39-abi3` wheel is 21.5 MiB and
+passes the installed-wheel smoke and backend contract suites. The earlier
+source-distribution validation produced a 23.2 MiB archive with 397 entries.
+Licence, archive, and dynamic-library audits passed. These are local release
+checks, not a statement that artifacts have been published.
 
 Only release-mode native code is valid for performance measurement. A benchmark
 must load an extension built with Cargo's release profile; an editable debug

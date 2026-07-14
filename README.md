@@ -40,7 +40,7 @@ statistical (DCS word2vec) scoring — is installed by the base package. There a
 no extras to remember and nothing pins an old *numpy*.
 
 Binary release wheels are configured to include the native Rust splitter.
-Building from source requires Rust 1.83 or newer and a C++17 compiler. Scored
+Building from source requires Rust 1.87 or newer and a C++17 compiler. Scored
 differential parity and the local release-mode performance criteria are green.
 Cross-platform wheel CI and installation tests remain publication gates.
 Consult the current status, backend selection, and build details in the [Rust

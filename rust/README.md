@@ -31,7 +31,7 @@ The complete architecture, strict backend-selection contract, source build
 requirements, regeneration workflow, and validation procedure are documented
 in [`documentation/rust-splitter.md`](../documentation/rust-splitter.md).
 
-Source builds require Rust 1.83 or newer and a C++17 compiler. The Python crate
+Source builds require Rust 1.87 or newer and a C++17 compiler. The Python crate
 uses PyO3's `abi3-py39` interface and statically compiles the vendored
 SentencePiece v0.2.1 processor. Build with the locked dependency graph:
 

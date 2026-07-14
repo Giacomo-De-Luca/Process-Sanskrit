@@ -1,6 +1,6 @@
 # Native build workflows
 
-- `ci.yml` runs the Rust workspace on both the declared Rust 1.83 MSRV and the
+- `ci.yml` runs the Rust workspace on both the declared Rust 1.87 MSRV and the
   current stable toolchain. Stable also owns formatting and Clippy checks. The
   retained Python splitter is tested explicitly on Python 3.9, 3.12, and 3.14.
 - `wheels.yml` builds one `cp39-abi3` wheel for each of Linux x86-64, macOS

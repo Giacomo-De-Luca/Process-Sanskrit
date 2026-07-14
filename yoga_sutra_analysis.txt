@@ -1,0 +1,6589 @@
+=== Yoga Sutra Processing Analysis ===
+
+Total Sutras Analyzed: 195
+Sutras with Expert Validation: 1
+
+Detailed Analysis by Sutra:
+
+================================================================================
+
+Sutra 1:
+Original Text: atha yogānuśāsanam 
+
+Full Line Analysis:
+------------------
+  atha → ['a', 'tha']
+  yogānuśāsana → ['yogānuśāsana']
+
+Word-by-Word Analysis:
+---------------------
+  atha:
+    atha → ['a', 'tha']
+  yogānuśāsanam:
+    yogānuśāsana → ['yogānuśāsana']
+
+Expert Validation:
+-----------------
+Correct segments: ['atha', 'yoga', 'anuśāsanam']
+Notes: Clear case of prefix anu- with śās
+Validated at: 2026-07-14 11:49:28.474188
+
+
+Comparison Metrics:
+------------------
+Full-line total segments: 2
+Word-by-word total segments: 2
+
+================================================================================
+
+Sutra 2:
+Original Text: yogaś cittavṛttinirodhaḥ 
+
+Full Line Analysis:
+------------------
+  yoga → ['yoga']
+  yogas → ['yogas']
+  cittavṛtti → ['citta', 'vṛtti']
+  nirodhaḥ → ['nirodhaḥnirodhanaṃ']
+
+Word-by-Word Analysis:
+---------------------
+  yogaś:
+    yogaḥ → ['yogas']
+    yoga → ['yoga']
+    yogas → ['yogas']
+  cittavṛttinirodhaḥ:
+    cittavṛtti → ['citta', 'vṛtti']
+    nirodha → ['ni', 'rodha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 3:
+Original Text: tadā draṣṭuḥ svarūpe 'vasthānam 
+
+Full Line Analysis:
+------------------
+  tadā → ['tadā']
+  draṣṭṛ → ['draṣṭṛ']
+  svarūpa → ['sva', 'rūpa']
+  avasthāna → ['ava', 'sthāna']
+
+Word-by-Word Analysis:
+---------------------
+  tadā:
+    tadā → ['tadā']
+  draṣṭuḥ:
+    draṣṭṛ → ['draṣṭṛ']
+  svarūpe:
+    svarūpa → ['sva', 'rūpa']
+  'vasthānam:
+    avasthāna → ['ava', 'sthāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 4:
+Original Text: vṛttisārūpyam itaratra 
+
+Full Line Analysis:
+------------------
+  vṛtti → ['vṛtti']
+  sārūpya → ['sārūpya']
+  itaratra → ['i', 'tara', 'tra']
+
+Word-by-Word Analysis:
+---------------------
+  vṛttisārūpyam:
+    vṛtti → ['vṛtti']
+    sārūpya → ['sārūpya']
+  itaratra:
+    itaratra → ['i', 'tara', 'tra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 5:
+Original Text: vṛttayaḥ pañcatayyaḥ kliṣṭākliṣṭāḥ 
+
+Full Line Analysis:
+------------------
+  vṛtti → ['vṛtti']
+  pañcataya → ['pañcataya']
+  kliṣṭa → ['kliṣṭa']
+  akliṣṭa → ['a', 'kliṣṭa']
+
+Word-by-Word Analysis:
+---------------------
+  vṛttayaḥ:
+    vṛtti → ['vṛtti']
+  pañcatayyaḥ:
+    pañcataya → ['pañcataya']
+  kliṣṭākliṣṭāḥ:
+    kliṣṭa → ['kliṣṭa']
+    akliṣṭa → ['a', 'kliṣṭa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 6:
+Original Text: pramāṇaviparyayavikalpanidrāsmṛtayaḥ 
+
+Full Line Analysis:
+------------------
+  pramāṇa → ['pramāṇa']
+  viparyaya → ['vi', 'paryaya']
+  vikalpa → ['vi', 'kalpa']
+  nidrā → ['ni', 'drā']
+  smṛti → ['smṛ', 'ti']
+
+Word-by-Word Analysis:
+---------------------
+  pramāṇaviparyayavikalpanidrāsmṛtayaḥ:
+    pramāṇa → ['pramāṇa']
+    viparyaya → ['vi', 'paryaya']
+    vikalpa → ['vi', 'kalpa']
+    nidrā → ['ni', 'drā']
+    smṛti → ['smṛ', 'ti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 7:
+Original Text: pratyakṣānumānāgamāḥ pramāṇāni 
+
+Full Line Analysis:
+------------------
+  pratyakṣa → ['praty', 'akṣa']
+  anumāna → ['anu', 'māna']
+  āgama → ['ā', 'gama']
+  pramāṇa → ['pramāṇa']
+
+Word-by-Word Analysis:
+---------------------
+  pratyakṣānumānāgamāḥ:
+    pratyakṣa → ['praty', 'akṣa']
+    anumāna → ['anu', 'māna']
+    āgama → ['ā', 'gama']
+  pramāṇāni:
+    pramāṇa → ['pramāṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 8:
+Original Text: viparyayo mithyājñānam atadrūpapratiṣṭham 
+
+Full Line Analysis:
+------------------
+  viparyaya → ['vi', 'paryaya']
+  mithyā → ['mithyā']
+  jñāna → ['jñāna']
+  tad → ['ta', 'd']
+  rūpa → ['rūpa']
+  pratiṣṭha → ['prati', 'ṣṭha']
+
+Word-by-Word Analysis:
+---------------------
+  viparyayo:
+    viparyayaḥ → ['viparyayaḥ']
+    viparyaya → ['vi', 'paryaya']
+  mithyājñānam:
+    mithyājñāna → ['mithyā', 'jñāna']
+  atadrūpapratiṣṭham:
+    tad → ['ta', 'd']
+    rūpa → ['rūpa']
+    pratiṣṭha → ['prati', 'ṣṭha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 9:
+Original Text: śabdajñānānupātī vastuśūnyo vikalpaḥ 
+
+Full Line Analysis:
+------------------
+  śabda → ['śa', 'bda']
+  jñāna → ['jñāna']
+  anupātin → ['anu', 'pātin']
+  vastuśūnya → ['vastu', 'śūnya']
+  vikalpa → ['vi', 'kalpa']
+
+Word-by-Word Analysis:
+---------------------
+  śabdajñānānupātī:
+    śabda → ['śa', 'bda']
+    jñāna → ['jñāna']
+    anupātin → ['anu', 'pātin']
+  vastuśūnyo:
+    vastuśūnya → ['vastu', 'śūnya']
+  vikalpaḥ:
+    vikalpaḥ → ['vikalpaḥ']
+    vikalpa → ['vi', 'kalpa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 10:
+Original Text: abhāvapratyayālambanā vṛttir nidrā 
+
+Full Line Analysis:
+------------------
+  abhi → ['a', 'bhi']
+  apratyaya → ['a', 'pratyaya']
+  lambana → ['lambana']
+  vṛtti → ['vṛtti']
+  nidrā → ['ni', 'drā']
+
+Word-by-Word Analysis:
+---------------------
+  abhāvapratyayālambanā:
+    abhāva → ['a', 'bhāva']
+    bhā → ['bhā']
+    pratyaya → ['pratyaya']
+    lambana → ['lambana']
+  vṛttir:
+    vṛttiḥ → ['vṛttin']
+    vṛtti → ['vṛtti']
+  nidrā:
+    nidrā → ['ni', 'drā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 7
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 11:
+Original Text: anubhūtaviṣayāsaṃpramoṣaḥ smṛtiḥ 
+
+Full Line Analysis:
+------------------
+  anubhūta → ['anu', 'bhūta']
+  viṣaya → ['viṣaya']
+  viṣa → ['vi', 'ṣa']
+  sampramoṣa → ['sam', 'pramoṣa']
+  smṛti → ['smṛ', 'ti']
+
+Word-by-Word Analysis:
+---------------------
+  anubhūtaviṣayāsaṃpramoṣaḥ:
+    anubhūta → ['anu', 'bhūta']
+    viṣaya → ['viṣaya']
+    viṣa → ['vi', 'ṣa']
+    sampramoṣa → ['sam', 'pramoṣa']
+  smṛtiḥ:
+    smṛtiḥ → ['smṛtiḥ']
+    smṛti → ['smṛ', 'ti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 12:
+Original Text: abhyāsavairāgyābhyāṃ tannirodhaḥ 
+
+Full Line Analysis:
+------------------
+  abhyāsa → ['abhy', 'āsa']
+  vairāgya → ['vairāgya']
+  tad → ['ta', 'd']
+  nirodha → ['ni', 'rodha']
+
+Word-by-Word Analysis:
+---------------------
+  abhyāsavairāgyābhyāṃ:
+    abhyāsa → ['abhy', 'āsa']
+    vairāgya → ['vairāgya']
+  tannirodhaḥ:
+    tad → ['ta', 'd']
+    nirodha → ['ni', 'rodha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 13:
+Original Text: tatra sthitau yatno 'bhyāsaḥ 
+
+Full Line Analysis:
+------------------
+  tatra → ['ta', 'tra']
+  sthita → ['sthita']
+  sthiti → ['sthi', 'ti']
+  yatna → ['yatna']
+  abhyāsa → ['abhy', 'āsa']
+
+Word-by-Word Analysis:
+---------------------
+  tatra:
+    tatra → ['ta', 'tra']
+  sthitau:
+    sthita → ['sthita']
+    sthiti → ['sthi', 'ti']
+  yatno:
+    yatnaḥ → ['yatnaḥ']
+    yatna → ['yatna']
+  'bhyāsaḥ:
+    abhyāsaḥ → ['abhy', 'ā', 'sad']
+    abhyāsa → ['abhy', 'āsa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 7
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 14:
+Original Text: sa tu dīrghakālanairantaryasatkārāsevito dṛḍhabhūmiḥ 
+
+Full Line Analysis:
+------------------
+  sa → ['sa']
+  tu → ['tu']
+  dīrghakāla → ['dīrgha', 'kāla']
+  aira → ['aira']
+  tarya → ['ta', 'rya']
+  satkāra → ['sat', 'kāra']
+  asevita → ['a', 'sevita']
+  dṛḍha → ['dṛḍha']
+  bhūmi → ['bhū', 'mi']
+
+Word-by-Word Analysis:
+---------------------
+  sa:
+    sa → ['sa']
+  tu:
+    tu → ['tu']
+  dīrghakālanairantaryasatkārāsevito:
+    dīrgha → ['dīrgha']
+    kāla → ['kāla']
+    nairantarya → ['nair', 'antarya']
+    satkāra → ['sat', 'kāra']
+    asevita → ['a', 'sevita']
+  dṛḍhabhūmiḥ:
+    dṛḍha → ['dṛḍha']
+    bhūmi → ['bhū', 'mi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 9
+
+================================================================================
+
+Sutra 15:
+Original Text: dṛṣṭānuśravikaviṣayavitṛṣṇasya vaśīkārasaṃjñā vairāgyam 
+
+Full Line Analysis:
+------------------
+  dṛṣṭa → ['dṛṣṭa']
+  ānuśravika → ['ānuśravika']
+  viṣaya → ['viṣaya']
+  vitṛṣṇa → ['vi', 'tṛṣṇa']
+  vaśīkāra → ['vaśī', 'kāra']
+  saṃjña → ['saṃ', 'jña']
+  vairāgya → ['vairāgya']
+
+Word-by-Word Analysis:
+---------------------
+  dṛṣṭānuśravikaviṣayavitṛṣṇasya:
+    dṛṣṭa → ['dṛṣṭa']
+    ānuśravika → ['ānuśravika']
+    viṣaya → ['viṣaya']
+    vitṛṣṇa → ['vi', 'tṛṣṇa']
+  vaśīkārasaṃjñā:
+    vaśīkāra → ['vaśī', 'kāra']
+    saṃjña → ['saṃ', 'jña']
+  vairāgyam:
+    vairāgya → ['vairāgya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 16:
+Original Text: tat paraṃ puruṣakhyāter guṇavaitṛṣṇyam 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  param → ['pa', 'ram']
+  para → ['pa', 'ra']
+  puruṣa → ['pu', 'ruṣa']
+  khyāti → ['khyāti']
+  guṇa → ['guṇa']
+  vaitṛṣṇya → ['vaitṛṣṇya']
+
+Word-by-Word Analysis:
+---------------------
+  tat:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  paraṃ:
+    param → ['pa', 'ram']
+    para → ['pa', 'ra']
+  puruṣakhyāter:
+    puruṣa → ['pu', 'ruṣa']
+    khyāti → ['khyāti']
+  guṇavaitṛṣṇyam:
+    guṇa → ['guṇa']
+    vaitṛṣṇya → ['vaitṛṣṇya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 17:
+Original Text: vitarkavicārānandāsmitārūpānugamāt saṃprajñātaḥ 
+
+Full Line Analysis:
+------------------
+  vitarka → ['vi', 'tarka']
+  vicāra → ['vi', 'cāra']
+  ānanda → ['ā', 'nanda']
+  asmitā → ['asmi', 'tā']
+  rūpa → ['rūpa']
+  anugama → ['anu', 'gama']
+  samprajñāta → ['sam', 'prajñāta']
+
+Word-by-Word Analysis:
+---------------------
+  vitarkavicārānandāsmitārūpānugamāt:
+    vitarka → ['vi', 'tarka']
+    vicāra → ['vi', 'cāra']
+    ānanda → ['ā', 'nanda']
+    asmitā → ['asmi', 'tā']
+    rūpa → ['rūpa']
+    anugama → ['anu', 'gama']
+  saṃprajñātaḥ:
+    samprajñāta → ['sam', 'prajñāta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 18:
+Original Text: virāmapratyayābhyāsapūrvaḥ saṃskāraśeṣo 'nyaḥ 
+
+Full Line Analysis:
+------------------
+  virāma → ['vi', 'rāma']
+  pratyaya → ['pratyaya']
+  abhyāsa → ['abhy', 'āsa']
+  pūrva → ['pū', 'rva']
+  saṃskāra → ['saṃ', 'skāra']
+  śeṣa → ['śeṣa']
+  śeṣas → ['śe', 'ṣas']
+  anī → ['anī']
+  anya → ['a', 'nya']
+
+Word-by-Word Analysis:
+---------------------
+  virāmapratyayābhyāsapūrvaḥ:
+    virāma → ['vi', 'rāma']
+    pratyaya → ['pratyaya']
+    abhyāsa → ['abhy', 'āsa']
+    pūrva → ['pū', 'rva']
+  saṃskāraśeṣo:
+    saṃskāra → ['saṃ', 'skāra']
+    śeṣa → ['śeṣa']
+    śeṣas → ['śe', 'ṣas']
+  'nyaḥ:
+    anī → ['anī']
+    anya → ['a', 'nya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 9
+
+================================================================================
+
+Sutra 19:
+Original Text: bhavapratyayo videhaprakṛtilayānām 
+
+Full Line Analysis:
+------------------
+  bhava → ['bhava']
+  bhū → ['bhū']
+  pratyaya → ['pratyaya']
+  videha → ['vi', 'deha']
+  prakṛtilaya → ['pra', 'kṛti', 'laya']
+
+Word-by-Word Analysis:
+---------------------
+  bhavapratyayo:
+    bhava → ['bhava']
+    bhū → ['bhū']
+    pratyaya → ['pratyaya']
+  videhaprakṛtilayānām:
+    videha → ['vi', 'deha']
+    prakṛtilaya → ['pra', 'kṛti', 'laya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 20:
+Original Text: śraddhāvīryasmṛtisamādhiprajñāpūrvaka itareṣām 
+
+Full Line Analysis:
+------------------
+  śraddha → ['śrad', 'dha']
+  avīrya → ['a', 'vīrya']
+  smṛti → ['smṛ', 'ti']
+  samādhi → ['sam', 'ādhi']
+  prajña → ['pra', 'jña']
+  pūrvaka → ['pūrvaka']
+  itara → ['i', 'tara']
+
+Word-by-Word Analysis:
+---------------------
+  śraddhāvīryasmṛtisamādhiprajñāpūrvaka:
+    śraddha → ['śrad', 'dha']
+    avīrya → ['a', 'vīrya']
+    smṛti → ['smṛ', 'ti']
+    samādhi → ['sam', 'ādhi']
+    prajña → ['pra', 'jña']
+    pūrvaka → ['pūrvaka']
+  itareṣām:
+    itara → ['i', 'tara']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 21:
+Original Text: tīvrasaṃvegānām āsannaḥ 
+
+Full Line Analysis:
+------------------
+  tīvra → ['tīvra']
+  saṃvega → ['saṃ', 'vega']
+  āsanna → ['ā', 'sanna']
+
+Word-by-Word Analysis:
+---------------------
+  tīvrasaṃvegānām:
+    tīvra → ['tīvra']
+    saṃvega → ['saṃ', 'vega']
+  āsannaḥ:
+    āsanna → ['ā', 'sanna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 22:
+Original Text: mṛdumadhyādhimātratvāt tato 'pi viśeṣaḥ 
+
+Full Line Analysis:
+------------------
+  mṛdumadhyādhimātratva → ['mṛdu', 'madhyādhimātra', 'tva']
+  at → ['at']
+  ad → ['ad']
+  tatas → ['ta', 'tas']
+  api → ['a', 'pi']
+  viśeṣa → ['vi', 'śeṣa']
+
+Word-by-Word Analysis:
+---------------------
+  mṛdumadhyādhimātratvāt:
+    mṛdumadhyādhimātratva → ['mṛdu', 'madhyādhimātra', 'tva']
+  tato:
+    tata → ['tata']
+  'pi:
+    api → ['a', 'pi']
+  viśeṣaḥ:
+    viśeṣa → ['vi', 'śeṣa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 4
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 23:
+Original Text: īśvarapraṇidhānād vā 
+
+Full Line Analysis:
+------------------
+  īśvarapraṇidhāna → ['īśvara', 'praṇidhāna']
+  vā → ['vā']
+
+Word-by-Word Analysis:
+---------------------
+  īśvarapraṇidhānād:
+    īśvarapraṇidhāna → ['īśvara', 'praṇidhāna']
+  vā:
+    vā → ['vā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 2
+Word-by-word total segments: 2
+
+================================================================================
+
+Sutra 24:
+Original Text: kleśakarmavipākāśayair aparāmṛṣṭaḥ puruṣaviśeṣa īśvaraḥ 
+
+Full Line Analysis:
+------------------
+  kleśa → ['kleśa']
+  karma → ['karma']
+  vipāka → ['vi', 'pāka']
+  āśaya → ['āśaya']
+  aparāmṛṣṭa → ['a', 'parāmṛṣṭa']
+  puruṣa → ['pu', 'ruṣa']
+  viśeṣa → ['vi', 'śeṣa']
+  īśvara → ['īśvara']
+
+Word-by-Word Analysis:
+---------------------
+  kleśakarmavipākāśayair:
+    kleśa → ['kleśa']
+    karmavipāka → ['karma', 'vipāka']
+    āśaya → ['āśaya']
+  aparāmṛṣṭaḥ:
+    aparāmṛṣṭa → ['a', 'parāmṛṣṭa']
+  puruṣaviśeṣa:
+    puruṣa → ['pu', 'ruṣa']
+    viśeṣa → ['vi', 'śeṣa']
+  īśvaraḥ:
+    īśvara → ['īśvara']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 25:
+Original Text: tatra niratiśayaṃ sarvajñabījam 
+
+Full Line Analysis:
+------------------
+  tatra → ['ta', 'tra']
+  niratiśaya → ['nir', 'atiśaya']
+  sarvajña → ['sarva', 'jña']
+  bīja → ['bī', 'ja']
+
+Word-by-Word Analysis:
+---------------------
+  tatra:
+    tatra → ['ta', 'tra']
+  niratiśayaṃ:
+    niratiśaya → ['nir', 'atiśaya']
+  sarvajñabījam:
+    sarvajña → ['sarva', 'jña']
+    bīja → ['bī', 'ja']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 26:
+Original Text: pūrveṣām api guruḥ kālenānavacchedāt 
+
+Full Line Analysis:
+------------------
+  pūrva → ['pū', 'rva']
+  api → ['a', 'pi']
+  guru → ['guru']
+  kālena → ['kāle', 'na']
+  kāla → ['kāla']
+  ānava → ['ā', 'nava']
+  cheda → ['cheda']
+
+Word-by-Word Analysis:
+---------------------
+  pūrveṣām:
+    pūrva → ['pū', 'rva']
+  api:
+    api → ['a', 'pi']
+  guruḥ:
+    guru → ['guru']
+  kālenānavacchedāt:
+    kālena → ['kāle', 'na']
+    kāla → ['kāla']
+    ānava → ['ā', 'nava']
+    cheda → ['cheda']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 27:
+Original Text: tasya vācakaḥ praṇavaḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  vācaka → ['vācaka']
+  praṇava → ['pra', 'ṇa', 'va']
+
+Word-by-Word Analysis:
+---------------------
+  tasya:
+    ta → ['ta']
+    tad → ['ta', 'd']
+  vācakaḥ:
+    vācaka → ['vācaka']
+  praṇavaḥ:
+    praṇavaḥ → ['praṇavaḥ']
+    praṇava → ['pra', 'ṇa', 'va']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 28:
+Original Text: tajjapas tadarthabhāvanam 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  japa → ['ja', 'pa']
+  tadartha → ['tad', 'artha']
+  bhāvanam → ['bhāvanam']
+
+Word-by-Word Analysis:
+---------------------
+  tajjapas:
+    tad → ['ta', 'd']
+    japa → ['ja', 'pa']
+  tadarthabhāvanam:
+    tadartha → ['tad', 'artha']
+    bhāvana → ['bhā', 'vana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 29:
+Original Text: tataḥ pratyakcetanādhigamo 'py antarāyābhāvaś ca 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  pratyakcetanā → ['pratyak', 'cetanā']
+  adhigamaḥ → ['adhigamaḥ', 'manaṃ']
+  api → ['a', 'pi']
+  antarāya → ['antar', 'āya']
+  abhāvaś → ['abhāvaś']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  pratyakcetanādhigamo:
+    pratyakcetana → ['pratyak', 'cetana']
+    adhigama → ['adhi', 'gama']
+  'py:
+    api → ['a', 'pi']
+  antarāyābhāvaś:
+    antarāya → ['antar', 'āya']
+    antara → ['a', 'ntara']
+    abhāva → ['a', 'bhāva']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 30:
+Original Text: vyādhistyānasaṃśayapramādālasyāviratibhrāntidarśanālabdhabhūmikatvānavasthitatvāni cittavikṣepās te 'ntarāyāḥ 
+
+Full Line Analysis:
+------------------
+  vyādhi → ['vyādhi']
+  styāna → ['styāna']
+  saṃśaya → ['saṃ', 'śaya']
+  pramāda → ['pra', 'mā', 'da']
+  alasya → ['alasya']
+  avirati → ['a', 'virati']
+  bhrāntidarśana → ['bhrānti', 'darśana']
+  alabdhabhūmikatva → ['a', 'labdha', 'bhūmika', 'tva']
+  anavasthitatvāni → ['anavasthitatvāni']
+  cittavikṣepa → ['citta', 'vikṣepa']
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  yuṣmad → ['yuṣmad']
+
+Word-by-Word Analysis:
+---------------------
+  vyādhistyānasaṃśayapramādālasyāviratibhrāntidarśanālabdhabhūmikatvānavasthitatvāni:
+    vyādhī → ['vy', 'ā', 'dhī']
+    vyādhi → ['vyādhi']
+    styāna → ['styāna']
+    saṃśaya → ['saṃ', 'śaya']
+    pramāda → ['pra', 'mā', 'da']
+    ala → ['ala']
+    vi → ['vi']
+    ratī → ['ratī']
+    bhrāntidarśana → ['bhrānti', 'darśana']
+    alabdhabhūmikatva → ['a', 'labdha', 'bhūmika', 'tva']
+    anavasthitatva → ['an', 'avasthita', 'tva']
+  cittavikṣepās:
+    cittavikṣepa → ['citta', 'vikṣepa']
+  te:
+    te → ['ta']
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+    yuṣmad → ['yuṣmad']
+  'ntarāyāḥ:
+    antarāya → ['antar', 'āya']
+    antara → ['a', 'ntara']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 14
+Word-by-word total segments: 19
+Note: The two approaches differ by 5 segments
+
+================================================================================
+
+Sutra 31:
+Original Text: duḥkhadaurmanasyāṅgamejayatvaśvāsapraśvāsā vikṣepasahabhuvaḥ 
+
+Full Line Analysis:
+------------------
+  duḥkha → ['duḥkha']
+  daurmanasya → ['daur', 'manasya']
+  aṅgamejayatva → ['aṅga', 'm', 'ejayatva']
+  śvā → ['śvā']
+  sat → ['sa', 't']
+  sad → ['sad']
+  ra → ['ra']
+  vāc → ['vā', 'c']
+  vikṣepa → ['vi', 'kṣepa']
+  saha → ['saha']
+  sah → ['sah']
+  bhuva → ['bhuva']
+
+Word-by-Word Analysis:
+---------------------
+  duḥkhadaurmanasyāṅgamejayatvaśvāsapraśvāsā:
+    duḥkha → ['duḥkha']
+    daurmanasya → ['daur', 'manasya']
+    aṅgamejayatva → ['aṅga', 'm', 'ejayatva']
+    śvāsa → ['śvāsa']
+    praśvāsa → ['pra', 'śvāsa']
+  vikṣepasahabhuvaḥ:
+    vikṣepa → ['vi', 'kṣepa']
+    saha → ['saha']
+    bhuvaḥ → ['bhuvad']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 8
+Note: The two approaches differ by 4 segments
+
+================================================================================
+
+Sutra 32:
+Original Text: tatpratiṣedhārtham ekatattvābhyāsaḥ 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  pratiṣedha → ['prati', 'ṣedha']
+  artham → ['artham']
+  artha → ['a', 'rtha']
+  eka → ['e', 'ka']
+  tattva → ['tat', 'tva']
+  abhyāsa → ['abhy', 'āsa']
+
+Word-by-Word Analysis:
+---------------------
+  tatpratiṣedhārtham:
+    tad → ['ta', 'd']
+    pratiṣedha → ['prati', 'ṣedha']
+    artham → ['artham']
+    artha → ['a', 'rtha']
+  ekatattvābhyāsaḥ:
+    eka → ['e', 'ka']
+    tattva → ['tat', 'tva']
+    abhyāsa → ['abhy', 'āsa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 33:
+Original Text: maitrīkaruṇāmuditopekṣāṇāṃ sukhaduḥkhapuṇyāpuṇyaviṣayāṇāṃ bhāvanātaś cittaprasādanam 
+
+Full Line Analysis:
+------------------
+  maitrīkaruṇāmudita → ['maitrī', 'karuṇā', 'mudita']
+  upekṣāṇāṃ → ['upekṣāṇāṃ']
+  sukhaduḥkha → ['sukha', 'duḥkha']
+  puṇyā → ['pu', 'ṇyā']
+  apuṇya → ['a', 'puṇya']
+  viṣayāṇāṃ → ['viṣayāṇāṃ']
+  bhāvanā → ['bhāvanā']
+  ataś → ['ataś']
+  cittaprasādana → ['citta', 'prasādana']
+
+Word-by-Word Analysis:
+---------------------
+  maitrīkaruṇāmuditopekṣāṇāṃ:
+    maitra → ['maitra']
+    maitri → ['maitri']
+    maitrī → ['maitrī']
+    karuṇa → ['karu', 'ṇa']
+    mudita → ['mudita']
+    upekṣa → ['upekṣa']
+    upekṣā → ['upekṣā']
+  sukhaduḥkhapuṇyāpuṇyaviṣayāṇāṃ:
+    sukhaduḥkha → ['sukha', 'duḥkha']
+    puṇya → ['pu', 'ṇya']
+    viṣaya → ['viṣaya']
+  bhāvanātaś:
+    bhāvana → ['bhā', 'vana']
+    at → ['at']
+  cittaprasādanam:
+    cittaprasādana → ['citta', 'prasādana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 13
+Note: The two approaches differ by 4 segments
+
+================================================================================
+
+Sutra 34:
+Original Text: pracchardanavidhāraṇābhyāṃ vā prāṇasya 
+
+Full Line Analysis:
+------------------
+  pracchardana → ['pra', 'cchardana']
+  vidhāraṇa → ['vi', 'dhāraṇa']
+  vā → ['vā']
+  prāṇa → ['prāṇa']
+
+Word-by-Word Analysis:
+---------------------
+  pracchardanavidhāraṇābhyāṃ:
+    pracchardana → ['pra', 'cchardana']
+    vidhāraṇa → ['vi', 'dhāraṇa']
+  vā:
+    vā → ['vā']
+  prāṇasya:
+    prāṇa → ['prāṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 35:
+Original Text: viṣayavatī vā pravṛttir utpannā manasaḥ sthitinibandhanī 
+
+Full Line Analysis:
+------------------
+  viṣayavat → ['viṣaya', 'vat']
+  vā → ['vā']
+  pravṛtti → ['pra', 'vṛtti']
+  utpanna → ['ut', 'panna']
+  manasa → ['manasa']
+  manas → ['ma', 'nas']
+  sthiti → ['sthi', 'ti']
+  nibandhana → ['ni', 'bandhana']
+
+Word-by-Word Analysis:
+---------------------
+  viṣayavatī:
+    viṣayavat → ['viṣaya', 'vat']
+  vā:
+    vā → ['vā']
+  pravṛttir:
+    pravṛttiḥ → ['pravṛttiḥ']
+    pravṛtti → ['pra', 'vṛtti']
+  utpannā:
+    utpanna → ['ut', 'panna']
+  manasaḥ:
+    manasa → ['manasa']
+    manas → ['ma', 'nas']
+  sthitinibandhanī:
+    sthiti → ['sthi', 'ti']
+    nibandhana → ['ni', 'bandhana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 9
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 36:
+Original Text: viśokā vā jyotiṣmatī 
+
+Full Line Analysis:
+------------------
+  viśoka → ['vi', 'śoka']
+  vā → ['vā']
+  jyotiṣmatī → ['jyo', 'tiṣ', 'matī']
+  jyotiṣmat → ['jyo', 'tiṣ', 'mat']
+
+Word-by-Word Analysis:
+---------------------
+  viśokā:
+    viśokā → ['vi', 'śokā']
+    viśoka → ['vi', 'śoka']
+  vā:
+    vā → ['vā']
+  jyotiṣmatī:
+    jyotiṣmatī → ['jyo', 'tiṣ', 'matī']
+    jyotiṣmat → ['jyo', 'tiṣ', 'mat']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 37:
+Original Text: vītarāgaviṣayaṃ vā cittam 
+
+Full Line Analysis:
+------------------
+  vītarāga → ['vīta', 'rāga']
+  viṣaya → ['viṣaya']
+  vā → ['vā']
+  citta → ['citta']
+
+Word-by-Word Analysis:
+---------------------
+  vītarāgaviṣayaṃ:
+    vītarāga → ['vīta', 'rāga']
+    viṣaya → ['viṣaya']
+  vā:
+    vā → ['vā']
+  cittam:
+    citta → ['citta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 38:
+Original Text: svapnanidrājñānālambanaṃ vā 
+
+Full Line Analysis:
+------------------
+  svapna → ['sva', 'pna']
+  nidrā → ['ni', 'drā']
+  ajñāna → ['a', 'jñāna']
+  lambana → ['lambana']
+  vā → ['vā']
+
+Word-by-Word Analysis:
+---------------------
+  svapnanidrājñānālambanaṃ:
+    svapna → ['sva', 'pna']
+    nidrā → ['ni', 'drā']
+    ajñāna → ['a', 'jñāna']
+    lambana → ['lambana']
+  vā:
+    vā → ['vā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 39:
+Original Text: yathābhimatadhyānād vā 
+
+Full Line Analysis:
+------------------
+  yathābhimata → ['yathābhimata']
+  dhyāna → ['dhyāna']
+  vā → ['vā']
+
+Word-by-Word Analysis:
+---------------------
+  yathābhimatadhyānād:
+    yathābhimata → ['yathābhimata']
+    dhyāna → ['dhyāna']
+  vā:
+    vā → ['vā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 40:
+Original Text: paramāṇuparamamahattvānto 'sya vaśīkāraḥ 
+
+Full Line Analysis:
+------------------
+  paramāṇu → ['paramāṇu']
+  parama → ['parama']
+  mahattva → ['mahat', 'tva']
+  anta → ['a', 'nta']
+  idam → ['ida', 'm']
+  as → ['as']
+  vaśīkāra → ['vaśī', 'kāra']
+
+Word-by-Word Analysis:
+---------------------
+  paramāṇuparamamahattvānto:
+    paramāṇu → ['paramāṇu']
+    parama → ['parama']
+    mahattva → ['mahat', 'tva']
+    anta → ['a', 'nta']
+  'sya:
+    asya → ['asya']
+    a → ['a']
+    idam → ['ida', 'm']
+    as → ['as']
+  vaśīkāraḥ:
+    vaśīkāra → ['vaśī', 'kāra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 41:
+Original Text: kṣīṇavṛtter abhijātasyeva maṇer grahītṛgrahaṇagrāhyeṣu tatsthatadañjanatā samāpattiḥ 
+
+Full Line Analysis:
+------------------
+  kṣīṇavṛtti → ['kṣīṇa', 'vṛtti']
+  abhijāta → ['abhi', 'jāta']
+  iva → ['iva']
+  maṇi → ['maṇi']
+  grahītṛ → ['grahītṛ']
+  grahaṇa → ['gra', 'haṇa']
+  grāhya → ['grāhya']
+  tatsthatadañjanatā → ['tat', 'stha', 'tad', 'añjana', 'tā']
+  samāpatti → ['sam', 'āpatti']
+
+Word-by-Word Analysis:
+---------------------
+  kṣīṇavṛtter:
+    kṣīṇavṛtti → ['kṣīṇa', 'vṛtti']
+  abhijātasyeva:
+    abhijāta → ['abhi', 'jāta']
+    iva → ['iva']
+  maṇer:
+    maṇi → ['maṇi']
+  grahītṛgrahaṇagrāhyeṣu:
+    grahītṛ → ['grahītṛ']
+    grahaṇa → ['gra', 'haṇa']
+    grāhya → ['grāhya']
+  tatsthatadañjanatā:
+    tatsthatadañjanatā → ['tat', 'stha', 'tad', 'añjana', 'tā']
+  samāpattiḥ:
+    samāpattiḥ → ['samāpattiḥ']
+    samāpatti → ['sam', 'āpatti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 42:
+Original Text: tatra śabdārthajñānavikalpaiḥ saṃkīrṇā savitarkā samāpattiḥ 
+
+Full Line Analysis:
+------------------
+  tatra → ['ta', 'tra']
+  śabdārtha → ['śabdārtha']
+  jña → ['jña']
+  avikalpa → ['a', 'vikalpa']
+  saṃkīrṇa → ['saṃ', 'kīrṇa']
+  savitarka → ['sa', 'vitarka']
+  samāpatti → ['sam', 'āpatti']
+
+Word-by-Word Analysis:
+---------------------
+  tatra:
+    tatra → ['ta', 'tra']
+  śabdārthajñānavikalpaiḥ:
+    śabdārtha → ['śabdārtha']
+    jña → ['jña']
+    avikalpa → ['a', 'vikalpa']
+  saṃkīrṇā:
+    saṃkīrṇā → ['saṃ', 'kīrṇā']
+    saṃkīrṇa → ['saṃ', 'kīrṇa']
+  savitarkā:
+    savitarka → ['sa', 'vitarka']
+  samāpattiḥ:
+    samāpattiḥ → ['samāpattiḥ']
+    samāpatti → ['sam', 'āpatti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 43:
+Original Text: smṛtipariśuddhau svarūpaśūnyevārthamātranirbhāsā nirvitarkā 
+
+Full Line Analysis:
+------------------
+  smṛti → ['smṛ', 'ti']
+  pariśuddha → ['pari', 'śuddha']
+  pariśuddhi → ['pari', 'śuddhi']
+  svarūpa → ['sva', 'rūpa']
+  śūnya → ['śūnya']
+  iva → ['iva']
+  arthamātra → ['artha', 'mātra']
+  nirbhāsa → ['nir', 'bhāsa']
+  nirvitarka → ['nir', 'vitarka']
+
+Word-by-Word Analysis:
+---------------------
+  smṛtipariśuddhau:
+    smṛti → ['smṛ', 'ti']
+    pariśuddha → ['pari', 'śuddha']
+    pariśuddhi → ['pari', 'śuddhi']
+  svarūpaśūnyevārthamātranirbhāsā:
+    svarūpa → ['sva', 'rūpa']
+    śūnya → ['śūnya']
+    iva → ['iva']
+    arthamātra → ['artha', 'mātra']
+    ni → ['ni']
+    bhās → ['bhās']
+  nirvitarkā:
+    nirvitarka → ['nir', 'vitarka']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 44:
+Original Text: etayaiva savicārā nirvicārā ca sūkṣmaviṣayā vyākhyātā 
+
+Full Line Analysis:
+------------------
+  eta → ['e', 'ta']
+  etad → ['eta', 'd']
+  eva → ['eva']
+  savicāra → ['sa', 'vicāra']
+  nirvicāra → ['nir', 'vicāra']
+  ca → ['ca']
+  sūkṣma → ['sūkṣma']
+  viṣaya → ['viṣaya']
+  viṣa → ['vi', 'ṣa']
+  vyākhyāta → ['vy', 'ā', 'khyāta']
+  vyākhyātṛ → ['vy', 'ākhyātṛ']
+
+Word-by-Word Analysis:
+---------------------
+  etayaiva:
+    eta → ['e', 'ta']
+    etad → ['eta', 'd']
+    eva → ['eva']
+  savicārā:
+    savicāra → ['sa', 'vicāra']
+  nirvicārā:
+    nirvicāra → ['nir', 'vicāra']
+  ca:
+    ca → ['ca']
+  sūkṣmaviṣayā:
+    sūkṣma → ['sūkṣma']
+    viṣaya → ['viṣaya']
+    viṣa → ['vi', 'ṣa']
+  vyākhyātā:
+    vyākhyāta → ['vy', 'ā', 'khyāta']
+    vyākhyātṛ → ['vy', 'ākhyātṛ']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 11
+
+================================================================================
+
+Sutra 45:
+Original Text: sūkṣmaviṣayatvaṃ cāliṅgaparyavasānam 
+
+Full Line Analysis:
+------------------
+  sūkṣma → ['sūkṣma']
+  viṣayatva → ['viṣaya', 'tva']
+  ca → ['ca']
+  aliṅga → ['a', 'liṅga']
+  paryavasāna → ['pary', 'ava', 'sāna']
+
+Word-by-Word Analysis:
+---------------------
+  sūkṣmaviṣayatvaṃ:
+    sūkṣma → ['sūkṣma']
+    viṣayatva → ['viṣaya', 'tva']
+  cāliṅgaparyavasānam:
+    ca → ['ca']
+    aliṅga → ['a', 'liṅga']
+    paryavasāna → ['pary', 'ava', 'sāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 46:
+Original Text: tā eva sabījaḥ samādhiḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  eva → ['eva']
+  sabīja → ['sa', 'bīja']
+  samādhi → ['sam', 'ādhi']
+
+Word-by-Word Analysis:
+---------------------
+  tā:
+    tā → ['tā']
+    tṛ → ['tṛ']
+    tan → ['tan']
+  eva:
+    eva → ['eva']
+  sabījaḥ:
+    sabīja → ['sa', 'bīja']
+  samādhiḥ:
+    samādhiḥ → ['sam', 'ādhin']
+    samādhi → ['sam', 'ādhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 7
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 47:
+Original Text: nirvicāravaiśāradye 'dhyātmaprasādaḥ 
+
+Full Line Analysis:
+------------------
+  nirvicāra → ['nir', 'vicāra']
+  vaiśāradya → ['vaiśāradya']
+  adhyātma → ['adhy', 'ātma']
+  prasāda → ['pra', 'sāda']
+
+Word-by-Word Analysis:
+---------------------
+  nirvicāravaiśāradye:
+    nirvicāra → ['nir', 'vicāra']
+    vaiśāradya → ['vaiśāradya']
+  'dhyātmaprasādaḥ:
+    adhyātma → ['adhy', 'ātma']
+    prasāda → ['pra', 'sāda']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 48:
+Original Text: ṛtaṃbharā tatra prajñā 
+
+Full Line Analysis:
+------------------
+  ṛtam → ['ṛta', 'm']
+  bharā → ['bharā']
+  tatra → ['ta', 'tra']
+  prajña → ['pra', 'jña']
+
+Word-by-Word Analysis:
+---------------------
+  ṛtaṃbharā:
+    ṛtaṃbharā → ['ṛta', 'ṃ', 'bharā']
+    ṛtaṃbhara → ['ṛta', 'ṃ', 'bhara']
+  tatra:
+    tatra → ['ta', 'tra']
+  prajñā:
+    prajñā → ['pra', 'jñā']
+    prajña → ['pra', 'jña']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 49:
+Original Text: śrutānumānaprajñābhyām anyaviṣayā viśeṣārthatvāt 
+
+Full Line Analysis:
+------------------
+  śruta → ['śruta']
+  śrut → ['śru', 't']
+  anumāna → ['anu', 'māna']
+  prajña → ['pra', 'jña']
+  anī → ['anī']
+  aviṣaya → ['a', 'viṣaya']
+  aviṣa → ['a', 'viṣa']
+  viśeṣa → ['vi', 'śeṣa']
+  ārthatvāt → ['ārthatvāt']
+
+Word-by-Word Analysis:
+---------------------
+  śrutānumānaprajñābhyām:
+    śruta → ['śruta']
+    śrut → ['śru', 't']
+    anumāna → ['anu', 'māna']
+    prajña → ['pra', 'jña']
+  anyaviṣayā:
+    anyaviṣaya → ['anyaviṣaya']
+  viśeṣārthatvāt:
+    viśeṣārthatva → ['vi', 'śeṣārtha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 6
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 50:
+Original Text: tajjaḥ saṃskāro 'nyasaṃskārapratibandhī 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  ja → ['ja']
+  saṃskāra → ['saṃ', 'skāra']
+  anya → ['a', 'nya']
+  pratibandhī → ['pratibandhī']
+
+Word-by-Word Analysis:
+---------------------
+  tajjaḥ:
+    tad → ['ta', 'd']
+    ja → ['ja']
+  saṃskāro:
+    saṃskāraḥ → ['saṃskāraḥ']
+    saṃskāra → ['saṃ', 'skāra']
+  'nyasaṃskārapratibandhī:
+    anya → ['a', 'nya']
+    saṃskāra → ['saṃ', 'skāra']
+    pratibandhi → ['prati', 'bandhi']
+    pratibandhin → ['prati', 'bandhin']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 8
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 51:
+Original Text: tasyāpi nirodhe sarvanirodhān nirbījaḥ samādhiḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  api → ['a', 'pi']
+  nirodha → ['ni', 'rodha']
+  sarva → ['sa', 'rva']
+  nirbīja → ['nir', 'bīja']
+  samādhi → ['sam', 'ādhi']
+
+Word-by-Word Analysis:
+---------------------
+  tasyāpi:
+    ta → ['ta']
+    tad → ['ta', 'd']
+    api → ['a', 'pi']
+  nirodhe:
+    nirodha → ['ni', 'rodha']
+  sarvanirodhān:
+    sarva → ['sa', 'rva']
+    nirodha → ['ni', 'rodha']
+  nirbījaḥ:
+    nirbīja → ['nir', 'bīja']
+  samādhiḥ:
+    samādhiḥ → ['sam', 'ādhin']
+    samādhi → ['sam', 'ādhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 52:
+Original Text: tapaḥsvādhyāyeśvarapraṇidhānāni kriyāyogaḥ 
+
+Full Line Analysis:
+------------------
+  tapa → ['tapa']
+  tapas → ['ta', 'pas']
+  tap → ['tap']
+  svādhyāya → ['svādhyāya']
+  īśvara → ['īśvara']
+  praṇidhāna → ['pra', 'ṇidhāna']
+  kriyāyoga → ['kriyā', 'yoga']
+
+Word-by-Word Analysis:
+---------------------
+  tapaḥsvādhyāyeśvarapraṇidhānāni:
+    tapa → ['tapa']
+    tapas → ['ta', 'pas']
+    tap → ['tap']
+    svādhyāya → ['svādhyāya']
+    īśvara → ['īśvara']
+    praṇidhāna → ['pra', 'ṇidhāna']
+  kriyāyogaḥ:
+    kriyāyoga → ['kriyā', 'yoga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 53:
+Original Text: samādhibhāvanārthaḥ kleśatanūkaraṇārthaś ca 
+
+Full Line Analysis:
+------------------
+  samādhibhāvanā → ['samādhibhāvanā']
+  arthaḥ → ['artham']
+  kleśa → ['kleśa']
+  tanūkaraṇa → ['tanū', 'karaṇa']
+  arthaś → ['arthaś']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  samādhibhāvanārthaḥ:
+    samādhi → ['sam', 'ādhi']
+    bhāvana → ['bhā', 'vana']
+    artha → ['a', 'rtha']
+  kleśatanūkaraṇārthaś:
+    kleśa → ['kleśa']
+    tanūkaraṇa → ['tanū', 'karaṇa']
+    artha → ['a', 'rtha']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 54:
+Original Text: avidyāsmitārāgadveṣābhiniveśāḥ kleśāḥ 
+
+Full Line Analysis:
+------------------
+  avidya → ['a', 'vidya']
+  asmitā → ['asmi', 'tā']
+  rāga → ['rāga']
+  dveṣa → ['dve', 'ṣa']
+  abhiniveśa → ['abhi', 'niveśa']
+  kleśa → ['kleśa']
+
+Word-by-Word Analysis:
+---------------------
+  avidyāsmitārāgadveṣābhiniveśāḥ:
+    avidya → ['a', 'vidya']
+    asmitā → ['asmi', 'tā']
+    rāga → ['rāga']
+    dveṣa → ['dve', 'ṣa']
+    abhiniveśa → ['abhi', 'niveśa']
+  kleśāḥ:
+    kleśa → ['kleśa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 55:
+Original Text: avidyā kṣetram uttareṣāṃ prasuptatanuvicchinnodārāṇām 
+
+Full Line Analysis:
+------------------
+  avidya → ['a', 'vidya']
+  kṣetra → ['kṣe', 'tra']
+  uttara → ['u', 'ttara']
+  prasupta → ['pra', 'supta']
+  tanu → ['tanu']
+  vicchinna → ['vi', 'cchinna']
+  udāra → ['ud', 'āra']
+
+Word-by-Word Analysis:
+---------------------
+  avidyā:
+    avidyā → ['a', 'vidyā']
+    avidya → ['a', 'vidya']
+  kṣetram:
+    kṣetra → ['kṣe', 'tra']
+  uttareṣāṃ:
+    uttara → ['u', 'ttara']
+  prasuptatanuvicchinnodārāṇām:
+    prasupta → ['pra', 'supta']
+    tanu → ['tanu']
+    vicchinna → ['vi', 'cchinna']
+    udāra → ['ud', 'āra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 56:
+Original Text: anityāśuciduḥkhānātmasu nityaśucisukhātmakhyātir avidyā 
+
+Full Line Analysis:
+------------------
+  anitya → ['a', 'nitya']
+  aśuci → ['a', 'śuci']
+  duḥkha → ['duḥkha']
+  ātman → ['ātma', 'n']
+  nitya → ['ni', 'tya']
+  śuci → ['śu', 'ci']
+  śuc → ['śuc']
+  sukha → ['su', 'kha']
+  makhya → ['makhya']
+  āti → ['āti']
+  avidya → ['a', 'vidya']
+
+Word-by-Word Analysis:
+---------------------
+  anityāśuciduḥkhānātmasu:
+    anitya → ['a', 'nitya']
+    aśuci → ['a', 'śuci']
+    duḥkha → ['duḥkha']
+    ātman → ['ātma', 'n']
+  nityaśucisukhātmakhyātir:
+    nitya → ['ni', 'tya']
+    śuci → ['śu', 'ci']
+    śuc → ['śuc']
+    sukha → ['su', 'kha']
+    makhya → ['makhya']
+    āti → ['āti']
+  avidyā:
+    avidyā → ['a', 'vidyā']
+    avidya → ['a', 'vidya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 12
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 57:
+Original Text: dṛgdarśanaśaktyor ekātmatevāsmitā 
+
+Full Line Analysis:
+------------------
+  dṛś → ['dṛś']
+  darśana → ['da', 'rśana']
+  śakti → ['śa', 'kti', 'śakti']
+  eka → ['e', 'ka']
+  ātmatā → ['ātma', 'tā']
+  iva → ['iva']
+  asmitā → ['asmi', 'tā']
+
+Word-by-Word Analysis:
+---------------------
+  dṛgdarśanaśaktyor:
+    dṛś → ['dṛś']
+    darśana → ['da', 'rśana']
+    śakti → ['śa', 'kti', 'śakti']
+  ekātmatevāsmitā:
+    ekātmatā → ['ekātma', 'tā']
+    vāc → ['vā', 'c']
+    mita → ['mita']
+    mit → ['mi', 't']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 58:
+Original Text: sukhānuśayī rāgaḥ 
+
+Full Line Analysis:
+------------------
+  sukha → ['su', 'kha']
+  anuśayī → ['anu', 'śayī']
+  rāga → ['rāga']
+
+Word-by-Word Analysis:
+---------------------
+  sukhānuśayī:
+    sukha → ['su', 'kha']
+    anuśayī → ['anu', 'śayī']
+    anuśayin → ['anu', 'śayin']
+  rāgaḥ:
+    rāgaḥ → ['rāgaḥ']
+    rāga → ['rāga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 5
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 59:
+Original Text: duḥkhānuśayī dveṣaḥ 
+
+Full Line Analysis:
+------------------
+  duḥkha → ['duḥkha']
+  anuśayī → ['anu', 'śayī']
+  dveṣa → ['dve', 'ṣa']
+  dveṣas → ['dve', 'ṣas']
+
+Word-by-Word Analysis:
+---------------------
+  duḥkhānuśayī:
+    duḥkha → ['duḥkha']
+    anuśayī → ['anu', 'śayī']
+    anuśayin → ['anu', 'śayin']
+  dveṣaḥ:
+    dveṣaḥ → ['dve', 'ṣas']
+    dveṣa → ['dve', 'ṣa']
+    dveṣas → ['dve', 'ṣas']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 6
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 60:
+Original Text: svarasavāhī viduṣo 'pi tathā rūḍho 'bhiniveśaḥ 
+
+Full Line Analysis:
+------------------
+  svarasa → ['sva', 'rasa']
+  vāhi → ['vāhi']
+  vāhī → ['vāha']
+  vidvas → ['vidva', 's']
+  vidus → ['vidu', 's']
+  api → ['a', 'pi']
+  tathā → ['ta', 'thā']
+  rūḍha → ['rūḍha']
+  abhiniveśa → ['abhi', 'niveśa']
+
+Word-by-Word Analysis:
+---------------------
+  svarasavāhī:
+    svarasa → ['sva', 'rasa']
+    vāhi → ['vāhi']
+    vāhin → ['vāhin']
+  viduṣo:
+    vidvas → ['vidva', 's']
+    vidus → ['vidu', 's']
+  'pi:
+    api → ['a', 'pi']
+  tathā:
+    tathā → ['ta', 'thā']
+  rūḍho:
+    rūḍha → ['rūḍha']
+  'bhiniveśaḥ:
+    abhiniveśaḥ → ['abhiniveśaḥ']
+    abhiniveśa → ['abhi', 'niveśa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 61:
+Original Text: te pratiprasavaheyāḥ sūkṣmāḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  yuṣmad → ['yuṣmad']
+  pratiprasava → ['prati', 'prasava']
+  heya → ['heya']
+  hā → ['hā']
+  sūkṣma → ['sūkṣma']
+
+Word-by-Word Analysis:
+---------------------
+  te:
+    te → ['ta']
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+    yuṣmad → ['yuṣmad']
+  pratiprasavaheyāḥ:
+    pratiprasava → ['prati', 'prasava']
+    heya → ['heya']
+    hā → ['hā']
+  sūkṣmāḥ:
+    sūkṣma → ['sūkṣma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 9
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 62:
+Original Text: dhyānaheyās tadvṛttayaḥ 
+
+Full Line Analysis:
+------------------
+  dhyāna → ['dhyāna']
+  heyās → ['heyās']
+  tadvṛtti → ['tad', 'vṛtti']
+
+Word-by-Word Analysis:
+---------------------
+  dhyānaheyās:
+    dhyāna → ['dhyāna']
+    heya → ['heya']
+    hā → ['hā']
+  tadvṛttayaḥ:
+    tadvṛtti → ['tad', 'vṛtti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 4
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 63:
+Original Text: kleśamūlaḥ karmāśayo dṛṣṭādṛṣṭajanmavedanīyaḥ 
+
+Full Line Analysis:
+------------------
+  kleśa → ['kleśa']
+  mūla → ['mū', 'la']
+  karmāśaya → ['karmāśaya']
+  dṛṣṭādṛṣṭa → ['dṛṣṭādṛṣṭa']
+  janma → ['janma']
+  vedanīya → ['vedanīya']
+
+Word-by-Word Analysis:
+---------------------
+  kleśamūlaḥ:
+    kleśa → ['kleśa']
+    mūla → ['mū', 'la']
+  karmāśayo:
+    karmāśaya → ['karmāśaya']
+  dṛṣṭādṛṣṭajanmavedanīyaḥ:
+    dṛṣṭādṛṣṭa → ['dṛṣṭādṛṣṭa']
+    janma → ['janma']
+    vedanīya → ['vedanīya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 64:
+Original Text: sati mūle tadvipāko jātyāyurbhogāḥ 
+
+Full Line Analysis:
+------------------
+  satī → ['satī']
+  mūla → ['mū', 'la']
+  tad → ['ta', 'd']
+  vipāka → ['vi', 'pāka']
+  jātī → ['jātī']
+  āyu → ['ā', 'yu']
+  āyus → ['ā', 'yus']
+  bhoga → ['bhoga']
+  bhogā → ['bhogā']
+
+Word-by-Word Analysis:
+---------------------
+  sati:
+    sati → ['sati']
+    satī → ['satī']
+  mūle:
+    mūle → ['mū', 'la']
+    mūla → ['mū', 'la']
+  tadvipāko:
+    tad → ['ta', 'd']
+    vipāka → ['vi', 'pāka']
+  jātyāyurbhogāḥ:
+    jātya → ['jā', 'tya']
+    jātī → ['jātī']
+    jāti → ['jāti']
+    āyu → ['ā', 'yu']
+    āyus → ['ā', 'yus']
+    bhoga → ['bhoga']
+    bhogā → ['bhogā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 13
+Note: The two approaches differ by 4 segments
+
+================================================================================
+
+Sutra 65:
+Original Text: te hlādaparitāpaphalāḥ puṇyāpuṇyahetutvāt 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  yuṣmad → ['yuṣmad']
+  hlāda → ['hlāda']
+  paritāpa → ['pari', 'tāpa']
+  phala → ['pha', 'la']
+  puṇya → ['pu', 'ṇya']
+  hetutva → ['hetu', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  te:
+    te → ['ta']
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+    yuṣmad → ['yuṣmad']
+  hlādaparitāpaphalāḥ:
+    hlāda → ['hlāda']
+    paritāpa → ['pari', 'tāpa']
+    phala → ['pha', 'la']
+  puṇyāpuṇyahetutvāt:
+    puṇya → ['pu', 'ṇya']
+    apuṇya → ['a', 'puṇya']
+    hetutva → ['hetu', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 11
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 66:
+Original Text: pariṇāmatāpasaṃskāraduḥkhair guṇavṛttivirodhāc ca duḥkham eva sarvaṃ vivekinaḥ 
+
+Full Line Analysis:
+------------------
+  pariṇāma → ['pari', 'ṇāma']
+  tāpa → ['tāpa']
+  saṃskāra → ['saṃ', 'skāra']
+  duḥkhair → ['duḥkhair']
+  guṇavṛtti → ['guṇa', 'vṛtti']
+  virodhāc → ['virodhāc']
+  ca → ['ca']
+  duḥkham → ['duḥkham']
+  duḥkha → ['duḥkha']
+  eva → ['eva']
+  sarvam → ['sa', 'rvam']
+  sarva → ['sa', 'rva']
+  vivekin → ['vi', 'vekin']
+
+Word-by-Word Analysis:
+---------------------
+  pariṇāmatāpasaṃskāraduḥkhair:
+    pariṇāma → ['pari', 'ṇāma']
+    tāpa → ['tāpa']
+    saṃskāra → ['saṃ', 'skāra']
+    duḥkha → ['duḥkha']
+  guṇavṛttivirodhāc:
+    guṇavṛtti → ['guṇa', 'vṛtti']
+    virodha → ['vi', 'rodha']
+  ca:
+    ca → ['ca']
+  duḥkham:
+    duḥkham → ['duḥkham']
+    duḥkha → ['duḥkha']
+  eva:
+    eva → ['eva']
+  sarvaṃ:
+    sarvam → ['sa', 'rvam']
+    sarva → ['sa', 'rva']
+  vivekinaḥ:
+    vivekin → ['vi', 'vekin']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 13
+Word-by-word total segments: 13
+
+================================================================================
+
+Sutra 67:
+Original Text: heyaṃ duḥkham anāgatam 
+
+Full Line Analysis:
+------------------
+  heya → ['heya']
+  duḥkham → ['duḥkham']
+  duḥkha → ['duḥkha']
+  anāgata → ['a', 'n', 'āgata']
+
+Word-by-Word Analysis:
+---------------------
+  heyaṃ:
+    heya → ['heya']
+  duḥkham:
+    duḥkham → ['duḥkham']
+    duḥkha → ['duḥkha']
+  anāgatam:
+    anāgata → ['a', 'n', 'āgata']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 68:
+Original Text: draṣṭṛdṛśyayoḥ saṃyogo heyahetuḥ 
+
+Full Line Analysis:
+------------------
+  draṣṭṛ → ['draṣṭṛ']
+  dṛśya → ['dṛ', 'śya']
+  saṃyoga → ['saṃ', 'yoga']
+  heya → ['heya']
+  hetu → ['hetu']
+  hetṛ → ['hetṛ']
+
+Word-by-Word Analysis:
+---------------------
+  draṣṭṛdṛśyayoḥ:
+    draṣṭṛ → ['draṣṭṛ']
+    dṛśya → ['dṛ', 'śya']
+  saṃyogo:
+    saṃyogaḥ → ['saṃyogaḥ']
+    saṃyoga → ['saṃ', 'yoga']
+  heyahetuḥ:
+    heya → ['heya']
+    hetu → ['hetu']
+    hetṛ → ['hetṛ']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 69:
+Original Text: prakāśakriyāsthitiśīlaṃ bhūtendriyātmakaṃ bhogāpavargārthaṃ dṛśyam 
+
+Full Line Analysis:
+------------------
+  prakāśa → ['pra', 'kāśa']
+  kriyā → ['kriyā']
+  sthiti → ['sthi', 'ti']
+  śīla → ['śī', 'la']
+  śīl → ['śīl']
+  bhūta → ['bhūta']
+  indriya → ['indriya']
+  ātmaka → ['ātmaka']
+  bhoga → ['bhoga']
+  apavarga → ['apa', 'varga']
+  artham → ['artham']
+  artha → ['a', 'rtha']
+  dṛśya → ['dṛ', 'śya']
+
+Word-by-Word Analysis:
+---------------------
+  prakāśakriyāsthitiśīlaṃ:
+    prakāśa → ['pra', 'kāśa']
+    kriyā → ['kriyā']
+    sthiti → ['sthi', 'ti']
+    śīla → ['śī', 'la']
+    śīl → ['śīl']
+  bhūtendriyātmakaṃ:
+    bhūta → ['bhūta']
+    indriya → ['indriya']
+    ātmaka → ['ātmaka']
+  bhogāpavargārthaṃ:
+    bhoga → ['bhoga']
+    apavarga → ['apa', 'varga']
+    artham → ['artham']
+    artha → ['a', 'rtha']
+  dṛśyam:
+    dṛśya → ['dṛ', 'śya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 13
+Word-by-word total segments: 13
+
+================================================================================
+
+Sutra 70:
+Original Text: viśeṣāviśeṣaliṅgamātrāliṅgāni guṇaparvāṇi 
+
+Full Line Analysis:
+------------------
+  viśeṣa → ['vi', 'śeṣa']
+  aviśeṣa → ['a', 'viśeṣa']
+  liṅgamātra → ['liṅga', 'mātra']
+  aliṅga → ['a', 'liṅga']
+  guṇa → ['guṇa']
+  parvan → ['pa', 'rvan']
+
+Word-by-Word Analysis:
+---------------------
+  viśeṣāviśeṣaliṅgamātrāliṅgāni:
+    viśeṣa → ['vi', 'śeṣa']
+    viśeṣaliṅga → ['vi', 'śeṣa', 'liṅga']
+    mātra → ['mātra']
+    aliṅga → ['a', 'liṅga']
+  guṇaparvāṇi:
+    guṇa → ['guṇa']
+    parvan → ['pa', 'rvan']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 71:
+Original Text: draṣṭā dṛśimātraḥ śuddho 'pi pratyayānupaśyaḥ 
+
+Full Line Analysis:
+------------------
+  draṣṭṛ → ['draṣṭṛ']
+  dṛś → ['dṛś']
+  mātra → ['mātra']
+  śuddha → ['śuddha']
+  api → ['a', 'pi']
+  pratyaya → ['pratyaya']
+  anupaśya → ['anu', 'paśya']
+
+Word-by-Word Analysis:
+---------------------
+  draṣṭā:
+    draṣṭṛ → ['draṣṭṛ']
+    dṛś → ['dṛś']
+  dṛśimātraḥ:
+    dṛś → ['dṛś']
+    mātra → ['mātra']
+  śuddho:
+    śuddha → ['śuddha']
+  'pi:
+    api → ['a', 'pi']
+  pratyayānupaśyaḥ:
+    pratyaya → ['pratyaya']
+    anupaśya → ['anu', 'paśya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 72:
+Original Text: tadartha eva dṛśyasyātmā 
+
+Full Line Analysis:
+------------------
+  tadartha → ['tad', 'artha']
+  eva → ['eva']
+  dṛśya → ['dṛ', 'śya']
+  ātman → ['ātma', 'n']
+
+Word-by-Word Analysis:
+---------------------
+  tadartha:
+    tadartha → ['tad', 'artha']
+  eva:
+    eva → ['eva']
+  dṛśyasyātmā:
+    dṛśya → ['dṛ', 'śya']
+    ātman → ['ātma', 'n']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 73:
+Original Text: kṛtārthaṃ prati naṣṭam apy anaṣṭaṃ tadanyasādhāraṇatvāt 
+
+Full Line Analysis:
+------------------
+  kṛtārtha → ['kṛtārtha']
+  prati → ['pra', 'ti']
+  naṣṭa → ['naṣṭa']
+  api → ['a', 'pi']
+  anaṣṭa → ['a', 'naṣṭa']
+  tadanya → ['tad', 'anya']
+  sādhāraṇatvāt → ['sādhāraṇatvāt']
+
+Word-by-Word Analysis:
+---------------------
+  kṛtārthaṃ:
+    kṛtārtha → ['kṛtārtha']
+  prati:
+    prati → ['pra', 'ti']
+  naṣṭam:
+    naṣṭa → ['naṣṭa']
+  apy:
+    api → ['a', 'pi']
+  anaṣṭaṃ:
+    anaṣṭa → ['a', 'naṣṭa']
+  tadanyasādhāraṇatvāt:
+    tadanya → ['tad', 'anya']
+    sādhāraṇatva → ['sādhāraṇa', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 74:
+Original Text: svasvāmiśaktyoḥ svarūpopalabdhihetuḥ saṃyogaḥ 
+
+Full Line Analysis:
+------------------
+  sva → ['sva']
+  svāmi → ['svāmi']
+  śakti → ['śa', 'kti', 'śakti']
+  svarūpa → ['sva', 'rūpa']
+  upalabdhi → ['upa', 'labdhi']
+  hetu → ['hetu']
+  hetṛ → ['hetṛ']
+  saṃyoga → ['saṃ', 'yoga']
+
+Word-by-Word Analysis:
+---------------------
+  svasvāmiśaktyoḥ:
+    su → ['su']
+    asva → ['a', 'sva']
+    ami → ['a', 'ma']
+    śakti → ['śa', 'kti', 'śakti']
+  svarūpopalabdhihetuḥ:
+    svarūpa → ['sva', 'rūpa']
+    upalabdhi → ['upa', 'labdhi']
+    hetu → ['hetu']
+    hetṛ → ['hetṛ']
+  saṃyogaḥ:
+    saṃyogaḥ → ['saṃyogaḥ']
+    saṃyoga → ['saṃ', 'yoga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 10
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 75:
+Original Text: tasya hetur avidyā 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  hetu → ['hetu']
+  hetṛ → ['hetṛ']
+  avidya → ['a', 'vidya']
+
+Word-by-Word Analysis:
+---------------------
+  tasya:
+    ta → ['ta']
+    tad → ['ta', 'd']
+  hetur:
+    hetuḥ → ['hetuḥ']
+    hetu → ['hetu']
+    hetṛ → ['hetṛ']
+  avidyā:
+    avidyā → ['a', 'vidyā']
+    avidya → ['a', 'vidya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 7
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 76:
+Original Text: tadabhāvāt saṃyogābhāvo hānaṃ taddṛśeḥ kaivalyam 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  abhāva → ['a', 'bhāva']
+  saṃyoga → ['saṃ', 'yoga']
+  hāna → ['hāna']
+  dṛśi → ['dṛśi']
+  kaivalya → ['kaivalya']
+
+Word-by-Word Analysis:
+---------------------
+  tadabhāvāt:
+    tad → ['ta', 'd']
+    abhāva → ['a', 'bhāva']
+  saṃyogābhāvo:
+    saṃyoga → ['saṃ', 'yoga']
+    abhāva → ['a', 'bhāva']
+  hānaṃ:
+    hāna → ['hāna']
+  taddṛśeḥ:
+    tad → ['ta', 'd']
+    dṛśi → ['dṛśi']
+  kaivalyam:
+    kaivalya → ['kaivalya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 8
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 77:
+Original Text: vivekakhyātir aviplavā hānopāyaḥ 
+
+Full Line Analysis:
+------------------
+  viveka → ['vi', 'veka']
+  khyāti → ['khyāti']
+  aviplava → ['a', 'viplava']
+  hāna → ['hāna']
+  upāya → ['upāya']
+
+Word-by-Word Analysis:
+---------------------
+  vivekakhyātir:
+    vivekakhyāti → ['vi', 'veka', 'khyāti']
+  aviplavā:
+    aviplava → ['a', 'viplava']
+  hānopāyaḥ:
+    hāna → ['hāna']
+    upāya → ['upāya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 4
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 78:
+Original Text: tasya saptadhā prāntabhūmiḥ prajñā 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  saptadhā → ['saptadhā']
+  prāntabhūmi → ['prānta', 'bhūmi']
+  prajña → ['pra', 'jña']
+
+Word-by-Word Analysis:
+---------------------
+  tasya:
+    ta → ['ta']
+    tad → ['ta', 'd']
+  saptadhā:
+    saptadhā → ['saptadhā']
+  prāntabhūmiḥ:
+    prāntabhūmi → ['prānta', 'bhūmi']
+  prajñā:
+    prajñā → ['pra', 'jñā']
+    prajña → ['pra', 'jña']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 79:
+Original Text: yogāṅgānuṣṭhānād aśuddhikṣaye jñānadīptir ā vivekakhyāteḥ 
+
+Full Line Analysis:
+------------------
+  yogāṅga → ['yogāṅga']
+  anuṣṭhāna → ['anu', 'ṣṭhāna']
+  ad → ['ad']
+  aśuddhi → ['a', 'śuddhi']
+  kṣaya → ['kṣa', 'ya']
+  kṣi → ['kṣi']
+  jñāna → ['jñāna']
+  dīpti → ['dī', 'pti']
+  vivekakhyāti → ['vi', 'veka', 'khyāti']
+
+Word-by-Word Analysis:
+---------------------
+  yogāṅgānuṣṭhānād:
+    yogāṅga → ['yogāṅga']
+    anuṣṭhāna → ['anu', 'ṣṭhāna']
+  aśuddhikṣaye:
+    aśuddhi → ['a', 'śuddhi']
+    kṣaya → ['kṣa', 'ya']
+    kṣi → ['kṣi']
+  jñānadīptir:
+    jñāna → ['jñāna']
+    dīpti → ['dī', 'pti']
+  ā:
+    ā → ['ā']
+    ḷ → ['ḷ']
+  vivekakhyāteḥ:
+    vivekakhyāti → ['vi', 'veka', 'khyāti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 80:
+Original Text: yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasamādhayo 'ṣṭāv aṅgāni 
+
+Full Line Analysis:
+------------------
+  yama → ['ya', 'ma']
+  niyama → ['ni', 'yama']
+  asana → ['a', 'sana']
+  prāṇāyāma → ['prāṇāyāma']
+  pratyāhāra → ['praty', 'āhāra']
+  dhāraṇā → ['dhāraṇā']
+  ādhyāna → ['ā', 'dhyāna']
+  samādhayaḥ → ['samādhayaḥ']
+  aṣṭā → ['aṣṭā']
+  av → ['av']
+  aṅga → ['aṅga']
+  aṅg → ['aṅg']
+
+Word-by-Word Analysis:
+---------------------
+  yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasamādhayo:
+    yama → ['ya', 'ma']
+    niyama → ['ni', 'yama']
+    āsana → ['ā', 'sana']
+    prāṇāyāma → ['prāṇāyāma']
+    pratyāhāra → ['praty', 'āhāra']
+    dhāraṇa → ['dhāraṇa']
+    dhyāna → ['dhyāna']
+    samādhi → ['sam', 'ādhi']
+  'ṣṭāv:
+    aṣṭa → ['aṣṭa']
+    akṣ → ['akṣ']
+  aṅgāni:
+    aṅga → ['aṅga']
+    aṅg → ['aṅg']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 12
+
+================================================================================
+
+Sutra 81:
+Original Text: ahiṃsāsatyāsteyabrahmacaryāparigrahā yamāḥ 
+
+Full Line Analysis:
+------------------
+  ahiṃsā → ['a', 'hiṃsā']
+  asatya → ['a', 'satya']
+  asatī → ['a', 'satī']
+  steya → ['ste', 'ya']
+  brahmacarya → ['brahma', 'ca', 'rya']
+  aparigraha → ['a', 'parigraha']
+  yama → ['ya', 'ma']
+
+Word-by-Word Analysis:
+---------------------
+  ahiṃsāsatyāsteyabrahmacaryāparigrahā:
+    ahiṃsā → ['a', 'hiṃsā']
+    asatya → ['a', 'satya']
+    asatī → ['a', 'satī']
+    asteya → ['a', 'steya']
+    brahmacarya → ['brahma', 'ca', 'rya']
+    aparigraha → ['a', 'parigraha']
+  yamāḥ:
+    yama → ['ya', 'ma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 82:
+Original Text: jātideśakālasamayānavacchinnāḥ sārvabhaumā mahāvratam 
+
+Full Line Analysis:
+------------------
+  jātī → ['jātī']
+  deśa → ['deśa']
+  kāla → ['kāla']
+  samayā → ['sama', 'yā']
+  sama → ['sama']
+  samaya → ['samaya']
+  anavacchinna → ['an', 'avacchinna']
+  sārvabhauma → ['sārva', 'bhauma']
+  mahāvrata → ['mahā', 'vrata']
+
+Word-by-Word Analysis:
+---------------------
+  jātideśakālasamayānavacchinnāḥ:
+    jātī → ['jātī']
+    deśakāla → ['deśa', 'kāla']
+    samayā → ['sama', 'yā']
+    sama → ['sama']
+    samaya → ['samaya']
+    anavacchinna → ['an', 'avacchinna']
+  sārvabhaumā:
+    sārvabhauma → ['sārva', 'bhauma']
+  mahāvratam:
+    mahāvrata → ['mahā', 'vrata']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 83:
+Original Text: śaucasaṃtoṣatapaḥsvādhyāyeśvarapraṇidhānāni niyamāḥ 
+
+Full Line Analysis:
+------------------
+  śauca → ['śauca']
+  saṃtoṣa → ['saṃ', 'toṣa']
+  tapa → ['tapa']
+  tapas → ['ta', 'pas']
+  tap → ['tap']
+  svādhyāya → ['svādhyāya']
+  īśvara → ['īśvara']
+  praṇidhāna → ['pra', 'ṇidhāna']
+  niyama → ['ni', 'yama']
+
+Word-by-Word Analysis:
+---------------------
+  śaucasaṃtoṣatapaḥsvādhyāyeśvarapraṇidhānāni:
+    śauca → ['śauca']
+    saṃtoṣa → ['saṃ', 'toṣa']
+    tapa → ['tapa']
+    tapas → ['ta', 'pas']
+    tap → ['tap']
+    svādhyāya → ['svādhyāya']
+    īśvara → ['īśvara']
+    praṇidhāna → ['pra', 'ṇidhāna']
+  niyamāḥ:
+    niyama → ['ni', 'yama']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 9
+
+================================================================================
+
+Sutra 84:
+Original Text: vitarkabādhane pratipakṣabhāvanam 
+
+Full Line Analysis:
+------------------
+  vitarka → ['vi', 'tarka']
+  bādhana → ['bādhana']
+  pratipakṣa → ['prati', 'pakṣa']
+  bhāvana → ['bhā', 'vana']
+
+Word-by-Word Analysis:
+---------------------
+  vitarkabādhane:
+    vitarka → ['vi', 'tarka']
+    bādhana → ['bādhana']
+  pratipakṣabhāvanam:
+    pratipakṣa → ['prati', 'pakṣa']
+    bhāvana → ['bhā', 'vana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 85:
+Original Text: vitarkā hiṃsādayaḥ kṛtakāritānumoditā lobhakrodhamohapūrvakā mṛdumadhyādhimātrā duḥkhājñānānantaphalā iti pratipakṣabhāvanam 
+
+Full Line Analysis:
+------------------
+  vitarka → ['vi', 'tarka']
+  hiṃsa → ['hi', 'ṃsa']
+  adaya → ['a', 'daya']
+  kṛta → ['kṛta']
+  kṛ → ['kṛ']
+  kārita → ['kārita']
+  anumodita → ['anu', 'modita']
+  lobha → ['lobha']
+  krodha → ['kro', 'dha']
+  moha → ['mo', 'ha']
+  pūrva → ['pū', 'rva']
+  ka → ['ka']
+  mṛdumadhyādhimātra → ['mṛdu', 'madhyādhimātra']
+
+Word-by-Word Analysis:
+---------------------
+  vitarkā:
+    vitarka → ['vi', 'tarka']
+  hiṃsādayaḥ:
+    hiṃsa → ['hi', 'ṃsa']
+    aya → ['a', 'ya']
+    ayas → ['a', 'yas']
+  kṛtakāritānumoditā:
+    kṛta → ['kṛta']
+    kṛ → ['kṛ']
+    kārita → ['kārita']
+    anumodita → ['anu', 'modita']
+  lobhakrodhamohapūrvakā:
+    lobha → ['lobha']
+    krodha → ['kro', 'dha']
+    moha → ['mo', 'ha']
+    pūrvaka → ['pūrvaka']
+  mṛdumadhyādhimātrā:
+    mṛdumadhyādhimātra → ['mṛdu', 'madhyādhimātra']
+  duḥkhājñānānantaphalā:
+    duḥkha → ['duḥkha']
+    ajñāna → ['a', 'jñāna']
+    ananta → ['an', 'anta']
+    phala → ['pha', 'la']
+  iti:
+    iti → ['iti']
+  pratipakṣabhāvanam:
+    pratipakṣa → ['prati', 'pakṣa']
+    bhāvana → ['bhā', 'vana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 13
+Word-by-word total segments: 20
+Note: The two approaches differ by 7 segments
+
+================================================================================
+
+Sutra 86:
+Original Text: ahiṃsāpratiṣṭhāyāṃ tatsaṃnidhau vairatyāgaḥ 
+
+Full Line Analysis:
+------------------
+  ahiṃsā → ['a', 'hiṃsā']
+  pratiṣṭha → ['prati', 'ṣṭha']
+  tatsad → ['tat', 'sad']
+  nidhi → ['ni', 'dhi']
+  vaira → ['vai', 'ra']
+  tyāga → ['tyāga']
+
+Word-by-Word Analysis:
+---------------------
+  ahiṃsāpratiṣṭhāyāṃ:
+    ahiṃsā → ['a', 'hiṃsā']
+    pratiṣṭha → ['prati', 'ṣṭha']
+  tatsaṃnidhau:
+    tatsad → ['tat', 'sad']
+    nidhi → ['ni', 'dhi']
+  vairatyāgaḥ:
+    vaira → ['vai', 'ra']
+    tyāga → ['tyāga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 87:
+Original Text: satyapratiṣṭhāyāṃ kriyāphalāśrayatvam 
+
+Full Line Analysis:
+------------------
+  satya → ['satya']
+  pratiṣṭha → ['prati', 'ṣṭha']
+  kriyāphala → ['kriyā', 'phala']
+  āśrayatva → ['ā', 'śraya', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  satyapratiṣṭhāyāṃ:
+    satya → ['satya']
+    pratiṣṭha → ['prati', 'ṣṭha']
+  kriyāphalāśrayatvam:
+    kriyāphala → ['kriyā', 'phala']
+    āśrayatva → ['ā', 'śraya', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 88:
+Original Text: asteyapratiṣṭhāyāṃ sarvaratnopasthānam 
+
+Full Line Analysis:
+------------------
+  asteya → ['a', 'steya']
+  pratiṣṭha → ['prati', 'ṣṭha']
+  sarvaratna → ['sarva', 'ratna']
+  upasthāna → ['upa', 'sthā', 'na']
+
+Word-by-Word Analysis:
+---------------------
+  asteyapratiṣṭhāyāṃ:
+    asteya → ['a', 'steya']
+    pratiṣṭha → ['prati', 'ṣṭha']
+  sarvaratnopasthānam:
+    sarvaratna → ['sarva', 'ratna']
+    upasthāna → ['upa', 'sthā', 'na']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 89:
+Original Text: brahmacaryapratiṣṭhāyāṃ vīryalābhaḥ 
+
+Full Line Analysis:
+------------------
+  brahmacarya → ['brahma', 'ca', 'rya']
+  pratiṣṭha → ['prati', 'ṣṭha']
+  vīrya → ['vīrya']
+  lābha → ['lābha']
+
+Word-by-Word Analysis:
+---------------------
+  brahmacaryapratiṣṭhāyāṃ:
+    brahmacarya → ['brahma', 'ca', 'rya']
+    pratiṣṭha → ['prati', 'ṣṭha']
+  vīryalābhaḥ:
+    vīrya → ['vīrya']
+    lābha → ['lābha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 90:
+Original Text: aparigrahasthairye janmakathaṃtāsaṃbodhaḥ 
+
+Full Line Analysis:
+------------------
+  aparigraha → ['a', 'parigraha']
+  sthairya → ['sthairya']
+  janma → ['janma']
+  katham → ['katha', 'm']
+  tā → ['tā']
+  tṛ → ['tṛ']
+  sambodha → ['sam', 'bodha']
+
+Word-by-Word Analysis:
+---------------------
+  aparigrahasthairye:
+    aparigraha → ['a', 'parigraha']
+    sthairya → ['sthairya']
+  janmakathaṃtāsaṃbodhaḥ:
+    janma → ['janma']
+    kathaṃtā → ['kathaṃ', 'tā']
+    asaṃbodha → ['a', 'saṃbodha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 5
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 91:
+Original Text: śaucāt svāṅgajugupsā parair asaṃsargaḥ 
+
+Full Line Analysis:
+------------------
+  śauca → ['śauca']
+  svāṅga → ['svāṅga']
+  jugupsā → ['jugupsā']
+  parā → ['pa', 'rā']
+  para → ['pa', 'ra']
+  saṃsarga → ['saṃ', 'sarga']
+
+Word-by-Word Analysis:
+---------------------
+  śaucāt:
+    śauca → ['śauca']
+  svāṅgajugupsā:
+    svāṅga → ['svāṅga']
+    jugupsā → ['jugupsā']
+  parair:
+    para → ['pa', 'ra']
+  asaṃsargaḥ:
+    a → ['a']
+    saṃsarga → ['saṃ', 'sarga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 92:
+Original Text: sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni ca 
+
+Full Line Analysis:
+------------------
+  sattva → ['sat', 'tva']
+  śuddhi → ['śu', 'ddhi']
+  saumana → ['saumana']
+  saumanasya → ['saumanasya']
+  ekāgrya → ['ekāgrya']
+  indriya → ['indriya']
+  jaya → ['jaya']
+  ja → ['ja']
+  ātma → ['ātma']
+  darśana → ['da', 'rśana']
+  yogyatva → ['yogya', 'tva']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  sattvaśuddhisaumanasyaikāgryendriyajayātmadarśanayogyatvāni:
+    sattva → ['sat', 'tva']
+    śuddhi → ['śu', 'ddhi']
+    saumana → ['saumana']
+    saumanasya → ['saumanasya']
+    ekāgrya → ['ekāgrya']
+    indriya → ['indriya']
+    jaya → ['jaya']
+    ja → ['ja']
+    ātma → ['ātma']
+    darśana → ['da', 'rśana']
+    yogyatva → ['yogya', 'tva']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 12
+
+================================================================================
+
+Sutra 93:
+Original Text: saṃtoṣād anuttamaḥ sukhalābhaḥ 
+
+Full Line Analysis:
+------------------
+  saṃtoṣa → ['saṃ', 'toṣa']
+  anuttama → ['an', 'uttama']
+  sukha → ['su', 'kha']
+  lābha → ['lābha']
+
+Word-by-Word Analysis:
+---------------------
+  saṃtoṣād:
+    saṃtoṣa → ['saṃ', 'toṣa']
+  anuttamaḥ:
+    anuttama → ['an', 'uttama']
+  sukhalābhaḥ:
+    sukha → ['su', 'kha']
+    lābha → ['lābha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 94:
+Original Text: kāyendriyasiddhir aśuddhikṣayāt tapasaḥ 
+
+Full Line Analysis:
+------------------
+  ka → ['ka']
+  kāya → ['kāya']
+  indriya → ['indriya']
+  siddhi → ['siddhi']
+  aśuddhi → ['a', 'śuddhi']
+  kṣaya → ['kṣa', 'ya']
+  tapasa → ['tapasa']
+  tapas → ['ta', 'pas']
+
+Word-by-Word Analysis:
+---------------------
+  kāyendriyasiddhir:
+    kāya → ['kāya']
+    indriya → ['indriya']
+    siddhi → ['siddhi']
+  aśuddhikṣayāt:
+    aśuddhi → ['a', 'śuddhi']
+    kṣaya → ['kṣa', 'ya']
+  tapasaḥ:
+    tapasaḥ → ['tapasaḥ']
+    tapasa → ['tapasa']
+    tapas → ['ta', 'pas']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 8
+
+================================================================================
+
+Sutra 95:
+Original Text: svādhyāyād iṣṭadevatāsaṃprayogaḥ 
+
+Full Line Analysis:
+------------------
+  svādhyāya → ['svādhyāya']
+  iṣṭadevatā → ['iṣṭa', 'devatā']
+  samprayoga → ['sam', 'prayoga']
+
+Word-by-Word Analysis:
+---------------------
+  svādhyāyād:
+    svādhyāya → ['svādhyāya']
+  iṣṭadevatāsaṃprayogaḥ:
+    iṣṭadevatā → ['iṣṭa', 'devatā']
+    samprayoga → ['sam', 'prayoga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 96:
+Original Text: samādhisiddhir īśvarapraṇidhānāt 
+
+Full Line Analysis:
+------------------
+  samādhi → ['sam', 'ādhi']
+  siddhi → ['siddhi']
+  īśvarapraṇidhāna → ['īśvara', 'praṇidhāna']
+
+Word-by-Word Analysis:
+---------------------
+  samādhisiddhir:
+    samādhi → ['sam', 'ādhi']
+    siddhi → ['siddhi']
+  īśvarapraṇidhānāt:
+    īśvarapraṇidhāna → ['īśvara', 'praṇidhāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 97:
+Original Text: sthirasukham āsanam 
+
+Full Line Analysis:
+------------------
+  sthira → ['sthira']
+  sukham → ['sukha', 'm']
+  sukha → ['su', 'kha']
+  āsana → ['ā', 'sana']
+
+Word-by-Word Analysis:
+---------------------
+  sthirasukham:
+    sthira → ['sthira']
+    sukham → ['sukha', 'm']
+    sukha → ['su', 'kha']
+  āsanam:
+    āsana → ['ā', 'sana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 98:
+Original Text: prayatnaśaithilyānantasamāpattibhyām 
+
+Full Line Analysis:
+------------------
+  prayatna → ['pra', 'yatna']
+  śaithilya → ['śaithilya']
+  ananta → ['an', 'anta']
+  samāpatti → ['sam', 'āpatti']
+
+Word-by-Word Analysis:
+---------------------
+  prayatnaśaithilyānantasamāpattibhyām:
+    prayatna → ['pra', 'yatna']
+    śaithilya → ['śaithilya']
+    ananta → ['an', 'anta']
+    samāpatti → ['sam', 'āpatti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 99:
+Original Text: tato dvandvānabhighātaḥ 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  dvandva → ['dva', 'm', 'dvá']
+  an → ['an']
+  abhighāta → ['abhi', 'ghāta']
+
+Word-by-Word Analysis:
+---------------------
+  tato:
+    tata → ['tata']
+  dvandvānabhighātaḥ:
+    dvandva → ['dva', 'm', 'dvá']
+    an → ['an']
+    abhighāta → ['abhi', 'ghāta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 100:
+Original Text: tasmin sati śvāsapraśvāsayor gativicchedaḥ prāṇāyāmaḥ 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  satī → ['satī']
+  śvāsa → ['śvāsa']
+  praśvāsa → ['pra', 'śvāsa']
+  gatī → ['gatī']
+  viccheda → ['vi', 'ccheda']
+  prāṇāyāma → ['prāṇāyāma']
+
+Word-by-Word Analysis:
+---------------------
+  tasmin:
+    tad → ['ta', 'd']
+  sati:
+    sati → ['sati']
+    satī → ['satī']
+  śvāsapraśvāsayor:
+    śvāsa → ['śvāsa']
+    praśvāsa → ['pra', 'śvāsa']
+  gativicchedaḥ:
+    gatī → ['gatī']
+    viccheda → ['vi', 'ccheda']
+  prāṇāyāmaḥ:
+    prāṇāyāma → ['prāṇāyāma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 101:
+Original Text: bāhyābhyantarastambhavṛttir deśakālasaṃkhyābhiḥ paridṛṣṭo dīrghasūkṣmaḥ 
+
+Full Line Analysis:
+------------------
+  bāhya → ['bāhya']
+  ābhyantara → ['ābhyantara']
+  stambha → ['stambha']
+  stambh → ['stambh']
+  vṛtti → ['vṛtti']
+  deśa → ['deśa']
+  kāla → ['kāla']
+  saṃkhya → ['saṃ', 'khya']
+  paridṛṣṭa → ['pari', 'dṛṣṭa']
+  dīrgha → ['dīrgha']
+  sūkṣma → ['sūkṣma']
+
+Word-by-Word Analysis:
+---------------------
+  bāhyābhyantarastambhavṛttir:
+    bāhyābhyantara → ['bāhyābhyantara']
+    stambha → ['stambha']
+    stambh → ['stambh']
+    vṛtti → ['vṛtti']
+  deśakālasaṃkhyābhiḥ:
+    deśakāla → ['deśa', 'kāla']
+    saṃkhya → ['saṃ', 'khya']
+  paridṛṣṭo:
+    paridṛṣṭa → ['pari', 'dṛṣṭa']
+  dīrghasūkṣmaḥ:
+    dīrgha → ['dīrgha']
+    sūkṣma → ['sūkṣma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 102:
+Original Text: bāhyābhyantaraviṣayākṣepī caturthaḥ 
+
+Full Line Analysis:
+------------------
+  bāhya → ['bāhya']
+  ābhyantara → ['ābhyantara']
+  viṣaya → ['viṣaya']
+  ākṣepin → ['ā', 'kṣepin']
+  caturtha → ['caturtha']
+
+Word-by-Word Analysis:
+---------------------
+  bāhyābhyantaraviṣayākṣepī:
+    bāhya → ['bāhya']
+    ābhyantara → ['ābhyantara']
+    viṣaya → ['viṣaya']
+    ākṣepin → ['ā', 'kṣepin']
+  caturthaḥ:
+    caturtha → ['caturtha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 103:
+Original Text: tataḥ kṣīyate prakāśāvaraṇam 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  kṣi → ['kṣi']
+  prakāśa → ['pra', 'kāśa']
+  āvaraṇa → ['ā', 'varaṇa']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  kṣīyate:
+    kṣi → ['kṣi']
+  prakāśāvaraṇam:
+    prakāśa → ['pra', 'kāśa']
+    āvaraṇa → ['ā', 'varaṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 104:
+Original Text: dhāraṇāsu ca yogyatā manasaḥ 
+
+Full Line Analysis:
+------------------
+  dhāraṇa → ['dhāraṇa']
+  ca → ['ca']
+  yogyatā → ['yogya', 'tā']
+  manasa → ['manasa']
+  manas → ['ma', 'nas']
+
+Word-by-Word Analysis:
+---------------------
+  dhāraṇāsu:
+    dhāraṇa → ['dhāraṇa']
+  ca:
+    ca → ['ca']
+  yogyatā:
+    yogyatā → ['yogya', 'tā']
+  manasaḥ:
+    manasa → ['manasa']
+    manas → ['ma', 'nas']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 105:
+Original Text: svaviṣayāsaṃprayoge cittasvarūpānukāra ivendriyāṇāṃ pratyāhāraḥ 
+
+Full Line Analysis:
+------------------
+  svaviṣaya → ['sva', 'viṣaya']
+  samprayoga → ['sam', 'prayoga']
+  citta → ['citta']
+  svarūpa → ['sva', 'rūpa']
+  anukāra → ['anu', 'kāra']
+  iva → ['iva']
+  indriya → ['indriya']
+  pratyāhāra → ['praty', 'āhāra']
+
+Word-by-Word Analysis:
+---------------------
+  svaviṣayāsaṃprayoge:
+    svaviṣaya → ['sva', 'viṣaya']
+    āsa → ['āsa']
+    as → ['as']
+    prayoga → ['prayo', 'ga']
+  cittasvarūpānukāra:
+    citta → ['citta']
+    svarūpa → ['sva', 'rūpa']
+    anukāra → ['anu', 'kāra']
+  ivendriyāṇāṃ:
+    iva → ['iva']
+    indriya → ['indriya']
+  pratyāhāraḥ:
+    pratyāhāraḥ → ['pratyāhāraḥ']
+    pratyāhāra → ['praty', 'āhāra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 11
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 106:
+Original Text: tataḥ paramā vaśyatendriyāṇām 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  parama → ['parama']
+  vaśyatā → ['vaśya', 'tā']
+  indriya → ['indriya']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  paramā:
+    parama → ['parama']
+  vaśyatendriyāṇām:
+    vaśyatā → ['vaśya', 'tā']
+    indriya → ['indriya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 107:
+Original Text: deśabandhaś cittasya dhāraṇā 
+
+Full Line Analysis:
+------------------
+  deśa → ['deśa']
+  bandhaś → ['bandhaś']
+  citta → ['citta']
+  dhāraṇa → ['dhāraṇa']
+
+Word-by-Word Analysis:
+---------------------
+  deśabandhaś:
+    deśa → ['deśa']
+    bandha → ['bandha']
+  cittasya:
+    citta → ['citta']
+  dhāraṇā:
+    dhāraṇā → ['dhāraṇā']
+    dhāraṇa → ['dhāraṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 108:
+Original Text: tatra pratyayaikatānatā dhyānam 
+
+Full Line Analysis:
+------------------
+  tatra → ['ta', 'tra']
+  pratyaya → ['pratyaya']
+  ekatā → ['eka', 'tā']
+  nata → ['nata']
+  nat → ['nat']
+  dhyāna → ['dhyāna']
+
+Word-by-Word Analysis:
+---------------------
+  tatra:
+    tatra → ['ta', 'tra']
+  pratyayaikatānatā:
+    pratyaya → ['pratyaya']
+    ekatā → ['eka', 'tā']
+    nata → ['nata']
+    nat → ['nat']
+  dhyānam:
+    dhyāna → ['dhyāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 109:
+Original Text: tad evārthamātranirbhāsaṃ svarūpaśūnyam iva samādhiḥ 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  eva → ['eva']
+  arthamātra → ['artha', 'mātra']
+  nirbhāsa → ['nir', 'bhāsa']
+  svarūpa → ['sva', 'rūpa']
+  śūnya → ['śūnya']
+  iva → ['iva']
+  samādhi → ['sam', 'ādhi']
+
+Word-by-Word Analysis:
+---------------------
+  tad:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  evārthamātranirbhāsaṃ:
+    eva → ['eva']
+    arthamātra → ['artha', 'mātra']
+    nirbhāsa → ['nir', 'bhāsa']
+  svarūpaśūnyam:
+    svarūpa → ['sva', 'rūpa']
+    śūnya → ['śūnya']
+  iva:
+    iva → ['iva']
+  samādhiḥ:
+    samādhiḥ → ['sam', 'ādhin']
+    samādhi → ['sam', 'ādhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 10
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 110:
+Original Text: trayam ekatra saṃyamaḥ 
+
+Full Line Analysis:
+------------------
+  traya → ['traya']
+  ekatra → ['ekatra']
+  saṃyama → ['saṃ', 'yama']
+
+Word-by-Word Analysis:
+---------------------
+  trayam:
+    traya → ['traya']
+  ekatra:
+    ekatra → ['ekatra']
+  saṃyamaḥ:
+    saṃyamaḥ → ['saṃyamaḥ']
+    saṃyama → ['saṃ', 'yama']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 4
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 111:
+Original Text: tajjayāt prajñālokaḥ 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  jaya → ['jaya']
+  prajñāla → ['prajñāla']
+  kaḥ → ['kab']
+
+Word-by-Word Analysis:
+---------------------
+  tajjayāt:
+    tad → ['ta', 'd']
+    jaya → ['jaya']
+  prajñālokaḥ:
+    prajña → ['pra', 'jña']
+    āloka → ['ā', 'loka']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 112:
+Original Text: tasya bhūmiṣu viniyogaḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  bhūmi → ['bhū', 'mi']
+  viniyoga → ['vi', 'niyoga']
+
+Word-by-Word Analysis:
+---------------------
+  tasya:
+    ta → ['ta']
+    tad → ['ta', 'd']
+  bhūmiṣu:
+    bhūmi → ['bhū', 'mi']
+  viniyogaḥ:
+    viniyogaḥ → ['viniyogaḥ']
+    viniyoga → ['vi', 'niyoga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 113:
+Original Text: trayam antaraṅgaṃ pūrvebhyaḥ 
+
+Full Line Analysis:
+------------------
+  traya → ['traya']
+  anta → ['a', 'nta']
+  raṅga → ['raṅga']
+  pūrva → ['pū', 'rva']
+
+Word-by-Word Analysis:
+---------------------
+  trayam:
+    traya → ['traya']
+  antaraṅgaṃ:
+    antaraṅga → ['antar', 'aṅga']
+  pūrvebhyaḥ:
+    pūrva → ['pū', 'rva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 3
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 114:
+Original Text: tad api bahiraṅgaṃ nirbījasya 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  api → ['a', 'pi']
+  bahiraṅga → ['bahir', 'aṅga']
+  nirbīja → ['nir', 'bīja']
+
+Word-by-Word Analysis:
+---------------------
+  tad:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  api:
+    api → ['a', 'pi']
+  bahiraṅgaṃ:
+    bahiraṅga → ['bahir', 'aṅga']
+  nirbījasya:
+    nirbīja → ['nir', 'bīja']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 115:
+Original Text: vyutthānanirodhasaṃskārayor abhibhavaprādurbhāvau nirodhakṣaṇacittānvayo nirodhapariṇāmaḥ 
+
+Full Line Analysis:
+------------------
+  vi → ['vi']
+  utthāna → ['ut', 'thā', 'na']
+  nirodha → ['ni', 'rodha']
+  saṃskāra → ['saṃ', 'skāra']
+  abhibhava → ['abhi', 'bhava']
+  prādurbhāva → ['prādur', 'bhāva']
+  kṣaṇa → ['kṣaṇa']
+  citta → ['citta']
+  anvaya → ['anv', 'aya']
+  pariṇāma → ['pari', 'ṇāma']
+
+Word-by-Word Analysis:
+---------------------
+  vyutthānanirodhasaṃskārayor:
+    vyutthāna → ['vy', 'utthāna']
+    nirodha → ['ni', 'rodha']
+    saṃskāra → ['saṃ', 'skāra']
+  abhibhavaprādurbhāvau:
+    abhibhava → ['abhi', 'bhava']
+    prādurbhāva → ['prādur', 'bhāva']
+  nirodhakṣaṇacittānvayo:
+    nirodha → ['ni', 'rodha']
+    kṣaṇa → ['kṣaṇa']
+    citta → ['citta']
+    anvaya → ['anv', 'aya']
+  nirodhapariṇāmaḥ:
+    nirodha → ['ni', 'rodha']
+    pariṇāma → ['pari', 'ṇāma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 11
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 116:
+Original Text: tasya praśāntavāhitā saṃskārāt 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tad → ['ta', 'd']
+  praśānta → ['pra', 'śānta']
+  vāhitā → ['vāhi', 'tā']
+  vāhitṛ → ['vāhitṛ']
+  saṃskāra → ['saṃ', 'skāra']
+
+Word-by-Word Analysis:
+---------------------
+  tasya:
+    ta → ['ta']
+    tad → ['ta', 'd']
+  praśāntavāhitā:
+    praśānta → ['pra', 'śānta']
+    vāhitā → ['vāhi', 'tā']
+    vāhitṛ → ['vāhitṛ']
+  saṃskārāt:
+    saṃskāra → ['saṃ', 'skāra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 117:
+Original Text: sarvārthataikāgratayoḥ kṣayodayau cittasya samādhipariṇāmaḥ 
+
+Full Line Analysis:
+------------------
+  sarvārthatā → ['sarvārtha', 'tā']
+  ekāgratā → ['ekāgra', 'tā']
+  kṣaya → ['kṣa', 'ya']
+  kṣi → ['kṣi']
+  udaya → ['ud', 'aya']
+  citta → ['citta']
+  samādhi → ['sam', 'ādhi']
+  pariṇāma → ['pari', 'ṇāma']
+
+Word-by-Word Analysis:
+---------------------
+  sarvārthataikāgratayoḥ:
+    sarvārthatā → ['sarvārtha', 'tā']
+    ekāgratā → ['ekāgra', 'tā']
+  kṣayodayau:
+    kṣaya → ['kṣa', 'ya']
+    kṣi → ['kṣi']
+    adaya → ['a', 'daya']
+  cittasya:
+    citta → ['citta']
+  samādhipariṇāmaḥ:
+    samādhi → ['sam', 'ādhi']
+    pariṇāma → ['pari', 'ṇāma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 8
+
+================================================================================
+
+Sutra 118:
+Original Text: tataḥ punaḥ śāntoditau tulyapratyayau cittasyaikāgratāpariṇāmaḥ 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  puna → ['puna']
+  pu → ['pu']
+  śānta → ['śānta']
+  udita → ['u', 'd', 'ita']
+  uditi → ['u', 'd', 'iti']
+  tulya → ['tulya']
+  pratyaya → ['pratyaya']
+  citta → ['citta']
+  ekāgratā → ['ekāgra', 'tā']
+  pariṇāma → ['pari', 'ṇāma']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  punaḥ:
+    punaḥ → ['punaḥ']
+    puna → ['puna']
+    pu → ['pu']
+  śāntoditau:
+    śānta → ['śānta']
+    udita → ['u', 'd', 'ita']
+    uditi → ['u', 'd', 'iti']
+  tulyapratyayau:
+    tulya → ['tulya']
+    pratyaya → ['pratyaya']
+  cittasyaikāgratāpariṇāmaḥ:
+    citta → ['citta']
+    ekāgratā → ['ekāgra', 'tā']
+    pariṇāma → ['pari', 'ṇāma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 12
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 119:
+Original Text: etena bhūtendriyeṣu dharmalakṣaṇāvasthāpariṇāmā vyākhyātāḥ 
+
+Full Line Analysis:
+------------------
+  eta → ['e', 'ta']
+  etad → ['eta', 'd']
+  bhūta → ['bhūta']
+  indriya → ['indriya']
+  dharma → ['dha', 'rma']
+  lakṣaṇa → ['lakṣaṇa']
+  avasthā → ['ava', 'sthā']
+  pariṇāma → ['pari', 'ṇāma']
+  vyākhyāta → ['vy', 'ā', 'khyāta']
+
+Word-by-Word Analysis:
+---------------------
+  etena:
+    eta → ['e', 'ta']
+    etad → ['eta', 'd']
+  bhūtendriyeṣu:
+    bhūta → ['bhūta']
+    indriya → ['indriya']
+  dharmalakṣaṇāvasthāpariṇāmā:
+    dharmalakṣaṇa → ['dharma', 'lakṣaṇa']
+    avasthā → ['ava', 'sthā']
+    apariṇāma → ['a', 'pariṇāma']
+  vyākhyātāḥ:
+    vyākhyāta → ['vy', 'ā', 'khyāta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 120:
+Original Text: śāntoditāvyapadeśyadharmānupātī dharmī 
+
+Full Line Analysis:
+------------------
+  śānta → ['śānta']
+  udita → ['u', 'd', 'ita']
+  vyapadeśya → ['vy', 'apadeśya']
+  dharma → ['dha', 'rma']
+  anupātin → ['anu', 'pātin']
+  dharmin → ['dharmin']
+
+Word-by-Word Analysis:
+---------------------
+  śāntoditāvyapadeśyadharmānupātī:
+    śānta → ['śānta']
+    udita → ['u', 'd', 'ita']
+    vyapadeśya → ['vy', 'apadeśya']
+    dharma → ['dha', 'rma']
+    anupātin → ['anu', 'pātin']
+  dharmī:
+    dharmī → ['dha', 'rma']
+    dharmin → ['dharmin']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 121:
+Original Text: kramānyatvaṃ pariṇāmānyatve hetuḥ 
+
+Full Line Analysis:
+------------------
+  krama → ['kra', 'ma']
+  yatva → ['ya', 'tva']
+  pariṇāma → ['pari', 'ṇāma']
+  anyatva → ['anyatva']
+  hetu → ['hetu']
+  hetṛ → ['hetṛ']
+
+Word-by-Word Analysis:
+---------------------
+  kramānyatvaṃ:
+    krama → ['kra', 'ma']
+    yatva → ['ya', 'tva']
+  pariṇāmānyatve:
+    pariṇāma → ['pari', 'ṇāma']
+    anyatva → ['anyatva']
+  hetuḥ:
+    hetuḥ → ['hetuḥ']
+    hetu → ['hetu']
+    hetṛ → ['hetṛ']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 122:
+Original Text: pariṇāmatrayasaṃyamād atītānāgatajñānam 
+
+Full Line Analysis:
+------------------
+  pariṇāma → ['pari', 'ṇāma']
+  traya → ['traya']
+  saṃyama → ['saṃ', 'yama']
+  atīta → ['atīta']
+  anāgata → ['a', 'n', 'āgata']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  pariṇāmatrayasaṃyamād:
+    pariṇāma → ['pari', 'ṇāma']
+    traya → ['traya']
+    saṃyama → ['saṃ', 'yama']
+  atītānāgatajñānam:
+    atīta → ['atīta']
+    anāgata → ['a', 'n', 'āgata']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 123:
+Original Text: śabdārthapratyayānām itaretarādhyāsāt saṃkaras tatpravibhāgasaṃyamāt sarvabhūtarutajñānam 
+
+Full Line Analysis:
+------------------
+  śabdārtha → ['śabdārtha']
+  pratyayānām → ['pratyayānām']
+  itaretara → ['itaretara']
+  adhyāsāt → ['adhyāsāt']
+  saṃkara → ['saṃ', 'kara']
+  tat → ['tat']
+  pravibhāga → ['pravibhāga']
+  saṃyamāt → ['saṃyamāt']
+  sarvabhūtaruta → ['sarvabhūtaruta']
+  jñānam → ['jñānam']
+
+Word-by-Word Analysis:
+---------------------
+  śabdārthapratyayānām:
+    śabdārtha → ['śabdārtha']
+    pratyaya → ['pratyaya']
+  itaretarādhyāsāt:
+    itaretara → ['itaretara']
+    adhyāsa → ['adhy', 'āsa']
+  saṃkaras:
+    saṃkaraḥ → ['saṃkaraḥ']
+    saṃkara → ['saṃ', 'kara']
+  tatpravibhāgasaṃyamāt:
+    tad → ['ta', 'd']
+    pravibhāga → ['pravibhāga']
+    saṃyama → ['saṃ', 'yama']
+  sarvabhūtarutajñānam:
+    sarvabhūta → ['sarva', 'bhūta']
+    ruta → ['ruta']
+    ru → ['ru']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 13
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 124:
+Original Text: saṃskārasākṣātkaraṇāt pūrvajātijñānam 
+
+Full Line Analysis:
+------------------
+  saṃskāra → ['saṃ', 'skāra']
+  sākṣātkaraṇa → ['sākṣāt', 'karaṇa']
+  pūrvajāti → ['pūrva', 'jāti']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  saṃskārasākṣātkaraṇāt:
+    saṃskāra → ['saṃ', 'skāra']
+    sākṣātkaraṇa → ['sākṣāt', 'karaṇa']
+  pūrvajātijñānam:
+    pūrvajāti → ['pūrva', 'jāti']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 125:
+Original Text: pratyayasya paracittajñānam 
+
+Full Line Analysis:
+------------------
+  pratyaya → ['pratyaya']
+  para → ['pa', 'ra']
+  citta → ['citta']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  pratyayasya:
+    pratyaya → ['pratyaya']
+  paracittajñānam:
+    paracittajñāna → ['para', 'citta', 'jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 2
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 126:
+Original Text: na ca tat sālambanaṃ tasyāviṣayībhūtatvāt 
+
+Full Line Analysis:
+------------------
+  na → ['na']
+  ca → ['ca']
+  tad → ['ta', 'd']
+  sālambana → ['sālambana']
+  ta → ['ta']
+  viṣayin → ['viṣayin']
+  bhūtatva → ['bhūta', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  na:
+    na → ['na']
+  ca:
+    ca → ['ca']
+  tat:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  sālambanaṃ:
+    sālambana → ['sālambana']
+  tasyāviṣayībhūtatvāt:
+    ta → ['ta']
+    tad → ['ta', 'd']
+    viṣayin → ['viṣayin']
+    bhūtatva → ['bhūta', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 127:
+Original Text: kāyarūpasaṃyamāt tadgrāhyaśaktistambhe cakṣuḥprakāśāsaṃprayoge 'ntardhānam 
+
+Full Line Analysis:
+------------------
+  ka → ['ka']
+  kāya → ['kāya']
+  rūpa → ['rūpa']
+  saṃyama → ['saṃ', 'yama']
+  tad → ['ta', 'd']
+  grāhya → ['grāhya']
+  śakti → ['śa', 'kti', 'śakti']
+  stambha → ['stambha']
+  stambhi → ['stambhi']
+  stambh → ['stambh']
+  cakṣu → ['ca', 'kṣu']
+  cakṣus → ['ca', 'kṣus']
+  prakāśa → ['pra', 'kāśa']
+  samprayoga → ['sam', 'prayoga']
+  antardhāna → ['antar', 'dhāna']
+
+Word-by-Word Analysis:
+---------------------
+  kāyarūpasaṃyamāt:
+    ka → ['ka']
+    kāya → ['kāya']
+    rūpa → ['rūpa']
+    saṃyama → ['saṃ', 'yama']
+  tadgrāhyaśaktistambhe:
+    tad → ['ta', 'd']
+    grāhya → ['grāhya']
+    śakti → ['śa', 'kti', 'śakti']
+    stambha → ['stambha']
+    stambhi → ['stambhi']
+    stambh → ['stambh']
+  cakṣuḥprakāśāsaṃprayoge:
+    cakṣu → ['ca', 'kṣu']
+    cakṣus → ['ca', 'kṣus']
+    prakāśa → ['pra', 'kāśa']
+    samprayoga → ['sam', 'prayoga']
+  'ntardhānam:
+    antardhāna → ['antar', 'dhāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 15
+Word-by-word total segments: 15
+
+================================================================================
+
+Sutra 128:
+Original Text: sopakramaṃ nirupakramaṃ ca karma tatsaṃyamād aparāntajñānam ariṣṭebhyo vā 
+
+Full Line Analysis:
+------------------
+  sopakrama → ['sopakrama']
+  nirupakrama → ['nir', 'upakrama']
+  ca → ['ca']
+  karma → ['karma']
+  tad → ['ta', 'd']
+  saṃyama → ['saṃ', 'yama']
+  ad → ['ad']
+  aparāntajñāna → ['aparānta', 'jñāna']
+  ariṣṭa → ['a', 'riṣṭa']
+  ibhya → ['i', 'bhya']
+  vā → ['vā']
+
+Word-by-Word Analysis:
+---------------------
+  sopakramaṃ:
+    sopakrama → ['sopakrama']
+  nirupakramaṃ:
+    nirupakrama → ['nir', 'upakrama']
+  ca:
+    ca → ['ca']
+  karma:
+    karma → ['karma']
+    karman → ['ka', 'rman']
+  tatsaṃyamād:
+    tad → ['ta', 'd']
+    saṃyama → ['saṃ', 'yama']
+  aparāntajñānam:
+    aparāntajñāna → ['aparānta', 'jñāna']
+  ariṣṭebhyo:
+    ariṣṭa → ['a', 'riṣṭa']
+  vā:
+    vā → ['vā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 129:
+Original Text: maitryādiṣu balāni 
+
+Full Line Analysis:
+------------------
+  maitra → ['maitra']
+  maitri → ['maitri']
+  maitrī → ['maitrī']
+  ādi → ['ādi']
+  ādin → ['ādin']
+  bala → ['bala']
+  bal → ['bal']
+
+Word-by-Word Analysis:
+---------------------
+  maitryādiṣu:
+    maitra → ['maitra']
+    maitri → ['maitri']
+    maitrī → ['maitrī']
+    ādi → ['ādi']
+    ādin → ['ādin']
+  balāni:
+    bala → ['bala']
+    bal → ['bal']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 130:
+Original Text: baleṣu hastibalādīni 
+
+Full Line Analysis:
+------------------
+  bala → ['bala']
+  hasti → ['hasti']
+  bal → ['bal']
+  ādi → ['ādi']
+  ādin → ['ādin']
+
+Word-by-Word Analysis:
+---------------------
+  baleṣu:
+    bala → ['bala']
+  hastibalādīni:
+    hasti → ['hasti']
+    bala → ['bala']
+    bal → ['bal']
+    ādi → ['ādi']
+    ādin → ['ādin']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 131:
+Original Text: pravṛttyālokanyāsāt sūkṣmavyavahitaviprakṛṣṭajñānam 
+
+Full Line Analysis:
+------------------
+  pravṛtti → ['pra', 'vṛtti']
+  āloka → ['ā', 'loka']
+  nyā → ['nyā']
+  so → ['so']
+  sūkṣma → ['sūkṣma']
+  vyavahita → ['vy', 'avahita']
+  viprakṛṣṭa → ['vi', 'prakṛṣṭa']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  pravṛttyālokanyāsāt:
+    pravṛtti → ['pra', 'vṛtti']
+    āloka → ['ā', 'loka']
+    nyā → ['nyā']
+    so → ['so']
+  sūkṣmavyavahitaviprakṛṣṭajñānam:
+    sūkṣma → ['sūkṣma']
+    vyavahita → ['vy', 'avahita']
+    viprakṛṣṭa → ['vi', 'prakṛṣṭa']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 8
+
+================================================================================
+
+Sutra 132:
+Original Text: bhuvanajñānaṃ sūrye saṃyamāt 
+
+Full Line Analysis:
+------------------
+  bhuvanajñāna → ['bhuvana', 'jñāna']
+  sūrya → ['sū', 'rya']
+  sūryā → ['sūryā']
+  saṃyama → ['saṃ', 'yama']
+
+Word-by-Word Analysis:
+---------------------
+  bhuvanajñānaṃ:
+    bhuvanajñāna → ['bhuvana', 'jñāna']
+  sūrye:
+    sūrya → ['sū', 'rya']
+    sūryā → ['sūryā']
+  saṃyamāt:
+    saṃyama → ['saṃ', 'yama']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 133:
+Original Text: candre tārāvyūhajñānam 
+
+Full Line Analysis:
+------------------
+  candra → ['candra']
+  tāra → ['tāra']
+  avyūha → ['a', 'vyūha']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  candre:
+    candra → ['candra']
+  tārāvyūhajñānam:
+    tāra → ['tāra']
+    avyūha → ['a', 'vyūha']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 134:
+Original Text: dhruve tadgatijñānam 
+
+Full Line Analysis:
+------------------
+  dhruva → ['dhruva']
+  dhruvi → ['dhruvi']
+  tad → ['ta', 'd']
+  gati → ['ga', 'ti']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  dhruve:
+    dhruva → ['dhruva']
+    dhruvi → ['dhruvi']
+  tadgatijñānam:
+    tad → ['ta', 'd']
+    gati → ['ga', 'ti']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 135:
+Original Text: nābhicakre kāyavyūhajñānam 
+
+Full Line Analysis:
+------------------
+  nābhicakra → ['nābhi', 'cakra']
+  ka → ['ka']
+  kāya → ['kāya']
+  vyūha → ['vy', 'ūha']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  nābhicakre:
+    nābhicakra → ['nābhi', 'cakra']
+  kāyavyūhajñānam:
+    kāyavyūha → ['kāya', 'vyūha']
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 3
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 136:
+Original Text: kaṇṭhakūpe kṣutpipāsānivṛttiḥ 
+
+Full Line Analysis:
+------------------
+  kaṇṭhakūpa → ['kaṇṭha', 'kūpa']
+  kṣut → ['kṣut']
+  kṣudh → ['kṣudh']
+  pipāsā → ['pipāsā']
+  nivṛtti → ['ni', 'vṛtti']
+
+Word-by-Word Analysis:
+---------------------
+  kaṇṭhakūpe:
+    kaṇṭhakūpa → ['kaṇṭha', 'kūpa']
+  kṣutpipāsānivṛttiḥ:
+    kṣut → ['kṣut']
+    kṣudh → ['kṣudh']
+    pipāsā → ['pipāsā']
+    nivṛtti → ['ni', 'vṛtti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 137:
+Original Text: kūrmanāḍyāṃ sthairyam 
+
+Full Line Analysis:
+------------------
+  kūrma → ['kūrma']
+  nāḍī → ['nāḍī']
+  nāḍi → ['nāḍi']
+  sthairya → ['sthairya']
+
+Word-by-Word Analysis:
+---------------------
+  kūrmanāḍyāṃ:
+    kūrma → ['kūrma']
+    nāḍī → ['nāḍī']
+    nāḍi → ['nāḍi']
+  sthairyam:
+    sthairya → ['sthairya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 138:
+Original Text: mūrdhajyotiṣi siddhadarśanam 
+
+Full Line Analysis:
+------------------
+  mūrdhajyotis → ['mūrdha', 'jyotis']
+  siddhadarśana → ['siddha', 'darśana']
+
+Word-by-Word Analysis:
+---------------------
+  mūrdhajyotiṣi:
+    mūrdhajyotis → ['mūrdha', 'jyotis']
+  siddhadarśanam:
+    siddhadarśana → ['siddha', 'darśana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 2
+Word-by-word total segments: 2
+
+================================================================================
+
+Sutra 139:
+Original Text: prātibhād vā sarvam 
+
+Full Line Analysis:
+------------------
+  prātibha → ['prāti', 'bha']
+  vā → ['vā']
+  sarvam → ['sa', 'rvam']
+  sarva → ['sa', 'rva']
+
+Word-by-Word Analysis:
+---------------------
+  prātibhād:
+    prātibha → ['prāti', 'bha']
+  vā:
+    vā → ['vā']
+  sarvam:
+    sarvam → ['sa', 'rvam']
+    sarva → ['sa', 'rva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 140:
+Original Text: hṛdaye cittasaṃvit 
+
+Full Line Analysis:
+------------------
+  hṛdaya → ['hṛ', 'daya']
+  citta → ['citta']
+  saṃvid → ['saṃ', 'vid']
+  saṃvidh → ['saṃ', 'vidh']
+
+Word-by-Word Analysis:
+---------------------
+  hṛdaye:
+    hṛdaya → ['hṛ', 'daya']
+  cittasaṃvit:
+    citta → ['citta']
+    saṃvid → ['saṃ', 'vid']
+    saṃvidh → ['saṃ', 'vidh']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 4
+
+================================================================================
+
+Sutra 141:
+Original Text: sattvapuruṣayor atyantāsaṃkīrṇayoḥ pratyayāviśeṣo bhogaḥ parārthāt svārthasaṃyamāt puruṣajñānam 
+
+Full Line Analysis:
+------------------
+  sattva → ['sat', 'tva']
+  puruṣa → ['pu', 'ruṣa']
+  atyanta → ['aty', 'anta']
+  āsa → ['āsa']
+  as → ['as']
+  kīrṇa → ['kīrṇa']
+  pratyaya → ['pratyaya']
+  aviśeṣa → ['a', 'viśeṣa']
+  bhoga → ['bhoga']
+  parārtha → ['parārtha']
+  svārtha → ['svārtha']
+  saṃyama → ['saṃ', 'yama']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  sattvapuruṣayor:
+    sattva → ['sat', 'tva']
+    puruṣa → ['pu', 'ruṣa']
+  atyantāsaṃkīrṇayoḥ:
+    atyanta → ['aty', 'anta']
+    saṃkīrṇa → ['saṃ', 'kīrṇa']
+  pratyayāviśeṣo:
+    pratyaya → ['pratyaya']
+    aviśeṣa → ['a', 'viśeṣa']
+  bhogaḥ:
+    bhogaḥ → ['bhogaḥ']
+    bhoga → ['bhoga']
+  parārthāt:
+    parārtha → ['parārtha']
+  svārthasaṃyamāt:
+    svārtha → ['svārtha']
+    saṃyama → ['saṃ', 'yama']
+  puruṣajñānam:
+    puruṣajñāna → ['puruṣa', 'jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 13
+Word-by-word total segments: 12
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 142:
+Original Text: tataḥ prātibhaśrāvaṇavedanādarśāsvādavārtā jāyante 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  prātibha → ['prāti', 'bha']
+  śrāvaṇa → ['śrāvaṇa']
+  vedana → ['vedana']
+  ādarśa → ['ā', 'darśa']
+  āsvāda → ['ā', 'svāda']
+  vār → ['vār']
+  tā → ['tā']
+  jāyanta → ['jāyanta']
+  jan → ['jan']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  prātibhaśrāvaṇavedanādarśāsvādavārtā:
+    prātibha → ['prāti', 'bha']
+    śrāvaṇa → ['śrāvaṇa']
+    vedana → ['vedana']
+    ādarśa → ['ā', 'darśa']
+    āsvāda → ['ā', 'svāda']
+    vār → ['vār']
+    tā → ['tā']
+  jāyante:
+    jāyanta → ['jāyanta']
+    jan → ['jan']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 10
+
+================================================================================
+
+Sutra 143:
+Original Text: te samādhāv upasargā vyutthāne siddhayaḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  yuṣmad → ['yuṣmad']
+  samādhāv → ['sam', 'ā', 'dhāv']
+  upasarga → ['upa', 'sarga']
+  vyutthāna → ['vy', 'utthāna']
+  siddhi → ['siddhi']
+
+Word-by-Word Analysis:
+---------------------
+  te:
+    te → ['ta']
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+    yuṣmad → ['yuṣmad']
+  samādhāv:
+    saṃdha → ['saṃ', 'dha']
+  upasargā:
+    upasarga → ['upa', 'sarga']
+  vyutthāne:
+    vyutthāna → ['vy', 'utthāna']
+  siddhayaḥ:
+    siddhi → ['siddhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 9
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 144:
+Original Text: bandhakāraṇaśaithilyāt pracārasaṃvedanāc ca cittasya paraśarīrāveśaḥ 
+
+Full Line Analysis:
+------------------
+  bandha → ['bandha']
+  kāraṇa → ['kāraṇa']
+  śaithilyāt → ['śaithilyāt']
+  pracāra → ['pra', 'cāra']
+  saṃvedanāc → ['saṃvedanāc']
+  ca → ['ca']
+  citta → ['citta']
+  paraśarīrāveśa → ['para', 'śarīrāveśa']
+
+Word-by-Word Analysis:
+---------------------
+  bandhakāraṇaśaithilyāt:
+    bandhaka → ['bandhaka']
+    araṇa → ['a', 'raṇa']
+    śaithilya → ['śaithilya']
+  pracārasaṃvedanāc:
+    pracāra → ['pra', 'cāra']
+    saṃvedana → ['saṃ', 'vedana']
+  ca:
+    ca → ['ca']
+  cittasya:
+    citta → ['citta']
+  paraśarīrāveśaḥ:
+    paraśarīrāveśa → ['para', 'śarīrāveśa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 8
+
+================================================================================
+
+Sutra 145:
+Original Text: udānajayāj jalapaṅkakaṇṭakādiṣv asaṅga utkrāntiś ca 
+
+Full Line Analysis:
+------------------
+  udāna → ['ud', 'āna']
+  jayāj → ['jayāj']
+  jala → ['jala']
+  paṅka → ['pa', 'ṅka']
+  kaṇṭa → ['kaṇṭa']
+  kāt → ['kāt']
+  iṣu → ['i', 'ṣu']
+  asaṅga → ['a', 'saṅga']
+  utkrānti → ['ut', 'krānti']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  udānajayāj:
+    udāna → ['ud', 'āna']
+    jaya → ['jaya']
+  jalapaṅkakaṇṭakādiṣv:
+    jala → ['jala']
+    paṅka → ['pa', 'ṅka']
+    kaṇṭaka → ['ka', 'ṇṭaka']
+    ādi → ['ādi']
+    ādin → ['ādin']
+  asaṅga:
+    asaṅga → ['a', 'saṅga']
+  utkrāntiś:
+    utkrānti → ['ut', 'krānti']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 10
+
+================================================================================
+
+Sutra 146:
+Original Text: samānajayāj jvalanam 
+
+Full Line Analysis:
+------------------
+  samāna → ['sam', 'āna']
+  jayāj → ['jayāj']
+  jvalana → ['jvalana']
+
+Word-by-Word Analysis:
+---------------------
+  samānajayāj:
+    samāna → ['sam', 'āna']
+    jaya → ['jaya']
+  jvalanam:
+    jvalana → ['jvalana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 147:
+Original Text: śrotrākāśayoḥ saṃbandhasaṃyamād divyaṃ śrotram 
+
+Full Line Analysis:
+------------------
+  śrotra → ['śro', 'tra']
+  ākāśa → ['ā', 'kāśa']
+  sambandha → ['sam', 'bandha']
+  saṃyama → ['saṃ', 'yama']
+  divya → ['divya']
+
+Word-by-Word Analysis:
+---------------------
+  śrotrākāśayoḥ:
+    śrotra → ['śro', 'tra']
+    ākāśa → ['ā', 'kāśa']
+  saṃbandhasaṃyamād:
+    sambandha → ['sam', 'bandha']
+    saṃyama → ['saṃ', 'yama']
+  divyaṃ:
+    divya → ['divya']
+  śrotram:
+    śrotra → ['śro', 'tra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 148:
+Original Text: kāyākāśayoḥ saṃbandhasaṃyamāl laghutūlasamāpatteś cākāśagamanam 
+
+Full Line Analysis:
+------------------
+  kāya → ['kāya']
+  akāśayoḥ → ['akāśayoḥ']
+  saṃbandha → ['saṃbandha']
+  saṃyama → ['saṃ', 'yama']
+  al → ['al']
+  laghu → ['laghu']
+  tūla → ['tū', 'la']
+  samāpatteś → ['samāpatteś']
+  ca → ['ca']
+  ākāśagamanam → ['ākāśagamanam']
+
+Word-by-Word Analysis:
+---------------------
+  kāyākāśayoḥ:
+    ka → ['ka']
+    kāya → ['kāya']
+    ākāśa → ['ā', 'kāśa']
+  saṃbandhasaṃyamāl:
+    sambandha → ['sam', 'bandha']
+    saṃyama → ['saṃ', 'yama']
+  laghutūlasamāpatteś:
+    laghu → ['laghu']
+    tūla → ['tū', 'la']
+    samāpatti → ['sam', 'āpatti']
+  cākāśagamanam:
+    ca → ['ca']
+    ākāśagamana → ['ā', 'kāśa', 'gamana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 10
+
+================================================================================
+
+Sutra 149:
+Original Text: bahir akalpitā vṛttir mahāvidehā tataḥ prakāśāvaraṇakṣayaḥ 
+
+Full Line Analysis:
+------------------
+  bahiḥ → ['bahiḥ']
+  akalpita → ['a', 'kalpita']
+  vṛtti → ['vṛtti']
+  maha → ['maha']
+  videha → ['vi', 'deha']
+  tata → ['tata']
+  prakāśa → ['pra', 'kāśa']
+  āvaraṇa → ['ā', 'varaṇa']
+  kṣaya → ['kṣa', 'ya']
+  kṣi → ['kṣi']
+
+Word-by-Word Analysis:
+---------------------
+  bahir:
+    bahiḥ → ['bahiḥ']
+  akalpitā:
+    akalpita → ['a', 'kalpita']
+  vṛttir:
+    vṛttiḥ → ['vṛttin']
+    vṛtti → ['vṛtti']
+  mahāvidehā:
+    mahāvidehā → ['mahā', 'videhā']
+  tataḥ:
+    tata → ['tata']
+  prakāśāvaraṇakṣayaḥ:
+    prakāśa → ['pra', 'kāśa']
+    āvaraṇa → ['ā', 'varaṇa']
+    kṣaya → ['kṣa', 'ya']
+    kṣi → ['kṣi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 10
+
+================================================================================
+
+Sutra 150:
+Original Text: sthūlasvarūpasūkṣmānvayārthavattvasaṃyamād bhūtajayaḥ 
+
+Full Line Analysis:
+------------------
+  sthūla → ['sthūla']
+  svarūpa → ['sva', 'rūpa']
+  sūkṣma → ['sūkṣma']
+  anvaya → ['anv', 'aya']
+  arthavattva → ['artha', 'vat', 'tva']
+  saṃyama → ['saṃ', 'yama']
+  bhūtajaya → ['bhūta', 'jaya']
+
+Word-by-Word Analysis:
+---------------------
+  sthūlasvarūpasūkṣmānvayārthavattvasaṃyamād:
+    sthūla → ['sthūla']
+    svarūpa → ['sva', 'rūpa']
+    sūkṣma → ['sūkṣma']
+    anvaya → ['anv', 'aya']
+    arthavattva → ['artha', 'vat', 'tva']
+    saṃyama → ['saṃ', 'yama']
+  bhūtajayaḥ:
+    bhūtajaya → ['bhūta', 'jaya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 151:
+Original Text: tato 'ṇimādiprādurbhāvaḥ kāyasaṃpat taddharmānabhighātaś ca 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  aṇi → ['aṇi']
+  mā → ['mā']
+  dip → ['dip']
+  rā → ['rā']
+  dur → ['du', 'r']
+  bhāvaḥ → ['bhā', 'vat']
+  kāya → ['kāya']
+  saṃpat → ['saṃpat']
+  taddharma → ['tad', 'dharma']
+  nabhi → ['nabhi']
+  ghātaś → ['ghātaś']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  tato:
+    tata → ['tata']
+  'ṇimādiprādurbhāvaḥ:
+    aṇi → ['aṇi']
+    ādi → ['ādi']
+    ad → ['ad']
+    prādurbhāva → ['prādur', 'bhāva']
+  kāyasaṃpat:
+    ka → ['ka']
+    kāya → ['kāya']
+    sampad → ['sam', 'pad']
+  taddharmānabhighātaś:
+    taddharma → ['tad', 'dharma']
+    nabh → ['nabh']
+    ghāta → ['ghāta']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 13
+Word-by-word total segments: 12
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 152:
+Original Text: rūpalāvaṇyabalavajrasaṃhananatvāni kāyasaṃpat 
+
+Full Line Analysis:
+------------------
+  rūpa → ['rūpa']
+  lāvaṇya → ['lāvaṇya']
+  bala → ['bala']
+  bal → ['bal']
+  vajra → ['va', 'jra']
+  saṃhanana → ['saṃ', 'hanana']
+  tvā → ['tva']
+  ani → ['ani']
+  ka → ['ka']
+  kāya → ['kāya']
+  sampad → ['sam', 'pad']
+
+Word-by-Word Analysis:
+---------------------
+  rūpalāvaṇyabalavajrasaṃhananatvāni:
+    rūpa → ['rūpa']
+    lāvaṇya → ['lāvaṇya']
+    bala → ['bala']
+    bal → ['bal']
+    vajra → ['va', 'jra']
+    saṃhanana → ['saṃ', 'hanana']
+    tvā → ['tva']
+    ani → ['ani']
+  kāyasaṃpat:
+    ka → ['ka']
+    kāya → ['kāya']
+    sampad → ['sam', 'pad']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 11
+
+================================================================================
+
+Sutra 153:
+Original Text: grahaṇasvarūpāsmitānvayārthavattvasaṃyamād indriyajayaḥ 
+
+Full Line Analysis:
+------------------
+  grahaṇa → ['gra', 'haṇa']
+  svarūpa → ['sva', 'rūpa']
+  asmitā → ['asmi', 'tā']
+  anvaya → ['anv', 'aya']
+  arthavattva → ['artha', 'vat', 'tva']
+  saṃyama → ['saṃ', 'yama']
+  indriya → ['indriya']
+  jaya → ['jaya']
+  ji → ['ji']
+
+Word-by-Word Analysis:
+---------------------
+  grahaṇasvarūpāsmitānvayārthavattvasaṃyamād:
+    grahaṇa → ['gra', 'haṇa']
+    svarūpa → ['sva', 'rūpa']
+    asmitā → ['asmi', 'tā']
+    anvaya → ['anv', 'aya']
+    arthavattva → ['artha', 'vat', 'tva']
+    saṃyama → ['saṃ', 'yama']
+  indriyajayaḥ:
+    indriya → ['indriya']
+    jaya → ['jaya']
+    ji → ['ji']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 9
+
+================================================================================
+
+Sutra 154:
+Original Text: tato manojavitvaṃ vikaraṇabhāvaḥ pradhānajayaś ca 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  manojavitva → ['mano', 'javi', 'tva']
+  vikaraṇa → ['vi', 'karaṇa']
+  bhāvaḥ → ['bhā', 'vat']
+  pradhāna → ['pradhāna']
+  jayaś → ['jayaś']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  tato:
+    tata → ['tata']
+  manojavitvaṃ:
+    manojavitva → ['mano', 'javi', 'tva']
+  vikaraṇabhāvaḥ:
+    vikaraṇa → ['vi', 'karaṇa']
+    bhāva → ['bhāva']
+    bhā → ['bhā']
+  pradhānajayaś:
+    pradha → ['pra', 'dha']
+    ajaya → ['a', 'jaya']
+    ji → ['ji']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 9
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 155:
+Original Text: sattvapuruṣānyatākhyātimātrasya sarvabhāvādhiṣṭhātṛtvaṃ sarvajñātṛtvaṃ ca 
+
+Full Line Analysis:
+------------------
+  sattva → ['sat', 'tva']
+  puruṣa → ['pu', 'ruṣa']
+  yata → ['yata']
+  khyā → ['khyā']
+  mātra → ['mātra']
+  sarva → ['sa', 'rva']
+  bhāva → ['bhāva']
+  bhā → ['bhā']
+  adhiṣṭhātṛ → ['adhi', 'ṣṭhātṛ']
+  yuṣmad → ['yuṣmad']
+  sarvajñātṛtva → ['sarva', 'jñātṛ', 'tva']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  sattvapuruṣānyatākhyātimātrasya:
+    sattva → ['sat', 'tva']
+    puruṣa → ['pu', 'ruṣa']
+    anyatā → ['anya', 'tā']
+    khyā → ['khyā']
+    mātra → ['mātra']
+  sarvabhāvādhiṣṭhātṛtvaṃ:
+    sarvabhāvādhiṣṭhātṛtva → ['sarva', 'bhāvādhiṣṭhātṛ', 'tva']
+  sarvajñātṛtvaṃ:
+    sarvajñātṛtva → ['sarva', 'jñātṛ', 'tva']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 8
+Note: The two approaches differ by 4 segments
+
+================================================================================
+
+Sutra 156:
+Original Text: tadvairāgyād api doṣabījakṣaye kaivalyam 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  vairāgya → ['vairāgya']
+  api → ['a', 'pi']
+  doṣa → ['doṣa']
+  doṣan → ['doṣa', 'n']
+  bīja → ['bī', 'ja']
+  kṣaya → ['kṣa', 'ya']
+  kṣi → ['kṣi']
+  kaivalya → ['kaivalya']
+
+Word-by-Word Analysis:
+---------------------
+  tadvairāgyād:
+    tad → ['ta', 'd']
+    vairāgya → ['vairāgya']
+  api:
+    api → ['a', 'pi']
+  doṣabījakṣaye:
+    doṣa → ['doṣa']
+    bīja → ['bī', 'ja']
+    kṣaya → ['kṣa', 'ya']
+    kṣi → ['kṣi']
+  kaivalyam:
+    kaivalya → ['kaivalya']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 157:
+Original Text: sthānyupanimantraṇe saṅgasmayākaraṇaṃ punar aniṣṭaprasaṅgāt 
+
+Full Line Analysis:
+------------------
+  stha → ['stha']
+  sthāni → ['sthāni']
+  upanimantraṇa → ['upa', 'nimantraṇa']
+  saṅga → ['saṅga']
+  smaya → ['smaya']
+  smi → ['smi']
+  akaraṇa → ['a', 'karaṇa']
+  puna → ['puna']
+  pu → ['pu']
+  aniṣṭa → ['an', 'iṣṭa']
+  prasaṅgāt → ['pra', 'saṅgāt']
+  prasaṅga → ['pra', 'saṅga']
+
+Word-by-Word Analysis:
+---------------------
+  sthānyupanimantraṇe:
+    stha → ['stha']
+    sthāni → ['sthāni']
+    upanimantraṇa → ['upa', 'nimantraṇa']
+  saṅgasmayākaraṇaṃ:
+    saṅga → ['saṅga']
+    smaya → ['smaya']
+    smi → ['smi']
+    akaraṇa → ['a', 'karaṇa']
+  punar:
+    punaḥ → ['punaḥ']
+    puna → ['puna']
+    pu → ['pu']
+  aniṣṭaprasaṅgāt:
+    aniṣṭaprasaṅga → ['an', 'iṣṭa', 'prasaṅga']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 11
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 158:
+Original Text: kṣaṇatatkramayoḥ saṃyamād vivekajaṃ jñānam 
+
+Full Line Analysis:
+------------------
+  kṣaṇa → ['kṣaṇa']
+  tad → ['ta', 'd']
+  krama → ['kra', 'ma']
+  saṃyama → ['saṃ', 'yama']
+  vivekaja → ['vi', 'veka', 'ja']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  kṣaṇatatkramayoḥ:
+    kṣaṇa → ['kṣaṇa']
+    tad → ['ta', 'd']
+    krama → ['kra', 'ma']
+  saṃyamād:
+    saṃyama → ['saṃ', 'yama']
+  vivekajaṃ:
+    vivekaja → ['vi', 'veka', 'ja']
+  jñānam:
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 159:
+Original Text: jātilakṣaṇadeśair anyatānavacchedāt tulyayos tataḥ pratipattiḥ 
+
+Full Line Analysis:
+------------------
+  jātilakṣaṇa → ['jāti', 'lakṣaṇa']
+  deśair → ['deśair']
+  anyatā → ['anya', 'tā']
+  anavaccheda → ['anavaccheda']
+  at → ['at']
+  tulya → ['tulya']
+  tata → ['tata']
+  pratipatti → ['prati', 'patti']
+
+Word-by-Word Analysis:
+---------------------
+  jātilakṣaṇadeśair:
+    jātilakṣaṇa → ['jāti', 'lakṣaṇa']
+    deśa → ['deśa']
+  anyatānavacchedāt:
+    anyatā → ['anya', 'tā']
+    nava → ['na', 'va']
+    cheda → ['cheda']
+  tulyayos:
+    tulya → ['tulya']
+  tataḥ:
+    tata → ['tata']
+  pratipattiḥ:
+    pratipattiḥ → ['pratipattiḥ']
+    pratipatti → ['prati', 'patti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 9
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 160:
+Original Text: tārakaṃ sarvaviṣayaṃ sarvathāviṣayam akramaṃ ceti vivekajaṃ jñānam 
+
+Full Line Analysis:
+------------------
+  tāraka → ['tāraka']
+  sarva → ['sa', 'rva']
+  viṣaya → ['viṣaya']
+  sarvathā → ['sarva', 'thā']
+  akramam → ['a', 'kramam']
+  akrama → ['a', 'krama']
+  kram → ['kram']
+  ca → ['ca']
+  iti → ['iti']
+  vivekaja → ['vi', 'veka', 'ja']
+  jñāna → ['jñāna']
+
+Word-by-Word Analysis:
+---------------------
+  tārakaṃ:
+    tāraka → ['tāraka']
+  sarvaviṣayaṃ:
+    sarvaviṣaya → ['sarva', 'viṣaya']
+  sarvathāviṣayam:
+    sarvathāviṣaya → ['sarvathā', 'viṣaya']
+  akramaṃ:
+    akramam → ['a', 'kramam']
+    akrama → ['a', 'krama']
+  ceti:
+    ceti → ['ceto']
+  vivekajaṃ:
+    vivekaja → ['vi', 'veka', 'ja']
+  jñānam:
+    jñāna → ['jñāna']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 8
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 161:
+Original Text: sattvapuruṣayoḥ śuddhisāmye kaivalyam iti 
+
+Full Line Analysis:
+------------------
+  sattva → ['sat', 'tva']
+  puruṣa → ['pu', 'ruṣa']
+  śuddhi → ['śu', 'ddhi']
+  sāmya → ['sāmya']
+  kaivalya → ['kaivalya']
+  iti → ['iti']
+
+Word-by-Word Analysis:
+---------------------
+  sattvapuruṣayoḥ:
+    sattva → ['sat', 'tva']
+    puruṣa → ['pu', 'ruṣa']
+  śuddhisāmye:
+    śuddhi → ['śu', 'ddhi']
+    sāmya → ['sāmya']
+  kaivalyam:
+    kaivalya → ['kaivalya']
+  iti:
+    iti → ['iti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 162:
+Original Text: janmauṣadhimantratapaḥsamādhijāḥ siddhayaḥ 
+
+Full Line Analysis:
+------------------
+  janma → ['janma']
+  auṣadha → ['auṣadha']
+  mantra → ['ma', 'ntra']
+  tapaḥsamādhi → ['tapaḥ', 'samādhi']
+  ja → ['ja']
+  siddhi → ['siddhi']
+
+Word-by-Word Analysis:
+---------------------
+  janmauṣadhimantratapaḥsamādhijāḥ:
+    janma → ['janma']
+    auṣadha → ['auṣadha']
+    mantra → ['ma', 'ntra']
+    tapa → ['tapa']
+    tapas → ['ta', 'pas']
+    tap → ['tap']
+    sama → ['sama']
+    ādhija → ['ā', 'dhi', 'ja']
+  siddhayaḥ:
+    siddhi → ['siddhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 9
+Note: The two approaches differ by 3 segments
+
+================================================================================
+
+Sutra 163:
+Original Text: jātyantarapariṇāmaḥ prakṛtyāpūrāt 
+
+Full Line Analysis:
+------------------
+  jātī → ['jātī']
+  antara → ['a', 'ntara']
+  pariṇāma → ['pari', 'ṇāma']
+  pra → ['pra']
+  prakṛti → ['pra', 'kṛti']
+  kṛt → ['kṛt']
+  āpūra → ['ā', 'pūra']
+
+Word-by-Word Analysis:
+---------------------
+  jātyantarapariṇāmaḥ:
+    jātī → ['jātī']
+    antara → ['a', 'ntara']
+    pariṇāma → ['pari', 'ṇāma']
+  prakṛtyāpūrāt:
+    prakṛtyā → ['pra', 'kṛtyā']
+    prakṛti → ['pra', 'kṛti']
+    apūra → ['a', 'pūra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 164:
+Original Text: nimittam aprayojakaṃ prakṛtīnāṃ varaṇabhedas tu tataḥ kṣetrikavat 
+
+Full Line Analysis:
+------------------
+  nimitta → ['nimitta']
+  aprayojaka → ['a', 'prayojaka']
+  prakṛti → ['pra', 'kṛti']
+  varaṇa → ['varaṇa']
+  bhedas → ['bhedas']
+  tu → ['tu']
+  tata → ['tata']
+  kṣetrika → ['kṣetrika']
+  vat → ['vat']
+
+Word-by-Word Analysis:
+---------------------
+  nimittam:
+    nimitta → ['nimitta']
+  aprayojakaṃ:
+    aprayojaka → ['a', 'prayojaka']
+  prakṛtīnāṃ:
+    prakṛti → ['pra', 'kṛti']
+  varaṇabhedas:
+    varaṇa → ['varaṇa']
+    bheda → ['bheda']
+  tu:
+    tu → ['tu']
+  tataḥ:
+    tata → ['tata']
+  kṣetrikavat:
+    kṣetrī → ['kṣetrī']
+    kṣetrin → ['kṣetrin']
+    kavat → ['ka', 'vat']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 165:
+Original Text: nirmāṇacittāny asmitāmātrāt 
+
+Full Line Analysis:
+------------------
+  nirmāṇa → ['nir', 'māṇa']
+  citta → ['citta']
+  ani → ['ani']
+  asmitā → ['asmi', 'tā']
+  amātrāt → ['amātrāt']
+
+Word-by-Word Analysis:
+---------------------
+  nirmāṇacittāny:
+    nirmāṇa → ['nir', 'māṇa']
+    citta → ['citta']
+  asmitāmātrāt:
+    asmitā → ['asmi', 'tā']
+    mātra → ['mātra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 4
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 166:
+Original Text: pravṛttibhede prayojakaṃ cittam ekam anekeṣām 
+
+Full Line Analysis:
+------------------
+  pravṛtti → ['pra', 'vṛtti']
+  bheda → ['bheda']
+  prayojaka → ['prayojaka']
+  citta → ['citta']
+  eka → ['e', 'ka']
+  aneka → ['an', 'eka']
+  iṣām → ['iṣām']
+
+Word-by-Word Analysis:
+---------------------
+  pravṛttibhede:
+    pravṛtti → ['pra', 'vṛtti']
+    bheda → ['bheda']
+  prayojakaṃ:
+    prayojaka → ['prayojaka']
+  cittam:
+    citta → ['citta']
+  ekam:
+    eka → ['e', 'ka']
+  anekeṣām:
+    aneka → ['an', 'eka']
+    iṣa → ['iṣa']
+    iṣ → ['iṣ']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 167:
+Original Text: tatra dhyānajam anāśayam 
+
+Full Line Analysis:
+------------------
+  tatra → ['ta', 'tra']
+  dhyā → ['dhyā']
+  dhī → ['dhī']
+  aja → ['aja']
+  anāśa → ['an', 'āśa']
+  yam → ['yam']
+
+Word-by-Word Analysis:
+---------------------
+  tatra:
+    tatra → ['ta', 'tra']
+  dhyānajam:
+    dhyā → ['dhyā']
+    dhī → ['dhī']
+    añj → ['añj']
+  anāśayam:
+    anāśa → ['an', 'āśa']
+    ya → ['ya']
+    yad → ['ya', 'd']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 168:
+Original Text: karmāśuklākṛṣṇaṃ yoginas trividham itareṣām 
+
+Full Line Analysis:
+------------------
+  karma → ['karma']
+  aśukla → ['a', 'śukla']
+  akṛṣṇaṃ → ['akṛṣṇaṃ']
+  yogin → ['yogin']
+  trividha → ['tri', 'vidha']
+  itara → ['i', 'tara']
+
+Word-by-Word Analysis:
+---------------------
+  karmāśuklākṛṣṇaṃ:
+    karma → ['karma']
+    aśukla → ['a', 'śukla']
+    kṛṣṇa → ['kṛṣṇa']
+  yoginas:
+    yogin → ['yogin']
+  trividham:
+    trividha → ['tri', 'vidha']
+  itareṣām:
+    itara → ['i', 'tara']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 169:
+Original Text: tatas tadvipākānuguṇānām evābhivyaktir vāsanānām 
+
+Full Line Analysis:
+------------------
+  tatas → ['ta', 'tas']
+  tad → ['ta', 'd']
+  vipā → ['vipā']
+  ākā → ['ā', 'kā']
+  anuguṇānām → ['anuguṇānām']
+  evā → ['eva']
+  abhivyaktir → ['abhivyaktir']
+  vāsana → ['vāsana']
+  vāsanā → ['vāsanā']
+
+Word-by-Word Analysis:
+---------------------
+  tatas:
+    tatas → ['ta', 'tas']
+  tadvipākānuguṇānām:
+    tad → ['ta', 'd']
+    vipāka → ['vi', 'pāka']
+    anuguṇa → ['anu', 'guṇa']
+  evābhivyaktir:
+    eva → ['eva']
+    abhivyakti → ['abhi', 'vyakti']
+  vāsanānām:
+    vāsana → ['vāsana']
+    vāsanā → ['vāsanā']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 170:
+Original Text: jātideśakālavyavahitānām apy ānantaryaṃ smṛtisaṃskārayor ekarūpatvāt 
+
+Full Line Analysis:
+------------------
+  jāti → ['jāti']
+  deśakāla → ['deśa', 'kāla']
+  vyavahitānām → ['vyavahitānām']
+  api → ['a', 'pi']
+  ānantarya → ['ānantarya']
+  smṛtisaṃskāra → ['smṛti', 'saṃskāra']
+  ekarūpa → ['eka', 'rūpa']
+  tvā → ['tva']
+  at → ['at']
+
+Word-by-Word Analysis:
+---------------------
+  jātideśakālavyavahitānām:
+    jātī → ['jātī']
+    deśakāla → ['deśa', 'kāla']
+    vyavahita → ['vy', 'avahita']
+  apy:
+    api → ['a', 'pi']
+  ānantaryaṃ:
+    ānantarya → ['ānantarya']
+  smṛtisaṃskārayor:
+    smṛtisaṃskāra → ['smṛti', 'saṃskāra']
+  ekarūpatvāt:
+    ekarūpatva → ['eka', 'rūpa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 7
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 171:
+Original Text: tāsām anāditvaṃ cāśiṣo nityatvāt 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  anāditva → ['an', 'ādi', 'tva']
+  ca → ['ca']
+  āśis → ['āśi', 's']
+  aḥ → ['aḥ']
+  nityatva → ['nitya', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  tāsām:
+    tad → ['ta', 'd']
+  anāditvaṃ:
+    anāditva → ['an', 'ādi', 'tva']
+  cāśiṣo:
+    ca → ['ca']
+    āśis → ['āśi', 's']
+    aḥ → ['aḥ']
+  nityatvāt:
+    nityatva → ['nitya', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 172:
+Original Text: hetuphalāśrayālambanaiḥ saṃgṛhītatvād eṣām abhāve tadabhāvaḥ 
+
+Full Line Analysis:
+------------------
+  hetu → ['hetu']
+  phala → ['pha', 'la']
+  phal → ['phal']
+  āśraya → ['āśraya']
+  ālambana → ['ā', 'lambana']
+  saṃgṛhīta → ['saṃ', 'gṛhīta']
+  tvā → ['tva']
+  at → ['at']
+  eṣa → ['eṣa']
+  idam → ['ida', 'm']
+  abhāva → ['a', 'bhāva']
+  tad → ['ta', 'd']
+
+Word-by-Word Analysis:
+---------------------
+  hetuphalāśrayālambanaiḥ:
+    hetu → ['hetu']
+    phala → ['pha', 'la']
+    phal → ['phal']
+    āśraya → ['āśraya']
+    ālambana → ['ā', 'lambana']
+  saṃgṛhītatvād:
+    saṃgṛhītatva → ['saṃ', 'gṛhīta']
+  eṣām:
+    eṣa → ['eṣa']
+    idam → ['ida', 'm']
+  abhāve:
+    abhāva → ['a', 'bhāva']
+  tadabhāvaḥ:
+    tad → ['ta', 'd']
+    abhāva → ['a', 'bhāva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 12
+Word-by-word total segments: 11
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 173:
+Original Text: atītānāgataṃ svarūpato 'sty adhvabhedād dharmāṇām 
+
+Full Line Analysis:
+------------------
+  atīta → ['atīta']
+  anāgataṃ → ['anāgataṃ']
+  svarūpatas → ['sva', 'rūpa', 'tas']
+  asti → ['asti']
+  adhva → ['a', 'dhva']
+  bheda → ['bheda']
+  ad → ['ad']
+  dharma → ['dha', 'rma']
+
+Word-by-Word Analysis:
+---------------------
+  atītānāgataṃ:
+    atīta → ['atīta']
+    anāgata → ['a', 'n', 'āgata']
+  svarūpato:
+    svarūpatas → ['sva', 'rūpa', 'tas']
+  'sty:
+    asti → ['asti']
+    as → ['as']
+  adhvabhedād:
+    adhva → ['a', 'dhva']
+    bheda → ['bheda']
+  dharmāṇām:
+    dharma → ['dha', 'rma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 8
+
+================================================================================
+
+Sutra 174:
+Original Text: te vyaktasūkṣmā guṇātmānaḥ 
+
+Full Line Analysis:
+------------------
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  yuṣmad → ['yuṣmad']
+  vyakta → ['vy', 'akta']
+  sūkṣma → ['sūkṣma']
+  guṇātman → ['guṇātman']
+
+Word-by-Word Analysis:
+---------------------
+  te:
+    te → ['ta']
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+    yuṣmad → ['yuṣmad']
+  vyaktasūkṣmā:
+    vyakta → ['vy', 'akta']
+    sūkṣma → ['sūkṣma']
+  guṇātmānaḥ:
+    guṇātman → ['guṇātman']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 175:
+Original Text: pariṇāmaikatvād vastutattvam 
+
+Full Line Analysis:
+------------------
+  pariṇāma → ['pari', 'ṇāma']
+  ekatva → ['eka', 'tva']
+  vastutattva → ['vastu', 'tattva']
+
+Word-by-Word Analysis:
+---------------------
+  pariṇāmaikatvād:
+    pariṇāma → ['pari', 'ṇāma']
+    ekatva → ['eka', 'tva']
+  vastutattvam:
+    vastutattva → ['vastu', 'tattva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 176:
+Original Text: vastusāmye cittabhedāt tayor vibhaktaḥ panthāḥ 
+
+Full Line Analysis:
+------------------
+  vastu → ['va', 'stu']
+  sāmya → ['sāmya']
+  citta → ['citta']
+  bheda → ['bheda']
+  ta → ['ta']
+  tā → ['tā']
+  tad → ['ta', 'd']
+  vibhakta → ['vi', 'bhakta']
+  panthā → ['pánth', 'â']
+  aḥ → ['aḥ']
+
+Word-by-Word Analysis:
+---------------------
+  vastusāmye:
+    vastu → ['va', 'stu']
+    sāmya → ['sāmya']
+  cittabhedāt:
+    cittabheda → ['citta', 'bheda']
+  tayor:
+    ta → ['ta']
+    tā → ['tā']
+    tad → ['ta', 'd']
+  vibhaktaḥ:
+    vibhakta → ['vi', 'bhakta']
+  panthāḥ:
+    panthā → ['pánth', 'â']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 8
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 177:
+Original Text: na caikacittatantraṃ vastu tadapramāṇakaṃ tadā kiṃ syāt 
+
+Full Line Analysis:
+------------------
+  na → ['na']
+  ca → ['ca']
+  ekacitta → ['eka', 'citta']
+  tantra → ['ta', 'ntra']
+  vastu → ['va', 'stu']
+  tad → ['ta', 'd']
+  apramāṇa → ['a', 'pramāṇa']
+  kam → ['ka', 'm']
+  ka → ['ka']
+  tadā → ['tadā']
+  kim → ['ki', 'm']
+  syāt → ['syāt']
+  sya → ['sya']
+  as → ['as']
+
+Word-by-Word Analysis:
+---------------------
+  na:
+    na → ['na']
+  caikacittatantraṃ:
+    ca → ['ca']
+    ekacitta → ['eka', 'citta']
+    tantra → ['ta', 'ntra']
+  vastu:
+    vastu → ['va', 'stu']
+  tadapramāṇakaṃ:
+    tad → ['ta', 'd']
+    pramāṇaka → ['pramāṇaka']
+  tadā:
+    tadā → ['tadā']
+  kiṃ:
+    kim → ['ki', 'm']
+  syāt:
+    syāt → ['syāt']
+    sya → ['sya']
+    as → ['as']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 14
+Word-by-word total segments: 12
+Note: The two approaches differ by 2 segments
+
+================================================================================
+
+Sutra 178:
+Original Text: taduparāgāpekṣitvāc cittasya vastu jñātājñātam 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  uparāga → ['upa', 'rāga']
+  apekṣ → ['apekṣ']
+  it → ['it']
+  vāc → ['vā', 'c']
+  citta → ['citta']
+  vastu → ['va', 'stu']
+  jñāta → ['jñāta']
+  ajñātam → ['a', 'jñātam']
+
+Word-by-Word Analysis:
+---------------------
+  taduparāgāpekṣitvāc:
+    tad → ['ta', 'd']
+    uparāga → ['upa', 'rāga']
+    apekṣ → ['apekṣ']
+    id → ['i', 'd']
+    vāt → ['vāt']
+    va → ['va']
+  cittasya:
+    citta → ['citta']
+  vastu:
+    vastu → ['va', 'stu']
+  jñātājñātam:
+    jñāta → ['jñāta']
+    jñātṛ → ['jñātṛ']
+    jñā → ['jñā']
+    ajñātam → ['a', 'jñātam']
+    ajñāta → ['a', 'jñāta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 13
+Note: The two approaches differ by 4 segments
+
+================================================================================
+
+Sutra 179:
+Original Text: sadā jñātāś cittavṛttayas tatprabhoḥ puruṣasyāpariṇāmitvāt 
+
+Full Line Analysis:
+------------------
+  sadā → ['sa', 'dā']
+  sada → ['sada']
+  sad → ['sad']
+  jñāta → ['jñāta']
+  cittavṛtti → ['citta', 'vṛtti']
+  tat → ['tat']
+  prabhoḥ → ['prabhoḥ']
+  puruṣa → ['pu', 'ruṣa']
+  sya → ['sya']
+  apariṇāmitvāt → ['apariṇāmitvāt']
+
+Word-by-Word Analysis:
+---------------------
+  sadā:
+    sadā → ['sa', 'dā']
+    sada → ['sada']
+    sad → ['sad']
+  jñātāś:
+    jñāta → ['jñāta']
+  cittavṛttayas:
+    cittavṛtti → ['citta', 'vṛtti']
+  tatprabhoḥ:
+    tad → ['ta', 'd']
+    prabhu → ['pra', 'bhu']
+  puruṣasyāpariṇāmitvāt:
+    puruṣa → ['pu', 'ruṣa']
+    pariṇāmitva → ['pari', 'ṇāmi', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 9
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 180:
+Original Text: na tat svābhāsaṃ dṛśyatvāt 
+
+Full Line Analysis:
+------------------
+  na → ['na']
+  tad → ['ta', 'd']
+  svābhāsa → ['sv', 'ābhāsa']
+  dṛśyatva → ['dṛśya', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  na:
+    na → ['na']
+  tat:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  svābhāsaṃ:
+    svābhāsa → ['sv', 'ābhāsa']
+  dṛśyatvāt:
+    dṛśyatva → ['dṛśya', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 4
+Word-by-word total segments: 5
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 181:
+Original Text: ekasamaye cobhayānavadhāraṇam 
+
+Full Line Analysis:
+------------------
+  eka → ['e', 'ka']
+  samaye → ['sam', 'aye']
+  samaya → ['samaya']
+  ca → ['ca']
+  ubhaya → ['ubha', 'ya']
+  avadhāraṇa → ['ava', 'dhāraṇa']
+
+Word-by-Word Analysis:
+---------------------
+  ekasamaye:
+    eka → ['e', 'ka']
+    samaye → ['sam', 'aye']
+    samaya → ['samaya']
+  cobhayānavadhāraṇam:
+    ca → ['ca']
+    ubhaya → ['ubha', 'ya']
+    avadhāraṇa → ['ava', 'dhāraṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 182:
+Original Text: cittāntaradṛśye buddhibuddher atiprasaṅgaḥ smṛtisaṃkaraś ca 
+
+Full Line Analysis:
+------------------
+  citta → ['citta']
+  antara → ['a', 'ntara']
+  dṛśye → ['dṛśye']
+  buddhi → ['buddhi']
+  buddher → ['buddher']
+  atiprasaṅga → ['ati', 'prasaṅga']
+  smṛti → ['smṛ', 'ti']
+  saṃkaraś → ['saṃkaraś']
+  ca → ['ca']
+
+Word-by-Word Analysis:
+---------------------
+  cittāntaradṛśye:
+    citta → ['citta']
+    antara → ['a', 'ntara']
+    dṛśya → ['dṛ', 'śya']
+    dṛś → ['dṛś']
+  buddhibuddher:
+    buddhi → ['buddhi']
+  atiprasaṅgaḥ:
+    atiprasaṅga → ['ati', 'prasaṅga']
+  smṛtisaṃkaraś:
+    smṛti → ['smṛ', 'ti']
+    saṃkara → ['saṃ', 'kara']
+  ca:
+    ca → ['ca']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 9
+
+================================================================================
+
+Sutra 183:
+Original Text: citer apratisaṃkramāyās tadākārāpattau svabuddhisaṃvedanam 
+
+Full Line Analysis:
+------------------
+  citi → ['ci', 'ti']
+  apratisaṃkrama → ['a', 'pratisaṃkrama']
+  tadākāra → ['tad', 'ākāra']
+  apattau → ['apattau']
+  sva → ['sva']
+  buddhi → ['buddhi']
+  saṃvedanam → ['saṃvedanam']
+
+Word-by-Word Analysis:
+---------------------
+  citer:
+    citi → ['ci', 'ti']
+  apratisaṃkramāyās:
+    apratisaṃkrama → ['a', 'pratisaṃkrama']
+  tadākārāpattau:
+    tadākāra → ['tad', 'ākāra']
+    patti → ['patti']
+  svabuddhisaṃvedanam:
+    sva → ['sva']
+    buddhi → ['buddhi']
+    saṃvedana → ['saṃ', 'vedana']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 7
+
+================================================================================
+
+Sutra 184:
+Original Text: draṣṭṛdṛśyoparaktaṃ cittaṃ sarvārtham 
+
+Full Line Analysis:
+------------------
+  draṣṭṛ → ['draṣṭṛ']
+  dṛśya → ['dṛ', 'śya']
+  dṛśi → ['dṛśi']
+  uparakta → ['upa', 'rakta']
+  citta → ['citta']
+  sarvārtham → ['sarvārtham']
+  sarvārtha → ['sarvārtha']
+
+Word-by-Word Analysis:
+---------------------
+  draṣṭṛdṛśyoparaktaṃ:
+    draṣṭṛ → ['draṣṭṛ']
+    dṛśya → ['dṛ', 'śya']
+    aparakta → ['apa', 'rakta']
+  cittaṃ:
+    citta → ['citta']
+  sarvārtham:
+    sarvārtham → ['sarvārtham']
+    sarvārtha → ['sarvārtha']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 6
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 185:
+Original Text: tad asaṃkhyeyavāsanābhiś citram api parārthaṃ saṃhatyakāritvāt 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  asaṃkhyeya → ['a', 'saṃkhyeya']
+  vāsanābhiś → ['vāsanābhiś']
+  citram → ['citra', 'm']
+  citra → ['citra']
+  api → ['a', 'pi']
+  parārtham → ['parārtham']
+  parārtha → ['parārtha']
+  saṃhatyakāritva → ['saṃhatya', 'kāri', 'tva']
+
+Word-by-Word Analysis:
+---------------------
+  tad:
+    tat → ['tat']
+    tad → ['ta', 'd']
+  asaṃkhyeyavāsanābhiś:
+    asaṃkhyeya → ['a', 'saṃkhyeya']
+    vāsanā → ['vāsanā']
+  citram:
+    citram → ['citra', 'm']
+    citra → ['citra']
+  api:
+    api → ['a', 'pi']
+  parārthaṃ:
+    parārtham → ['parārtham']
+    parārtha → ['parārtha']
+  saṃhatyakāritvāt:
+    saṃhatyakāritva → ['saṃhatya', 'kāri', 'tva']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 9
+Word-by-word total segments: 10
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 186:
+Original Text: viśeṣadarśina ātmabhāvabhāvanānivṛttiḥ 
+
+Full Line Analysis:
+------------------
+  viśeṣa → ['vi', 'śeṣa']
+  darśin → ['darśin']
+  ātmabhāva → ['ātma', 'bhāva']
+  bhāvana → ['bhā', 'vana']
+  nivṛtti → ['ni', 'vṛtti']
+
+Word-by-Word Analysis:
+---------------------
+  viśeṣadarśina:
+    viśeṣa → ['vi', 'śeṣa']
+    darśin → ['darśin']
+  ātmabhāvabhāvanānivṛttiḥ:
+    ātmabhāva → ['ātma', 'bhāva']
+    bhāvana → ['bhā', 'vana']
+    nivṛtti → ['ni', 'vṛtti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 187:
+Original Text: tadā vivekanimnaṃ kaivalyaprāgbhāraṃ cittam 
+
+Full Line Analysis:
+------------------
+  tadā → ['tadā']
+  viveka → ['vi', 'veka']
+  nimna → ['nimna']
+  kaivalya → ['kaivalya']
+  prāgbhāra → ['prāg', 'bhāra']
+  citta → ['citta']
+
+Word-by-Word Analysis:
+---------------------
+  tadā:
+    tadā → ['tadā']
+  vivekanimnaṃ:
+    viveka → ['vi', 'veka']
+    nimna → ['nimna']
+  kaivalyaprāgbhāraṃ:
+    kaivalya → ['kaivalya']
+    prāgbhāra → ['prāg', 'bhāra']
+  cittam:
+    citta → ['citta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 188:
+Original Text: tacchidreṣu pratyayāntarāṇi saṃskārebhyaḥ 
+
+Full Line Analysis:
+------------------
+  tad → ['ta', 'd']
+  chidra → ['chidra']
+  pratyaya → ['pratyaya']
+  antara → ['a', 'ntara']
+  saṃskāra → ['saṃ', 'skāra']
+
+Word-by-Word Analysis:
+---------------------
+  tacchidreṣu:
+    tacchi → ['tacchati']
+    dra → ['dra']
+  pratyayāntarāṇi:
+    pratyaya → ['pratyaya']
+    antara → ['a', 'ntara']
+  saṃskārebhyaḥ:
+    saṃskāra → ['saṃ', 'skāra']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 5
+Word-by-word total segments: 5
+
+================================================================================
+
+Sutra 189:
+Original Text: hānam eṣāṃ kleśavad uktam 
+
+Full Line Analysis:
+------------------
+  hāna → ['hāna']
+  eṣa → ['eṣa']
+  idam → ['ida', 'm']
+  kleśa → ['kleśa']
+  vad → ['vad']
+  ukta → ['ukta']
+
+Word-by-Word Analysis:
+---------------------
+  hānam:
+    hāna → ['hāna']
+  eṣāṃ:
+    eṣa → ['eṣa']
+    idam → ['ida', 'm']
+  kleśavad:
+    kleśa → ['kleśa']
+    vat → ['vat']
+  uktam:
+    ukta → ['ukta']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 6
+
+================================================================================
+
+Sutra 190:
+Original Text: prasaṃkhyāne 'py akusīdasya sarvathā vivekakhyāter dharmameghaḥ samādhiḥ 
+
+Full Line Analysis:
+------------------
+  prasaṃkhyāna → ['pra', 'saṃkhyāna']
+  api → ['a', 'pi']
+  akusīda → ['a', 'kusīda']
+  sarvathā → ['sarva', 'thā']
+  vivekakhyāti → ['vi', 'veka', 'khyāti']
+  dharmamegha → ['dharma', 'megha']
+  samādhi → ['sam', 'ādhi']
+
+Word-by-Word Analysis:
+---------------------
+  prasaṃkhyāne:
+    prasaṃkhyāna → ['pra', 'saṃkhyāna']
+  'py:
+    api → ['a', 'pi']
+  akusīdasya:
+    akusīda → ['a', 'kusīda']
+  sarvathā:
+    sarvathā → ['sarva', 'thā']
+  vivekakhyāter:
+    vivekakhyāti → ['vi', 'veka', 'khyāti']
+  dharmameghaḥ:
+    dharmamegha → ['dharma', 'megha']
+  samādhiḥ:
+    samādhiḥ → ['sam', 'ādhin']
+    samādhi → ['sam', 'ādhi']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 7
+Word-by-word total segments: 8
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 191:
+Original Text: tataḥ kleśakarmanivṛttiḥ 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  kleśa → ['kleśa']
+  karmanivṛtti → ['karma', 'nivṛtti']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  kleśakarmanivṛttiḥ:
+    kleśa → ['kleśa']
+    karmanivṛtti → ['karma', 'nivṛtti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 3
+Word-by-word total segments: 3
+
+================================================================================
+
+Sutra 192:
+Original Text: tadā sarvāvaraṇamalāpetasya jñānasyānantyāj jñeyam alpam 
+
+Full Line Analysis:
+------------------
+  tadā → ['tadā']
+  sarva → ['sa', 'rva']
+  āvaraṇa → ['ā', 'varaṇa']
+  malā → ['ma', 'lā']
+  apetasya → ['apetasya']
+  jñāna → ['jñāna']
+  sya → ['sya']
+  anantyāj → ['anantyāj']
+  jñeya → ['jñeya']
+  alpam → ['a', 'lpam']
+  alpa → ['a', 'lpa']
+
+Word-by-Word Analysis:
+---------------------
+  tadā:
+    tadā → ['tadā']
+  sarvāvaraṇamalāpetasya:
+    sarva → ['sa', 'rva']
+    āvaraṇa → ['ā', 'varaṇa']
+    mala → ['ma', 'la']
+    apeta → ['apeta']
+  jñānasyānantyāj:
+    jñāna → ['jñāna']
+    sya → ['sya']
+    so → ['so']
+    anantya → ['anantya']
+  jñeyam:
+    jñeya → ['jñeya']
+  alpam:
+    alpam → ['a', 'lpam']
+    alpa → ['a', 'lpa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 11
+Word-by-word total segments: 12
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 193:
+Original Text: tataḥ kṛtārthānāṃ pariṇāmakramasamāptir guṇānām 
+
+Full Line Analysis:
+------------------
+  tata → ['tata']
+  kṛtārtha → ['kṛtārtha']
+  pariṇāma → ['pari', 'ṇāma']
+  krama → ['kra', 'ma']
+  kram → ['kram']
+  sama → ['sama']
+  āpti → ['ā', 'pti']
+  guṇa → ['guṇa']
+
+Word-by-Word Analysis:
+---------------------
+  tataḥ:
+    tata → ['tata']
+  kṛtārthānāṃ:
+    kṛtārtha → ['kṛtārtha']
+  pariṇāmakramasamāptir:
+    pariṇāma → ['pari', 'ṇāma']
+    krama → ['kra', 'ma']
+    kram → ['kram']
+    samāpti → ['sa', 'm', 'āpti']
+  guṇānām:
+    guṇa → ['guṇa']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 8
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 194:
+Original Text: kṣaṇapratiyogī pariṇāmāparāntanirgrāhyaḥ kramaḥ 
+
+Full Line Analysis:
+------------------
+  kṣaṇa → ['kṣaṇa']
+  pratiyogin → ['prati', 'yogin']
+  pariṇāma → ['pari', 'ṇāma']
+  aparānta → ['aparānta']
+  nirgrāhya → ['nir', 'grāhya']
+  krama → ['kra', 'ma']
+
+Word-by-Word Analysis:
+---------------------
+  kṣaṇapratiyogī:
+    kṣaṇa → ['kṣaṇa']
+    pratiyogin → ['prati', 'yogin']
+  pariṇāmāparāntanirgrāhyaḥ:
+    pariṇāma → ['pari', 'ṇāma']
+    aparānta → ['aparānta']
+    nirgrāhya → ['nir', 'grāhya']
+  kramaḥ:
+    kramaḥ → ['kramaḥ']
+    krama → ['kra', 'ma']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 6
+Word-by-word total segments: 7
+Note: The two approaches differ by 1 segments
+
+================================================================================
+
+Sutra 195:
+Original Text: puruṣārthaśūnyānāṃ guṇānāṃ pratiprasavaḥ kaivalyaṃ svarūpapratiṣṭhā vā citiśaktir iti 
+
+Full Line Analysis:
+------------------
+  puruṣārtha → ['puruṣārtha']
+  śūnya → ['śūnya']
+  guṇa → ['guṇa']
+  pratiprasava → ['prati', 'prasava']
+  kaivalya → ['kaivalya']
+  svarūpa → ['sva', 'rūpa']
+  pratiṣṭha → ['prati', 'ṣṭha']
+  vā → ['vā']
+  citiśakti → ['citi', 'śakti']
+  iti → ['iti']
+
+Word-by-Word Analysis:
+---------------------
+  puruṣārthaśūnyānāṃ:
+    puruṣārtha → ['puruṣārtha']
+    śūnya → ['śūnya']
+  guṇānāṃ:
+    guṇa → ['guṇa']
+  pratiprasavaḥ:
+    pratiprasavaḥ → ['prati', 'prasavam']
+    pratiprasava → ['prati', 'prasava']
+  kaivalyaṃ:
+    kaivalya → ['kaivalya']
+  svarūpapratiṣṭhā:
+    svarūpa → ['sva', 'rūpa']
+    pratiṣṭha → ['prati', 'ṣṭha']
+  vā:
+    vā → ['vā']
+  citiśaktir:
+    citiśakti → ['citi', 'śakti']
+  iti:
+    iti → ['iti']
+
+Comparison Metrics:
+------------------
+Full-line total segments: 10
+Word-by-word total segments: 11
+Note: The two approaches differ by 1 segments

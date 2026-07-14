@@ -501,7 +501,7 @@ fn section(
     file_len: usize,
     name: &str,
 ) -> Result<Section, CoreError> {
-    if offset < HEADER_LEN || offset % 64 != 0 {
+    if offset < HEADER_LEN || !offset.is_multiple_of(64) {
         return Err(CoreError::asset(
             "scorer.bin",
             format!("{name} is not 64-byte aligned"),
