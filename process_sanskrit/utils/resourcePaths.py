@@ -10,6 +10,18 @@ from typing import Optional, Union
 
 
 DATABASE_PATH_ENV = "PROCESS_SANSKRIT_DB_PATH"
+# The packaged lexicon's filename.  The updater derives its release asset name
+# from this, so the file it installs is the file the query path opens.
+DATABASE_FILENAME = "SQliteDB.sqlite"
+
+# One sentence every "database not found" error ends with.  The shell command
+# and the importable function do the same thing; naming both keeps a notebook
+# user inside Python.
+DATABASE_SETUP_HINT = (
+    "Run 'update-ps-database' in a terminal, or call "
+    "process_sanskrit.update_database() from Python, to download and set up "
+    "the database."
+)
 
 
 @lru_cache(maxsize=16)
@@ -47,7 +59,7 @@ def _resolve_database_path(configured_path: Optional[str]) -> Path:
 
     database_resource = importlib.resources.files("process_sanskrit").joinpath(
         "resources",
-        "SQliteDB.sqlite",
+        DATABASE_FILENAME,
     )
     with importlib.resources.as_file(database_resource) as database_path:
         return Path(database_path).resolve()
@@ -71,7 +83,9 @@ def reset_database_path_cache() -> None:
 
 
 __all__ = [
+    "DATABASE_FILENAME",
     "DATABASE_PATH_ENV",
+    "DATABASE_SETUP_HINT",
     "get_database_path",
     "resolve_configured_path",
     "reset_database_path_cache",

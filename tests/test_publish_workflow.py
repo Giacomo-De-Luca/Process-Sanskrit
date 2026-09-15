@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import runpy
 import tempfile
 import unittest
@@ -13,6 +14,7 @@ PUBLISH_WORKFLOW = ROOT / ".github" / "workflows" / "publish.yml"
 WHEEL_WORKFLOW = ROOT / ".github" / "workflows" / "wheels.yml"
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 MANIFEST = ROOT / "MANIFEST.in"
+PYPROJECT = ROOT / "pyproject.toml"
 VERSION_CHECK = ROOT / ".github" / "scripts" / "check_pypi_version.py"
 
 
@@ -23,17 +25,38 @@ class NativePublishWorkflowTests(unittest.TestCase):
         cls.wheels = WHEEL_WORKFLOW.read_text(encoding="utf-8")
         cls.ci = CI_WORKFLOW.read_text(encoding="utf-8")
         cls.manifest = MANIFEST.read_text(encoding="utf-8")
+        cls.pyproject = PYPROJECT.read_text(encoding="utf-8")
 
-    def test_reuses_validated_four_platform_wheel_workflow(self):
+    def test_reuses_validated_five_platform_wheel_workflow(self):
         self.assertRegex(self.wheels, r"(?m)^  workflow_call:$")
         self.assertIn("uses: ./.github/workflows/wheels.yml", self.publish)
         for artifact in (
             "linux-x86-64",
+            "linux-aarch64",
             "macos-x86-64",
             "macos-arm64",
             "windows-x86-64",
         ):
             self.assertIn(f"artifact: {artifact}", self.wheels)
+
+    def test_every_built_wheel_is_smoke_tested_and_collected(self):
+        """A platform must never be built without also being installed and run."""
+        built = set(re.findall(r"(?m)^\s+artifact: (\S+)$", self.wheels))
+        smoked = set(re.findall(r"(?m)^\s+- os: \S+\n\s+artifact: (\S+)$", self.wheels))
+        self.assertEqual(built, smoked)
+
+        # The release set is verified per platform, not by a bare count.
+        self.assertRegex(self.publish, r'"\$\{#wheels\[@\]\}" -eq 5')
+        for tag in ("manylinux*x86_64", "manylinux*aarch64", "win_amd64"):
+            self.assertIn(tag, self.publish)
+
+    def test_aarch64_linux_builds_on_a_native_arm_runner(self):
+        """QEMU emulation cannot compile SentencePiece inside the job timeout."""
+        self.assertRegex(
+            self.wheels,
+            r"(?m)^\s+- os: ubuntu-24\.04-arm\n\s+arch: aarch64\n\s+artifact: linux-aarch64$",
+        )
+        self.assertIn('manylinux-aarch64-image = "manylinux2014"', self.pyproject)
 
     def test_native_wheels_have_abi_license_and_backend_smoke_gates(self):
         self.assertIn("*-cp39-abi3-*", self.wheels)

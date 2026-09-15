@@ -38,6 +38,7 @@ Process-Sanskrit is a Python library for automatic Sanskrit text annotation and 
 ```bash
 pip install -e .            # or .[byt5] for the experimental BYT5 model
 update-ps-database          # downloads/sets up the SQLite database (~583 MB) into process_sanskrit/resources/
+                            # or from Python: process_sanskrit.update_database(); see documentation/database-setup.md
 ```
 
 Almost nothing works without the database (`process_sanskrit/resources/SQliteDB.sqlite`); only `transliterate` is database-free.
@@ -60,7 +61,7 @@ python tests/runBenchmarks.py                   # benchmark suite / Yoga Sutra a
 
 Bump the synchronized versions in `pyproject.toml` and `Cargo.toml`, refresh
 `Cargo.lock` and the generated notices, then push to `main`; unchanged versions
-publish nothing. See `documentation/publishing.md` for the four-platform native
+publish nothing. See `documentation/publishing.md` for the five-platform native
 wheel matrix, sdist and installed-wheel gates, approval flow, and release steps.
 
 ## Architecture
@@ -77,10 +78,11 @@ Key layers:
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`.
 - External lexicon database paths are documented in `documentation/database-location.md`.
 - Dictionary result shapes and null-component normalization are documented in `documentation/dictionary-results.md`.
+- Analysis data-flow fixes, regression coverage, and remaining parsing issues are documented in `documentation/analysis-audit.md`.
 - Prefix segmentation and lexicalized prefix re-joining are documented in `documentation/prefix-segmentation.md` and `documentation/prefix-rejoin.md`.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Derived word-list indexing and bare variant-pointer classification are documented in `documentation/word-list-index.md`.
-- `setup/updateDB.py` — the `update-ps-database` console script.
+- `setup/updateDB.py` — `update_database()` (exported as `process_sanskrit.update_database`, raises `DatabaseUpdateError`) and the `main()` behind the `update-ps-database` console script. Every write is staged as a sibling and atomically renamed via `utils/atomicFiles.py`, so no partial `SQliteDB.sqlite` survives an interrupt; helpers raise with the cause chained and only `main()` prints; the library never downloads on its own. See `documentation/database-setup.md`.
 
 ## Conventions and cautions
 

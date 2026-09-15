@@ -85,11 +85,10 @@ class PrefixIsItsOwnWordTests(unittest.TestCase):
 
 
 class ApiEarlyReturnTests(unittest.TestCase):
-    """`root_any_word('api')` returns a flat 3-list, not a list of 5-slot entries.
+    """The api particle special case and words beginning with it stay usable.
 
-    Both the stamp and the whole-word check must tolerate that shape rather than
-    index into it -- which is the only reason their `isinstance(..., list)` guards
-    exist.  Without a test, someone simplifies them away and this raises.
+    It now returns one five-field morphology entry; the full shape and absence
+    of duplicate dictionary entries are pinned in test_analysis_result_contracts.
     """
 
     def test_api_does_not_raise(self):

@@ -60,6 +60,11 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64
             artifact: linux-x86-64
+          # Native ARM runner: emulating aarch64 under QEMU would compile
+          # SentencePiece far too slowly to fit the job timeout.
+          - os: ubuntu-24.04-arm
+            arch: aarch64
+            artifact: linux-aarch64
           - os: macos-15-intel
             arch: x86_64
             artifact: macos-x86-64
@@ -119,6 +124,8 @@ jobs:
         platform:
           - os: ubuntu-latest
             artifact: linux-x86-64
+          - os: ubuntu-24.04-arm
+            artifact: linux-aarch64
           - os: macos-15-intel
             artifact: macos-x86-64
           - os: macos-latest

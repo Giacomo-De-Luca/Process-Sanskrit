@@ -14,5 +14,5 @@
 
 The wheel workflow uploads short-lived artifacts and never publishes by itself.
 `publish.yml` calls it as a reusable workflow after the PyPI version gate, adds
-one checked sdist, and collects the four wheels plus sdist into one release
+one checked sdist, and collects the five wheels plus sdist into one release
 artifact only after every native smoke job succeeds.

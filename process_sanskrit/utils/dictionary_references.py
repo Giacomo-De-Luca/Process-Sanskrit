@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 from process_sanskrit.utils.resourcePaths import (
+    DATABASE_SETUP_HINT,
     get_database_path,
     reset_database_path_cache,
     resolve_configured_path,
@@ -95,7 +96,7 @@ def _connection(database_path: Optional[Path] = None) -> sqlite3.Connection:
         if not selected_path.exists():
             raise FileNotFoundError(
                 f"Dictionary database not found at {selected_path}. "
-                "Run 'update-ps-database' first."
+                f"{DATABASE_SETUP_HINT}"
             )
         connection = sqlite3.connect(
             f"{selected_path.as_uri()}?mode=ro&immutable=1",

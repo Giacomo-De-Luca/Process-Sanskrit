@@ -28,17 +28,24 @@ So a docs fix or a bugfix push is a no-op, and the release step is the version b
 1. **check-version** compares `pyproject.toml` against PyPI; everything below is skipped if the
    version is already released.
 2. **build-wheels** calls the same reusable [wheel workflow](../.github/workflows/wheels.yml)
-   used for pull-request validation. `cibuildwheel` produces exactly four `cp39-abi3` wheels:
-   manylinux x86-64, macOS x86-64, macOS arm64, and Windows x86-64. Calling the same workflow
-   keeps validation and publication on one platform matrix; the underlying `cibuildwheel`
-   configuration lives in `pyproject.toml`.
+   used for pull-request validation. `cibuildwheel` produces exactly five `cp39-abi3` wheels:
+   manylinux x86-64, manylinux aarch64, macOS x86-64, macOS arm64, and Windows x86-64. Calling
+   the same workflow keeps validation and publication on one platform matrix; the underlying
+   `cibuildwheel` configuration lives in `pyproject.toml`.
+
+   The aarch64 wheel builds on GitHub's native `ubuntu-24.04-arm` runner rather than under QEMU:
+   emulated aarch64 compiles the vendored SentencePiece C++ far too slowly to fit the job
+   timeout. That runner class is free for public repositories; if this repository ever becomes
+   private, this job needs a paid larger-runner plan or the platform must be dropped.
 3. **build-sdist** produces one source archive, runs `twine check`, verifies that the Cargo
    workspace, lockfile, native binding manifest, third-party notices, and vendored
    SentencePiece license are present, then builds and smoke-tests a `cp39-abi3` native wheel
    from that archive outside the source tree.
 4. **collect-distributions** runs only after the complete wheel smoke matrix and the sdist job
-   have succeeded. It requires exactly four wheels and one sdist, checks all five with `twine`,
-   and creates the sole `release-dist` artifact consumed by publishing.
+   have succeeded. It requires exactly five wheels and one sdist, checks all six with `twine`,
+   and creates the sole `release-dist` artifact consumed by publishing. The wheels are matched
+   per platform tag, not merely counted, so a missing build cannot pass by being replaced with a
+   duplicate of another platform.
 5. **publish** uploads that single checked artifact set via Trusted Publishing (see below).
 6. **tag** pushes an annotated `v<version>` tag once the upload succeeds. Tags therefore follow
    the release rather than triggering it; they cannot drift from what is on PyPI. A retry is a
@@ -124,9 +131,9 @@ that can publish to your project from anywhere, forever, until you notice and re
 
 The Rust extension uses Python's stable ABI from Python 3.9 onward. One wheel per operating
 system and CPU architecture therefore covers every supported CPython version; separate wheels
-for Python 3.10, 3.11, and so on are neither needed nor published. musllinux, Linux arm64, Windows
-arm64, macOS universal2, PyPy, and 32-bit platforms are not currently built. Users on an
-unsupported platform receive the sdist and need a compatible Rust/C++ build toolchain.
+for Python 3.10, 3.11, and so on are neither needed nor published. musllinux, Windows arm64,
+macOS universal2, PyPy, and 32-bit platforms are not currently built. Users on an unsupported
+platform receive the sdist and need a compatible Rust/C++ build toolchain.
 
 The standalone wheel workflow remains useful as a pre-release gate on pushes and pull requests.
 When called by the publish workflow, its short-lived `wheel-*` artifacts remain internal build
@@ -158,7 +165,7 @@ uvx twine check dist/*
 
 Build a native wheel with `uvx cibuildwheel --output-dir wheelhouse`; it produces only the wheel
 for the host platform unless the required cross-build environment is configured. A real release
-must contain the four CI-built wheels above, so do not replace the workflow's collected artifacts
+must contain the five CI-built wheels above, so do not replace the workflow's collected artifacts
 with a wheel from one developer machine. If a manual upload is ever required, download the
-workflow's `release-dist` artifact, run `twine check` over all five files, and upload that directory
+workflow's `release-dist` artifact, run `twine check` over all six files, and upload that directory
 as one set.

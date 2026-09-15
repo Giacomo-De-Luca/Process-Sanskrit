@@ -6,12 +6,12 @@ valid-form lookup, candidate search, and DCS scoring. The public
 backend by default. The vendored Python splitter remains available as an
 explicit reference backend during the migration.
 
-> **Release validation status (2026-07-13): correctness and performance green.**
-> The release-wheel differential has exact ordered parity on all
-> 700 benchmark inputs and passes every latency, length-bucket, RSS, and local
-> wheel-size criterion below. Cross-platform wheel CI and smoke tests remain required
-> before publication, but there is no remaining splitter parity or performance
-> blocker.
+> **Release status: published.** Version 1.5.1 shipped `cp39-abi3` wheels for
+> manylinux x86-64, macOS x86-64/arm64, and Windows x86-64 on 2026-07-14 after
+> the complete wheel and smoke matrix passed; 1.5.2 adds manylinux aarch64. The
+> release-wheel differential has exact ordered parity on all 700 benchmark
+> inputs and passes every latency, length-bucket, RSS, and wheel-size criterion
+> below.
 
 The history and invariants of the Python reference implementation are in
 [`sandhi-splitter.md`](sandhi-splitter.md). Benchmark methodology and the
@@ -172,9 +172,10 @@ extension may establish correctness, but its timings must be discarded.
 Benchmarking the installed wheel is the least ambiguous route.
 
 The packaging configuration targets one `cp39-abi3` extension for manylinux
-x86_64, macOS x86_64/arm64, and Windows x86_64. musllinux and PyPy are excluded.
-`cibuildwheel` settings are present in `pyproject.toml`, but a configured matrix
-is not proof that release wheels have been built, audited, and smoke-tested.
+x86_64, manylinux aarch64, macOS x86_64/arm64, and Windows x86_64. musllinux and
+PyPy are excluded. `cibuildwheel` settings live in `pyproject.toml`; the platform
+matrix, smoke gates, and release flow are described in
+[`publishing.md`](publishing.md).
 
 SentencePiece v0.2.1 at commit
 `31646a467d2051eb904e0b45de3a73e91fe1c1e3` is compiled statically; a system

@@ -24,54 +24,45 @@ Or search some inflected and sandhi-ed words in the search bar to get the dictio
 
 ## Installation
 
-To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal to setup the database.
+To install the library use the standard *pip install* command, then call ***update-ps-database*** in the terminal (or `process_sanskrit.update_database()` from Python) to setup the database.
 
 ```bash
 pip install process-sanskrit
 update-ps-database
-
-or, for the experimental BYT5 model:
-pip install process-sanskrit[byt5]
-update-ps-database
 ```
 
-Everything the core pipeline needs — including sandhi splitting with full
-statistical (DCS word2vec) scoring — is installed by the base package. There are
-no extras to remember and nothing pins an old *numpy*.
+Everything the pipeline needs, including sandhi splitting with full statistical
+(DCS word2vec) scoring, is installed by the base package. There are no extras to
+remember.
 
-Binary release wheels are configured to include the native Rust splitter.
-Building from source requires Rust 1.87 or newer and a C++17 compiler. Scored
-differential parity and the local release-mode performance criteria are green.
-Cross-platform wheel CI and installation tests remain publication gates.
-Consult the current status, backend selection, and build details in the [Rust
-splitter guide](documentation/rust-splitter.md).
-
-> **Upgrading from 1.0.x?** The `[gensim]` extra is gone. Statistical scoring used
-> to be opt-in, which meant a plain `pip install process-sanskrit` silently ranked
-> sandhi splits by length and produced noticeably worse results. Scoring is now
-> always on, and gensim is no longer used at all. Just drop the extra:
-> `pip install process-sanskrit` (not `process-sanskrit[gensim]`). See
-> [documentation/sandhi-splitter.md](documentation/sandhi-splitter.md).
+Binary wheels for Linux (x86-64, aarch64), macOS (x86-64, arm64) and Windows
+(x86-64) ship the native Rust sandhi splitter, so installing needs no Rust or
+C++ toolchain. Building from source requires Rust 1.87 or newer and a C++17
+compiler; see the [Rust splitter guide](documentation/rust-splitter.md) for
+backend selection and build details.
 
 ***`update-ps-database`*** downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
 ) in the resources folder (150 mb download, 583 mb uncompressed, released with [Creative Commons NC license](https://creativecommons.org/licenses/by-nc/4.0/)).
+
+The same step is available from Python, which is handy in notebooks and scripts.
+It is idempotent, so calling it on every start-up costs nothing once the
+database is in place, and it raises `process_sanskrit.DatabaseUpdateError`
+instead of exiting on failure:
+
+```python
+import process_sanskrit
+process_sanskrit.update_database()   # returns the path of the ready database
+```
+
+Downloads are staged and atomically renamed into place, so an interrupted run
+never leaves a partial database behind. Details in
+[`documentation/database-setup.md`](documentation/database-setup.md).
 
 ```python
 
 ## if inside jupyter or colab use:
 
 !pip install process-sanskrit
-!update-ps-database
-
-```
-
-For the experimental version with byt5:
-
-```python
-
-## if inside jupyter or colab use:
-
-!pip install process-sanskrit[byt5]
 !update-ps-database
 
 ```
@@ -240,14 +231,19 @@ ps.dict_search(['pratiprasava', 'saṃskāra'], 'gra', 'bhs')
 
 ### ProcessBYT5
 
-Experimental function -- preprocess the text with BYT5 then sends it to the process function after for stemming and grammatical results. 
+Experimental function: segments the text with the BYT5 model, then sends each
+word to the process function for stemming and grammatical results. The model
+needs *torch* and *transformers*, which the base package does not install, so
+this one feature needs the `byt5` extra:
 
+```bash
+pip install process-sanskrit[byt5]
 ```
-!pip install process-sanskrit[byt5]
-!update-ps-database
 
-from process_sanskrit.functions import processBYT5
-ps.process(‘śrutam āgamavijñānaṃ tat sāmānyaviṣayam’)
+```python
+from process_sanskrit.functions.processBYT5 import processBYT5
+
+processBYT5('śrutam āgamavijñānaṃ tat sāmānyaviṣayam')
 ```
 
 ## Sources:

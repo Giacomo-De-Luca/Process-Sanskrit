@@ -141,9 +141,9 @@ class PreSplitEquivalenceTests(unittest.TestCase):
 class WildcardTests(unittest.TestCase):
     """Wildcard lookups honour ``mode`` and ``dict_names`` like anything else.
 
-    Both wildcard branches have two exits: a recursion into ``process`` when the
-    pattern finds nothing, and an early ``return voc_entry`` when it hits.  The
-    early exit -- which is the common one -- used to hand back raw ``dict_search``
+    A trailing-star miss falls back to ``process`` without the star; SQL patterns
+    return their definitions or a stub without retrying the same pattern. The
+    early exit used to hand back raw ``dict_search``
     output without passing through ``clean_results``, so ``mode='roots'`` came
     back as detailed entries.
 
@@ -251,9 +251,9 @@ class EmptySegmentTests(unittest.TestCase):
         self.assertEqual(process("", mode="roots"), "")
         self.assertEqual(process("-", mode="roots"), [])
 
-    def test_unanalysable_segment_is_dropped_not_fatal(self):
-        ## documents current behaviour: a junk segment yields nothing at all
-        self.assertEqual(process("hetu-qqqq", mode="roots"), ["hetu"])
+    def test_unanalysable_segment_is_preserved_not_fatal(self):
+        ## A non-empty unresolved segment remains visible after transliteration.
+        self.assertEqual(process("hetu-qqqq", mode="roots"), ["hetu", "ḍḍḍḍ"])
 
 
 if __name__ == "__main__":

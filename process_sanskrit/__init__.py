@@ -1,6 +1,7 @@
 from process_sanskrit.functions.process import process
 from process_sanskrit.functions.dictionaryLookup import dict_search
 from process_sanskrit.utils.transliterationUtils import transliterate
+from process_sanskrit.setup.updateDB import DatabaseUpdateError, update_database
 
 
 import logging

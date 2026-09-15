@@ -51,7 +51,10 @@ log = logging.getLogger(__name__)
 SCHEMA_VERSION = 1
 # Bump this whenever a change can alter a split or morphology result. The
 # signature is part of the cache key, and superseded rows are evicted on open.
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v4"
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v6"
+# v6 preserves unresolved tokens and uses a single morphology entry for api.
+# v5 inflects compound fallback pieces before dictionary lookup
+# (balam -> bala, pratipaj -> pratipad).
 # v4 reports a stripped upasarga as its own word instead of folding it into the
 # stem's list of rival readings (upadiśyate -> upa, diś -- not "upa OR diś").
 # v3 ranks genuine compound headwords ahead of bare variant-reading pointers;

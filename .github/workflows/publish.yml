@@ -144,8 +144,18 @@ jobs:
         run: |
           wheels=(dist/*.whl)
           sdists=(dist/*.tar.gz)
-          [[ -e "${wheels[0]}" && "${#wheels[@]}" -eq 4 ]]
+          [[ -e "${wheels[0]}" && "${#wheels[@]}" -eq 5 ]]
           [[ -e "${sdists[0]}" && "${#sdists[@]}" -eq 1 ]]
+          # One wheel per supported platform, so a silently missing build
+          # cannot pass the count check by being replaced with a duplicate.
+          for tag in '*manylinux*x86_64*' '*manylinux*aarch64*' \
+                     '*macosx*x86_64*' '*macosx*arm64*' '*win_amd64*'; do
+            matches=(dist/${tag}.whl)
+            [[ -e "${matches[0]}" && "${#matches[@]}" -eq 1 ]] || {
+              echo "Expected exactly one wheel matching ${tag}, got: ${matches[*]}" >&2
+              exit 1
+            }
+          done
           python -m pip install --upgrade twine
           python -m twine check dist/*
 

@@ -138,7 +138,7 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
     search_dictionaries = [*dict_names]
 
     # First check if the word exists in any of our specified dictionaries
-    word_in_specified = any(d in DICTIONARY_REFERENCES.get(word, []) 
+    word_in_specified = any(d.lower() in DICTIONARY_REFERENCES.get(word, [])
                           for d in search_dictionaries)
 
     # If word is not in our specified dictionaries but exists in others,
@@ -152,10 +152,10 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
     # Now perform the search with either original or expanded dictionary list
     results = multidict(word, *search_dictionaries, session=session)
     
-    if results[1]:  # If we found entries
+    if any(results[1].values()):  # Dictionary names alone do not imply a hit.
         return results
         
-    return [word, word, [word]]  # Default format if no results found
+    return [word, [word]]  # Component and payload; caller supplies the headword.
 
 
 
@@ -195,7 +195,7 @@ def dict_search(list_of_entries, *args, source: str = DEFAULT_DICTIONARY, sessio
                     if word in DICTIONARY_REFERENCES:
                         entry = entry + consult_references(word, *dict_names, session=session)
                     else:
-                        entry = [entry, entry, [entry]]
+                        entry = entry + [word, [word]]
                     entries.append(entry)
                 else:
                     entry = entry + consult_references(word, *dict_names, session=session)

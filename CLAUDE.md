@@ -37,6 +37,7 @@ Process-Sanskrit is a Python library for automatic Sanskrit text annotation and 
 ```bash
 pip install -e .            # or .[byt5] for the experimental BYT5 model
 update-ps-database          # downloads/sets up the SQLite database (~583 MB) into process_sanskrit/resources/
+                            # or from Python: process_sanskrit.update_database(); see documentation/database-setup.md
 ```
 
 Almost nothing works without the database (`process_sanskrit/resources/SQliteDB.sqlite`); only `transliterate` is database-free.
@@ -60,7 +61,7 @@ python tests/runBenchmarks.py                   # benchmark suite / Yoga Sutra a
 
 Bump the synchronized versions in `pyproject.toml` and `Cargo.toml`, refresh
 `Cargo.lock` and the generated notices, then push to `main`; unchanged versions
-publish nothing. See `documentation/publishing.md` for the four-platform native
+publish nothing. See `documentation/publishing.md` for the five-platform native
 wheel matrix, sdist and installed-wheel gates, approval flow, and release steps.
 
 ## Architecture
@@ -77,12 +78,13 @@ Key layers:
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`. A result-changing hybrid/process change must bump `ANALYSIS_ALGORITHM_VERSION`; a direct statistical change must bump `STATISTICAL_ANALYSIS_ALGORITHM_VERSION` (both if both paths change), or stale rows can mask the change.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
+- Analysis data-flow fixes, regression coverage, and remaining parsing issues are documented in `documentation/analysis-audit.md`.
 - Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
 - Productive `-tā`/`-tva` abstract nouns (`niṣyandatā`) are reconstructed from their base; see `documentation/taddhita-derivation.md`.
 - Prefix re-joining in `cleanResults.py` (collapsing a `sam` + `ādhi` split back into `samādhi`) is documented in `documentation/prefix-rejoin.md`. `dict_search` never returns `None` — a miss comes back as a *stub* whose slot `[2]` is a list rather than a dict, so a re-join may only fire on `isinstance(voc_entry[0][2], dict)`. Testing the stub for `is not None` overwrites a correct prefix analysis with a headword that does not exist. The three prefix blocks are now one `rejoin_prefix()` over the `REJOINABLE_PREFIXES` table, whose value per prefix is *every stem `root_any_word` emits for the prefix itself* (`sam`→`sa`, `ava`→`av`) — the fillers the walk must step over to reach the real stem. Omitting one halts the walk on the filler and silently loses the join; do not "simplify" the table. `dict_search` already folds `sam`→`saṃ` (`samMap`), so no spelling retry belongs here, and `DICTIONARY_REFERENCES` is *not* a safe pre-check (`samyoga` is absent from it yet resolves). That fold is lookup-only — `dict_search` echoes the query back at slot `[0]` — so the merged lemma is taken from the payload headword (`_canonical_headword`), which costs no extra lookup and stops the re-join being the only path that reports `samvedana` where the forms DB and MW both say `saṃvedana`. `duḥ` is in the table too (with an empty absorbed set): it is no upasarga, it only ever arrives as a compound cut. Pinned by `tests/test_prefix_merge.py`.
 - Prefix *segmentation* — a stripped upasarga is a word, not a rival reading of the stem — is documented in `documentation/prefix-segmentation.md`. `entry[4]` is overloaded: `extract_roots` folds entries sharing it into one tuple of alternatives, while the `-n` lemma rule and the whole-word dictionary check read it expecting the whole word *as matched*. So prefix entries must keep their own surface and only the entries that resolved the remainder get the whole word stamped (`_stamp_whole_word`). Every tempting simplification breaks one of the three consumers; the four that were tried and their casualties are listed in the doc. Pinned by `tests/test_prefix_segmentation.py`.
 - The `word_list` dictionary index is *derived* from the dictionary tables and is rebuilt, never patched; see `documentation/word-list-index.md`. It also flags bare Monier-Williams variant-reading pointers such as `tanni`, which rank behind genuine compound cuts while remaining eligible fallbacks. The flag must stay lexical: keying it to "heads no inflection table" instead silently destroys `gacchatā` → `gacchat`, since `gacchat` and `niṣyanda` have no paradigm either and are perfectly real.
-- `setup/updateDB.py` — the `update-ps-database` console script.
+- `setup/updateDB.py` — `update_database()` (exported as `process_sanskrit.update_database`, raises `DatabaseUpdateError`) and the `main()` behind the `update-ps-database` console script. Every write is staged as a sibling and atomically renamed via `utils/atomicFiles.py`, so no partial `SQliteDB.sqlite` survives an interrupt; helpers raise with the cause chained and only `main()` prints; the library never downloads on its own. See `documentation/database-setup.md`.
 
 ## Conventions and cautions
 

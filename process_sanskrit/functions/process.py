@@ -148,8 +148,8 @@ def handle_special_characters(
     )
     dict_names = dict_names or ()
 
-    ## both wildcard branches have two exits: a hit returns the dictionary entry
-    ## directly, a miss falls back to processing the text without the wildcard.
+    ## A trailing-star miss falls back to processing the literal word. SQL
+    ## patterns return either definitions or a stub for the original pattern.
     ## The hit used to bypass clean_results, so it ignored `mode` -- a roots
     ## request came back as detailed entries.  For a pattern (_ or %) the stem is
     ## the pattern itself; a pattern has no root to speak of.
@@ -159,28 +159,31 @@ def handle_special_characters(
         transliterated_text = transliterate(text[:-1], "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
         if not isinstance(voc_entry[0][2], list):
-            return clean_results(voc_entry, debug=debug, mode=mode)
+            return clean_results(voc_entry, debug=debug, mode=mode, dict_names=dict_names, session=session)
         return process(text[:-1], *dict_names, **forwarded)
 
     # Handle explicit wildcard search with _ or %
     if '_' in text or '%' in text:
         transliterated_text = transliterate(text, "IAST")
         voc_entry = dict_search([transliterated_text], *dict_names, session=session)
-        if not isinstance(voc_entry[0][2], list):
-            return clean_results(voc_entry, debug=debug, mode=mode)
-        return process(text, *dict_names, **forwarded)
+        # A pattern miss is still a valid lookup result. Reprocessing the same
+        # wildcard would recurse forever once empty payloads are proper misses.
+        return clean_results(voc_entry, debug=debug, mode=mode, dict_names=dict_names, session=session)
 
     # Handle pre-split compounds with - or +
     if "-" in text or "+" in text:
         word_list = re.split(r'[-+]', text)
-        processed_results = []
+        processed_results = {} if mode == "parts" else []
         for word in word_list:
             ## a leading, trailing or doubled separator splits to an empty
             ## segment, which carries no analysis to contribute
             if not word:
                 continue
             result = process(word, *dict_names, **forwarded)
-            processed_results.extend(result)
+            if mode == "parts":
+                processed_results.update(result)
+            else:
+                processed_results.extend(result)
         return processed_results
 
     return None  # Return None if no special cases matched
@@ -283,7 +286,7 @@ def process(
                     print(f"Found {text} in dictionary references, doing direct lookup")
                 result_vocabulary = dict_search([text], *dict_names, session=session)
                 if isinstance(result_vocabulary[0][2], dict):
-                    return clean_results(result_vocabulary, debug=debug, mode=mode)
+                    return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
 
         if result is not None:
             if debug == True: 
@@ -342,14 +345,14 @@ def process(
                         result_vocabulary.insert(0, replacement[0])
 
             #print("result_vocabulary", result_vocabulary)
-            return clean_results(result_vocabulary, debug=debug, mode=mode)
+            return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
         else:
             ## if result is None, we try to find the word in the dictionary for exact match
             result_vocabulary = dict_search([text], *dict_names, session=session)
             #print("result_vocabulary", result_vocabulary)
             if isinstance(result_vocabulary[0][2], dict):
             #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
-                return clean_results(result_vocabulary, debug=debug, mode=mode)
+                return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
 
             ## The lexicon lists only the *lexicalised* -tā / -tva abstract nouns.
             ## Both suffixes are productive, so a coined derivative (niṣyanda-tā)
@@ -371,7 +374,7 @@ def process(
                 entry = derived.as_entry() + consult_references(
                     derived.base, *(dict_names or (DEFAULT_DICTIONARY,)), session=session
                 )
-                return clean_results([entry], debug=debug, mode=mode)
+                return clean_results([entry], debug=debug, mode=mode, dict_names=dict_names, session=session)
 
     ## given that the text is composed of multiple words, we split them first then analyse one by one
     ## attempt to remove sandhi and tokenise in any case
@@ -466,4 +469,4 @@ def process(
     ## should this really be kept? 
     inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
       
-    return clean_results(inflections_vocabulary, debug=debug, mode=mode)
+    return clean_results(inflections_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)

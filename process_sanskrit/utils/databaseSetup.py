@@ -30,6 +30,7 @@ from sqlalchemy.orm import Session, scoped_session, sessionmaker
 from sqlalchemy.pool import QueuePool
 
 from process_sanskrit.utils.resourcePaths import (
+    DATABASE_SETUP_HINT,
     get_database_path,
     reset_database_path_cache,
     resolve_configured_path,
@@ -209,7 +210,7 @@ def get_engine(db_path: Optional[str] = None) -> Engine:
         if not database_exists(str(selected_path)):
             error_msg = (
                 f"Database file not found at: {selected_path}\n"
-                "Please run 'update-ps-database' to download and setup the database."
+                f"{DATABASE_SETUP_HINT}"
             )
             log.error(error_msg)
             raise DatabaseNotFoundError(error_msg)
@@ -371,8 +372,9 @@ def requires_database(func: F) -> F:
     def wrapper(*args, **kwargs):
         if not database_exists():
             raise DatabaseNotFoundError(
-                f"Function '{func.__name__}' requires database access, but database file not found. "
-                "Please run 'update-ps-database' command to download the database."
+                f"Function '{func.__name__}' requires database access, but the "
+                f"database file was not found at {get_db_path()}. "
+                f"{DATABASE_SETUP_HINT}"
             )
         return func(*args, **kwargs)
     return cast(F, wrapper)

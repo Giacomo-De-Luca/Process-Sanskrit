@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "process-sanskrit"
-version = "1.5.1"
+version = "1.5.2"
 description = "Process-Sanskrit is python library for automatic Sanskrit text annotation and inflected dictionary search"
 readme = "README.md"
 license = "CC-BY-NC-ND-4.0"
@@ -45,7 +45,7 @@ byt5 = [
 
 
 [project.scripts]
-update-ps-database = "process_sanskrit.setup.updateDB:update_database"
+update-ps-database = "process_sanskrit.setup.updateDB:main"
 
 [tool.setuptools.package-data]
 "process_sanskrit.resources" = ["*.json", "*.csv", "*.tsv", "*.xlsx"]
@@ -84,8 +84,9 @@ skip = "*-musllinux*"
 build-frontend = "build"
 
 [tool.cibuildwheel.linux]
-archs = ["x86_64"]
+archs = ["x86_64", "aarch64"]
 manylinux-x86_64-image = "manylinux2014"
+manylinux-aarch64-image = "manylinux2014"
 before-all = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.87.0"
 environment = { PATH = "$HOME/.cargo/bin:$PATH" }
 

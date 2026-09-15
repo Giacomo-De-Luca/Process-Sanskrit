@@ -1,95 +1,67 @@
+"""Resolve split words and compound pieces before dictionary lookup."""
+
 import time
+
 from process_sanskrit.functions.rootAnyWord import root_any_word
 from process_sanskrit.functions.compoundAnalysis import root_compounds
 
 
 prefixes = ['sva', 'anu', 'sam', 'pra', 'upa', 'vi', 'nis', 'abhi', 'ni', 'pari', 'prati', 'parā', 'ava', 'adhi', 'api', 'ati', 'ud', 'dvi', 'su', 'dur', 'duḥ']
 
-def inflect(splitted_text, debug=False, session=None, _memo=None):
-    if _memo is None:
-        _memo = {}
-    roots = []
-    
-    i = 0
-    while i < len(splitted_text):
-        word = splitted_text[i]
-        #print(f"Processing word: {word}")
-        if word in prefixes and i + 1 < len(splitted_text):
-            next_word = splitted_text[i + 1]
 
-            if debug == True:
-                print(f"Found prefix: {word}, next word: {next_word}")
+class Inflector:
+    """Share one morphology fallback and memo across a sequence of words."""
 
-            if word == 'sam':
-                combined_words = ['sam' + next_word, 'saṃ' + next_word]
-            elif word == 'vi':
-                combined_words = ['vi' + next_word, 'vy' + next_word]
-            else:
-                combined_words = [word + next_word]
+    PREFIX_SPELLINGS = {"sam": ("sam", "saṃ"), "vi": ("vi", "vy")}
 
-            rooted = None
-            for combined_word in combined_words:
-                if debug == True:
-                    start_time = time.time()
-                rooted = root_any_word(
-                    combined_word, session=session, _memo=_memo
-                )
-                
-                if debug == True:
-                    print(f"root_any_word({combined_word}) took {time.time() - start_time:.6f} seconds")
-                if rooted is not None:
-                    break  # Exit loop if a valid root is found
+    def __init__(self, *, debug=False, session=None, memo=None):
+        self.debug = debug
+        self.session = session
+        self.memo = {} if memo is None else memo
 
-            if rooted is not None:
-                roots.extend(rooted)
-                i += 2  # Skip next word since it's part of the combined word
-                continue
-            else:
-                if debug == True:
-                    start_time = time.time()
-                rooted_word = root_any_word(word, session=session, _memo=_memo)
-                if debug == True:
-                    print(f"root_any_word({word}) took {time.time() - start_time:.6f} seconds")
-                if rooted_word is not None:
-                    roots.extend(rooted_word)
-                else:
-                    if debug == True:
-                        start_time = time.time()
-                    compound_try = root_compounds(
-                        word, session=session, _memo=_memo
-                    )
-                    if debug == True:
-                        print(f"root_compounds({word}) took {time.time() - start_time:.6f} seconds")
-                    if compound_try is not None:
-                        roots.extend(compound_try)
-                    else:
-                        roots.append(word)
-                i += 1  # Move to next word
-        else:
-            if debug == True:
-                start_time = time.time()
-            rooted = root_any_word(word, session=session, _memo=_memo)
-            if debug == True:
-                print(f"root_any_word({word}) took {time.time() - start_time:.6f} seconds")
-            if rooted is not None:
-                roots.extend(rooted)
-            else:
-                if debug == True:
-                    start_time = time.time()
-                compound_try = root_compounds(
-                    word, session=session, _memo=_memo
-                )
-                if debug == True:
-                    print(f"root_compounds({word}) took {time.time() - start_time:.6f} seconds")
-                if compound_try is not None:
-                    roots.extend(compound_try)
-                else:
-                    roots.append(word)
+    def _lookup(self, word, *, compound=False):
+        started = time.perf_counter() if self.debug else None
+        lookup = root_compounds if compound else root_any_word
+        options = {"inflection": True} if compound else {}
+        result = lookup(word, session=self.session, _memo=self.memo, **options)
+        if self.debug:
+            print(f"{lookup.__name__}({word}) took {time.perf_counter() - started:.6f} seconds")
+        return result
+
+    def analyze(self, words):
+        roots = []
+        i = 0
+        while i < len(words):
+            word = words[i]
+            if word in prefixes and i + 1 < len(words):
+                next_word = words[i + 1]
+                if self.debug:
+                    print(f"Found prefix: {word}, next word: {next_word}")
+                rooted = None
+                for prefix in self.PREFIX_SPELLINGS.get(word, (word,)):
+                    rooted = self._lookup(prefix + next_word)
+                    if rooted:
+                        break
+                if rooted:
+                    roots.extend(rooted)
+                    i += 2
+                    continue
+
+            rooted = self._lookup(word)
+            if not rooted:
+                rooted = self._lookup(word, compound=True)
+            # root_compounds returns [] on a complete miss. Preserve the token
+            # so dictionary lookup can report an unresolved entry to the caller.
+            roots.extend(rooted or [word])
             i += 1
 
-    for j in range(len(roots)):
-        if isinstance(roots[j], list):
-            roots[j][0] = roots[j][0].replace('-', '')
-        else:
-            roots[j] = roots[j].replace('-', '')
-    return roots
+        for index, root in enumerate(roots):
+            if isinstance(root, list):
+                root[0] = root[0].replace('-', '')
+            else:
+                roots[index] = root.replace('-', '')
+        return roots
+
+
+def inflect(splitted_text, debug=False, session=None, _memo=None):
+    return Inflector(debug=debug, session=session, memo=_memo).analyze(splitted_text)

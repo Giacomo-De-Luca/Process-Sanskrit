@@ -687,6 +687,24 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         reset_analysis_cache()
         self.addCleanup(reset_analysis_cache)
 
+    def test_api_and_unknown_token_survive_a_cache_roundtrip(self):
+        from process_sanskrit import process
+        from process_sanskrit.functions.hybridSplitter import HybridAnalysis
+
+        missing = "ḍḍḍḍ"
+        analysis = HybridAnalysis(["api", missing], 0.7, {}, "statistical", "success")
+        with patch.dict(os.environ, {"PROCESS_SANSKRIT_CACHE_PATH": str(self.cache_path)}), patch(
+            "process_sanskrit.functions.hybridSplitter.analyze_hybrid",
+            return_value=analysis,
+        ) as split:
+            cold = process("api " + missing, cached=True)
+            split.side_effect = AssertionError("cache hit recomputed the split")
+            warm = process("api " + missing, cached=True)
+        self.assertEqual(cold, warm)
+        self.assertEqual([entry[0] for entry in warm], ["api", missing])
+        self.assertEqual(len(warm[0]), 7)
+        self.assertEqual(warm[1], [missing, missing, [missing]])
+
     def test_process_hit_skips_split_and_inflection_but_not_rendering(self):
         from process_sanskrit.functions.hybridSplitter import HybridAnalysis
         from process_sanskrit.functions.process import process
@@ -718,7 +736,7 @@ class ProcessCacheIntegrationTests(unittest.TestCase):
         ) as dictionary_mock, patch.object(
             _PROCESS_MODULE,
             "clean_results",
-            side_effect=lambda entries, mode, debug=False: {
+            side_effect=lambda entries, mode, debug=False, **kwargs: {
                 "mode": mode,
                 "entries": entries,
             },

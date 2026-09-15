@@ -14,6 +14,9 @@ uv run python -m unittest tests.test_analysis_cache tests.test_database_lifecycl
 uv run python -m unittest tests.test_prefix_merge
 uv run python -m unittest tests.test_prefix_segmentation
 uv run python -m unittest tests.test_null_dictionary_components
+uv run python -m unittest tests.test_compound_inflection
+uv run python -m unittest tests.test_analysis_result_contracts
+uv run python -m unittest tests.test_update_database tests.test_database_path_configuration
 ```
 
 Most pipeline tests require `process_sanskrit/resources/SQliteDB.sqlite`. The
@@ -51,7 +54,19 @@ PROCESS_SANSKRIT_FULL_NATIVE_PARITY=1 \
   `NullDictionaryComponentsTests` pins the headword fallback for dictionary
   rows without component metadata, while `YogaSutraNullComponentsTests` pins
   Yoga Sutra 53 end to end — see
-  `documentation/dictionary-results.md`; and
+  `documentation/dictionary-results.md`;
+  `CompoundInflectionTests` pins stem analysis and dictionary payloads for
+  compound fallback pieces, including preservation of the existing
+  `tajjñānam` analysis;
+  `AnalysisResultContractTests` covers missing definitions, unresolved tokens,
+  `api` morphology, wildcard misses, `parts` mappings, and dictionary/session
+  forwarding — see `documentation/analysis-audit.md`;
+  `AtomicDownloadTests`, `ExternalDatabaseUpdateTests`, `PackagedUpdateTests`
+  and `LibraryEntryPointTests` pin the lexicon installer: no partial
+  `SQliteDB.sqlite` survives an interrupted download or rebuild,
+  `process_sanskrit.update_database()` raises `DatabaseUpdateError` instead of
+  exiting, and the console script wraps it — see
+  `documentation/database-setup.md`; and
   `UpstreamParityTests` is the optional upstream reference comparison.
 - `datasets/` contains reusable Sanskrit corpora and compound fixtures. Dataset
   modules expose lists/dictionaries consumed by benchmarks; the two JSON files

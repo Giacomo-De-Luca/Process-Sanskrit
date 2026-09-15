@@ -7,7 +7,7 @@ Process-Sanskrit native Python extension. It contains the declared
 license expression and complete license/notice source files shipped by
 each selected crate.
 
-Cargo.lock SHA-256: `96c4690620818aaf95a89e07d6d20c94849db99bc4fde3d832e4c21545827d7d`
+Cargo.lock SHA-256: `a237ce0870dd5d4325ff94e4d97d87b18ae7c3f79ccf3e8dfe10b1fa9bbacbdc`
 
 ## Scope and regeneration
 

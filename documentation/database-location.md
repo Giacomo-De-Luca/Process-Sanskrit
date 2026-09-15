@@ -19,7 +19,8 @@ The configured database is opened read-only and immutable during analysis. It
 must already exist; a configured but missing path fails explicitly rather than
 falling back to the packaged database.
 
-`update-ps-database` honours the same environment variable. When
+`update-ps-database` and `process_sanskrit.update_database()` honour the same
+environment variable (see `database-setup.md`). When
 `PROCESS_SANSKRIT_DB_PATH` names an existing database, the command rebuilds its
 derived `word_list` index on a sibling copy, validates that copy, and atomically
 replaces the configured file. It does not download or modify the packaged

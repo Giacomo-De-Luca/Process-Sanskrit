@@ -94,3 +94,5 @@ jobs:
           tests.test_splitter_benchmark
           tests.test_publish_workflow
           tests.test_rust_third_party_notices
+          tests.test_update_database
+          tests.test_database_path_configuration

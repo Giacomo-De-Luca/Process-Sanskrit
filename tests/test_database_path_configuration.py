@@ -73,6 +73,36 @@ class DatabasePathConfigurationTests(unittest.TestCase):
             with self.assertRaises(FileNotFoundError):
                 dictionary_references.DICTIONARY_REFERENCES["configuredword"]
 
+    def test_a_missing_database_error_names_both_setup_entry_points(self):
+        ## The shell command and the importable function do the same thing; a
+        ## notebook user hitting this from Python should not have to leave it.
+        missing = self.database_path.with_name("missing.sqlite")
+        with patch.dict(
+            os.environ,
+            {"PROCESS_SANSKRIT_DB_PATH": str(missing)},
+        ):
+            with self.assertRaises(databaseSetup.DatabaseNotFoundError) as engine_error:
+                databaseSetup.get_engine()
+            with self.assertRaises(FileNotFoundError) as reference_error:
+                dictionary_references.DICTIONARY_REFERENCES["configuredword"]
+        for message in (str(engine_error.exception), str(reference_error.exception)):
+            self.assertIn(str(missing.resolve()), message)
+            self.assertIn("update-ps-database", message)
+            self.assertIn("process_sanskrit.update_database()", message)
+
+    def test_requires_database_names_both_setup_entry_points(self):
+        @databaseSetup.requires_database
+        def guarded():
+            return "ran"
+
+        with patch.object(databaseSetup, "database_exists", return_value=False):
+            with self.assertRaises(databaseSetup.DatabaseNotFoundError) as caught:
+                guarded()
+        message = str(caught.exception)
+        self.assertIn("guarded", message)
+        self.assertIn("update-ps-database", message)
+        self.assertIn("process_sanskrit.update_database()", message)
+
     def test_reference_connection_tracks_environment_path_changes(self):
         second_path = self.database_path.with_name("second.sqlite")
         connection = sqlite3.connect(second_path)

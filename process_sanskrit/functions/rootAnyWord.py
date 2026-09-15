@@ -73,7 +73,7 @@ def _stamp_whole_word(matches, word):
     """
     root = matches[-1] if matches else None
     if not isinstance(root, list) or len(root) != 5:
-        return  ## the `api` early-return is a flat 3-list, not entries
+        return
     span = root[4]
     for match in matches:
         if isinstance(match, list) and len(match) == 5 and match[4] == span:
@@ -90,7 +90,9 @@ def root_any_word(
 ):
 
     if word == 'api' or word == 'āpi':
-        return ['api' , 'api' , ['api']]  
+        # Preserve the established particle reading in the same five-field
+        # shape as database analyses. A flat stub was treated as three entries.
+        return [['api', 'indeclinable (avyaya)', None, ['api'], word]]
     
     if attempted_words is None:
         attempted_words = frozenset()

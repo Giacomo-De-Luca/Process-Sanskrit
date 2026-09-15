@@ -118,7 +118,7 @@ def _canonical_headword(voc_entry, queried):
     return queried
 
 
-def rejoin_prefix(list_of_entries, i, absorbed):
+def rejoin_prefix(list_of_entries, i, absorbed, *, dict_names=(), session=None):
     """Collapse a stripped prefix back into the compound it came from.
 
     `root_any_word` resolves `samādhi` by stripping `sam` off `ādhi`; the word is
@@ -156,7 +156,7 @@ def rejoin_prefix(list_of_entries, i, absorbed):
         return
 
     queried = prefix + stem
-    voc_entry = dict_search([queried])
+    voc_entry = dict_search([queried], *dict_names, session=session)
     if not voc_entry or len(voc_entry[0]) <= 2 or not isinstance(voc_entry[0][2], dict):
         return
 
@@ -168,13 +168,13 @@ def rejoin_prefix(list_of_entries, i, absorbed):
     del list_of_entries[i + 1:j + 1]
 
 
-def clean_results(list_of_entries, mode="detailed", debug=False):
+def clean_results(list_of_entries, mode="detailed", debug=False, *, dict_names=(), session=None):
 
     i = 0
    
     #print("is it broken here?", list_of_entries)
 
-    while i < len(list_of_entries) - 1:  # Subtract 1 to avoid index out of range error
+    while i < len(list_of_entries) - 1:
         # Check if the word is in filtered_words
         if list_of_entries[i][0] in filtered_words:
             while i < len(list_of_entries) - 1 and list_of_entries[i + 1][0] == list_of_entries[i][0]:
@@ -189,15 +189,17 @@ def clean_results(list_of_entries, mode="detailed", debug=False):
         if len(list_of_entries[i]) >= 5 and list_of_entries[i][0][-1] == "n" and list_of_entries[i][4] != list_of_entries[i][0]:
             #print("the one not replaced:", list_of_entries[i])
             if list_of_entries[i][4] in DICTIONARY_REFERENCES:
-                replacement = dict_search([list_of_entries[i][4]])
-                if replacement is not None:
+                replacement = dict_search(
+                    [list_of_entries[i][4]], *dict_names, session=session
+                )
+                if replacement and isinstance(replacement[0][2], dict):
                     list_of_entries[i] = replacement[0]
         
 
         
         absorbed = REJOINABLE_PREFIXES.get(list_of_entries[i][0])
         if absorbed is not None:
-            rejoin_prefix(list_of_entries, i, absorbed)
+            rejoin_prefix(list_of_entries, i, absorbed, dict_names=dict_names, session=session)
 
         i += 1
     

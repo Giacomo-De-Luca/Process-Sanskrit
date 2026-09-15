@@ -1,5 +1,11 @@
 # Pre-split compounds and option forwarding
 
+`mode="parts"` merges each segment's lemma-to-components mapping and returns a
+mapping for the whole input. Empty segments contribute nothing. A non-empty
+segment that cannot be analysed is retained as an unresolved entry (after
+transliteration), rather than being silently dropped. The existing public
+one-character filter still applies; see [analysis-audit.md](analysis-audit.md).
+
 Callers can hand `process` a compound whose boundaries they already know, using
 `-` or `+` as the separator:
 
