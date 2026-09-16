@@ -1,6 +1,6 @@
 # Process-Sanskrit
 
-Process-Sanskrit is a *python* open-source library for automatic Sanskrit text annotation and inflected dictionary search.
+Process-Sanskrit is an open-source library for automatic Sanskrit text annotation and inflected dictionary search.
 
 The library has two main use cases: 
 
@@ -31,32 +31,20 @@ pip install process-sanskrit
 update-ps-database
 ```
 
-Everything the pipeline needs, including sandhi splitting with full statistical
-(DCS word2vec) scoring, is installed by the base package. There are no extras to
-remember.
-
 Binary wheels for Linux (x86-64, aarch64), macOS (x86-64, arm64) and Windows
 (x86-64) ship the native Rust sandhi splitter, so installing needs no Rust or
 C++ toolchain. Building from source requires Rust 1.87 or newer and a C++17
-compiler; see the [Rust splitter guide](documentation/rust-splitter.md) for
-backend selection and build details.
+compiler.
 
 ***`update-ps-database`*** downloads and setup the database with the dictionaries and the inflection tables (adjusted from [**CLS inflect**](https://github.com/sanskrit-lexicon/csl-inflect)
 ) in the resources folder (150 mb download, 583 mb uncompressed, released with [Creative Commons NC license](https://creativecommons.org/licenses/by-nc/4.0/)).
 
-The same step is available from Python, which is handy in notebooks and scripts.
-It is idempotent, so calling it on every start-up costs nothing once the
-database is in place, and it raises `process_sanskrit.DatabaseUpdateError`
-instead of exiting on failure:
 
 ```python
 import process_sanskrit
 process_sanskrit.update_database()   # returns the path of the ready database
 ```
 
-Downloads are staged and atomically renamed into place, so an interrupted run
-never leaves a partial database behind. Details in
-[`documentation/database-setup.md`](documentation/database-setup.md).
 
 ```python
 
@@ -69,22 +57,6 @@ never leaves a partial database behind. Details in
 
 *only **transliterate** works without the database!*
 
-Deployments that keep the database outside the Python package can set
-`PROCESS_SANSKRIT_DB_PATH` to the existing `SQliteDB.sqlite` file. The library
-opens it read-only; see
-[`documentation/database-location.md`](documentation/database-location.md).
-
-### Persistent analysis cache
-
-Expensive sandhi and compound analyses are cached by default in a separate,
-disk-backed SQLite database. The dictionary database remains read-only. Cached
-results expire after 90 inactive days by default; set
-`PROCESS_SANSKRIT_CACHE_RETENTION=keep_all` to retain the de-duplicated
-prediction corpus indefinitely, or `PROCESS_SANSKRIT_CACHE_ENABLED=false` to
-disable persistence. Individual calls can pass `cached=False` or `cached=True`.
-
-See [the local cache guide](documentation/local-cache.md) for paths, privacy,
-retention, web-worker behaviour, and ML-corpus limitations.
 
 
 ## Process Function:
