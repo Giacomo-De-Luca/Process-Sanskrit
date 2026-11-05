@@ -57,14 +57,16 @@ from process_sanskrit.utils.databaseSetup import session_scope, with_session, re
 
 ### get the version of the library
 
-def preprocess(text, max_length=150, debug=False):
+def preprocess(text, max_length=150, debug=False, input_scheme=None):
 
     ## editions, OCR and PDF copy-paste each spell the avagraha with a different
     ## glyph ('  ’  ʼ  `  ´ ...); fold them onto the ASCII apostrophe before
     ## scheme detection or the \p{L} filter below ever sees them
     text = normalize_avagraha(text)
 
-    text = transliterate(text, "IAST")
+    ## input_scheme=None auto-detects, which misreads short ASCII input
+    ## (SLP1 "Darma" as HK "ḍarma"); callers that know the scheme pass it
+    text = transliterate(text, "IAST", input_scheme)
 
     ## if the text is too long, we try to trim it to the last whitespace
     if len(text) > max_length:
@@ -132,7 +134,11 @@ def handle_special_characters(
             as detailed entries.  They are deliberately keyword-only and have no
             defaults: the defaults live on process() alone, so the two
             signatures cannot drift apart.  Anything added to process() must be
-            added to `forwarded` below.
+            added to `forwarded` below.  The one exception is input_scheme,
+            which is pinned to "IAST" there rather than forwarded: `text` has
+            already been converted by preprocess(), and reading it in the
+            caller's scheme again corrupts it (IAST "dharma" read as WX is
+            "ḍharma").
 
     Returns:
         List containing processed entries if special handling occurred,
@@ -145,6 +151,8 @@ def handle_special_characters(
         session=session,
         _memo=_memo,
         cached=cached,
+        ## `text` is IAST by now, whatever scheme the caller used
+        input_scheme="IAST",
     )
     dict_names = dict_names or ()
 
@@ -202,10 +210,11 @@ def process(
     session=None,
     _memo=None,
     cached: Optional[bool] = None,
+    input_scheme: Optional[str] = None,
 ):
 
     raw_text = text
-    text = preprocess(text, max_length=max_length, debug=debug)
+    text = preprocess(text, max_length=max_length, debug=debug, input_scheme=input_scheme)
     request_memo = {} if _memo is None else _memo
 
     ## if text is none return empty list

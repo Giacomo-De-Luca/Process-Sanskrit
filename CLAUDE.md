@@ -78,6 +78,7 @@ Key layers:
 - Persistent split/morphology caching is documented in `documentation/local-cache.md`. A result-changing hybrid/process change must bump `ANALYSIS_ALGORITHM_VERSION`; a direct statistical change must bump `STATISTICAL_ANALYSIS_ALGORITHM_VERSION` (both if both paths change), or stale rows can mask the change.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
 - Pre-split compounds (`-`/`+`) and option forwarding through the recursive `process()` calls are documented in `documentation/pre-split-compounds.md`.
+- The explicit `input_scheme` argument of `process()` (bypassing scheme auto-detection), scheme-name validation in `transliterate()`, and why the recursion pins it to `"IAST"` are documented in `documentation/input-scheme.md`.
 - Analysis data-flow fixes, regression coverage, and remaining parsing issues are documented in `documentation/analysis-audit.md`.
 - Avagraha glyph normalization (OCR/PDF apostrophe variants) is documented in `documentation/avagraha-normalization.md`.
 - Productive `-tā`/`-tva` abstract nouns (`niṣyandatā`) are reconstructed from their base; see `documentation/taddhita-derivation.md`.
@@ -91,7 +92,7 @@ Key layers:
 - Pipeline processing is in IAST, while the private splitter backend boundary uses canonical SLP1 as documented in `documentation/rust-splitter.md`.
 - Do not "modernize" the vendored Python reference modules toward upstream style — they are pinned by `tests/test_splitter_parity.py`; behaviour changes there silently alter split results.
 - The character class in `preprocess` (`process.py`) must keep `-` escaped and last. Folding it back into a range (`*-+`) silently turns `-` into a range operator and strips hyphens, disabling pre-split compounds. Pinned by `tests/test_presplit_options.py`.
-- The recursive `process()` calls inside `handle_special_characters` re-enter the public entry point. Any new parameter added to `process` must also be added to the `forwarded` dict there, or it is silently dropped for wildcard and pre-split input.
+- The recursive `process()` calls inside `handle_special_characters` re-enter the public entry point. Any new parameter added to `process` must also be added to the `forwarded` dict there, or it is silently dropped for wildcard and pre-split input. The exception is `input_scheme`, which is pinned to `"IAST"` there because the text is already IAST (see `documentation/input-scheme.md`).
 - `process` is optimized for single words; sentences should be split on whitespace by callers.
 - Root logging is silenced to CRITICAL at import time in `__init__.py` (the vendored splitter logs every sandhi rule at DEBUG).
 - The `-tā`/`-tva` deriver must stay *after* the whole-word dictionary lookup in `process()` and out of `root_any_word`. Moving it earlier lets a manufactured analysis outrank an attested word (`vārtā` → `vār` + `tā`). Pinned by `tests/test_taddhita_derivation.py`.

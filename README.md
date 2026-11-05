@@ -178,6 +178,14 @@ print(ps.transliterate('pataYjali', 'tamil', input_scheme='slp1'))
 ## output: பதஞ்ஜலி
 ```
 
+`process` takes the same optional `input_scheme`. Auto-detection cannot tell the
+ASCII schemes apart on short words, so pass the scheme when you know it:
+
+```python
+ps.process("Darma", mode="roots")                       ## read as HK: ['ḍa', 'ma']
+ps.process("Darma", input_scheme="slp1", mode="roots")  ## [('dharma', 'dharman')]
+```
+
 ### Dictionary Search:
 
 The library provides the *dict_search* function to retrieve dictionary entries. 

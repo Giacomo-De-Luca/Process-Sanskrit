@@ -113,6 +113,31 @@ def restore_avagraha(text):
     return _LEFTOVER_APOSTROPHE.sub("", text)
 
 
+def resolve_scheme(name):
+    """
+    Map a scheme name onto its sanscript identifier.
+
+    Args:
+        name (str): A scheme name in any case, e.g. "IAST", "slp1", "Tamil".
+
+    Returns:
+        str: The sanscript identifier, e.g. sanscript.SLP1.
+
+    Raises:
+        ValueError: If `name` is not a sanscript scheme.  Names arrive from
+            callers and HTTP requests, so a module attribute that is not a
+            scheme (sanscript.SCHEMES) is rejected too.
+
+    Example:
+        >>> resolve_scheme("Tamil") == sanscript.TAMIL
+        True
+    """
+    scheme = getattr(sanscript, str(name).upper(), None)
+    if not isinstance(scheme, str) or scheme not in SCHEMES:
+        raise ValueError(f"Unknown transliteration scheme: {name!r}")
+    return scheme
+
+
 def transliterate(text, transliteration_scheme, input_scheme=None):
     """
     Transliterate text from one scheme to another.
@@ -140,17 +165,14 @@ def transliterate(text, transliteration_scheme, input_scheme=None):
         
         # DEVANAGARI to SLP1
         transliterate("राम", "SLP1", "DEVANAGARI")  # "rAma"
+
+    Raises:
+        ValueError: If either scheme name is unknown (see resolve_scheme).
     """
 
     if not input_scheme:
-        detected_scheme_str = detect(text).upper()
-        transliteration_scheme_str = transliteration_scheme.upper()
-        input_scheme = getattr(sanscript, detected_scheme_str)
-        output_scheme = getattr(sanscript, transliteration_scheme_str)
-    else: 
-        input_scheme_str = input_scheme.upper()
-        input_scheme = getattr(sanscript, input_scheme_str)
-        transliteration_scheme_str = transliteration_scheme.upper()
-        output_scheme = getattr(sanscript, transliteration_scheme_str)
+        input_scheme = detect(text)
 
-    return indic_transliterate(text, input_scheme, output_scheme)
+    return indic_transliterate(
+        text, resolve_scheme(input_scheme), resolve_scheme(transliteration_scheme)
+    )
