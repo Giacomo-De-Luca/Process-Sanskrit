@@ -31,7 +31,10 @@ dependencies = [
     "networkx>=2.5",
     "marisa-trie>=1.0",
     "numpy>=1.21",
-    "sentencepiece>=0.1.95,<0.3",
+    # <0.2.3: sentencepiece 0.2.3 (2026-11-05) ships no Intel macOS wheels, so
+    # pip compiles it from source there (~20 min, needs cmake and a C++
+    # compiler). The macos-x86-64 smoke jobs in wheels.yml time out on it.
+    "sentencepiece>=0.1.95,<0.2.3",
 ]
 
 [project.optional-dependencies]
