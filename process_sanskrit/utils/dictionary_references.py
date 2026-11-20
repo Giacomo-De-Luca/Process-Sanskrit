@@ -24,6 +24,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional, Tuple
 
+from process_sanskrit.utils.compoundVerbs import CompoundVerbIndex
 from process_sanskrit.utils.resourcePaths import (
     DATABASE_SETUP_HINT,
     get_database_path,
@@ -148,6 +149,7 @@ def _reset_reference_state() -> None:
             delattr(_thread_state, attribute)
     _lookup_for_path.cache_clear()
     _stubs_for_path.cache_clear()
+    CompoundVerbIndex.reset()
     reset_database_path_cache()
 
 

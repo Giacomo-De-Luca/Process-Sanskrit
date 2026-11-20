@@ -5,6 +5,15 @@
 - `benchmark_splitter.py` is the database-free sandhi splitter benchmark. It
   reads a JSON configuration, starts isolated backend workers, and writes a
   machine-readable correctness and performance report.
+- `assess_huet_merge.py` compares the local Huet exports with the installed
+  SQLite morphology inventory without changing either source. Its
+  `AssessmentConfiguration` holds paths, `Coverage` defines the spelling and
+  set-comparison rules, and `HuetMergeAssessment` validates the exports and
+  writes counts, examples, and source hashes to
+  `build/huet-merge-assessment.json`. Run it with
+  `uv run --no-sync python scripts/assess_huet_merge.py`; interpretation is in
+  [`documentation/huet-merge-assessment.md`](../documentation/huet-merge-assessment.md).
+
 
 The splitter runner is organized around a few reusable responsibilities:
 

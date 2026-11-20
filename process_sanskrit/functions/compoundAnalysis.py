@@ -1,6 +1,7 @@
 
 from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES, SANDHI_VARIATIONS, VOWEL_SANDHI_INITIALS
 from process_sanskrit.functions.rootAnyWord import root_any_word
+from process_sanskrit.utils.analysisTrace import PrefixTrace
 from typing import Union, List
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 
@@ -276,9 +277,16 @@ def root_compounds(
     inflection=False,
     session=None,
     _memo=None,
+    _trace=None,
 ):
     """
     Analyzes a long Sanskrit compound with improved sandhi handling between segments.
+
+    `_trace`, when given, is a `ScanTrace` that is told about every piece matched
+    and every character stepped over.  The scanner skips what it cannot match
+    without saying so in its result, and that is the difference between a
+    compound it read and a word it did not understand.  The return value is the
+    same with or without a trace.
     """
     if _memo is None:
         _memo = {}
@@ -379,15 +387,18 @@ def root_compounds(
         if not best_match:
             if debug:
                 print("No match found, moving forward one character")
+            if _trace is not None:
+                _trace.skip()
             current_pos += 1
             continue
-            
+
         matched_word, end_letter = best_match
-        
+
         if inflection==True:
             # Process the matched word
+            piece_prefixes = PrefixTrace() if _trace is not None else None
             root_entry = root_any_word(
-                matched_word, session=session, _memo=_memo
+                matched_word, session=session, _memo=_memo, _trace=piece_prefixes
             )
             if root_entry:
                 if isinstance(root_entry, list):
@@ -396,8 +407,12 @@ def root_compounds(
                     roots.append(root_entry)
             else:
                 roots.append(matched_word)
+            if _trace is not None:
+                _trace.piece(matched_word, root_entry or [matched_word], piece_prefixes)
         else:
             roots.append(matched_word)
+            if _trace is not None:
+                _trace.piece(matched_word, [matched_word], PrefixTrace())
         
         # Adjust position based on whether we used an added vowel
         vowel_adjustment = 1 if (current_pos > 0 and 

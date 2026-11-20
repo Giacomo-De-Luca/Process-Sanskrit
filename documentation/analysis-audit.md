@@ -23,15 +23,53 @@ The two morphology fallback blocks are now one `Inflector` implementation in
 attempts before using the same direct/compound fallback for each remaining word.
 The `inflect()` function retains its existing callable signature.
 
-The cache signature is `hybrid-morphology-v6`. It invalidates stored grammar
-that dropped unresolved tokens or contained malformed `api` entries. Dictionary
+The cache signature at the time of this audit was `hybrid-morphology-v7`.
+Subsequent versions are recorded in [local-cache.md](local-cache.md).
+Version 7 invalidates stored grammar
+with reversed verb-person tags (see below), as well as older results that
+dropped unresolved tokens or contained malformed `api` entries. Dictionary
 payloads remain outside the cache and are rendered with the current request
 context. See [local-cache.md](local-cache.md) and
 [dictionary-results.md](dictionary-results.md).
 
+### Verb-person correction (2026-09-16)
+
+CSL verb paradigms store third, second, then first person, with singular,
+dual, and plural within each row. `utils/paradigm.py` previously labeled
+those rows `First, Second, Third`, so `bhavati` received First/Sg and
+`bhavāmi` Third/Sg. The shared `VERBAL_PERSONS` tuple now follows the stored
+order. The change applies to all verbal morphology callers; the stored forms,
+numbers, model codes, nominal tags, and root lookup are unchanged.
+
+The correction requires no lexicon rebuild or download. Cache signature v7
+ensures compound analyses containing older person labels are recomputed.
+Statistical split-only cache entries remain valid.
+
+`tests/test_verb_persons.py` checks all nine cells of the bhū present active
+paradigm without a database, and verifies public results for those forms,
+imperfect/future examples, and Devanagari input with the installed lexicon.
+The database-free test runs in CI. The cache eviction regression now seeds a
+v6 record with reversed tags and checks its removal while retaining current
+hybrid and statistical records. The regressions were run before the fix and
+reproduced both the label reversal and retained v6 record.
+
+After the correction, **89 tests passed**:
+
+```bash
+uv run python -m unittest tests.test_verb_persons tests.test_analysis_cache \
+  tests.test_optimizations tests.test_compound_inflection \
+  tests.test_analysis_result_contracts tests.test_taddhita_derivation \
+  tests.test_publish_workflow
+```
+
+Slash-separated alternative cells and the one-result verb policy described in
+[the csl-inflect assessment](csl-inflect-update-assessment.md) remain separate
+issues.
+
 ## Validation
 
-Regression cases were written and run before implementation. The final suite:
+For the original data-flow audit, regression cases were written and run before
+implementation. That pass's final suite:
 
 ```bash
 uv run --no-sync python -m unittest discover -s tests -p 'test_*.py'
@@ -58,10 +96,12 @@ The required code-quality-reviewer found no blocking regressions and passed
 ## Remaining issues that need separate work
 
 - **`jj` preprocessing and candidate ranking.** The global `jj` → `j j`
-  shortcut breaks lexical geminates and can lose the feminine ending in
-  `sarvatragāminīpratipaj`. Removing it makes `tajjñānam` regress from
-  `tad` + `jñāna` to `tajjña` + `ana`. Correcting this requires ranking-aware
-  segmentation rather than deleting the shortcut alone.
+  shortcut broke lexical geminates. It is now decided word by word: a word that
+  resolves whole keeps its `jj`, and any other word is cut as before, so
+  `tajjñānam` keeps `tad` + `jñāna` (see [double-j.md](double-j.md)). A compound
+  token holding a `jj` word (`lajjāvismaya…`) is still cut. Fixing that, and
+  the feminine of `sarvatragāminīpratipaj`, still needs ranking-aware
+  segmentation.
 - **Position-dependent `-n` replacement.** `clean_results()` skips its final
   entry. Extending that loop applies an existing overbroad replacement rule to
   more words: the corpus then replaces the `ātman` analysis of `ātmanā` with
@@ -72,6 +112,10 @@ The required code-quality-reviewer found no blocking regressions and passed
   unmatched characters inside a partially recognised word. Separately,
   `process()` filters one-character lemmas on its split path: `inflect(["ḍ"])`
   retains the token, while `process("ḍ", mode="roots")` still returns `[]`.
+  The filter no longer removes the verb roots `i` and `ṛ` when they resolve a
+  whole token (`tatra eti` kept only `tatra`); see
+  [one-letter-roots.md](one-letter-roots.md). Everything else it removed, it
+  still removes.
   Preserving completely unresolved tokens in `Inflector` does not change either
   of these older segmentation/filtering policies.
 - **Empty roots output type.** `process("", mode="roots")` returns `""`, while

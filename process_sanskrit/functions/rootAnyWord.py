@@ -1,8 +1,15 @@
-import time 
+import time
+from contextlib import contextmanager
+from contextvars import ContextVar
 from process_sanskrit.functions.SQLiteFind import SQLite_find_name, SQLite_find_verb
 from process_sanskrit.utils.loadResources import type_map
 from process_sanskrit.utils.lexicalResources import variableSandhi
-from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES, samMap
+from process_sanskrit.utils.lexicalResources import (
+    FINAL_AU_SPELLING,
+    PREFIX_LOOKUP_SPELLINGS,
+    SANSKRIT_PREFIXES,
+    samMap,
+)
 from dataclasses import dataclass
 from typing import Optional, List
  
@@ -24,31 +31,53 @@ def _thaw(value):
     return value
 
 
+## How many roots of a verb form the lookups report.  The verb table files 2.2%
+## of its forms under several roots (`kariṣyati`: `kṝ`, `kṛ`), and
+## `SQLite_find_verb` returns them all, the historical answer first.  Lemma mode
+## reads them all.  `roots`, `parts` and detailed output read the first only,
+## as they always have: `clean_results` re-joins a prefix with one root, so the
+## others would come back as pieces of their own (`saṃkariṣyati` -> `saṃkṝ`,
+## `kṛ`).  See documentation/lemma-mode.md, "Verb forms of several roots".
+_EVERY_VERB_ROOT = ContextVar("every_verb_root", default=False)
+
+
+@contextmanager
+def every_verb_root(enabled=True):
+    """Within the block, the lookups report every root of a verb form, not the first only.
+
+    The setting belongs to the current thread or task: work handed to another
+    thread does not inherit it, so hold the block where the lookups run, as
+    `LemmaAnalyzer.analyze` does.
+    """
+    token = _EVERY_VERB_ROOT.set(enabled)
+    try:
+        yield
+    finally:
+        _EVERY_VERB_ROOT.reset(token)
+
+
 def _direct_roots(word, session, memo):
-    """Return direct database matches, memoized within one processing request."""
+    """Return direct database matches, memoized within one processing request.
+
+    Nominal readings come first, then verbal ones.  The memo keeps every root
+    of a verb form, and `every_verb_root` decides how many are returned, so one
+    memo serves either setting.  A miss returns the entries as read, a hit a
+    thawed copy of what the memo holds.
+    """
     if word in memo:
-        return _thaw(memo[word])
-
-    result_roots_name = SQLite_find_name(word, session=session)
-    result_roots_verb = SQLite_find_verb(word, session=session)
-
-    if result_roots_name and result_roots_verb:
-        result_roots = result_roots_name + result_roots_verb
-    elif result_roots_name:
-        result_roots = result_roots_name
-    elif result_roots_verb:
-        result_roots = result_roots_verb
+        names, verbs = (_thaw(readings) for readings in memo[word])
     else:
-        result_roots = None
-
-    if result_roots:
-        for result in result_roots:
+        names = SQLite_find_name(word, session=session) or []
+        verbs = SQLite_find_verb(word, session=session) or []
+        for result in names + verbs:
             abbreviation = result[1]
             if abbreviation in type_map:
                 result[1] = type_map[abbreviation]
+        memo[word] = (_freeze(names), _freeze(verbs))
 
-    memo[word] = _freeze(result_roots)
-    return result_roots
+    if not _EVERY_VERB_ROOT.get():
+        verbs = verbs[:1]
+    return names + verbs or None
 
 
 def _stamp_whole_word(matches, word):
@@ -80,6 +109,35 @@ def _stamp_whole_word(matches, word):
             match[4] = word
 
 
+def _prefix_entries(prefix, session, memo):
+    """The analysis of a stripped prefix as a word of its own; [] if it has none.
+
+    A prefix is looked up like any other word, so a spelling that is not a word
+    finds nothing: `vy` is only `vi` before a vowel.  Looked up as written it
+    used to drop out of the result without a trace, and `vyavaharati` came back
+    as `avahṛ`.  `PREFIX_LOOKUP_SPELLINGS` names the spelling the forms table
+    files each such prefix under.
+    """
+    spelling = PREFIX_LOOKUP_SPELLINGS.get(prefix, prefix)
+    return root_any_word(spelling, session=session, _memo=memo) or []
+
+
+def _record_prefix(trace, prefix, prefix_entries, matches, remainder):
+    """Tell `trace` which prefix was stripped and what it left; no-op without one.
+
+    Must run before `_stamp_whole_word`, which overwrites the very surface being
+    recorded.  The prefix is named by the surface its own entries carry -- the
+    spelling the forms table files it under (`prati` for a stripped `praty`) --
+    and the remainder by the surface the stem was matched as.
+    """
+    if trace is None:
+        return
+    name = prefix_entries[0][4] if prefix_entries else PREFIX_LOOKUP_SPELLINGS.get(prefix, prefix)
+    stem = matches[-1] if matches else None
+    matched = stem[4] if isinstance(stem, list) and len(stem) == 5 else remainder
+    trace.record(name, matched)
+
+
 def root_any_word(
     word,
     attempted_words=None,
@@ -87,6 +145,7 @@ def root_any_word(
     session=None,
     _memo=None,
     allow_prefixes=True,
+    _trace=None,
 ):
 
     if word == 'api' or word == 'āpi':
@@ -150,6 +209,23 @@ def root_any_word(
                     return attempt
     
 
+    ## a final -āv is -au before a vowel: a split token `samādhāv` is `samādhau`
+    ## (documentation/final-av.md); the single-word cascade reads it so already
+    spelling, sound = FINAL_AU_SPELLING
+    if word.endswith(spelling):
+        tentative = word[:-len(spelling)] + sound
+        if tentative not in attempted_words:
+            attempt = root_any_word(
+                tentative,
+                attempted_words,
+                timed,
+                session=session,
+                _memo=_memo,
+                allow_prefixes=False,
+            )
+            if attempt:
+                return attempt
+
     ##probably add a rule that if ṅ is in the word, change it with ṃ to account if for different spellings
 
     # Different spellings for sam, - it is so common that it deserves its own rule
@@ -164,6 +240,7 @@ def root_any_word(
             session=session,
             _memo=_memo,
             allow_prefixes=allow_prefixes,
+            _trace=_trace,
         )
         if timed:
             print(f"root_any_word({tentative}) took {time.time() - start_time:.6f} seconds")
@@ -187,18 +264,12 @@ def root_any_word(
                 remainder,
                 session=session,
                 _memo=_memo,
+                _trace=_trace,
             )
             if attempt is not None:
-                if prefix == 'ud': 
-                    prefix_result = root_any_word(
-                        'ut', session=session, _memo=_memo
-                    )
-                    result = (prefix_result or []) + attempt
-                else: 
-                    prefix_root = root_any_word(
-                        prefix, session=session, _memo=_memo
-                    )
-                    result = prefix_root + attempt if prefix_root else attempt
+                prefix_entries = _prefix_entries(prefix, session, _memo)
+                _record_prefix(_trace, prefix, prefix_entries, attempt, remainder)
+                result = prefix_entries + attempt
                 _stamp_whole_word(attempt, word)
                 return result
             else: 
@@ -211,13 +282,13 @@ def root_any_word(
                             _memo=_memo,
                         )
                         if nested_attempt is not None:
-                            prefix_result = root_any_word(
-                                prefix, session=session, _memo=_memo
-                            ) or []
-                            nested_prefix_result = root_any_word(
-                                nested_prefix, session=session, _memo=_memo
-                            ) or []
-                            result = prefix_result + nested_prefix_result + nested_attempt
+                            outer_entries = _prefix_entries(prefix, session, _memo)
+                            inner_entries = _prefix_entries(nested_prefix, session, _memo)
+                            _record_prefix(
+                                _trace, nested_prefix, inner_entries, nested_attempt, nested_remainder
+                            )
+                            _record_prefix(_trace, prefix, outer_entries, nested_attempt, remainder)
+                            result = outer_entries + inner_entries + nested_attempt
                             _stamp_whole_word(nested_attempt, word)
                             return result
             

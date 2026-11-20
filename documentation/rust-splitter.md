@@ -8,7 +8,7 @@ explicit reference backend during the migration.
 
 > **Release status: published.** Version 1.5.1 shipped `cp39-abi3` wheels for
 > manylinux x86-64, macOS x86-64/arm64, and Windows x86-64 on 2026-07-14 after
-> the complete wheel and smoke matrix passed; 1.5.2 adds manylinux aarch64. The
+> the complete wheel and smoke matrix passed; 1.7.0 adds manylinux aarch64. The
 > release-wheel differential has exact ordered parity on all 700 benchmark
 > inputs and passes every latency, length-bucket, RSS, and wheel-size criterion
 > below.

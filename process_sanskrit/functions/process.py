@@ -30,7 +30,6 @@ import time
 
 from process_sanskrit.utils.lexicalResources import (
     variableSandhi, 
-    sanskritFixedSandhiMap, 
     SANSKRIT_PREFIXES
 )
 from process_sanskrit.utils.transliterationUtils import (
@@ -41,24 +40,29 @@ from process_sanskrit.utils.transliterationUtils import (
 
 ### import the sandhiSplitScorer and construct the scorer object. 
 
-from process_sanskrit.functions.rootAnyWord import root_any_word
 from process_sanskrit.functions.dictionaryLookup import (
-    DEFAULT_DICTIONARY,
-    consult_references,
     dict_search,
     multidict,
 )
 from process_sanskrit.functions.cleanResults import clean_results
-from process_sanskrit.functions.taddhitaDerivation import taddhita_deriver
-from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
+from process_sanskrit.functions.wordCascade import WILDCARD_CHARACTERS, WordCascade
 from process_sanskrit.utils.databaseSetup import session_scope, with_session, requires_database
+from process_sanskrit.utils.paradigm import is_one_letter_root
 
 
 
 ### get the version of the library
 
-def preprocess(text, max_length=150, debug=False, input_scheme=None):
+## WILDCARD_CHARACTERS (imported above) are the characters a one-word query may
+## use as a dictionary pattern; they live in wordCascade.py, which reads them too
 
+
+def to_iast(text, input_scheme=None):
+    """The text in IAST, with every avagraha glyph folded onto the apostrophe.
+
+    This is the text `max_length` measures, and the one `mode="lemmas"` cuts
+    into tokens; `clean_iast` does the rest of what `preprocess` does.
+    """
     ## editions, OCR and PDF copy-paste each spell the avagraha with a different
     ## glyph ('  ’  ʼ  `  ´ ...); fold them onto the ASCII apostrophe before
     ## scheme detection or the \p{L} filter below ever sees them
@@ -66,27 +70,21 @@ def preprocess(text, max_length=150, debug=False, input_scheme=None):
 
     ## input_scheme=None auto-detects, which misreads short ASCII input
     ## (SLP1 "Darma" as HK "ḍarma"); callers that know the scheme pass it
-    text = transliterate(text, "IAST", input_scheme)
+    return transliterate(text, "IAST", input_scheme)
 
-    ## if the text is too long, we try to trim it to the last whitespace
-    if len(text) > max_length:
-        last_space_index = text[:max_length].rfind(' ')
-        if last_space_index == -1:
-            text = text[:max_length]
-        else:
-            # Trim up to the last whitespace
-            text = text[:last_space_index]
 
-    ## TODO 
-    ## this may lead to errors
-    ## it should be like this:
-    ## if jj in text
-    ## check if jj occours inside one of the 20 words or so that have jj inside
-    ## in that case keep it,
-    ## otherwise replace it with j j
-    ## this is a temporary fix, it should be improved
-    if 'jj' in text:
-        text = text.replace('jj', 'j j')
+def clean_iast(text):
+    """IAST text reduced to the words the analysis reads, separated by one space."""
+
+    ## The text is NOT cut to a maximum length here.  It used to be, silently:
+    ## a passage lost every word past the first hundred characters.  A long
+    ## text is analysed word by word instead -- see process() and
+    ## documentation/long-input.md.
+
+    ## A `jj` is NOT cut here.  It used to be, in every word: `lajjā` reached
+    ## the lookups as `laj` + `jā`.  Whether a `jj` is the word's own or the
+    ## sandhi of t/d + j takes a lookup, so it is decided by
+    ## WordCascade.read_double_j -- see documentation/double-j.md.
 
     ## restore every elided initial a-, on any word rather than only the first:
     ## the check used to be `text[0] == "'"`, so in "tasmāt so 'nupalambhena" the
@@ -101,6 +99,41 @@ def preprocess(text, max_length=150, debug=False, input_scheme=None):
     text = text.strip()
 
     return text
+
+
+def preprocess(text, *, debug=False, input_scheme=None):
+    """The words of `text`, in IAST, as text cleaning leaves them.
+
+    A `jj` is still whole here: whether the analysis cuts it is decided later,
+    by a lookup (`WordCascade.read_double_j`).
+
+    The options are keyword-only: this function used to take `max_length` as
+    its second argument, and a caller still passing one positionally must fail
+    rather than have it read as something else.
+    """
+    return clean_iast(to_iast(text, input_scheme))
+
+
+def _forwarded_options(*, max_length, debug, mode, session, _memo, cached):
+    """The options a recursive `process()` call must be handed.
+
+    Every such call re-enters the public entry point, so an option left out here
+    is silently demoted to its default.  Anything added to `process()` must be
+    added here -- with the one exception of `input_scheme`, which is pinned to
+    "IAST": the text has already been converted by `preprocess()`, and reading
+    it in the caller's scheme again corrupts it (IAST "dharma" read as WX is
+    "ḍharma").
+    """
+    return dict(
+        max_length=max_length,
+        debug=debug,
+        mode=mode,
+        session=session,
+        _memo=_memo,
+        cached=cached,
+        ## the text is IAST by now, whatever scheme the caller used
+        input_scheme="IAST",
+    )
 
 
 def handle_special_characters(
@@ -134,25 +167,20 @@ def handle_special_characters(
             as detailed entries.  They are deliberately keyword-only and have no
             defaults: the defaults live on process() alone, so the two
             signatures cannot drift apart.  Anything added to process() must be
-            added to `forwarded` below.  The one exception is input_scheme,
-            which is pinned to "IAST" there rather than forwarded: `text` has
-            already been converted by preprocess(), and reading it in the
-            caller's scheme again corrupts it (IAST "dharma" read as WX is
-            "ḍharma").
+            added to `_forwarded_options`, which also explains why input_scheme
+            is pinned to "IAST" rather than forwarded.
 
     Returns:
         List containing processed entries if special handling occurred,
         None if no special handling was needed
     """
-    forwarded = dict(
+    forwarded = _forwarded_options(
         max_length=max_length,
         debug=debug,
         mode=mode,
         session=session,
         _memo=_memo,
         cached=cached,
-        ## `text` is IAST by now, whatever scheme the caller used
-        input_scheme="IAST",
     )
     dict_names = dict_names or ()
 
@@ -180,21 +208,32 @@ def handle_special_characters(
 
     # Handle pre-split compounds with - or +
     if "-" in text or "+" in text:
-        word_list = re.split(r'[-+]', text)
-        processed_results = {} if mode == "parts" else []
-        for word in word_list:
-            ## a leading, trailing or doubled separator splits to an empty
-            ## segment, which carries no analysis to contribute
-            if not word:
-                continue
-            result = process(word, *dict_names, **forwarded)
-            if mode == "parts":
-                processed_results.update(result)
-            else:
-                processed_results.extend(result)
-        return processed_results
+        return _process_each(re.split(r'[-+]', text), dict_names, forwarded)
 
     return None  # Return None if no special cases matched
+
+
+def _process_each(words, dict_names, forwarded):
+    """Analyse each word on its own and combine the results into one answer.
+
+    Shared by the two callers that hand `process()` several words to analyse
+    separately: the segments of a pre-split compound, and the words of a text too
+    long to be analysed as one unit.  Results are concatenated, or merged for
+    `parts`, whose result is a mapping.
+    """
+    as_mapping = forwarded["mode"] == "parts"
+    combined = {} if as_mapping else []
+    for word in words:
+        ## a leading, trailing or doubled separator splits to an empty
+        ## segment, which carries no analysis to contribute
+        if not word:
+            continue
+        result = process(word, *dict_names, **forwarded)
+        if as_mapping:
+            combined.update(result)
+        else:
+            combined.extend(result)
+    return combined
 
 
 ### roots should be replaced by output="roots" in the function signature
@@ -213,9 +252,22 @@ def process(
     input_scheme: Optional[str] = None,
 ):
 
+    ## mode="lemmas" has its own shape and its own unit of work: one item per
+    ## whitespace token of the input, each analysed as a single word.  It reports
+    ## no definitions, so the dictionary names do not apply to it.
+    if mode == "lemmas":
+        from process_sanskrit.functions.lemmaAnalysis import LemmaAnalyzer
+
+        return LemmaAnalyzer(
+            session=session, memo=_memo, cached=cached, debug=debug
+        ).analyze(text, input_scheme=input_scheme)
+
     raw_text = text
-    text = preprocess(text, max_length=max_length, debug=debug, input_scheme=input_scheme)
+    iast_text = to_iast(text, input_scheme)
+    text = clean_iast(iast_text)
     request_memo = {} if _memo is None else _memo
+    cascade = WordCascade(dict_names, session=session, memo=request_memo, debug=debug)
+    text = cascade.read_double_j(text)
 
     ## if text is none return empty list
     if not text:
@@ -232,6 +284,31 @@ def process(
     if ' ' in text and ('-' in text or '+' in text):
         text = re.sub(r'[-+]', ' ', text)
         text = re.sub(r'\s+', ' ', text).strip()
+
+    ## `max_length` is the longest text analysed as one unit.  A longer text is
+    ## never cut: it is analysed word by word and the results combined, so every
+    ## word of the input is in the answer.  A single word has nothing to fall
+    ## back to and is analysed whole, whatever its length.
+    ##
+    ## The length measured is that of the text before cleaning, which is what
+    ## the old cut measured: a text that was short enough to be analysed whole
+    ## still is.  Wildcard characters mean something only in a one-word query;
+    ## in running text they were never patterns, and must not become patterns
+    ## because the words are now analysed one at a time (a stray `%` would
+    ## match every headword).
+    if ' ' in text and len(iast_text) > max_length:
+        return _process_each(
+            [WILDCARD_CHARACTERS.sub('', word) for word in text.split(' ')],
+            dict_names,
+            _forwarded_options(
+                max_length=max_length,
+                debug=debug,
+                mode=mode,
+                session=session,
+                _memo=request_memo,
+                cached=cached,
+            ),
+        )
 
     ## if the text is a single word, try to find the word in the dictionary for exact match, the split if it fails
 
@@ -250,140 +327,12 @@ def process(
         if check_special_characters is not None:
             return check_special_characters
 
-        ## do some preliminary cleaning using sandhi rules ## to remove use a map of tests to apply, and a map of replacements v --> u, s-->H, etc
-        
-        if text and text[-1] in sanskritFixedSandhiMap:
-            text = text[:-1] + sanskritFixedSandhiMap[text[-1]]
-
-        ## if the text is a single word, try to find the word first using the inflection table then if it fails on the dictionary for exact match, the split if it fails
-        result = root_any_word(text, session=session, _memo=request_memo)
-        if debug == True:
-            print("rooting result", result)
-
-        if result is None and "ṅ" in text:
-            ## this is removed, it was not triggering, and it was not clear if it was useful: or "ñ" in text
-            tentative = text.replace("ṅ", "ṃ")
-            attempt = root_any_word(
-                tentative, session=session, _memo=request_memo
-            )
-            if attempt is not None:
-                result = attempt
-        
-        if result is None and "ṁ" in text:
-            tentative = text.replace("ṁ", "ṃ")
-            attempt = root_any_word(
-                tentative, session=session, _memo=request_memo
-            )
-            if attempt is not None:
-                result = attempt
-
-        ## if the words starts with C, try to find out if it's the sandhied form of a word starting with S
-        if result is None and text[0:1] == "ch":
-            #print("tentative", text)
-            tentative = 'ś' + text[1:] 
-            attempt = root_any_word(
-                tentative, session=session, _memo=request_memo
-            )
-            #print("attempt", attempt)
-            if attempt is not None:
-                result = attempt
-
-        if result is None:
-            # Check if word exists in dictionary references before trying to split
-            if text in DICTIONARY_REFERENCES:
-                if debug:
-                    print(f"Found {text} in dictionary references, doing direct lookup")
-                result_vocabulary = dict_search([text], *dict_names, session=session)
-                if isinstance(result_vocabulary[0][2], dict):
-                    return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
-
-        if result is not None:
-            if debug == True: 
-                print("Getting some results with no splitting here:", result)
-            for i, res in enumerate(result):
-                if isinstance(res, str):
-                    result[i] = res.replace('-', '')
-                elif isinstance(res, list):
-                    if isinstance(res[0], str):
-                        res[0] = res[0].replace('-', '')
-            result_vocabulary = dict_search(result, *dict_names, session=session)
-
-            if debug == True: 
-                print("result_vocabulary", result_vocabulary)
-
-            ## TODO the following employs a wrong logic and should be edited
-            ## we should add the dictionary entry as a possibility only instead  
-            ## and attach it to the list, giving it a from : 'original entry'
-            ## also it should Never check for the final 'H'. otherwise it will trigger all the time using the APTE dict 
-            ## in case of nominatives.
-
-            ## if the word is inside the dictionary, we return the entry directly, since it will be accurate.
-            ## 
-            if isinstance(result_vocabulary, list):
-
-                ## Ask the *last* entry for the whole word, not result[0]: when the
-                ## word was resolved by stripping a prefix, result[0] is the prefix
-                ## (`vi` of `virati`) and carries only its own surface, so keying the
-                ## lookup on it drops the attested entry for the whole word.  The
-                ## root entries carry the whole word *as matched*, which is also why
-                ## the raw `text` will not do -- saṃskāro is matched as saṃskāraḥ,
-                ## saṅgrahaḥ as saṃgrahaḥ, and only the matched form is a headword.
-                last_entry = result[-1]
-                whole_word = (
-                    last_entry[4]
-                    if isinstance(last_entry, list) and len(last_entry) > 4
-                    else None
-                )
-                analysed_stems = {
-                    entry[0] for entry in result if isinstance(entry, list) and entry
-                }
-                ## Offer it only when no analysis already yields it; otherwise
-                ## pratyakṣam is reported twice -- once as itself, once as the
-                ## inserted headword.
-                if (
-                    whole_word
-                    and whole_word not in analysed_stems
-                    and whole_word in DICTIONARY_REFERENCES
-                ):
-                    replacement = dict_search([whole_word], *dict_names, session=session)
-                    if debug:
-                        print("replacement", replacement[0])
-                        print("len replacement", len(replacement[0]))
-                    ## A miss is a stub, never None -- see documentation/prefix-rejoin.md
-                    if replacement and isinstance(replacement[0][2], dict):
-                        result_vocabulary.insert(0, replacement[0])
-
-            #print("result_vocabulary", result_vocabulary)
-            return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
-        else:
-            ## if result is None, we try to find the word in the dictionary for exact match
-            result_vocabulary = dict_search([text], *dict_names, session=session)
-            #print("result_vocabulary", result_vocabulary)
-            if isinstance(result_vocabulary[0][2], dict):
-            #result_vocabulary[0][0] != result_vocabulary[0][2][0]:
-                return clean_results(result_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)
-
-            ## The lexicon lists only the *lexicalised* -tā / -tva abstract nouns.
-            ## Both suffixes are productive, so a coined derivative (niṣyanda-tā)
-            ## reaches this point unresolved -- and the splitter below would cut
-            ## it in two and read the orphaned suffix as a verb (tā -> tṛ, tan),
-            ## losing the lemma.  Rebuild it from its base instead.  This runs
-            ## last on purpose: an attested word, however it ends, is already
-            ## resolved above and never gets here.
-            derived = taddhita_deriver.derive(text, session=session)
-            if derived is not None:
-                if debug:
-                    print("taddhita derivation", derived)
-                ## Gloss the *base*, not the derivative: niṣyandatā heads no
-                ## dictionary entry, but niṣyanda does, and that is where its
-                ## meaning lives.  Appending the payload here mirrors what
-                ## dict_search does for an attested word, and yields the same
-                ## entry shape -- the asymmetry (lemma from the derivation,
-                ## gloss from the base) is why dict_search cannot do it for us.
-                entry = derived.as_entry() + consult_references(
-                    derived.base, *(dict_names or (DEFAULT_DICTIONARY,)), session=session
-                )
-                return clean_results([entry], debug=debug, mode=mode, dict_names=dict_names, session=session)
+        ## The single-word cascade: forms table, dictionary, -tā/-tva deriver.  It
+        ## lives in WordCascade so that mode="lemmas" follows the same order.
+        resolution = cascade.resolve(text)
+        text = resolution.text
+        if resolution.resolved:
+            return clean_results(resolution.entries, debug=debug, mode=mode, dict_names=dict_names, session=session)
 
     ## given that the text is composed of multiple words, we split them first then analyse one by one
     ## attempt to remove sandhi and tokenise in any case
@@ -475,7 +424,15 @@ def process(
         print("inflections after splitting", inflections)
     inflections_vocabulary = dict_search(inflections, *dict_names, session=session)
 
-    ## should this really be kept? 
-    inflections_vocabulary = [entry for entry in inflections_vocabulary if len(entry[0]) > 1]
+    ## One-letter lemmas are scanner noise: root_compounds walks an unresolved
+    ## token a character at a time, and every single vowel is a headword.  The
+    ## verb roots `i` and `ṛ` are the exception -- filtering on length alone cost
+    ## `tatra eti` its verb.  Inflector has already withheld the ones the scanner
+    ## cut out of a larger token, so a one-letter root that reaches this point
+    ## resolved a whole token.
+    inflections_vocabulary = [
+        entry for entry in inflections_vocabulary
+        if len(entry[0]) > 1 or is_one_letter_root(entry)
+    ]
       
     return clean_results(inflections_vocabulary, debug=debug, mode=mode, dict_names=dict_names, session=session)

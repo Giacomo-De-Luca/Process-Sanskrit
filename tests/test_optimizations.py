@@ -7,6 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
 
 from process_sanskrit.functions.SQLiteFind import (
+    _VERB_QUERY,
     SQLite_find_name,
     SQLite_find_verb,
 )
@@ -87,15 +88,8 @@ class OptimizationTests(unittest.TestCase):
                 "WHERE candidate.stem=t2.stem AND candidate.model=t2.model)",
                 {"word": "viṃśatyai"},
             ),
-            (
-                "SELECT t2.key, t2.model, t2.stem, t1.refs, t1.data "
-                "FROM vlgtab2 AS t2 JOIN vlgtab1 AS t1 "
-                "ON t1.stem=t2.stem AND t1.model=t2.model "
-                "WHERE t2.rowid=(SELECT candidate.rowid FROM vlgtab2 AS candidate "
-                "WHERE candidate.key=:word ORDER BY candidate.rowid DESC LIMIT 1) "
-                "ORDER BY t1.rowid LIMIT 1",
-                {"word": "gacchathaḥ"},
-            ),
+            ## the verb query as the lookup runs it, not a copy that can drift
+            (_VERB_QUERY.text, {"verb": "gacchathaḥ"}),
         )
         with self.engine.connect() as connection:
             for statement, parameters in statements:

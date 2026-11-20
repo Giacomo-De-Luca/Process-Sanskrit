@@ -81,7 +81,10 @@ Key layers:
 - Analysis data-flow fixes, regression coverage, and remaining parsing issues are documented in `documentation/analysis-audit.md`.
 - Prefix segmentation and lexicalized prefix re-joining are documented in `documentation/prefix-segmentation.md` and `documentation/prefix-rejoin.md`.
 - Splitter-only baseline and Python/Rust benchmark procedure are documented in `documentation/rust-splitter-benchmark.md`.
+- The split ranker (`SplitRanker`) and the six splitter input corrections are developed on the `split-ranker` branch and are not on main; main still ranks candidate splits with `functions/sandhiSplitScorer.py` and lets `root_compounds` replace a statistical split scoring below 0.535 in `hybridSplitter.py`.
 - Derived word-list indexing and bare variant-pointer classification are documented in `documentation/word-list-index.md`.
+- Huet inflection coverage, export limitations, and merge feasibility are documented in `documentation/huet-merge-assessment.md`.
+- The explicit `input_scheme` argument of `process()` (bypassing scheme auto-detection) is documented in `documentation/input-scheme.md`. The recursive `process()` calls in `handle_special_characters` pin it to `"IAST"` rather than forwarding it, because the text is already IAST there.
 - `setup/updateDB.py` — `update_database()` (exported as `process_sanskrit.update_database`, raises `DatabaseUpdateError`) and the `main()` behind the `update-ps-database` console script. Every write is staged as a sibling and atomically renamed via `utils/atomicFiles.py`, so no partial `SQliteDB.sqlite` survives an interrupt; helpers raise with the cause chained and only `main()` prints; the library never downloads on its own. See `documentation/database-setup.md`.
 
 ## Conventions and cautions

@@ -60,8 +60,13 @@ def normalize_avagraha(text):
 ## Strip balanced quotes before the rules below read anything as an elision.
 _BALANCED_QUOTES = regex.compile(r"^'(.+)'$")
 
-_AVAGRAHA_AFTER_O = regex.compile(r"(\p{L}*o)\s*'")
-_AVAGRAHA_AFTER_E = regex.compile(r"(\p{L}*e)\s*'")
+## The apostrophe must be followed by a letter: an elided a- always has the rest
+## of its word after it, so an apostrophe that ends a word is a closing quotation
+## mark (`iti 'yoga ucyate'`), and reading it as an avagraha invents a word `a`.
+## The whitespace before it is captured so that it can be put back unchanged --
+## see restore_avagraha_by_token, which relies on token boundaries surviving.
+_AVAGRAHA_AFTER_O = regex.compile(r"(\p{L}*o)(\s*)'(?=\p{L})")
+_AVAGRAHA_AFTER_E = regex.compile(r"(\p{L}*e)(\s*)'(?=\p{L})")
 _AVAGRAHA_INITIAL = regex.compile(r"^'")
 _LEFTOVER_APOSTROPHE = regex.compile(r"'")
 
@@ -73,10 +78,14 @@ O_NOT_FROM_VISARGA = frozenset({"o", "aho", "bho", "ho"})
 
 
 def _restore_after_o(match):
-    word = match.group(1)
+    word, gap = match.group(1), match.group(2) or " "
     if word.lower() in O_NOT_FROM_VISARGA:
-        return f"{word} a"
-    return f"{word[:-1]}aḥ a"
+        return f"{word}{gap}a"
+    return f"{word[:-1]}aḥ{gap}a"
+
+
+def _restore_after_e(match):
+    return f"{match.group(1)}{match.group(2) or ' '}a"
 
 
 def restore_avagraha(text):
@@ -108,9 +117,37 @@ def restore_avagraha(text):
     text = normalize_avagraha(text)
     text = _BALANCED_QUOTES.sub(r"\1", text)
     text = _AVAGRAHA_AFTER_O.sub(_restore_after_o, text)
-    text = _AVAGRAHA_AFTER_E.sub(r"\1 a", text)
+    text = _AVAGRAHA_AFTER_E.sub(_restore_after_e, text)
     text = _AVAGRAHA_INITIAL.sub("a", text)
     return _LEFTOVER_APOSTROPHE.sub("", text)
+
+
+## A whitespace character no token contains and restore_avagraha never writes.
+## (`regex` does not count the ASCII separators \x1c-\x1f as whitespace.)
+_TOKEN_BOUNDARY = "\t"
+
+
+def restore_avagraha_by_token(tokens):
+    """
+    `restore_avagraha` for a text already cut into whitespace tokens.
+
+    An avagraha is decided by the word before it, and undoing one rewrites that
+    word too (`ko 'pi` is `kaḥ api`), so the tokens cannot be restored one at a
+    time.  This restores the whole text and hands it back cut at the same
+    places, so the result lines up with the tokens that went in.
+
+    Args:
+        tokens: the whitespace tokens of an IAST text, in order.
+
+    Returns:
+        One restored string per token, in order.  A token may come back as
+        several words (`te'pi` -> `te api`) or empty (a lone quotation mark).
+
+    Example:
+        >>> restore_avagraha_by_token(["ko", "'pi", "te'pi"])
+        ['kaḥ', 'api', 'te api']
+    """
+    return restore_avagraha(_TOKEN_BOUNDARY.join(tokens)).split(_TOKEN_BOUNDARY)
 
 
 def resolve_scheme(name):

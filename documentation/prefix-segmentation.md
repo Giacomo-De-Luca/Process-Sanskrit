@@ -104,8 +104,96 @@ Across the Yoga Sutra corpus (588 unique tokens) 10 change, all of them this fix
 `viṣayin`, `pratyakṣam`, `saṃskāro`, `saṅgrahaḥ` and the genuine-ambiguity tuples
 (`tasya` → `('ta', 'tad')`) are unchanged.
 
+## A prefix stripped in a sandhi spelling
+
+A stripped prefix gets its own entry by being looked up in the forms table, as if
+it were a word. Three spellings in `SANSKRIT_PREFIXES` are not words — `vy` and
+`praty` are only what `vi` and `prati` look like before a vowel, and the table
+files `ud` under `ut` — so that lookup found nothing. `ud` had a hand-written
+special case. The other two were dropped from the result without a trace:
+
+```
+vyavaharati   ->  ['avahṛ']            # vi lost; avahṛ is a real verb, and the wrong one
+pratyāharati  ->  [('ā', 'ḷ'), 'hṛ']   # prati lost
+```
+
+`PREFIX_LOOKUP_SPELLINGS` (`utils/lexicalResources.py`) now names the spelling
+the forms table knows for each such prefix, and `rootAnyWord._prefix_entries`
+is the one place a stripped prefix is looked up — the `ud` special case is an
+entry in the table like the others.
+
+```
+vyavaharati      ->  ['vi', 'avahṛ']
+pratyāharati     ->  ['prati', ('ā', 'ḷ'), 'hṛ']
+pratyabhimṛśati  ->  ['prati', 'abhi', 'mṛś']
+```
+
+`vi` + `avahṛ` is not yet `vyavahṛ`: the re-join in `cleanResults.py` handles one
+prefix, and only `sam`, `anu` and `ava`.
+
+Across 2,356 inputs (the Yoga Sūtra, the 1,500 held-out tokens of
+`tests/datasets/split_gold/`, and a list of about a hundred prefixed verbs) seven
+changed through this fix, each by regaining `vi` or `prati`. All seven come from
+the verb list: finite prefixed verbs are thinly covered in the two corpora.
+
+Still unresolved by the stripper, because no prefix spelling can fix them: a
+junction that changes the root (`praṇamati`, `niṣīdati`), fuses vowels
+(`upekṣate`) or inserts a sibilant (`saṃskaroti`).
+
+## The prefix `nis` written `nir-`
+
+`nir` is not a strippable prefix, so `nirgacchati` reaches the splitter, which
+cuts it `niḥ` + `gacchati`. `niḥ` looked up as a word is the noun `ni`, and the
+prefix came back wrong:
+
+```
+nirgacchati     ->  ['ni', 'gam']
+sa nirgacchati  ->  ['sa', 'ni', 'gam']
+```
+
+`Inflector.SPLIT_TOKEN_SPELLINGS` (`functions/inflect.py`) reads the split token
+`niḥ` back as the prefix `nis`. Because it acts on the split, it covers a bare
+word, a word inside a sentence and a stacked prefix alike:
+
+```
+nirgacchati       ->  ['nis', 'gam']
+sa vinirgacchati  ->  ['sa', 'vi', 'nis', 'gam']
+```
+
+Of the 1,855 forms in `resources/split_frequencies.tsv` that contain `nir`,
+`niḥ`, `niṣ` or `niś`, 239 change, every one by `ni` becoming `nis` and in no
+other way.
+
+**Do not make `nir` strippable instead.** That was the first implementation.
+`root_any_word` runs before the whole-word dictionary lookup and the
+`-tā`/`-tva` deriver, so a strippable `nir` pre-empts both:
+
+```
+nirvikāratvāt  ->  ['nis', 'vikāratva']   # was ['nirvikāratva']
+nirbhayatām    ->  ['nis', 'bhī']         # was ['nirbhayatā']
+```
+
+On the same 1,855 forms it changed 36 beyond the `ni` → `nis` swap. Five lost an
+abstract noun or adverb as above. Nine gained a prefix reading beside an attested
+headword (`nirvṛti` → `nirvṛti`, `nis`, `vṛt`). The other 22 are mostly finite
+verbs the stripper resolves and the splitter does not (`nirmathyate` → `nis`,
+`manth`), which is what makes the rewrite tempting. Those gains cannot be had
+without the losses until prefix stripping stops outranking the deriver — the
+ordering problem already recorded for `adhimātratvāt` in
+[sentence-vs-word-evaluation.md](sentence-vs-word-evaluation.md).
+
+`niṣ` is handled nowhere, on purpose: it is `nis` only before `k`, `kh`, `p`,
+`ph`, `ṭ`, and otherwise `ni` plus a root in `s-` (`niṣīdati`).
+
 ## Invariants to preserve
 
+- **Every strippable prefix must resolve to its own entry**, as written or
+  through `PREFIX_LOOKUP_SPELLINGS`. A sandhi spelling added to
+  `SANSKRIT_PREFIXES` without one is stripped and then either dropped or read as
+  an unrelated word that shares the spelling.
+- **`nir` is read from the split token, never stripped.** See the section above;
+  `NirPrefixTests` pins both the rule and the abstract nouns the alternative
+  breaks.
 - **A tuple means rival readings of one span.** Anything that makes two entries
   covering *different* spans share `entry[4]` will silently fold them together.
 - **Root entries carry the whole word; prefix entries carry their own surface.**
@@ -117,4 +205,6 @@ Pinned by `tests/test_prefix_segmentation.py`, which asserts the fix *and* one t
 per collateral failure above, so each of the four tempting rewrites fails loudly.
 A change here alters morphology output and so must bump
 `ANALYSIS_ALGORITHM_VERSION` (`utils/analysisCache.py`); this fix took it to
-`hybrid-morphology-v4`.
+`hybrid-morphology-v4`, the sandhi-spelling fix (`SandhiSpellingOfPrefixTests`)
+to `hybrid-morphology-v9`, and the `nir-` rule (`NirPrefixTests`) to
+`hybrid-morphology-v11` (`v12` on main, which does not have the split ranker).

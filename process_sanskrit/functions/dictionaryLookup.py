@@ -1,5 +1,5 @@
 import re
-from typing import List, Dict
+from typing import List, Dict, Optional, Tuple
 
 from sqlalchemy import text
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
@@ -160,6 +160,41 @@ def consult_references(word: str, *dict_names: str, session=None) -> list[str, s
 
 
 
+def attested_headword(word: str) -> Optional[str]:
+    """The spelling under which some dictionary files `word`, or None.
+
+    A word is looked up as written and, failing that, with its `sam-` prefix in
+    the other spelling (saṃ / sam / saṅ ...), which is where the dictionaries
+    most often differ from the texts.  `dict_search` decides a hit this way, and
+    anything else that asks "is this a headword?" must ask it the same way.
+    """
+    if word in DICTIONARY_REFERENCES:
+        return word
+    folded = samMap.get(word[:3])
+    if folded is not None and folded + word[3:] in DICTIONARY_REFERENCES:
+        return folded + word[3:]
+    return None
+
+
+def headword_components(
+    word: str, dictionary: str = DEFAULT_DICTIONARY, session=None
+) -> List[Tuple[str, int]]:
+    """Every component analysis `dictionary` records for `word`, with its entry count.
+
+    One `(components, entries)` pair per distinct analysis, in sorted order;
+    `entries` is how many of the headword's entries record it, which is what
+    tells a common reading from a rare homograph.  `multidict` returns the same
+    field along with the definition bodies; this is for callers that only want
+    to know how a headword is built.
+    """
+    query = text(
+        f"SELECT components, COUNT(*) FROM {_dictionary_table(dictionary)} "
+        "WHERE keys_iast = :name AND components IS NOT NULL AND components != '' "
+        "GROUP BY components ORDER BY components"
+    )
+    return [(components, entries) for components, entries in session.execute(query, {"name": word})]
+
+
 def dict_search(list_of_entries, *args, source: str = DEFAULT_DICTIONARY, session=None):
     """
     Get vocabulary entries for a list of words.
@@ -203,14 +238,9 @@ def dict_search(list_of_entries, *args, source: str = DEFAULT_DICTIONARY, sessio
                 
             elif isinstance(entry, str):
                 if '*' not in entry and '_' not in entry and '%' not in entry:
-                    if entry in DICTIONARY_REFERENCES:
-                        entry = [entry] + consult_references(entry, *dict_names, session=session)
-                    elif entry[:3] in samMap:
-                        tentative = samMap[entry[:3]] + entry[3:]
-                        if tentative in DICTIONARY_REFERENCES:
-                            entry = [entry] + consult_references(tentative, *dict_names, session=session)
-                        else:
-                            entry = [entry, entry, [entry]]
+                    headword = attested_headword(entry)
+                    if headword is not None:
+                        entry = [entry] + consult_references(headword, *dict_names, session=session)
                     else:
                         entry = [entry, entry, [entry]]
                     entries.append(entry)

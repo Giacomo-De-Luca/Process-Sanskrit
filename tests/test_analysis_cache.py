@@ -235,6 +235,16 @@ class AnalysisCacheTests(unittest.TestCase):
         self.cache.store(
             self.record(
                 key=self.key(
+                    normalized_input="bhavāmi",
+                    algorithm_signature="hybrid-morphology-v6",
+                ),
+                raw_input="bhavāmi",
+                grammar=[["bhū", "pre-1a", [("Third", "Sg")]]],
+            )
+        )
+        self.cache.store(
+            self.record(
+                key=self.key(
                     normalized_input="statistical-current",
                     analysis_kind="statistical",
                     algorithm_signature=STATISTICAL_ANALYSIS_ALGORITHM_VERSION,

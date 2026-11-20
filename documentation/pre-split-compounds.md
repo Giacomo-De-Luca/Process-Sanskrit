@@ -77,11 +77,12 @@ fell back to the signature defaults. The visible effect:
 - `process("hetu-pada", mode="roots")` returned **detailed dictionary entries**.
 - `process("hetu-pada", "ap90")` returned only the default **`mw`** dictionary.
 
-Options are now collected into a `forwarded` dict at the top of
-`handle_special_characters` and splatted into every recursion. Because the
-recursion targets the public entry point, anything added to `process`'s
-signature in future must be added to `forwarded` too, or it will be silently
-dropped on exactly these paths.
+Options are now collected into one dict, built by `_forwarded_options`, and
+splatted into every recursion. Because the recursion targets the public entry
+point, anything added to `process`'s signature in future must be added to
+`_forwarded_options` too, or it will be silently dropped on exactly these paths.
+The word-by-word fallback for long text ([long-input.md](long-input.md)) uses
+the same helper, and the same loop (`_process_each`) combines the results.
 
 ## Wildcards honour `mode` and `dict_names` too
 

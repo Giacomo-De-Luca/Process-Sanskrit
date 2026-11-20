@@ -72,15 +72,23 @@ applies, in order:
 2. **Strip balanced quotes** — `^'(.+)'$`. A leading apostrophe is ambiguous
    (`'nupalambhena` is an avagraha, `'tapas'` is a quotation); what tells them
    apart is that a quotation gets *closed*.
-3. **`o` + avagraha** — `(\p{L}*o)\s*'`. That *o* normally came from `-aḥ`/`-as`,
+3. **`o` + avagraha** — `(\p{L}*o)(\s*)'(?=\p{L})`. That *o* normally came from `-aḥ`/`-as`,
    so both it and the elision are undone at once (`so 'nupalambhena` →
    `saḥ anupalambhena`). The `\s*` is what makes the spaced form (how printed
    text sets it) behave like the unspaced form (what Devanagari transliterates
    to). **Exception:** the indeclinables in `O_NOT_FROM_VISARGA`
    (`o`, `aho`, `bho`, `ho`) have an *original* `-o`, so only the *a-* is
    restored: `aho 'yam` → `aho ayam`, never `ahaḥ ayam`.
-4. **`e` + avagraha** — `(\p{L}*e)\s*'`. The *e* is original and stays:
+4. **`e` + avagraha** — `(\p{L}*e)(\s*)'(?=\p{L})`. The *e* is original and stays:
    `te 'pi` → `te api`, `vane 'smin` → `vane asmin`.
+
+   In both rules the apostrophe **must be followed by a letter**. An elided *a-*
+   always has the rest of its word after it, so an apostrophe that ends a word is
+   a closing quotation mark. Without the condition, `iti 'yoga ucyate'` came back
+   as `iti yoga ucyate a`: a closing quote after a word in *-e* invented a word.
+   The whitespace before the apostrophe is captured and put back as it was (a
+   single space is inserted when there was none), which is what lets
+   `restore_avagraha_by_token` below keep its token boundaries.
 5. **Token-initial** — `^'`. Covers bare single-word input, `process`'s
    documented use case: `'nupalambhena` → `anupalambhena`.
 6. **Drop what is left.** Any apostrophe still standing is not an avagraha — a
@@ -92,6 +100,22 @@ applies, in order:
 `transliterate()`, so scheme detection never sees a stray glyph — and
 `restore_avagraha()` after transliteration, once the text is in IAST and the
 Devanagari `ऽ` has already become `'`.
+
+### Restoring a text that has already been cut into tokens
+
+`mode="lemmas"` reports one item per whitespace token, so it has to know which
+restored words belong to which token. Restoring the tokens one at a time is
+wrong: an avagraha is decided by the word *before* it and rewrites that word too
+(`ko 'pi` is `kaḥ api`), and a token-initial apostrophe is an avagraha only at
+the start of the text. `restore_avagraha_by_token(tokens)` therefore restores the
+whole text and hands it back cut at the same places:
+
+```
+restore_avagraha_by_token(["ko", "'pi", "te'pi"])   ->  ['kaḥ', 'api', 'te api']
+```
+
+It joins the tokens with a tab, a whitespace character no token contains and
+the rules never write, and splits on it afterwards.
 
 ## Result
 
@@ -113,7 +137,7 @@ coverage follows automatically — there is no second list to keep in sync.
 ## Tests
 
 ```bash
-python -m unittest tests.test_avagraha    # 20 tests
+python -m unittest tests.test_avagraha    # 27 tests
 ```
 
 They cover the glyph fold and the restoration rules in isolation, `preprocess`

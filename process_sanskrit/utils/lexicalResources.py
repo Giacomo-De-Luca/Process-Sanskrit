@@ -3,10 +3,14 @@
 #   here are a list of dictionaries that are used in the sandhi module
 #   variableSandhiSLP1: dictionary of sandhi variations for word-final consonants
 #   sanskritFixedSandhiMapSLP1: dictionary of fixed sandhi variations for word-final consonants
+#   FINAL_AU_SPELLING, read_final_sandhi: a word's last letter read as the sound it stands for
 #   VOWEL_SANDHI_INITIALS: dictionary of sandhi variations for word-final vowels
 #   SANDHI_VARIATIONS: dictionary of sandhi variations for word-final letters
 #   SANDHI_VARIATIONS_IAST: dictionary of sandhi variations for word-final letters in IAST notation
 #   SANSKRIT_PREFIXES: dictionary of common Sanskrit prefixes
+#   PARTICLE_PREFIXES: the prefixes above that running text uses as particles (api)
+#   PREFIX_LOOKUP_SPELLINGS: the spelling under which a stripped prefix is looked up
+#   SUPPLETIVE_ROOTS: the root a reader looks up for a verb the table files elsewhere
 #   and the __all__ list of variables that are exported by this module
 #
 #  
@@ -46,6 +50,27 @@ sanskritFixedSandhiMap = {
     'ś': 'ḥ',
 
 }
+
+## A final `-āv` is `-au` before a vowel (`samādhau eva` -> `samādhāv eva`).
+## The map above reads a final `v` as `u`, which would make it `-āu`, a form no
+## table has: no inflected form ends in `v` or in `-āu`.  See
+## documentation/final-av.md.
+FINAL_AU_SPELLING = ('āv', 'au')
+
+
+def read_final_sandhi(word):
+    """`word` with its last letter read as the sound it stands for in pausa.
+
+    `samādhāv` -> `samādhau`, `gurv` -> `guru`, `ity` -> `iti`, `punar` ->
+    `punaḥ`; a word whose last letter the map does not name is returned as is.
+    """
+    spelling, sound = FINAL_AU_SPELLING
+    if word.endswith(spelling):
+        return word[:-len(spelling)] + sound
+    if word and word[-1] in sanskritFixedSandhiMap:
+        return word[:-1] + sanskritFixedSandhiMap[word[-1]]
+    return word
+
 
 
 
@@ -172,9 +197,52 @@ SANDHI_VARIATIONS_IAST = {
 }
 
 
+## Do NOT add `nir` here.  root_any_word strips these before process() tries the
+## whole-word dictionary lookup and the -tā/-tva deriver, so a strippable `nir`
+## pre-empts both: nirvikāratvāt comes back as nis + vikāratva instead of
+## nirvikāratva.  The prefix `nis` is read off the splitter's `niḥ` token
+## instead -- see Inflector.SPLIT_TOKEN_SPELLINGS and
+## documentation/prefix-segmentation.md.
 SANSKRIT_PREFIXES = [
     'sam', 'saṃ', 'anu', 'abhi', 'ati', 'adhi', 'apa', 'api', 'ava', 'ā', 'a', 'ud', 'upa', 'nis', 'parā', 'pari', 'pra', 'prati', 'praty', 'vi', 'vy', 'ut', 'ni'
 ]
+
+## Prefixes above that running text nearly always uses as particles.  `api` is
+## stripped and cut off like a preverb, but in `nāpyasti` it is the particle
+## "also, even", a word of its own.  Lemma mode does not tie these to the part
+## after them with a joined key: the 8 parts of the 1,500 held-out tokens that it
+## keyed with `api+` were all the particle in the gold segmentation.
+PARTICLE_PREFIXES = {'api'}
+
+## Some of the spellings above are not words.  root_any_word builds a stripped
+## prefix's own entry by looking the prefix up in the forms table, and `vy` is
+## only what `vi` looks like before a vowel: looked up as written it resolves to
+## nothing, and the prefix used to vanish from the analysis without a trace
+## (vyavaharati -> avahṛ, a real verb and the wrong one).  Each such spelling is
+## mapped here to the one the forms table files the prefix under.
+##
+## Every prefix above must resolve to its own entry, as written or through this
+## map -- tests/test_prefix_segmentation.py checks it -- so a sandhi spelling
+## added to the list needs an entry here too.  Without one it is dropped, or
+## read as whatever unrelated word happens to share the spelling.
+PREFIX_LOOKUP_SPELLINGS = {
+    'ud': 'ut',        # the table files this prefix under its pausa form
+    'vy': 'vi',
+    'praty': 'prati',
+}
+
+## Verbs whose forms the verb table files under a root other than the one a
+## reader looks them up under.  `paśyati` is the present of `dṛś`, but the table
+## files that present under the root `paś`, so it reached `paś` only.  Lemma
+## mode adds the root mapped here right after the one the table gives, which
+## stays (`paś`, `dṛś`); see documentation/lemma-mode.md.
+##
+## Add an entry only after checking it against the data.  The other suppletive
+## verbs checked already come back under the root a reader looks for: `uvāca`
+## -> `vac`, `bravīti` -> `brū`, `avadhīt` and `jaghāna` -> `han`.
+SUPPLETIVE_ROOTS = {
+    'paś': 'dṛś',
+}
 
 SANSKRIT_PREFIXES_OLD = {
     'sam': 'together, completely',
@@ -246,11 +314,16 @@ samMap = {
 
 __all__ = [
     'variableSandhi', 
-    'sanskritFixedSandhiMap', 
+    'sanskritFixedSandhiMap',
+    'FINAL_AU_SPELLING',
+    'read_final_sandhi', 
     'VOWEL_SANDHI_INITIALS', 
     'SANDHI_VARIATIONS', 
     'SANDHI_VARIATIONS_IAST', 
     'SANSKRIT_PREFIXES',
+    'PARTICLE_PREFIXES',
+    'PREFIX_LOOKUP_SPELLINGS',
+    'SUPPLETIVE_ROOTS',
     'UPASARGAS_WEIGHTS',
     'INDECLINABLES',
     'samMap',

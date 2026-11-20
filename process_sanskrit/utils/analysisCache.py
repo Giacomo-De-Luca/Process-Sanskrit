@@ -51,7 +51,21 @@ log = logging.getLogger(__name__)
 SCHEMA_VERSION = 1
 # Bump this whenever a change can alter a split or morphology result. The
 # signature is part of the cache key, and superseded rows are evicted on open.
-ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v6"
+ANALYSIS_ALGORITHM_VERSION = "hybrid-morphology-v13"
+# v13 reads a split token's final -āv as -au (samādhāv -> samādhau -> samādhi);
+# see documentation/final-av.md.
+# v12 is v11 without the split ranker and splitter input corrections (v8, v10),
+# which live on the split-ranker branch: the statistical split is again scored
+# by sandhiSplitScorer and replaced by root_compounds below the threshold. It
+# takes a fresh number so no row computed with the ranker can answer for it.
+# v11 reads the splitter's `niḥ` token as the prefix `nis` in Inflector, and no
+# longer strips `nir` in root_any_word (which pre-empted the -tā/-tva deriver);
+# see documentation/prefix-segmentation.md.
+# v9 keeps a prefix stripped in a sandhi spelling (vy, praty) instead of
+# dropping it, and withholds one-letter verb roots the compound scanner cuts out
+# of an unknown token; see documentation/prefix-segmentation.md and
+# documentation/one-letter-roots.md.
+# v7 corrects first/third-person tags to match CSL's stored verb-table order.
 # v6 preserves unresolved tokens and uses a single morphology entry for api.
 # v5 inflects compound fallback pieces before dictionary lookup
 # (balam -> bala, pratipaj -> pratipad).

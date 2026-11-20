@@ -24,8 +24,8 @@ NOMINAL_CASES: Tuple[str, ...] = (
     "Voc",
 )
 
-## the three persons of a verbal paradigm, in stored order
-VERBAL_PERSONS: Tuple[str, ...] = ("First", "Second", "Third")
+## CSL stores 3sg/3du/3pl, 2sg/2du/2pl, then 1sg/1du/1pl.
+VERBAL_PERSONS: Tuple[str, ...] = ("Third", "Second", "First")
 
 ## every table is three columns wide, whatever its rows are
 NUMBERS: Tuple[str, ...] = ("Sg", "Du", "Pl")
@@ -51,4 +51,45 @@ def tags_for(
     return tags or None
 
 
-__all__ = ["NOMINAL_CASES", "NUMBERS", "VERBAL_PERSONS", "tags_for"]
+def is_verbal_paradigm(forms: Optional[Sequence[str]]) -> bool:
+    """True when `forms` is a verbal table: three persons by three numbers.
+
+    The layout is the one thing that tells the two kinds of table apart without
+    reading a label.  A nominal table has eight rows, and an indeclinable stores
+    its single form, so neither can be mistaken for the nine cells here.
+    """
+    return forms is not None and len(forms) == len(VERBAL_PERSONS) * len(NUMBERS)
+
+
+def is_verbal_entry(entry) -> bool:
+    """True for a morphology entry read from a verbal table.
+
+    `entry` is a morphology entry, `[lemma, type, tags, forms, surface]`, before
+    or after the dictionary lookup has extended it.  An unresolved token -- a
+    string, or the three-field entry built from one -- carries no table and is
+    never verbal.
+    """
+    return isinstance(entry, list) and len(entry) > 4 and is_verbal_paradigm(entry[3])
+
+
+def is_one_letter_root(entry) -> bool:
+    """True for a verbal analysis whose root is a single letter (`i`, `ṛ`).
+
+    `process()` drops one-letter lemmas on its split path as scanner noise, and
+    these two roots are the exception it has to make: without it `tatra eti`
+    loses its verb.  The forms table also files `i` and `ṛ` as nouns (the letter
+    names), which *are* noise, so the test is the verbal table rather than the
+    lemma.
+    """
+    return is_verbal_entry(entry) and len(entry[0]) == 1
+
+
+__all__ = [
+    "NOMINAL_CASES",
+    "NUMBERS",
+    "VERBAL_PERSONS",
+    "is_one_letter_root",
+    "is_verbal_entry",
+    "is_verbal_paradigm",
+    "tags_for",
+]

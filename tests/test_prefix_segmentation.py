@@ -25,6 +25,14 @@ and a stale cache row would otherwise answer for it.
 import unittest
 
 from process_sanskrit import process
+from process_sanskrit.functions.inflect import inflect
+from process_sanskrit.functions.rootAnyWord import _prefix_entries
+from process_sanskrit.utils.databaseSetup import session_scope
+from process_sanskrit.utils.lexicalResources import (
+    PREFIX_LOOKUP_SPELLINGS,
+    SANSKRIT_PREFIXES,
+    samMap,
+)
 
 
 class PrefixIsItsOwnWordTests(unittest.TestCase):
@@ -179,6 +187,112 @@ class GenuineAlternativesStillGroupTests(unittest.TestCase):
     def test_same_stem_under_two_genders_is_deduplicated(self):
         """śabdena is masculine *and* neuter śabda: one stem, not a tuple."""
         self.assertEqual(process("śabdena", mode="roots", cached=False), ["śabda"])
+
+
+class SandhiSpellingOfPrefixTests(unittest.TestCase):
+    """A prefix stripped in a sandhi spelling still contributes its own word.
+
+    The prefix's entry is built by looking its spelling up in the forms table, as
+    if it were a word.  `vy` and `praty` are only what `vi` and `prati` look like
+    before a vowel -- they are not words -- so that lookup found nothing and the
+    prefix was dropped without a trace: `vyavaharati` came back as `avahṛ`, a real
+    verb and the wrong one.  `PREFIX_LOOKUP_SPELLINGS` names the spelling the
+    forms table does know.
+    """
+
+    def test_vy_is_reported_as_vi(self):
+        """`ava` + `hṛ` re-joins to the attested `avahṛ`; `vi` must not be lost."""
+        self.assertEqual(
+            process("vyavaharati", mode="roots", cached=False), ["vi", "avahṛ"]
+        )
+
+    def test_praty_is_reported_as_prati(self):
+        roots = process("pratyāharati", mode="roots", cached=False)
+        self.assertEqual(roots[0], "prati")
+        self.assertEqual(roots[-1], "hṛ")
+
+    def test_ud_is_still_reported_as_ut(self):
+        """The one spelling that was already redirected, by a special case."""
+        self.assertEqual(process("udgacchati", mode="roots", cached=False), ["ut", "gam"])
+
+    def test_stacked_sandhi_spellings_keep_every_prefix(self):
+        self.assertEqual(
+            process("pratyabhimṛśati", mode="roots", cached=False),
+            ["prati", "abhi", "mṛś"],
+        )
+
+    def test_every_strippable_prefix_resolves_to_itself(self):
+        """Adding a spelling to the list without a lookup spelling fails here.
+
+        Truthiness is not enough: a spelling that is not a word either resolves
+        to nothing (the silent drop above) or to an unrelated word that shares
+        it, so the entry has to carry the prefix's own lemma.  `saṃ` is filed
+        under `sam`, which `root_any_word` folds by itself.
+        """
+        with session_scope() as session:
+            for prefix in SANSKRIT_PREFIXES:
+                expected = PREFIX_LOOKUP_SPELLINGS.get(prefix, prefix)
+                found = {entry[0] for entry in _prefix_entries(prefix, session, {})}
+                with self.subTest(prefix=prefix):
+                    self.assertTrue(found & {expected, samMap.get(expected)})
+
+    def test_lookup_spellings_name_strippable_prefixes_only(self):
+        self.assertLessEqual(set(PREFIX_LOOKUP_SPELLINGS), set(SANSKRIT_PREFIXES))
+
+
+class NirPrefixTests(unittest.TestCase):
+    """`nir-` is read as the prefix `nis`, from the splitter's `niḥ` token.
+
+    `nirgacchati` reaches the splitter, which cuts it `niḥ` + `gacchati`, and
+    `niḥ` looked up as a word is the noun `ni`.  `Inflector` reads the token back
+    as the prefix.  The rule lives there, and *not* in `SANSKRIT_PREFIXES`,
+    because the stripper runs before the whole-word dictionary lookup and the
+    -tā/-tva deriver and would pre-empt both.
+    """
+
+    # Needs the split ranker (split-ranker branch): without it the split is
+    # not cut at `niḥ`, so there is no token to read as `nis`. When the ranker
+    # merges these three pass and must lose the marker.
+    @unittest.expectedFailure
+    def test_nir_is_reported_as_nis(self):
+        self.assertEqual(process("nirgacchati", mode="roots", cached=False), ["nis", "gam"])
+
+    # Needs the split ranker (split-ranker branch): `nis` is found, but `sa`
+    # comes back as the rival readings (sa, tad).
+    @unittest.expectedFailure
+    def test_nir_inside_a_sentence(self):
+        self.assertEqual(
+            process("sa nirgacchati", mode="roots", cached=False), ["sa", "nis", "gam"]
+        )
+
+    # Needs the split ranker (split-ranker branch); see test_nir_is_reported_as_nis.
+    @unittest.expectedFailure
+    def test_nir_after_another_prefix(self):
+        self.assertEqual(
+            process("sa vinirgacchati", mode="roots", cached=False),
+            ["sa", "vi", "nis", "gam"],
+        )
+
+    def test_inflector_reads_the_split_token_as_the_prefix(self):
+        with session_scope() as session:
+            entries = inflect(["niḥ", "gacchati"], session=session)
+        self.assertEqual([entry[0] for entry in entries], ["nis", "gam"])
+
+    def test_nir_abstract_noun_still_reaches_the_deriver(self):
+        """What a strippable `nir` breaks: these came back as `nis` + a fragment."""
+        self.assertEqual(
+            process("nirvikāratvāt", mode="roots", cached=False), ["nirvikāratva"]
+        )
+        self.assertEqual(process("nirbhayatām", mode="roots", cached=False), ["nirbhayatā"])
+
+    def test_nir_is_not_a_strippable_prefix(self):
+        self.assertNotIn("nir", SANSKRIT_PREFIXES)
+
+    def test_ni_before_a_root_in_r_is_unaffected(self):
+        self.assertEqual(process("niruṇaddhi", mode="roots", cached=False), ["ni", "rudh"])
+
+    def test_lexicalised_nir_word_is_unaffected(self):
+        self.assertEqual(process("nirvāṇam", mode="roots", cached=False), ["nirvāṇa"])
 
 
 if __name__ == "__main__":

@@ -27,6 +27,7 @@ from process_sanskrit.utils.transliterationUtils import (
     AVAGRAHA_VARIANTS,
     normalize_avagraha,
     restore_avagraha,
+    restore_avagraha_by_token,
 )
 
 ## drive every loop off the table itself, so a newly declared variant is
@@ -186,6 +187,54 @@ class TestProcessResolvesElidedWord(unittest.TestCase):
 
     def test_ordinary_words_are_unaffected(self):
         self.assertIn("yoga", self._stems(process("yogaścittavṛttinirodhaḥ")))
+
+
+class RestoreByTokenTests(unittest.TestCase):
+    """`restore_avagraha_by_token`: the same restoration, cut where the text was cut.
+
+    `mode="lemmas"` reports one item per whitespace token, but an avagraha is
+    decided by the word before it and rewrites that word too, so tokens cannot
+    be restored one at a time.
+    """
+
+    def by_token(self, text):
+        return restore_avagraha_by_token(text.split())
+
+    def test_one_string_per_token(self):
+        for text in ("so 'nupalambhena", "te'pi", "ko 'pi te'pi ca", "iti 'yoga ucyate'", "'"):
+            with self.subTest(text=text):
+                self.assertEqual(len(self.by_token(text)), len(text.split()))
+
+    def test_spaced_avagraha_rewrites_the_word_before(self):
+        self.assertEqual(self.by_token("ko 'pi"), ["kaḥ", "api"])
+        self.assertEqual(self.by_token("aho 'yam"), ["aho", "ayam"])
+
+    def test_token_may_come_back_as_two_words(self):
+        self.assertEqual(self.by_token("te'pi"), ["te api"])
+
+    def test_agrees_with_the_whole_text_restoration(self):
+        for text in ("tasmāt so 'nupalambhena", "ko 'pi te'pi ca", "iti 'yoga' ucyate",
+                     "'yoga ucyate'", "aho 'yam", "kṛṣṇa's"):
+            with self.subTest(text=text):
+                self.assertEqual(" ".join(self.by_token(text)), restore_avagraha(text))
+
+
+class ClosingQuoteTests(unittest.TestCase):
+    """An apostrophe that ends a word is a quotation mark, never an avagraha.
+
+    An elided a- always has the rest of its word after it.  Read as an avagraha,
+    a closing quote after a word in -e or -o invented a word `a`.
+    """
+
+    def test_closing_quote_after_e_adds_nothing(self):
+        self.assertEqual(restore_avagraha("iti 'yoga ucyate'"), "iti yoga ucyate")
+
+    def test_closing_quote_after_o_adds_nothing(self):
+        self.assertEqual(restore_avagraha("iti 'aho' ucyate"), "iti aho ucyate")
+
+    def test_real_avagraha_after_e_and_o_is_still_restored(self):
+        self.assertEqual(restore_avagraha("te 'pi"), "te api")
+        self.assertEqual(restore_avagraha("so 'ham"), "saḥ aham")
 
 
 if __name__ == "__main__":

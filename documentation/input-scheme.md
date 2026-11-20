@@ -58,7 +58,7 @@ not a scheme (`"schemes"`) was passed through. The two `getattr` branches of
 `handle_special_characters` re-enters `process()` for wildcard (`*`) misses
 and for each segment of a pre-split compound (`-`, `+`). Every other option is
 forwarded verbatim (see `pre-split-compounds.md`). `input_scheme` is the
-exception: it is pinned to `"IAST"` in `forwarded`, because `text` has already
+exception: it is pinned to `"IAST"` in `_forwarded_options`, because `text` has already
 been converted by `preprocess()`. Forwarding the caller's scheme would read IAST
 text in that scheme a second time. IAST `dharma` read as WX is `ḍharma`, so
 `Xarma-kAya` would analyse as `ḍha + ma + kāya`.
@@ -83,5 +83,5 @@ displays text in another script should send the word in its source scheme.
 value from plain words, which never reach the recursion. A comparison against
 the same compound in IAST would send both sides through the same recursion,
 and a wrongly forwarded scheme would corrupt both identically and still pass.
-This was confirmed by mutation: forwarding `"WX"` in `forwarded` fails exactly
+This was confirmed by mutation: forwarding `"WX"` there fails exactly
 those two tests.

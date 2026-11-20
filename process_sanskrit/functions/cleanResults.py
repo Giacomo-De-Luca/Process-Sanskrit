@@ -2,8 +2,7 @@ from process_sanskrit.utils.lexicalResources import filtered_words
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
 from process_sanskrit.utils.lexicalResources import SANSKRIT_PREFIXES
 from process_sanskrit.functions.dictionaryLookup import dict_search
-import re
-import regex
+from process_sanskrit.utils.componentMarks import ComponentMarks
 
 def extract_roots(list_of_entries, debug=False):
     roots = []
@@ -49,7 +48,6 @@ def extract_roots(list_of_entries, debug=False):
 def roots_splitted(list_of_entries, debug=False):
 
         root_dict = {}
-        separators = r"[-—,/]"
         for entry in list_of_entries:
             if len(entry) == 7:
                 components = entry[5]
@@ -63,11 +61,10 @@ def roots_splitted(list_of_entries, debug=False):
             if not isinstance(components, str) or not components:
                 components = entry[0]
 
-            parts = re.split(separators, components)
-            parts = [regex.sub(r'[^\p{L}]', '', part) for part in parts if part]
-            parts = list(dict.fromkeys(parts))  # Remove duplicates while preserving order
+            ## which marks are boundaries and which are accents is ComponentMarks'
+            ## business: cutting on the accent mark returned `upa` as u + pa
             if entry[0] not in root_dict:
-                root_dict[entry[0]] = parts
+                root_dict[entry[0]] = ComponentMarks.parts(components)
         return root_dict
     
 

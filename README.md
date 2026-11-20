@@ -154,6 +154,31 @@ print(ps.process('yamaniyamāsanaprāṇāyāmapratyāhāradhāraṇādhyānasam
 
 *In case of ambiguity the process function does not select between the two (or three) possibilities, but returns all of them.*
 
+### Lemmas for search and indexing:
+
+With *mode='lemmas'* the same analysis comes back in a shape that can be used directly as a search-index query. There is one item per word of the input, in order. The **parts** of a word are all required; the **lemmas** of a part are alternatives.
+
+```python
+import process_sanskrit as ps
+
+print(ps.process('yogaścittavṛttinirodhaḥ upagacchati', mode='lemmas'))
+
+## output:
+## [{'word': 'yogaścittavṛttinirodhaḥ', 'parts': [
+##      {'form': 'yogaḥ',      'lemmas': ['yoga', 'yogas']},
+##      {'form': 'cittavṛtti', 'lemmas': ['cittavṛtti'], 'members': ['citta', 'vṛtti']},
+##      {'form': 'nirodhaḥ',   'lemmas': ['nirodha']}]},
+##  {'word': 'upagacchati', 'parts': [
+##      {'form': 'upa',      'lemmas': ['upa']},
+##      {'form': 'gacchati', 'lemmas': ['gam', 'upagam']}]}]
+```
+
+A preverb is a part of its own, so a search for `gam` finds every preverb compound of it. The part after the preverb also carries `upagam`, the compound they make as Monier-Williams spells it, which ties the preverb to its verb. A word that cannot be analysed comes back as a part with an empty *lemmas* list, so the caller can index its surface form instead of a guess. See [documentation/lemma-mode.md](documentation/lemma-mode.md).
+
+### Long texts:
+
+The input is never truncated. A text longer than *max_length* (100 characters by default) is analysed word by word and the results are combined; *mode='lemmas'* always works word by word. See [documentation/long-input.md](documentation/long-input.md).
+
 
 ### Transliteration:
 

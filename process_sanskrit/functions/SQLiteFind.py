@@ -23,21 +23,17 @@ _NAME_QUERY = text(
     """
 )
 
+## Every paradigm a verb form belongs to, in the order the historical rule ranked
+## them: the *last* vlgtab2 row for the form, then its *first* vlgtab1 paradigm.
+## That rule kept only the first row, so `SQLite_find_verb` keeps it first.
 _VERB_QUERY = text(
     """
     SELECT t2.key, t2.model, t2.stem, t1.refs, t1.data
     FROM vlgtab2 AS t2
     JOIN vlgtab1 AS t1
       ON t1.stem = t2.stem AND t1.model = t2.model
-    WHERE t2.rowid = (
-        SELECT candidate.rowid
-        FROM vlgtab2 AS candidate
-        WHERE candidate.key = :verb
-        ORDER BY candidate.rowid DESC
-        LIMIT 1
-    )
-    ORDER BY t1.rowid
-    LIMIT 1
+    WHERE t2.key = :verb
+    ORDER BY t2.rowid DESC, t1.rowid
     """
 )
 
@@ -105,12 +101,10 @@ def SQLite_find_name(name, session=None):
     for _key, model, stem, refs, inflection_data in rows:
         if not stem:
             continue
-        reference_matches = regex.findall(r",(\p{L}+)", refs or "")
-        word_reference = reference_matches[0] if reference_matches else stem
         inflection_words = inflection_data.split(":")
         outcome.append(
             [
-                word_reference,
+                paradigm_headword(stem, refs),
                 model,
                 tags_for(inflection_words, lookup_name, rows=NOMINAL_CASES),
                 inflection_words,
@@ -121,34 +115,60 @@ def SQLite_find_name(name, session=None):
     return outcome
 
 
-def SQLite_find_verb(verb, session=None):
-    """Find verbal morphology while preserving the historical last-match rule."""
-    try:
-        row = session.execute(_VERB_QUERY, {"verb": verb}).fetchone()
-    except Exception:
-        row = None
+def paradigm_headword(stem, refs):
+    """The headword a paradigm row is filed under: its first reference, else its stem.
 
-    if row is None:
-        return None
-
-    _key, model, stem, refs, inflection_data = row
-    if not stem:
-        return None
-
+    A row names its headword in `refs` (`63409,gam`) -- for a verb the root,
+    while the stem is the present stem the row inflects (`gacch`).  No verb row
+    names two different roots.
+    """
     reference_match = regex.search(r",(\p{L}+)", refs or "")
-    if reference_match and stem != reference_match.group(1):
-        stem = reference_match.group(1)
+    return reference_match.group(1) if reference_match else stem
 
-    inflection_words = inflection_data.split(":")
-    return [
-        [
-            stem,
+
+def SQLite_find_verb(verb, session=None):
+    """Find verbal morphology: one entry per root the form belongs to.
+
+    2.2% of the forms in the verb table belong to more than one root, at two
+    levels of the data: several vlgtab2 rows for the form (`kariṣyati`: stems
+    `kṛ`, `kṝ`), or several vlgtab1 paradigms for one stem and model
+    (`abhajyata`: `bhaj`, `bhañj`).  Each root is reported once, tagged from the
+    paradigm it is read from.
+
+    The first entry is the one the historical last-match rule returned -- the
+    last vlgtab2 row and its first paradigm -- so a form of one root gives
+    exactly what it always gave, and a caller that reads only the first entry
+    sees what it always saw.  A later root is read from the first of its rows
+    whose paradigm has the form, or from its first row when none does
+    (`juhumahe`: `hu` from its present, not from a perfect that lacks the form).
+    None when the form is not in the table.
+    """
+    try:
+        rows = session.execute(_VERB_QUERY, {"verb": verb}).fetchall()
+    except Exception:
+        rows = []
+
+    entries = {}
+    first_root = None
+    for _key, model, stem, refs, inflection_data in rows:
+        if not stem:
+            continue
+        root = paradigm_headword(stem, refs)
+        inflection_words = inflection_data.split(":")
+        entry = [
+            root,
             model,
             tags_for(inflection_words, verb, rows=VERBAL_PERSONS),
             inflection_words,
             verb,
         ]
-    ]
+        if root not in entries:
+            entries[root] = entry
+            first_root = first_root or root
+        ## the first root stays as the old rule read it, tagged or not
+        elif root != first_root and entries[root][2] is None and entry[2] is not None:
+            entries[root] = entry
+    return list(entries.values()) or None
 
 
 def optimized_find_name(name, session=None):
@@ -164,6 +184,7 @@ def optimized_find_verb(verb, session=None):
 __all__ = [
     "SQLite_find_name",
     "SQLite_find_verb",
+    "paradigm_headword",
     "SQLite_paradigm",
     "SQLite_stem_exists",
     "optimized_find_name",
