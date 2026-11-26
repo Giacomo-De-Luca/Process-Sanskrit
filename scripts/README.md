@@ -13,6 +13,11 @@
   `build/huet-merge-assessment.json`. Run it with
   `uv run --no-sync python scripts/assess_huet_merge.py`; interpretation is in
   [`documentation/huet-merge-assessment.md`](../documentation/huet-merge-assessment.md).
+- `evaluate_compound_members.py` compares ways of reading compound `members`
+  for lemma search against the Digital Corpus of Sanskrit. It reads
+  `benchmarks/compound-members.json`; its classes live in
+  [`compound_members/`](compound_members/README.md), and the results are in
+  [`documentation/compound-members-evaluation.md`](../documentation/compound-members-evaluation.md).
 
 
 The splitter runner is organized around a few reusable responsibilities:

@@ -11,12 +11,12 @@ documentation/lemma-mode.md, rule 5.
 """
 
 import re
-import threading
-import weakref
 from typing import Dict, List, Sequence, Tuple
 
 from indic_transliteration import sanscript
 from sqlalchemy import text
+
+from process_sanskrit.utils.engineCache import EngineCache
 
 _PARSE = re.compile(r'<info verb="pre"[^>]*parse="([^"]+)"')
 _QUERY = text(
@@ -35,16 +35,13 @@ class CompoundVerbIndex:
     ## lemma mode names `ud` by its pausa form `ut` and keeps `saṃ` as found
     OUR_SPELLINGS = {"ut": "ud", "saṃ": "sam", "vy": "vi", "praty": "prati"}
 
-    ## one table per database engine, dropped with the engine: every in-memory
-    ## database has the URL `sqlite://`, so the URL cannot tell them apart
-    _tables: "weakref.WeakKeyDictionary" = weakref.WeakKeyDictionary()
-    _lock = threading.Lock()
+    ## one table per database engine, dropped with the engine
+    _tables = EngineCache()
 
     @classmethod
     def reset(cls) -> None:
         """Forget every table read; the next lookup reads its database again."""
-        with cls._lock:
-            cls._tables.clear()
+        cls._tables.clear()
 
     def __init__(self, session):
         self.session = session
@@ -63,14 +60,7 @@ class CompoundVerbIndex:
         return sanscript.transliterate(word, sanscript.IAST, sanscript.SLP1)
 
     def _table(self) -> Dict[Tuple[str, ...], Tuple[str, ...]]:
-        database = self.session.get_bind()
-        table = self._tables.get(database)
-        if table is None:
-            with self._lock:
-                table = self._tables.get(database)
-                if table is None:
-                    table = self._tables[database] = self._read()
-        return table
+        return self._tables.table(self.session, self._read)
 
     def _read(self) -> Dict[Tuple[str, ...], Tuple[str, ...]]:
         found: Dict[Tuple[str, ...], Dict[str, None]] = {}

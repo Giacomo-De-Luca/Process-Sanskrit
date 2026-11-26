@@ -16,6 +16,7 @@ The classes, from the data outwards:
 * `LemmaPart`      one part of a word;
 * `ScannerPolicy`  when to believe the fallback scanner;
 * `LemmaLexicon`   the builder's only window on the dictionaries;
+* `PieceLemmas`    the lemmas of one word on its own, for the members' citation forms;
 * `LemmaBuilder`   turns an analysis into parts;
 * `LemmaAnalyzer`  runs the analysis for a text.
 
@@ -24,7 +25,7 @@ See documentation/lemma-mode.md for the rules and the measurements behind them.
 
 import re
 from dataclasses import dataclass, field, replace
-from typing import Dict, List, Optional
+from typing import Dict, FrozenSet, List, Optional
 
 import regex
 
@@ -39,9 +40,10 @@ from process_sanskrit.functions.process import WILDCARD_CHARACTERS, clean_iast, 
 from process_sanskrit.functions.rootAnyWord import every_verb_root
 from process_sanskrit.functions.wordCascade import WordCascade, WordResolution
 from process_sanskrit.utils.analysisTrace import PrefixTrace, ScanTrace
-from process_sanskrit.utils.componentMarks import ComponentMarks
+from process_sanskrit.utils.compoundMembers import CompoundForms, CompoundMembers
 from process_sanskrit.utils.compoundVerbs import CompoundVerbIndex
 from process_sanskrit.utils.dictionary_references import DICTIONARY_REFERENCES
+from process_sanskrit.utils.engineCache import EngineCache
 from process_sanskrit.utils.lexicalResources import (
     PARTICLE_PREFIXES,
     SANSKRIT_PREFIXES,
@@ -123,9 +125,16 @@ class LemmaLexicon:
 
     SANSKRIT_DICTIONARIES = frozenset({"mw", "ap90"})
 
+    ## members depend on the database only, so they outlive one `process()` call.
+    ## Every lexicon on an engine shares them: a subclass that answers
+    ## `has_sanskrit_headword` or `_compound_members` its own way must also
+    ## override `members` (as `_MemberlessLexicon` and the evaluation's
+    ## `RecordingLexicon` do), or it would mix its answers into the shared ones.
+    _members = EngineCache()
+
     def __init__(self, session):
         self.session = session
-        self._members: Dict[str, List[str]] = {}
+        self._compound_members_reader: Optional[CompoundMembers] = None
 
     def has_sanskrit_headword(self, word: str) -> bool:
         return bool(self.SANSKRIT_DICTIONARIES.intersection(DICTIONARY_REFERENCES.get(word, ())))
@@ -135,19 +144,34 @@ class LemmaLexicon:
         return attested_headword(word)
 
     def members(self, lemma: str) -> List[str]:
-        """The members of a compound headword, by the reading most of its entries give.
+        """The members of a compound headword (`CompoundMembers`; rule 9 of lemma-mode.md).
 
-        Homographs share a headword and may be built differently.  `sukha` is
+        Monier-Williams' `—` by the reading most of its entries give: `sukha` is
         ten plain entries and one `su—kha`, `bhāvana` fifteen and one `bhā—vana`
-        ("a forest of rays"): the rare compound must not lend its cut to the
-        common word.  `ayoga` is mostly `a-yoga`, a prefix reading and no
-        compound.  A tie gives no members.  See `ComponentMarks.prevailing_members`.
+        ("a forest of rays"), and the rare compound must not lend its cut to the
+        common word; a tie gives none.  For a headword Monier-Williams lacks,
+        Edgerton's and Grassmann's `-` (`ālaya` + `vijñāna`).  A pair with a
+        side that is no word is read again where sandhi joined it (`nānā` +
+        `rtha` -> `nānā` + `artha`), or else kept as the dictionary cuts it,
+        and a compound-initial spelling is put in citation form where lemma mode
+        gives that form for the split piece (`taj` -> `tad`).
         """
-        if lemma not in self._members:
-            self._members[lemma] = ComponentMarks.prevailing_members(
-                headword_components(lemma, session=self.session)
+        found = self._members.memo(self.session)
+        if lemma not in found:
+            found[lemma] = self._compound_members().members(lemma)
+        return list(found[lemma])
+
+    def _compound_members(self) -> CompoundMembers:
+        if self._compound_members_reader is None:
+            self._compound_members_reader = CompoundMembers(
+                CompoundForms(self.session),
+                components=lambda dictionary, word: headword_components(word, dictionary, session=self.session),
+                is_word=self.has_sanskrit_headword,
+                breadth=lambda word: len(DICTIONARY_REFERENCES.get(word, ())),
+                in_monier_williams=lambda word: "mw" in DICTIONARY_REFERENCES.get(word, ()),
+                piece_lemmas=PieceLemmas(self.session),
             )
-        return list(self._members[lemma])
+        return self._compound_members_reader
 
     def joined_headword(self, prefix: str, stem: str) -> Optional[str]:
         """The headword for `prefix` + `stem` as one word, or None.
@@ -403,6 +427,55 @@ class LemmaBuilder:
         return self.join_preverbs(self.with_typed_headword(word, parts))
 
 
+class _MemberlessLexicon(LemmaLexicon):
+    """A lexicon that gives no members, so that `PieceLemmas` cannot recurse into them."""
+
+    def members(self, lemma: str) -> List[str]:
+        return []
+
+
+class PieceLemmas:
+    """The lemmas lemma mode gives one word on its own, members aside.
+
+    `CompoundMembers` asks it whether the citation form of a compound-initial
+    spelling is a lemma of the piece the splitter would hand over (`manaḥ`
+    for `mano`).  It runs the single-word cascade and the builder lemma mode
+    runs, reading every root of a shared verb form as lemma mode does.  The
+    answers depend on the database only, so they are kept per database
+    engine, as `CompoundVerbIndex` keeps its table: indexing a corpus asks the
+    same few hundred spellings again and again.
+    """
+
+    _answers = EngineCache()
+
+    @classmethod
+    def reset(cls) -> None:
+        """Forget every answer; the next question works it out again."""
+        cls._answers.clear()
+
+    def __init__(self, session):
+        self.session = session
+        self._cascade: Optional[WordCascade] = None
+        self._builder: Optional[LemmaBuilder] = None
+
+    def __call__(self, word: str) -> FrozenSet[str]:
+        answers = self._answers.memo(self.session)
+        if word not in answers:
+            answers[word] = self._lemmas(word)
+        return answers[word]
+
+    def _lemmas(self, word: str) -> FrozenSet[str]:
+        if self._cascade is None:
+            self._cascade = WordCascade(session=self.session, memo={})
+            self._builder = LemmaBuilder(_MemberlessLexicon(self.session))
+        with every_verb_root():
+            resolution = self._cascade.resolve(word)
+            if not resolution.resolved:
+                return frozenset()
+            parts = self._builder.from_resolution(resolution)
+        return frozenset(lemma for part in parts for lemma in part.lemmas)
+
+
 class LemmaAnalyzer:
     """Analyse a text word by word and report it in lemma-mode shape.
 
@@ -527,4 +600,4 @@ class LemmaAnalyzer:
             return [text]
 
 
-__all__ = ["LemmaAnalyzer", "LemmaBuilder", "LemmaLexicon", "LemmaPart", "ScannerPolicy"]
+__all__ = ["LemmaAnalyzer", "LemmaBuilder", "LemmaLexicon", "LemmaPart", "PieceLemmas", "ScannerPolicy"]

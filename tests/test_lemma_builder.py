@@ -196,6 +196,18 @@ class ComponentMarkMemberTests(unittest.TestCase):
         self.assertEqual(ComponentMarks.members(""), [])
 
 
+class ComponentMarkLetterTests(unittest.TestCase):
+    def test_letters_drop_accents_marks_and_spaces(self):
+        self.assertEqual(ComponentMarks.letters("i/ndra-jūta"), "indrajūta")
+        self.assertEqual(ComponentMarks.letters("agni—tapta/"), "agnitapta")
+        self.assertEqual(ComponentMarks.letters("agni—tapta/, °ā"), "agnitaptaā")
+
+    def test_letters_are_composed_first(self):
+        ## a decomposed ū (u + combining macron) would lose its macron as a non-letter
+        decomposed = "jūta"
+        self.assertEqual(ComponentMarks.letters(decomposed), "jūta")
+
+
 class PrevailingMemberTests(unittest.TestCase):
     """The reading most of a headword's entries give decides its members.
 

@@ -17,7 +17,7 @@ uv run python -m unittest tests.test_one_letter_roots
 uv run python -m unittest tests.test_lemma_builder tests.test_word_cascade tests.test_lemma_mode
 uv run python -m unittest tests.test_shared_verb_forms
 uv run python -m unittest tests.test_double_j
-uv run python -m unittest tests.test_preverb_sandhi tests.test_compound_verbs
+uv run python -m unittest tests.test_preverb_sandhi tests.test_compound_verbs tests.test_engine_cache
 uv run python -m unittest tests.test_final_av
 uv run python -m unittest tests.test_long_input
 uv run python -m unittest tests.test_parts_components
@@ -28,7 +28,17 @@ uv run python -m unittest tests.test_verb_persons
 uv run python -m unittest tests.test_input_scheme
 uv run python -m unittest tests.test_update_database tests.test_database_path_configuration
 uv run python -m unittest tests.test_huet_assessment
+uv run python -m unittest tests.test_compound_members
+uv run python -m unittest discover -s tests/compound_members -t .
 ```
+
+`test_compound_members.py` pins lemma mode's compound members (`utils/compoundMembers.py`,
+rule 9 of `documentation/lemma-mode.md`): the readings of a junction
+(`JunctionSandhiTests`), the repair's rules over a made-up lexicon
+(`MemberRepairTests`), the order of `CompoundMembers`' steps over made-up
+dictionaries (`CompoundMembersTests`), headwords checked by hand (`MembersTests`), and that
+members never load the Python splitter (`FootprintTests`). The package `compound_members/` tests the
+evaluation behind them (`scripts/compound_members/`); its README lists what each module pins.
 
 Most pipeline tests require `process_sanskrit/resources/SQliteDB.sqlite`. The
 always-on half of `test_splitter_parity.py` uses only packaged splitter assets;
@@ -94,8 +104,10 @@ PROCESS_SANSKRIT_FULL_NATIVE_PARITY=1 \
   dictionaries — see `documentation/lemma-mode.md`;
   `test_preverb_sandhi.py` pins the sandhi `PreverbSandhi` applies between a
   preverb and a stem, and `test_compound_verbs.py` pins `CompoundVerbIndex`'s
-  spelling rules and cache on an in-memory `mw` table (neither needs the
-  database);
+  spelling rules and cache on an in-memory `mw` table, and `test_engine_cache.py`
+  pins `EngineCache` and its users (`CompoundVerbIndex`, `CompoundForms`,
+  `PieceLemmas`, `LemmaLexicon`'s members): one entry per engine, read once,
+  emptied by `_reset_reference_state` (none of the three needs the database);
   `test_double_j.py` pins that a word keeps its `jj` when it resolves whole and
   is cut as `j j` otherwise (`lajjā`, `tajjapas`), in every mode — see
   `documentation/double-j.md`;

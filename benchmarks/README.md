@@ -15,3 +15,15 @@ measurements.
 
 The runner and complete output schema are documented in
 [`documentation/rust-splitter-benchmark.md`](../documentation/rust-splitter-benchmark.md).
+
+`compound-members.json` configures the compound-member evaluation:
+
+- the DCS directory, through `$PROCESS_SANSKRIT_DCS_CONLLU_DIR`;
+- the sample sizes and the filter profiles;
+- the variants of member reading it compares.
+
+`compound-members-cases.json` holds its hand-checked cases. The runner is
+`scripts/evaluate_compound_members.py`; its classes and outputs are described in
+[`scripts/compound_members/README.md`](../scripts/compound_members/README.md),
+and the results in
+[`documentation/compound-members-evaluation.md`](../documentation/compound-members-evaluation.md).

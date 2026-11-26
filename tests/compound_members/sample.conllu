@@ -1,0 +1,35 @@
+## text: Yogasūtrabhāṣya
+# text = pravṛttir utpannā manasaḥ sthitinibandhanīti anuvartate
+# sent_id = 478558
+1	pravṛttir	pravṛtti	NOUN	_	Case=Nom|Gender=Fem|Number=Sing	_	_	_	LemmaId=155624|OccId=3602438|Unsandhied=pravṛttiḥ
+2	utpannā	utpad	VERB	_	Case=Nom|Gender=Fem|Number=Sing|VerbForm=Part	_	_	_	LemmaId=160140|OccId=3602439|Unsandhied=utpannā
+3	manasaḥ	manas	NOUN	_	Case=Gen|Gender=Neut|Number=Sing	_	_	_	LemmaId=36096|OccId=3602440|Unsandhied=manasaḥ
+4-6	sthitinibandhanīti	_	_	_	_	_	_	_	_
+4	sthiti	sthiti	NOUN	_	Case=Cpd	_	_	_	LemmaId=102988|OccId=3602441|Unsandhied=sthiti
+5	nibandhanā	nibandhana	ADJ	_	Case=Nom|Gender=Fem|Number=Sing	_	_	_	LemmaId=35255|OccId=3602442|Unsandhied=nibandhanā
+6	iti	iti	PART	_		_	_	_	LemmaId=63331|OccId=3602443|Unsandhied=iti
+7	anuvartate	anuvṛt	VERB	_	Tense=Pres|Mood=Ind|Person=3|Number=Sing	_	_	_	LemmaId=158098|OccId=3602444|Unsandhied=anuvartate
+
+# text = ālayavijñānasya tajjātīyena viṣayatvāt kḷptam
+# sent_id = 900001_1
+1-2	ālayavijñānasya	_	_	_	_	_	_	_	_
+1	ālaya	ālaya	NOUN	_	Case=Cpd	_	_	_	Unsandhied=ālaya
+2	vijñānasya	vijñāna	NOUN	_	Case=Gen|Gender=Neut|Number=Sing	_	_	_	Unsandhied=vijñānasya
+3-4	tajjātīyena	_	_	_	_	_	_	_	_
+3	tad	tad	PRON	_	Case=Cpd	_	_	_	Unsandhied=tad
+4	jātīyena	jātīya	ADJ	_	Case=Ins|Gender=Masc|Number=Sing	_	_	_	Unsandhied=jātīyena
+5-6	viṣayatvāt	_	_	_	_	_	_	_	_
+5	viṣaya	viṣaya	NOUN	_	Case=Cpd	_	_	_	Unsandhied=viṣaya
+6	tvāt	tva	NOUN	_	Case=Abl|Gender=Neut|Number=Sing	_	_	_	Unsandhied=tvāt
+7	kﾱptam	kﾱp	VERB	_	Case=Nom|Gender=Neut|Number=Sing|VerbForm=Part	_	_	_	Unsandhied=kﾱptam
+
+# text = sarvābharaṇabhūṣitā antargatam
+# sent_id = 900002
+1-3	sarvābharaṇabhūṣitā	_	_	_	_	_	_	_	_
+1	sarva	sarva	ADJ	_	Case=Cpd	_	_	_	Unsandhied=sarva
+2	ābharaṇa	ābharaṇa	NOUN	_	Case=Cpd	_	_	_	Unsandhied=ābharaṇa
+3	bhūṣitā	bhūṣ	VERB	_	Case=Nom|Gender=Fem|Number=Sing|VerbForm=Part	_	_	_	Unsandhied=bhūṣitā
+4-5	antargatam	_	_	_	_	_	_	_	_
+4	antar	antar	ADV	_	Case=Cpd	_	_	_	Unsandhied=antaḥ
+5	gatam	gam	VERB	_	Case=Nom|Gender=Neut|Number=Sing|VerbForm=Part	_	_	_	Unsandhied=gatam
+

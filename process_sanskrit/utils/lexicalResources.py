@@ -11,6 +11,8 @@
 #   PARTICLE_PREFIXES: the prefixes above that running text uses as particles (api)
 #   PREFIX_LOOKUP_SPELLINGS: the spelling under which a stripped prefix is looked up
 #   SUPPLETIVE_ROOTS: the root a reader looks up for a verb the table files elsewhere
+#   PAUSA_EXTRA_FINALS, pausa_readings: the pausa spellings a compound-initial form stands for
+#   MEMBER_PARTICLES, MEMBER_SUFFIXES: pieces of a hyphenated analysis that are no compound member
 #   and the __all__ list of variables that are exported by this module
 #
 #  
@@ -56,6 +58,32 @@ sanskritFixedSandhiMap = {
 ## table has: no inflected form ends in `v` or in `-āu`.  See
 ## documentation/final-av.md.
 FINAL_AU_SPELLING = ('āv', 'au')
+
+
+## Finals `sanskritFixedSandhiMap` and `variableSandhi` do not read back, which a
+## compound-initial spelling needs: `ṣaḍ` is `ṣaṭ`, `udaṅ` is `udak`, `tal` is `tat`.
+PAUSA_EXTRA_FINALS = {
+    'ḍ': ('ṭ',),
+    'ṅ': ('k',),
+    'l': ('t',),
+}
+
+
+def pausa_readings(word):
+    """`word`, then the pausa spellings it may stand for at the start of a compound.
+
+    The splitter hands lemma mode a split piece in pausa (`rajoguṇena` ->
+    `rajaḥ` + `guṇena`), so a compound-initial spelling (`mano`, `taj`, `ṛg`)
+    is not what lemma mode sees.  The readings are `read_final_sandhi`'s, then
+    every sound `variableSandhi` and `PAUSA_EXTRA_FINALS` let the last letter
+    stand for: `mano` -> `manaḥ`, `taj` -> `tat`, `ṛg` -> `ṛk`.
+    """
+    if not word:
+        return (word,)
+    readings = [word, read_final_sandhi(word)]
+    for sounds in (variableSandhi.get(word[-1], ()), PAUSA_EXTRA_FINALS.get(word[-1], ())):
+        readings.extend(word[:-1] + sound for sound in sounds)
+    return tuple(dict.fromkeys(readings))
 
 
 def read_final_sandhi(word):
@@ -312,6 +340,21 @@ samMap = {
 }
 
 
+## Pieces of a hyphenated components string (Edgerton, Grassmann) that are a
+## prefix or particle and no compound member: each is glued to the piece after
+## it (`a-kalpya`, `su-kha`).  Runs of preverbs come from PreverbSandhi.spellings.
+MEMBER_PARTICLES = frozenset({
+    'a', 'an', 'su', 'sv', 'sū', 'ku', 'kā', 'sa',
+    'dus', 'dur', 'duḥ', 'duṣ', 'duś', 'dū', 'nis', 'nir', 'niḥ', 'niṣ', 'niś', 'nī',
+})
+
+## ... and the suffixes, each glued to the piece before it (`daurmanasya-tā`).
+MEMBER_SUFFIXES = frozenset({
+    'tā', 'tva', 'tara', 'tama', 'tarā', 'tamā', 'vat', 'vatī', 'mat', 'matī',
+    'maya', 'mayī', 'tas', 'tra', 'trā', 'dhā', 'śas', 'ka', 'ikā',
+})
+
+
 __all__ = [
     'variableSandhi', 
     'sanskritFixedSandhiMap',
@@ -324,6 +367,10 @@ __all__ = [
     'PARTICLE_PREFIXES',
     'PREFIX_LOOKUP_SPELLINGS',
     'SUPPLETIVE_ROOTS',
+    'PAUSA_EXTRA_FINALS',
+    'pausa_readings',
+    'MEMBER_PARTICLES',
+    'MEMBER_SUFFIXES',
     'UPASARGAS_WEIGHTS',
     'INDECLINABLES',
     'samMap',

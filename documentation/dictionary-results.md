@@ -67,6 +67,12 @@ changed, every one by having its pieces joined back together.
 (`nirodha` → `['ni', 'rodha']`); `mode="lemmas"` reports compound members only,
 and only those of the reading most of a headword's entries give
 (`ComponentMarks.prevailing_members`; see rule 9 of [lemma-mode.md](lemma-mode.md)).
+For a headword Monier-Williams lacks, lemma mode also reads the `-` of Edgerton
+and Grassmann, whose `-` separates members as well as prefixes and suffixes;
+`HyphenMarks` (`utils/compoundMembers.py`) tells them apart. Lemma mode then
+reads a pair of members again where sandhi hid their boundary (`nānā` + `rtha`
+→ `nānā` + `artha`) and puts a compound-initial spelling in citation form
+(`taj` → `tad`). `parts` does none of this: it reads the components as written.
 `parts` does not vote: it reads one entry's `components`, so a rare homograph
 can still decide it (`sukha` → `['su', 'kha']`, `ayoga` → `['ayo', 'ga']`); see
 [known-errors.md](known-errors.md).

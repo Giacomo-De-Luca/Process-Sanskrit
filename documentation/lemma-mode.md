@@ -155,6 +155,80 @@ and the verb, the Monier-Williams headword, and ties the two parts together
    changed. The key is absent when there are none. A key of rule 5 does not
    count as a second lemma: it is the lemma with its preverbs, not a rival
    reading, so a compound after a preverb keeps its members beside its key.
+
+   Since 2026-11-22 three more steps follow the vote (`CompoundMembers`,
+   `utils/compoundMembers.py`); together they are the variant `conservative`
+   of [compound-members-evaluation.md](compound-members-evaluation.md):
+
+   - **Edgerton, then Grassmann, for a headword Monier-Williams lacks.**
+     Their `-` separates members (`ālaya-vijñāna` → `ālaya`, `vijñāna`). A stub
+     (`-ālāpaka`), a bracketed context (`akṣuṇṇa(-vyākaraṇa)`), a one-letter
+     piece and an analysis whose pieces do not spell the headword give none.
+     A prefix or particle (`a-`, `su-`, `sa-`, the preverbs and their runs in
+     sandhi spelling, `PreverbSandhi.spellings`) is glued to the piece after
+     it, and a suffix (`-tā`, `-tva`, `-vat` …, `MEMBER_SUFFIXES`) to the piece
+     before. A run of two or more preverbs that is itself a Sanskrit headword
+     is a member, not a prefix (`samādhi-saṃyuktaka`, `vipra-rā/jia`;
+     `AffixFilter.default`); a single preverb is a prefix even when it is a
+     word (`vi`, `upa`). They are not asked when Monier-Williams has the word,
+     even if its vote gives no members: Grassmann writes `su-kha/` and the
+     etymology of many common words (`pṛth-ak`, `antari-kṣa`).
+   - **A pair with a side that is no word is read again where sandhi joined
+     it** (`MemberRepair`, `JunctionSandhi`). Monier-Williams marks the cut in
+     the joined spelling, so after a merged vowel a piece is no word
+     (`nānā—rtha`, `maha—rṣi`). When a side is no Sanskrit headword
+     (Monier-Williams or Apte), only the sandhi at the junction is undone:
+     - a merged vowel at the mark, or up to two letters after it, for a mark
+       that stands a syllable early (`kā—mārtha` → `kāma` + `artha`), never
+       before it (the `ya` of `sūrya—prabha` is not `ī` + `a`);
+     - a semivowel before the mark (`madhv—āsava`);
+     - an elided `a`, only where an avagraha marks it (`mano—'nuga`,
+       `ComponentMarks.elisions`; `namo—vṛdha` has none). The mark is the
+       dictionary's own, so it is followed even between two headwords:
+       `bhūyo—'kṣara` → `bhūyas` + `akṣara`, not `kṣara` "perishable";
+     - an initial `ṣ` or a `ṇ` of the right member, which the member before
+       may have made retroflex (`tri—ṣṭubh` → `tri` +
+       `stubh`), and `cch`/`ch` for `ch`/`ś` (`gāyatra—cchandas`,
+       `bṛhac—chravas`).
+
+     A reading whose two sides are headwords replaces the pair, under three
+     rules measured against DCS: a side that is a headword keeps its spelling
+     (`sura` + `rṣi` → `sura` + `ṛṣi`, not `surā`; `maha`, Monier-Williams'
+     own "in compound for `mahā` before `ṛ`", stays), and no vowel is put
+     before a right side that is a headword; a reading that moves the cut past
+     the mark needs a left member that at least two of the seven dictionaries
+     list and a right member that three do (`gandha` + `kelikā` is not
+     `gandhaka` + `ilikā`); the nearest reading wins, then the one with fewer
+     long vowels (`daśa` + `avasthā`). A pair no reading makes words of keeps
+     the dictionary's cut (`vi` + `tṛṣṇa`, `para` + `cittajñāna`): dropping it
+     would leave 14,251 of the 105,467 Monier-Williams headwords with members
+     without any, many of them correct cuts whose other side is a longer
+     compound or an unlisted form. A pair of two words is left alone, so `mahā` +
+     `tman` stays ([known-errors.md](known-errors.md), section 2). The repair
+     reads only the database, never the splitter's sandhi rules.
+   - **Citation forms** (`CompoundForms.citation`). Monier-Williams files a
+     compound-initial spelling as "in compound for X" (`taj` for `tad`, `mano`
+     for `manas`, `ṛg` by sandhi for `ṛc`). A member in such a spelling becomes
+     X when the stub has more such entries than senses of its own (not `mahā`,
+     also "a cow"; not `para`, 31 entries; not `dharma`), and when lemma mode
+     gives X for the piece as the splitter hands it over, in pausa
+     (`pausa_readings`: a split `mano` arrives as `manaḥ`, whose lemmas include
+     `manas`; a split `ātma` is indexed as `ātma` only, so `ātma` stays).
+     `PieceLemmas` runs lemma mode's single-word cascade and builder on the
+     piece alone, without splitting it and without members, and keeps the
+     answers per database; a piece the cascade cannot resolve gives no lemma,
+     so its member keeps its spelling.
+
+   The members of a headword depend on the database only, so `LemmaLexicon`
+   keeps them per database engine too (`EngineCache`, `utils/engineCache.py`),
+   not per `process()` call. On a warm second pass over the Yoga Sūtra and the
+   compound benchmark (612 texts) that cut CPU time from 0.81 s to 0.67 s.
+
+   Measured on DCS (2026-11-25), these steps cut wrong and missing members
+   by 42% (by frequency) and add members to words DCS never splits in 433
+   occurrences; see the evaluation. Pinned by `tests/test_compound_members.py`, and by
+   `tests/compound_members/test_readings.py`, which checks that lemma mode's
+   members are the evaluation's `conservative` variant.
 10. **The dictionary names passed to `process()` do not apply.** Lemma mode
     reports no definitions.
 

@@ -118,6 +118,12 @@ Each analysis family has an active signature. Hybrid/process changes bump
 `STATISTICAL_ANALYSIS_ALGORITHM_VERSION`. A signature is part of the cache key,
 so forgetting a bump can replay stale results and make a fix appear ineffective.
 
+Lemma mode's compound `members` need no bump: lemma mode caches only splits
+(and the hybrid split with its grammar), and the members are read from the
+dictionaries after the cache and kept only in memory, per database engine
+(rule 9 of [lemma-mode.md](lemma-mode.md)). A change to them, such as the
+junction repair of 2026-11-25, shows in the next process.
+
 Cache initialization deletes rows whose signature is no longer active, plus rows
 where a known analysis kind is paired with the wrong family's active signature.
 Both current hybrid and statistical signatures remain valid. This happens inside

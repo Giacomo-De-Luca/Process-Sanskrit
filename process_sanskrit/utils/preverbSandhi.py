@@ -14,7 +14,9 @@ always `ṣ`, where Monier-Williams decides word by word (`abhiṣañj` but
 rule 5.
 """
 
-from typing import Sequence
+from functools import lru_cache
+from itertools import product
+from typing import FrozenSet, Sequence, Set
 
 VOWELS = frozenset("aāiīuūṛṝḷeo")
 LONG = {"a": "ā", "ā": "ā", "i": "ī", "ī": "ī", "u": "ū", "ū": "ū", "ṛ": "ṝ", "ṝ": "ṝ"}
@@ -31,6 +33,52 @@ class PreverbSandhi:
     """Sandhi between a preverb and what follows it.  Stateless."""
 
     RETROFLEX_S_EXCEPTIONS = ("sam", "saṃ", "sṛ")
+
+    ## what a preverb's last sounds become before what follows it
+    _FINAL_SPELLINGS = {
+        "ud": ("d", "t", "c", "j", "l", "n", "ḍ", "ṭ", "g", "b"),
+        "nis": ("s", "r", "ḥ", "ṣ", "ś"),
+        "sam": ("m", "ṃ", "ṅ", "ñ", "ṇ", "n"),
+    }
+    ## spellings in SANSKRIT_PREFIXES that are not a preverb of their own
+    _NOT_BASES = frozenset({"saṃ", "a"})
+
+    @classmethod
+    @lru_cache(maxsize=None)
+    def spellings(cls, depth: int = 3) -> FrozenSet[str]:
+        """Every spelling a preverb, or a run of up to `depth`, takes before what follows it.
+
+        The library's preverbs (`SANSKRIT_PREFIXES` and the spellings
+        `PREFIX_LOOKUP_SPELLINGS` maps), each run of them joined by `join_all`
+        (`upa` + `ā` -> `upā`, `pra` + `ud` -> `prod`), and the spellings the
+        last one takes before a vowel or a consonant (`vy`, `abhy`, `uc`, `niṣ`,
+        `saṃ`), plus `pi` for `api` (`pi-hita`).  Hyphenated dictionary
+        analyses write these as pieces of their own (`upā-dāna`, `prot-sad`).
+        """
+        from process_sanskrit.utils.lexicalResources import PREFIX_LOOKUP_SPELLINGS, SANSKRIT_PREFIXES
+
+        found: Set[str] = set(SANSKRIT_PREFIXES) | set(PREFIX_LOOKUP_SPELLINGS) | {"pi"}
+        bases = {PREFIX_LOOKUP_SPELLINGS.get(prefix, prefix) for prefix in SANSKRIT_PREFIXES}
+        bases = sorted({"ud" if base == "ut" else base for base in bases} - cls._NOT_BASES)
+        for length in range(1, depth + 1):
+            for run in product(bases, repeat=length):
+                if any(first == second for first, second in zip(run, run[1:])):
+                    continue
+                found |= cls._before_next(cls.join_all(run[:-1], run[-1]), run[-1])
+        return frozenset(found)
+
+    @classmethod
+    def _before_next(cls, joined: str, last: str) -> Set[str]:
+        spelled = {joined}
+        if last in cls._FINAL_SPELLINGS:
+            spelled |= {joined[:-1] + final for final in cls._FINAL_SPELLINGS[last]}
+            if last == "nis":
+                spelled.add(joined[:-2] + "ī")  # nīrūpa
+        elif joined[-1] in SEMIVOWEL:
+            spelled.add(joined[:-1] + SEMIVOWEL[joined[-1]])
+        elif joined[-1] == "a":
+            spelled |= {joined[:-1] + vowel for vowel in ("ā", "e", "o")}
+        return spelled
 
     @classmethod
     def join_all(cls, preverbs: Sequence[str], stem: str) -> str:

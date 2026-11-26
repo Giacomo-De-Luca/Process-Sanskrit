@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "description": "Compares ways of reading compound members for lemma search (documentation/compound-members-brief.md, documentation/compound-members-evaluation.md). Run: PROCESS_SANSKRIT_DCS_CONLLU_DIR=/path/to/dcs/conllu/files uv run python scripts/evaluate_compound_members.py",
+  "corpora": {
+    "dcs_conllu_directory": "$PROCESS_SANSKRIT_DCS_CONLLU_DIR"
+  },
+  "cases": "benchmarks/compound-members-cases.json",
+  "sample": {
+    "seed": 13,
+    "running_text_one_in": 150,
+    "retrieval_per_stratum": 60,
+    "retrieval_strata_minimum": 5,
+    "lines_per_headword": 30,
+    "query_forms_per_headword": 3,
+    "max_run": 5,
+    "gold_splits": 3,
+    "examples_per_change": 25,
+    "bootstrap_resamples": 300
+  },
+  "analysis": {
+    "workers": 8,
+    "store": "build/compound-members/analyses.jsonl"
+  },
+  "output": {
+    "report": "build/compound-members/report.json",
+    "summary": "build/compound-members/summary.md",
+    "evidence": "build/compound-members/evidence.json"
+  },
+  "filter_profiles": {
+    "brief": {
+      "description": "What the brief names: the library's preverbs, the negative prefix and the two abstract suffixes.",
+      "preverbs": "library",
+      "particles": [
+        "a",
+        "an"
+      ],
+      "suffixes": [
+        "tā",
+        "tva"
+      ],
+      "strict": false
+    },
+    "member-affixes": {
+      "description": "For Monier-Williams' own `—` members (not in the brief): the library's preverbs, the particles su/ku/sa/dus/nis, and the suffixes DCS does not treat as words (-tva, -tā, -mat, -tas, -tara, -tama, -śas); not -vat or -maya, which DCS and lemma mode split as words.",
+      "preverbs": "library",
+      "particles": [
+        "a",
+        "an",
+        "su",
+        "ku",
+        "sa",
+        "dus",
+        "dur",
+        "duḥ",
+        "duṣ",
+        "nis",
+        "nir",
+        "niḥ",
+        "niṣ"
+      ],
+      "suffixes": [
+        "tā",
+        "tva",
+        "mat",
+        "matī",
+        "tas",
+        "tara",
+        "tama",
+        "śas"
+      ],
+      "strict": false
+    },
+    "extended": {
+      "description": "What the library uses (utils/compoundMembers.py, AffixFilter.default): runs of preverbs in their sandhi spellings (PreverbSandhi.spellings), except a run of two or more that is a Sanskrit headword (samādhi, vipra), the particles and suffixes of MEMBER_PARTICLES / MEMBER_SUFFIXES (utils/lexicalResources.py), and pieces that must spell the headword.",
+      "preverbs": "combined",
+      "particles": "library",
+      "suffixes": "library",
+      "strict": true,
+      "word_runs": true
+    }
+  },
+  "variants": [
+    {
+      "name": "baseline",
+      "description": "The library rule: Monier-Williams `—`, the reading most entries give (rule 9)."
+    },
+    {
+      "name": "p1-bhs",
+      "description": "Point 1: Edgerton's `-` for headwords Monier-Williams lacks; extended filters.",
+      "fallback": {
+        "dictionaries": [
+          "bhs"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "p1-bhs-gra",
+      "description": "Point 1: Edgerton's, then Grassmann's `-` for headwords Monier-Williams lacks; extended filters.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "p1-bhs-gra-brief-filters",
+      "description": "Point 1 as p1-bhs-gra, with only the filters the brief names.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "brief"
+      }
+    },
+    {
+      "name": "p1-loose",
+      "description": "Point 1, loose reading: the fallback also when Monier-Williams has the word but its vote gives no members; extended filters.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_no_members",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "p1-loose-brief-filters",
+      "description": "Point 1 as the brief words it: loose condition, the filters it names.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_no_members",
+        "filters": "brief"
+      }
+    },
+    {
+      "name": "p2-xref",
+      "description": "Point 2: Monier-Williams' 'in compound for X' entries put members in lemma form (taj -> tad, mano -> manas), for stubs that are mostly such entries (not mahā, para, dharma).",
+      "lemma_form": "xref"
+    },
+    {
+      "name": "p2-xref-guarded",
+      "description": "Point 2, guarded: also only when lemma mode gives X as a lemma of the stub in the pausa spelling a split piece has (manas of manaḥ, not ātman of ātma).",
+      "lemma_form": "xref_guarded"
+    },
+    {
+      "name": "p3-hyphens",
+      "description": "Point 3: a Monier-Williams `-` between two Sanskrit headwords is a member boundary; preverbs and suffixes are not.",
+      "mw_hyphens": {
+        "left": "word",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "p3-hyphens-min3",
+      "description": "Point 3 with both pieces at least three letters long, so that nṛ-pa or dvi-ja is not cut.",
+      "mw_hyphens": {
+        "left": "word",
+        "filters": "extended",
+        "min_letters": 3
+      }
+    },
+    {
+      "name": "p3-hyphens-any-left",
+      "description": "Point 3, also when the piece before the `-` is no headword (sarvābharaṇa-bhūṣita).",
+      "mw_hyphens": {
+        "left": "any",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "p4-ties",
+      "description": "Point 4: a tie between a compound reading and no compound gives the compound's members.",
+      "ties": true
+    },
+    {
+      "name": "p5-junction",
+      "description": "Merged-vowel repair (known-errors.md section 2): a pair with a side that is no headword is read again at its sandhi junction (JunctionSandhi); a pair no reading makes words of keeps Monier-Williams' cut.",
+      "merged_vowel": "junction"
+    },
+    {
+      "name": "p5-junction-drop",
+      "description": "p5-junction, but a pair no reading makes words of costs the headword its members (the rule of 2026-11-22).",
+      "merged_vowel": "junction",
+      "unrepaired": "drop"
+    },
+    {
+      "name": "p5-vowel-always",
+      "description": "p5-junction that also restores a vowel before a second member that is a word (mahā+tman -> mahā+ātman, but mahā+kāla -> mahā+akāla).",
+      "merged_vowel": "always"
+    },
+    {
+      "name": "p6-mw-affixes",
+      "description": "Not in the brief: its rule that a prefix or suffix is not a member, applied to Monier-Williams' own `—` (tat—tva, dhī—mat, dur—yodhana); extended filters.",
+      "mw_affixes": "extended"
+    },
+    {
+      "name": "p6-mw-affixes-narrow",
+      "description": "p6 with the member-affixes profile: only affixes DCS does not treat as words.",
+      "mw_affixes": "member-affixes"
+    },
+    {
+      "name": "brief-literal",
+      "description": "Everything the brief asks, read literally: loose fallback with its filters, unguarded xref, `-` between words, ties.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_no_members",
+        "filters": "brief"
+      },
+      "lemma_form": "xref",
+      "mw_hyphens": {
+        "left": "any",
+        "filters": "brief"
+      },
+      "ties": true
+    },
+    {
+      "name": "conservative",
+      "description": "What lemma mode ships: strict fallback with extended filters, guarded xref, junction repair keeping Monier-Williams' cut when no reading helps; no `-`, no ties.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction"
+    },
+    {
+      "name": "conservative-drop",
+      "description": "conservative, but a pair no reading makes words of costs the headword its members.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction",
+      "unrepaired": "drop"
+    },
+    {
+      "name": "conservative-hyphens",
+      "description": "conservative plus Monier-Williams `-` between two headwords.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction",
+      "mw_hyphens": {
+        "left": "word",
+        "filters": "extended"
+      }
+    },
+    {
+      "name": "conservative-hyphens-min3",
+      "description": "conservative plus Monier-Williams `-` between two headwords of at least three letters.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction",
+      "mw_hyphens": {
+        "left": "word",
+        "filters": "extended",
+        "min_letters": 3
+      }
+    },
+    {
+      "name": "conservative-affixes",
+      "description": "conservative plus p6: prefixes and suffixes glued back in Monier-Williams' members.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction",
+      "mw_affixes": "extended"
+    },
+    {
+      "name": "conservative-affixes-narrow",
+      "description": "conservative plus p6-mw-affixes-narrow.",
+      "fallback": {
+        "dictionaries": [
+          "bhs",
+          "gra"
+        ],
+        "when": "mw_absent",
+        "filters": "extended"
+      },
+      "lemma_form": "xref_guarded",
+      "merged_vowel": "junction",
+      "mw_affixes": "member-affixes"
+    }
+  ]
+}
